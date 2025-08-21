@@ -42,15 +42,24 @@ body.dark{background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system
 .card p{color:var(--muted);margin:0 0 6px}
 .card-icon{font-size:28px;margin-bottom:6px}
 
-/* Footer */
-.footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);color:var(--muted);padding-top:16px}
-.footer a{color:var(--muted);margin-left:14px}
-.footer a:hover{color:var(--ink)}
+.footer-min{
+  border-top:1px solid var(--border);
+  padding:14px 0;
+  display:flex; align-items:center; justify-content:space-between;
+  color:var(--muted);
+}
+.footer-min .foot-left{display:flex; align-items:center; gap:8px}
+.footer-min .brand{font-weight:600; color:#e2e8f0}
+.footer-min .logo-icon{width:22px; height:22px; border-radius:6px}
 
-/* Responsive */
-@media (max-width:640px){
-  .hero{padding:60px 16px}
-  .hero h1{font-size:32px}
+.footer-min .foot-right{display:flex; align-items:center; gap:14px}
+.footer-min a{color:#cbd5e1; text-decoration:none}
+.footer-min a:hover{color:#ffffff}
+.footer-min .divider{opacity:.5}
+
+@media (max-width: 720px){
+  .footer-min{flex-direction:column; gap:8px; text-align:center}
+  .footer-min .foot-right{gap:12px; flex-wrap:wrap; justify-content:center}
 }
 /* --- Navbar sizing fixes --- */
 .header{
