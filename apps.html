@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apps - System & Flow</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0d1117;
-      color: white;
-      text-align: center;
-    }
-    header {
-      padding: 20px;
-    }
-    h1 {
-      font-size: 2rem;
-      color: #c67a3f;
-    }
-    .app-list {
-      margin-top: 40px;
-    }
-    .app-card {
-      background: #161b22;
-      margin: 15px auto;
-      padding: 20px;
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0px 2px 6px rgba(0,0,0,0.4);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System & Flow Apps</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Our Apps</h1>
-    <p>Mini SaaS tools to power your workflow</p>
-  </header>
+    <!-- Header with Logo + Navigation -->
+    <header>
+        <a href="index.html">
+            <img src="SNF_logo.png" alt="System & Flow Logo" class="logo">
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="apps.html">Apps</a>
+        </nav>
+    </header>
 
-  <div class="app-list">
-    <div class="app-card">🚀 Project Intake Tracker</div>
-    <div class="app-card">📊 Risk Scanner</div>
-    <div class="app-card">⚡ Priority Refocus Plan</div>
-    <div class="app-card">🛠️ Control Recovery Guide</div>
-  </div>
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h1>Our Apps</h1>
+            <p>Explore powerful tools designed to streamline your project management and SaaS workflows.</p>
+        </section>
+
+        <!-- App Cards -->
+        <section class="apps">
+            <div class="app-card">
+                <h2>📊 Project Tracker</h2>
+                <p>Stay on top of timelines, risks, and deliverables with our smart project tracking tool.</p>
+            </div>
+            <div class="app-card">
+                <h2>🤖 Automation Hub</h2>
+                <p>Automate repetitive tasks and free up time for what matters most.</p>
+            </div>
+            <div class="app-card">
+                <h2>📈 Reporting Suite</h2>
+                <p>Generate dynamic dashboards and reports in seconds.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 System & Flow. All rights reserved.</p>
+    </footer>
 </body>
 </html>
