@@ -1,34 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System & Flow</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>System & Flow — Project Management. Simplified.</title>
+  <meta name="description" content="System & Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
-    <!-- Header with Logo + Navigation -->
-    <header>
-        <a href="index.html">
-            <img src="SNF_logo.png" alt="System & Flow Logo" class="logo">
-        </a>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="apps.html">Apps</a>
-        </nav>
-    </header>
+<body class="dark">
+  <!-- Header -->
+  <header class="wrap header">
+    <div class="brand">
+      <img src="/SNF_logo.png" alt="System & Flow logo" class="logo-sm" />
+      <span>System &amp; Flow</span>
+    </div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="mailto:info@systemnflow.com">Contact</a>
+    </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main>
-        <section>
-            <h1>Welcome to System & Flow</h1>
-            <p>Your tools for streamlined project management, automation, and SaaS innovation.</p>
-        </section>
-    </main>
+  <!-- Hero -->
+  <main class="wrap hero">
+    <img src="/SNF_logo.png" alt="System & Flow logo" class="logo-hero" />
+    <h1>Project Management.<br/>Simplified.</h1>
+    <div class="cta">
+      <a class="btn primary" href="/apps.html">Explore Tools</a>
+    </div>
+    <p class="sub">
+      System &amp; Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter.
+    </p>
+  </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 System & Flow. All rights reserved.</p>
-    </footer>
+  <!-- Cards -->
+  <section class="wrap grid">
+    <div class="card">
+      <div class="card-icon">🖥️</div>
+      <h3>PM Ops Kit</h3>
+      <p>All‑in‑one project ops dashboard.</p>
+      <a class="btn ghost" href="/apps.html">Learn More</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⭐</div>
+      <h3>AI Prompt Pack</h3>
+      <p>50 smart prompts to boost productivity.</p>
+      <a class="btn ghost" href="/apps.html">Learn More</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🗂️</div>
+      <h3>Client &amp; Project Portal</h3>
+      <p>A central hub for client work.</p>
+      <a class="btn ghost" href="/apps.html">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="wrap footer">
+    <div class="foot-left">
+      <small>© <span id="y"></span> System &amp; Flow</small>
+    </div>
+    <div class="foot-right">
+      <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.linkedin.com/company/system-n-flow" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
