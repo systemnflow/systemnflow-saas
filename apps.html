@@ -1,50 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System & Flow Apps</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Apps — System & Flow</title>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
-    <!-- Header with Logo + Navigation -->
-    <header>
-        <a href="index.html">
-            <img src="SNF_logo.png" alt="System & Flow Logo" class="logo">
-        </a>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="apps.html">Apps</a>
-        </nav>
-    </header>
+<body class="dark">
+  <!-- Header / Navbar (same as home) -->
+  <header class="wrap header">
+    <div class="brand">
+      <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+      <span class="brand-name">System &amp; Flow</span>
+    </div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="mailto:info@systemnflow.com">Contact</a>
+    </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main>
-        <section>
-            <h1>Our Apps</h1>
-            <p>Explore powerful tools designed to streamline your project management and SaaS workflows.</p>
-        </section>
+  <!-- Page intro -->
+  <main class="wrap hero" style="padding:60px 20px 24px">
+    <h1 style="margin:0 0 8px">Apps</h1>
+    <p class="sub" style="margin-top:6px">
+      Start with the free Analyzer, then upgrade when you’re ready.
+    </p>
+  </main>
 
-        <!-- App Cards -->
-        <section class="apps">
-            <div class="app-card">
-                <h2>📊 Project Tracker</h2>
-                <p>Stay on top of timelines, risks, and deliverables with our smart project tracking tool.</p>
-            </div>
-            <div class="app-card">
-                <h2>🤖 Automation Hub</h2>
-                <p>Automate repetitive tasks and free up time for what matters most.</p>
-            </div>
-            <div class="app-card">
-                <h2>📈 Reporting Suite</h2>
-                <p>Generate dynamic dashboards and reports in seconds.</p>
-            </div>
-        </section>
-    </main>
+  <!-- App grid -->
+  <section class="wrap grid">
+    <!-- 1) Transcript Analyzer (Free) -->
+    <div class="card">
+      <div class="card-icon">📝</div>
+      <h3>Transcript Analyzer (Free)</h3>
+      <p>Extract Actions, Risks, Decisions from meeting notes in seconds.</p>
+      <div class="cta" style="justify-content:flex-start">
+        <a class="btn primary" href="https://app.systemnflow.com" target="_blank" rel="noopener">Open</a>
+        <a class="btn ghost" href="#" target="_blank" rel="noopener">Docs</a>
+      </div>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 System & Flow. All rights reserved.</p>
-    </footer>
+    <!-- 2) Status Report Generator -->
+    <div class="card">
+      <div class="card-icon">📄</div>
+      <h3>Status Report Generator</h3>
+      <p>One‑page executive summaries with exports to PDF/Markdown.</p>
+      <div class="cta" style="justify-content:flex-start">
+        <a class="btn primary" href="https://app.systemnflow.com" target="_blank" rel="noopener">Open</a>
+        <a class="btn ghost" href="#" target="_blank" rel="noopener">Learn More</a>
+      </div>
+    </div>
+
+    <!-- 3) Risk Radar -->
+    <div class="card">
+      <div class="card-icon">⚠️</div>
+      <h3>Risk Radar</h3>
+      <p>Auto‑surface top risks with suggested mitigations.</p>
+      <div class="cta" style="justify-content:flex-start">
+        <a class="btn primary" href="https://app.systemnflow.com" target="_blank" rel="noopener">Open</a>
+        <a class="btn ghost" href="#" target="_blank" rel="noopener">Learn More</a>
+      </div>
+    </div>
+
+    <!-- 4) Report Mapper -->
+    <div class="card">
+      <div class="card-icon">🧩</div>
+      <h3>Report Mapper</h3>
+      <p>Upload any template; get a fill‑guide mapped to your data.</p>
+      <div class="cta" style="justify-content:flex-start">
+        <a class="btn primary" href="https://app.systemnflow.com" target="_blank" rel="noopener">Open</a>
+        <a class="btn ghost" href="#" target="_blank" rel="noopener">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="wrap footer">
+    <small>© <span id="y"></span> System &amp; Flow</small>
+    <div class="foot-right">
+      <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.linkedin.com/company/system-n-flow" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
