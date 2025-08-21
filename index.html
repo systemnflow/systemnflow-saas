@@ -74,14 +74,61 @@
 </section>
 
   <!-- Footer -->
-  <footer class="wrap footer">
-    <small>© <span id="y"></span> System &amp; Flow</small>
-    <div class="foot-right">
-      <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
-      <a href="https://www.linkedin.com/company/system-n-flow" target="_blank" rel="noopener">LinkedIn</a>
+ <footer class="site-footer">
+  <div class="wrap footer-grid">
+    <!-- Brand + email -->
+    <div class="foot-brand">
+      <img src="/logo.png" alt="System & Flow" class="logo-icon" />
+      <div>
+        <strong>System &amp; Flow</strong>
+        <p class="muted">PM tools that feel simple.</p>
+        <a class="foot-link" href="mailto:info@systemnflow.com">info@systemnflow.com</a>
+      </div>
     </div>
-  </footer>
+
+    <!-- Quick links -->
+    <nav class="foot-col">
+      <h4>Explore</h4>
+      <a class="foot-link" href="/index.html">Home</a>
+      <a class="foot-link" href="/apps.html">Apps</a>
+      <a class="foot-link" href="/contact.html">Contact</a>
+    </nav>
+
+    <!-- Company / legal (stubs ok for now) -->
+    <nav class="foot-col">
+      <h4>Company</h4>
+      <a class="foot-link" href="/privacy.html">Privacy</a>
+      <a class="foot-link" href="/terms.html">Terms</a>
+    </nav>
+
+    <!-- Socials -->
+    <div class="foot-col">
+      <h4>Social</h4>
+      <div class="social">
+        <a class="foot-link" href="https://instagram.com/yourhandle" target="_blank" rel="noopener">Instagram</a>
+        <a class="foot-link" href="https://tiktok.com/@yourhandle" target="_blank" rel="noopener">TikTok</a>
+        <a class="foot-link" href="https://www.linkedin.com/in/yourhandle/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap foot-bar">
+    <small>© <span id="year"></span> System &amp; Flow • All rights reserved.</small>
+    <a href="#" class="back-to-top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+  // Auto year + smooth back-to-top
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.back-to-top').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+
 
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
