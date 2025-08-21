@@ -52,3 +52,36 @@ body.dark{background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system
   .hero{padding:60px 16px}
   .hero h1{font-size:32px}
 }
+/* --- Navbar sizing fixes --- */
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;
+}
+.brand{
+  display:flex;align-items:center;gap:10px;
+}
+.brand-name{white-space:nowrap;font-weight:700;letter-spacing:.2px}
+
+/* force the small icon size in the nav */
+.logo-icon{
+  height:28px !important;
+  width:auto !important;
+  display:block;
+}
+
+/* also catch any brand image just in case */
+.brand img{height:28px;width:auto;display:block}
+
+/* nav links */
+.nav{display:flex;gap:16px}
+.nav a{color:var(--muted);font-size:14px;text-decoration:none}
+.nav a:hover{color:var(--ink)}
+
+/* hero logo sizing (center image) */
+.logo-hero{
+  width:min(300px,70vw);
+  height:auto;
+  display:block;
+  margin:0 auto 18px;
+  filter:drop-shadow(0 6px 24px rgba(0,0,0,.35));
+}
