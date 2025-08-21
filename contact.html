@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact / Join — System & Flow</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .form-wrap{max-width:680px;margin:0 auto;padding:24px 20px}
+    form{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;display:grid;gap:12px}
+    label{font-size:14px;color:var(--muted)}
+    input, textarea{
+      width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);
+      background:#0f1726;color:var(--ink)
+    }
+    .consent{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14px}
+    .success{background:#0f1f14;border:1px solid #1f5d38;color:#c9f1dc;padding:12px;border-radius:10px;margin-top:12px;display:none}
+  </style>
+</head>
+<body class="dark">
+  <header class="wrap header">
+    <div class="brand">
+      <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+      <span class="brand-name">System &amp; Flow</span>
+    </div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap hero" style="padding:60px 20px 14px">
+    <h1>Contact / Join the List</h1>
+    <p class="sub">Get launch news, specials, and coupons. Opt out anytime.</p>
+  </main>
+
+  <section class="wrap form-wrap">
+    <form action="https://formspree.io/f/mzzvlwqy" method="POST">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" name="name" autocomplete="name" placeholder="Your name" />
+      </div>
+
+      <div>
+        <label for="email">Email <span style="color:#b8753d">*</span></label>
+        <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" />
+      </div>
+
+      <div>
+        <label for="message">Message (optional)</label>
+        <textarea id="message" name="message" rows="4" placeholder="What are you looking for?"></textarea>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" name="marketing_consent" required />
+        I agree to receive emails about System &amp; Flow products, specials, and announcements.
+      </label>
+
+      <div class="cta" style="justify-content:flex-start;margin-top:6px">
+        <button class="btn primary" type="submit">Send / Join</button>
+        <a class="btn ghost" href="/">Cancel</a>
+      </div>
+
+      <input type="hidden" name="_subject" value="New lead from systemnflow.com" />
+      <input type="hidden" name="_redirect" value="/thanks.html" />
+    </form>
+  </section>
+
+  <footer class="wrap footer">
+    <small>© <span id="y"></span> System &amp; Flow</small>
+    <div class="foot-right">
+      <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.linkedin.com/company/system-n-flow" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
