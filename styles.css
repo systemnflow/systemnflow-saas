@@ -85,3 +85,6 @@ body.dark{background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system
   margin:0 auto 18px;
   filter:drop-shadow(0 6px 24px rgba(0,0,0,.35));
 }
+/* Apps page minor tweaks */
+.grid .card .cta { margin-top: 4px; gap: 10px; }
+.grid .card h3 { font-weight: 700; }
