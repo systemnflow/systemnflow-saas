@@ -56,6 +56,21 @@
       <a class="btn ghost" href="/apps.html">Learn More</a>
     </div>
   </section>
+<section class="wrap" style="padding:28px 20px">
+  <form action="YOUR_FORMSPREE_ENDPOINT" method="POST"
+        style="display:flex;gap:10px;flex-wrap:wrap;background:var(--panel);
+               border:1px solid var(--border);padding:16px;border-radius:14px">
+    <input type="email" name="email" required placeholder="Email for specials & updates"
+           style="flex:1;min-width:220px;padding:12px;border-radius:10px;border:1px solid var(--border);background:#0f1726;color:var(--ink)" />
+    <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px">
+      <input type="checkbox" name="marketing_consent" required />
+      I agree to receive emails.
+    </label>
+    <button class="btn primary" type="submit">Join</button>
+    <input type="hidden" name="_subject" value="Quick signup — systemnflow.com" />
+    <input type="hidden" name="_redirect" value="/thanks.html" />
+  </form>
+</section>
 
   <!-- Footer -->
   <footer class="wrap footer">
