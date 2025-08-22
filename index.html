@@ -58,20 +58,17 @@
     </div>
   </section>
 <section class="wrap" style="padding:28px 20px">
-<form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST"
-      style="display:flex;gap:10px;flex-wrap:wrap;background:var(--panel);
-             border:1px solid var(--border);padding:16px;border-radius:14px">
-  
-  <input type="email" name="email" required placeholder="Email for specials & updates"
-         style="flex:1;min-width:220px;padding:12px;border-radius:10px;
-                border:1px solid var(--border);background:#0f1726;color:var(--ink)" />
-  
-  <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px">
+<form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form">
+  <input type="email" name="email" required placeholder="Email for specials & updates" />
+
+  <label class="consent">
     <input type="checkbox" name="marketing_consent" required />
     I agree to receive emails.
   </label>
-  
-  <button class="btn primary" type="submit">Join</button>
+
+  <div class="actions">
+    <button class="btn primary" type="submit">Join</button>
+  </div>
 
   <!-- Honeypot -->
   <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
@@ -80,17 +77,10 @@
   <input type="hidden" name="_subject" value="Newsletter signup — systemnflow.com" />
 </form>
 
-<!-- Success message -->
-<div id="newsletter-success" class="success" style="
-  background:#0f1f14;
-  border:1px solid #1f5d38;
-  color:#c9f1dc;
-  padding:12px;
-  border-radius:10px;
-  margin-top:12px;
-  display:none">
+<div id="newsletter-success" class="success">
   ✅ Thanks for joining! Check your inbox soon.
 </div>
+
 
 
 </section>
