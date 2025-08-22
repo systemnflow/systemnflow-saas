@@ -37,35 +37,31 @@
   </main>
 
   <section class="wrap form-wrap">
-    <form action="https://formspree.io/f/mzzvlwqy" method="POST">
-      <div>
-        <label for="name">Name</label>
-        <input id="name" name="name" autocomplete="name" placeholder="Your name" />
-      </div>
+    <form action="https://formspree.io/f/mzzvlwqy" method="POST" class="form">
+  <label>Name
+    <input type="text" name="name" required />
+  </label>
 
-      <div>
-        <label for="email">Email <span style="color:#b8753d">*</span></label>
-        <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" />
-      </div>
+  <label>Email
+    <input type="email" name="email" required />
+  </label>
 
-      <div>
-        <label for="message">Message (optional)</label>
-        <textarea id="message" name="message" rows="4" placeholder="What are you looking for?"></textarea>
-      </div>
+  <label>Message
+    <textarea name="message" rows="5" required></textarea>
+  </label>
 
-      <label class="consent">
-        <input type="checkbox" name="marketing_consent" required />
-        I agree to receive emails about System &amp; Flow products, specials, and announcements.
-      </label>
+  <label style="display:flex;align-items:center;gap:8px;color:var(--muted)">
+    <input type="checkbox" name="marketing_consent" />
+    I agree to receive follow‑ups about this inquiry.
+  </label>
 
-      <div class="cta" style="justify-content:flex-start;margin-top:6px">
-        <button class="btn primary" type="submit">Send / Join</button>
-        <a class="btn ghost" href="/">Cancel</a>
-      </div>
+  <!-- Optional metadata -->
+  <input type="hidden" name="_subject" value="New contact — systemnflow.com" />
+  <input type="hidden" name="_redirect" value="/thanks.html" />
 
-      <input type="hidden" name="_subject" value="New lead from systemnflow.com" />
-      <input type="hidden" name="_redirect" value="/thanks.html" />
-    </form>
+  <button class="btn primary" type="submit">Send</button>
+</form>
+
   </section>
 
 <div data-include="/partials/footer.html"></div>
