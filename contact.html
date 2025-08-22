@@ -37,23 +37,23 @@
   </main>
 
   <section class="wrap form-wrap">
-    <form action="https://formspree.io/f/mzzvlwqy" method="POST" class="form">
-  <label>Name
-    <input type="text" name="name" required />
-  </label>
+<form action="https://formspree.io/f/mzzvlwqy" method="POST" class="form">
+  <label for="name">Name</label>
+  <input id="name" type="text" name="name" required />
 
-  <label>Email
-    <input type="email" name="email" required />
-  </label>
+  <label for="email">Email</label>
+  <input id="email" type="email" name="email" required />
 
-  <label>Message
-    <textarea name="message" rows="5" required></textarea>
-  </label>
+  <label for="message">Message</label>
+  <textarea id="message" name="message" rows="5" required></textarea>
 
   <label style="display:flex;align-items:center;gap:8px;color:var(--muted)">
     <input type="checkbox" name="marketing_consent" />
     I agree to receive follow‑ups about this inquiry.
   </label>
+
+  <!-- Honeypot (spam trap) -->
+  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
   <!-- Optional metadata -->
   <input type="hidden" name="_subject" value="New contact — systemnflow.com" />
@@ -62,12 +62,12 @@
   <button class="btn primary" type="submit">Send</button>
 </form>
 
+
   </section>
 
 <div data-include="/partials/footer.html"></div>
 <script src="/include.js" defer></script>
 
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
