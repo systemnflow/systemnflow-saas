@@ -110,3 +110,53 @@ body.dark{background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system
 /* Apps page minor tweaks */
 .grid .card .cta { margin-top: 4px; gap: 10px; }
 .grid .card h3 { font-weight: 700; }
+/* --- Form + success styles (shared) --- */
+.form,
+.newsletter-form {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.success {
+  display: none;                /* hidden by default; show via JS on success */
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #0f1f14;          /* deep green-ish success panel */
+  border: 1px solid #1f5d38;
+  color: #c9f1dc;
+  font-size: 0.95rem;
+}
+
+/* Optional: consistent inputs if you want to drop inline styles later */
+.form input[type="text"],
+.form input[type="email"],
+.form textarea,
+.newsletter-form input[type="email"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0f1726;
+  color: var(--ink);
+}
+
+.form .consent,
+.newsletter-form .consent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.form .actions,
+.newsletter-form .actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
