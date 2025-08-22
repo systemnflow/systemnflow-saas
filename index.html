@@ -58,26 +58,29 @@
     </div>
   </section>
 <section class="wrap" style="padding:28px 20px">
-  <form action="https://formspree.io/f/mzzvlwqy" method="POST"
-        style="display:flex;gap:10px;flex-wrap:wrap;background:var(--panel);
-               border:1px solid var(--border);padding:16px;border-radius:14px">
-    <input type="email" name="email" required placeholder="Email for specials & updates"
-           style="flex:1;min-width:220px;padding:12px;border-radius:10px;border:1px solid var(--border);background:#0f1726;color:var(--ink)" />
+ <form action="https://formspree.io/f/mzzvlwqy" method="POST"
+      style="display:flex;gap:10px;flex-wrap:wrap;background:var(--panel);
+             border:1px solid var(--border);padding:16px;border-radius:14px">
+  
+  <input type="email" name="email" required placeholder="Email for specials & updates"
+         style="flex:1;min-width:220px;padding:12px;border-radius:10px;
+                border:1px solid var(--border);background:#0f1726;color:var(--ink)" />
+  
+  <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px">
+    <input type="checkbox" name="marketing_consent" required />
+    I agree to receive emails.
+  </label>
+  
+  <button class="btn primary" type="submit">Join</button>
 
-    <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px">
-      <input type="checkbox" name="marketing_consent" required />
-      I agree to receive emails.
-    </label>
+  <!-- Honeypot (spam trap) -->
+  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
-    <button class="btn primary" type="submit">Join</button>
+  <!-- Optional metadata -->
+  <input type="hidden" name="_subject" value="Newsletter signup — systemnflow.com" />
+  <input type="hidden" name="_redirect" value="/thanks.html" />
+</form>
 
-    <!-- Honeypot field (spam trap) — must be INSIDE the form -->
-    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-    <!-- Optional metadata -->
-    <input type="hidden" name="_subject" value="Newsletter signup — systemnflow.com" />
-    <input type="hidden" name="_redirect" value="/thanks.html" />
-  </form>
 </section>
 
 
