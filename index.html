@@ -34,41 +34,16 @@
     <p class="sub">
       System &amp; Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter.
     </p>
-  </main>
-
-  <!-- Cards -->
-  <section class="wrap grid">
-    <div class="card">
-      <div class="card-icon">🖥️</div>
-      <h3>PM Ops Kit</h3>
-      <p>All‑in‑one project ops dashboard.</p>
-      <a class="btn ghost" href="/apps.html">Learn More</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">⭐</div>
-      <h3>AI Prompt Pack</h3>
-      <p>50 smart prompts to boost productivity.</p>
-      <a class="btn ghost" href="/apps.html">Learn More</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">🗂️</div>
-      <h3>Client &amp; Project Portal</h3>
-      <p>A central hub for client work.</p>
-      <a class="btn ghost" href="/apps.html">Learn More</a>
-    </div>
-  </section>
-<section class="wrap" style="padding:28px 20px">
-<form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form">
-  <input type="email" name="email" required placeholder="Email for specials & updates" />
+    <!-- Inline, above-the-fold signup -->
+<form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="signup-inline">
+  <input class="field" type="email" name="email" required placeholder="Email for early access & updates" />
 
   <label class="consent">
     <input type="checkbox" name="marketing_consent" required />
     I agree to receive emails.
   </label>
 
-  <div class="actions">
-    <button class="btn primary" type="submit">Join</button>
-  </div>
+  <button class="btn primary" type="submit">Join</button>
 
   <!-- Honeypot -->
   <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
@@ -77,14 +52,14 @@
   <input type="hidden" name="_subject" value="Newsletter signup — systemnflow.com" />
 </form>
 
-<div id="newsletter-success" class="success">
+<div id="newsletter-success" class="success" style="display:none;">
   ✅ Thanks for joining! Check your inbox soon.
 </div>
 
+  </main>
 
-
-</section>
-
+  <!-- Cards -->
+  
 
 <div data-include="/partials/footer.html"></div>
 <script src="/include.js" defer></script>
