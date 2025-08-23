@@ -160,3 +160,43 @@ body.dark{background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system
   flex-wrap: wrap;
 }
 
+/* Inline signup styles */
+.signup-inline {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  margin: 8px auto 0;
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  max-width: 720px;
+}
+
+.signup-inline .field {
+  width: 100%;
+  max-width: 480px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0f1726;
+  color: var(--ink);
+}
+
+.signup-inline .consent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.success {
+  background: #0f1f14;
+  border: 1px solid #1f5d38;
+  color: #c9f1dc;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 12px auto 0;
+  max-width: 720px;
+}
