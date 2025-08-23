@@ -140,27 +140,32 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/include.js" defer></script>
 
-  <!-- Newsletter script -->
-  <script>
-    const nf = document.getElementById("newsletter-form");
-    if (nf) {
-      nf.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        const resp = await fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (resp.ok) {
-          form.style.display = "none";
-          document.getElementById("newsletter-success").style.display = "block";
-        } else {
-          alert("Oops! Something went wrong. Please try again.");
-        }
+ <!-- Newsletter script -->
+<script>
+  const nf = document.getElementById("newsletter-form");
+  if (nf) {
+    nf.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const resp = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
       });
-    }
-  </script>
+      if (resp.ok) {
+        form.style.display = "none";
+        document.getElementById("newsletter-success").style.display = "block";
+
+        // ✅ This line tells Google Analytics a signup happened
+        gtag('event', 'newsletter_signup', { method: 'Formspree' });
+
+      } else {
+        alert("Oops! Something went wrong. Please try again.");
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
