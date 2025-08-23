@@ -3,22 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Thanks — System & Flow</title>
+  <title>Thanks! | System & Flow</title>
   <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" href="/favicon.ico" />
 </head>
 <body class="dark">
-  <!-- (optional) header include if you add one later -->
 
-  <main class="wrap hero" style="padding:100px 20px;text-align:center">
-    <h1>Thanks! 🎉</h1>
-    <p>We’ve received your submission. We’ll be in touch soon.</p>
-    <div style="margin-top:16px">
-      <a class="btn primary" href="/">Back to home</a>
+  <!-- Header -->
+  <header class="wrap header">
+    <div class="brand">
+      <a href="/index.html">
+        <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+      </a>
+      <span class="brand-name">System &amp; Flow</span>
+    </div>
+    <nav class="nav">
+      <a href="/index.html">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Message -->
+  <main class="wrap hero" style="padding:80px 20px">
+    <h1>Thanks!</h1>
+    <p class="sub">Your form was submitted successfully. We’ll be in touch soon.</p>
+    <div class="cta">
+      <a class="btn primary" href="/index.html">Return to Home</a>
     </div>
   </main>
 
-  <!-- Global footer -->
+  <!-- Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/include.js" defer></script>
 </body>
