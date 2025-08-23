@@ -1,21 +1,76 @@
 <!doctype html>
-<html lang="en"><head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>404 — System & Flow</title><link rel="stylesheet" href="/styles.css"/>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>404 — Red Flag Ronnie got here first | System & Flow</title>
+  <meta name="description" content="This page doesn't exist. Red Flag Ronnie may have sabotaged the link. Head back home or explore PM tools." />
+  <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" href="/favicon.ico" />
+  <style>
+    .notfound-wrap { max-width: 860px; margin: 0 auto; padding: 60px 20px 30px; text-align: center; }
+    .nf-hero { display:flex; flex-direction:column; align-items:center; gap:22px; }
+    .nf-title { font-size: clamp(28px, 4vw, 40px); line-height:1.15; }
+    .nf-sub   { color: var(--muted); max-width: 660px; margin: 0 auto; }
+    .nf-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top: 20px; }
+    .nf-ronnie { width: clamp(220px, 35vw, 360px); height:auto; filter: drop-shadow(0 6px 24px rgba(0,0,0,.35)); }
+    /* Inline SVG colors tuned to brand */
+    .copper { fill:#C8793B; }      /* copper stroke/fill */
+    .copper-d { fill:#9c5a2b; }    /* darker copper */
+    .panel  { fill:#0f1726; }      /* panel bg (matches your theme) */
+  </style>
 </head>
-  
-  <div data-include="/partials/footer.html"></div>
-<script src="/include.js" defer></script>
-
 <body class="dark">
-  <main class="wrap hero" style="padding:80px 20px">
-    <h1>404 — Page Not Found</h1>
-    <p class="sub">That link doesn’t exist. Try Home or see the Apps.</p>
-    <div class="cta">
-      <a class="btn primary" href="/">Home</a>
-      <a class="btn ghost" href="/apps.html">Apps</a>
+
+  <!-- Header / Navbar -->
+  <header class="wrap header">
+    <div class="brand">
+      <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+        <span class="brand-name">System &amp; Flow</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap notfound-wrap">
+    <div class="nf-hero">
+      <!-- Inline SVG “Ronnie” with warning triangle -->
+      <svg class="nf-ronnie" viewBox="0 0 300 300" role="img" aria-label="Red Flag Ronnie error illustration">
+        <!-- Panel / badge -->
+        <rect class="panel" x="10" y="10" rx="28" ry="28" width="280" height="280"/>
+        <!-- Ronnie circuit “S” badge (simple stylized lines) -->
+        <path class="copper" d="M75 220c-8 0-15-7-15-15v-20c0-18 15-33 33-33h44c8 0 15-7 15-15v-6c0-8-7-15-15-15h-52c-18 0-33-15-33-33v-12c0-8 7-15 15-15h90c8 0 15 7 15 15v18c0 18-15 33-33 33h-44c-8 0-15 7-15 15v6c0 8 7 15 15 15h52c18 0 33 15 33 33v14c0 8-7 15-15 15H75z"/>
+        <!-- Copper nodes -->
+        <circle class="copper" cx="84" cy="66" r="10"/>
+        <circle class="copper" cx="214" cy="66" r="10"/>
+        <circle class="copper" cx="214" cy="232" r="10"/>
+        <!-- Warning triangle (Ronnie pressed a button…) -->
+        <polygon class="copper" points="150,88 195,168 105,168"/>
+        <rect class="panel" x="146" y="120" width="8" height="24"/>
+        <rect class="panel" x="146" y="150" width="8" height="8"/>
+        <!-- “Broken link” icon -->
+        <path class="copper-d" d="M205 210c-8 0-14-6-14-14 0-4 2-8 5-10l12-12a16 16 0 0 1 23 23l-8 8-8-8 8-8a4 4 0 0 0-6-6l-12 12c-1 1-2 3-2 5a6 6 0 0 0 6 6h10v10h-14z"/>
+      </svg>
+
+      <h1 class="nf-title">🚨 Red Flag Ronnie got here first!</h1>
+      <p class="nf-sub">
+        This page doesn’t exist (or Ronnie sabotaged the link).  
+        Don’t worry — you’re still in the right place for PM tools that feel simple.
+      </p>
+
+      <div class="nf-actions">
+        <a class="btn primary" href="/">Back to Home</a>
+        <a class="btn ghost" href="/apps.html">Explore Tools</a>
+      </div>
     </div>
   </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/include.js" defer></script>
 </body>
 </html>
