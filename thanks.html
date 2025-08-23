@@ -3,37 +3,51 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Thanks! | System & Flow</title>
+  <title>Thanks — You’re on the list! | System & Flow</title>
+  <meta name="description" content="Thanks for reaching out. We'll be in touch soon with updates, tips, and specials." />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" href="/favicon.ico" />
+  <style>
+    .t-wrap { max-width: 820px; margin: 0 auto; padding: 70px 20px 40px; text-align:center; }
+    .t-badge { display:inline-flex; align-items:center; justify-content:center; width:70px; height:70px; border-radius:50%; background:#0f1f14; border:1px solid #1f5d38; color:#c9f1dc; font-size:30px; }
+    .t-title { font-size: clamp(26px, 4vw, 38px); margin:16px 0 8px; }
+    .t-sub { color: var(--muted); max-width: 620px; margin: 0 auto 18px; }
+    .t-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:18px; }
+    .t-note { color: var(--muted); font-size:14px; margin-top:12px; }
+  </style>
 </head>
 <body class="dark">
 
-  <!-- Header -->
+  <!-- Header / Navbar -->
   <header class="wrap header">
     <div class="brand">
-      <a href="/index.html">
+      <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
         <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+        <span class="brand-name">System &amp; Flow</span>
       </a>
-      <span class="brand-name">System &amp; Flow</span>
     </div>
     <nav class="nav">
-      <a href="/index.html">Home</a>
+      <a href="/">Home</a>
       <a href="/apps.html">Apps</a>
       <a href="/contact.html">Contact</a>
     </nav>
   </header>
 
-  <!-- Message -->
-  <main class="wrap hero" style="padding:80px 20px">
-    <h1>Thanks!</h1>
-    <p class="sub">Your form was submitted successfully. We’ll be in touch soon.</p>
-    <div class="cta">
-      <a class="btn primary" href="/index.html">Return to Home</a>
+  <main class="wrap t-wrap">
+    <div class="t-badge">✔</div>
+    <h1 class="t-title">Thanks — you’re on the list!</h1>
+    <p class="t-sub">
+      We received your submission. Keep an eye on your inbox for updates, tips, and specials.
+    </p>
+
+    <div class="t-actions">
+      <a class="btn primary" href="/apps.html">Explore Tools</a>
+      <a class="btn ghost" href="/">Back to Home</a>
     </div>
+
+    <p class="t-note">No longer interested? You can unsubscribe with one click in any email.</p>
   </main>
 
-  <!-- Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/include.js" defer></script>
 </body>
