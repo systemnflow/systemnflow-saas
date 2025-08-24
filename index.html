@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-   <!-- Primary SEO -->
+
+  <!-- Primary SEO -->
   <title>System & Flow — Project Management. Simplified.</title>
-  <meta name="description" content="System & Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter." />
+  <meta name="description" content="Built by project managers, for project managers. System & Flow delivers lightweight SaaS apps and AI prompts that cut through chaos and make execution simple." />
   <link rel="canonical" href="https://systemnflow.com/" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
@@ -14,14 +15,14 @@
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="System & Flow — Project Management. Simplified." />
-  <meta property="og:description" content="System & Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter." />
+  <meta property="og:description" content="Built by project managers, for project managers. Lightweight SaaS apps and AI prompts that make PM work faster, easier, and smarter." />
   <meta property="og:url" content="https://systemnflow.com/" />
   <meta property="og:image" content="https://systemnflow.com/SNF_logo.png" />
   <meta property="og:site_name" content="System & Flow" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="System & Flow — Project Management. Simplified." />
-  <meta name="twitter:description" content="System & Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter." />
+  <meta name="twitter:description" content="Built by project managers, for project managers. Lightweight SaaS apps and AI prompts that make PM work faster, easier, and smarter." />
   <meta name="twitter:image" content="https://systemnflow.com/SNF_logo.png" />
 
   <!-- JSON‑LD (Organization) -->
@@ -52,28 +53,24 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-1FRFWG4X18');
   </script>
-  <title>System & Flow — Project Management. Simplified.</title>
-  <meta name="description" content="System & Flow builds toolkits, templates, and mini-apps that make project management easier, faster, and smarter." />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="icon" href="/favicon.ico" />
 </head>
 <body class="dark">
 
   <!-- Header / Navbar -->
   <header class="wrap header">
     <div class="brand">
-      <!-- Logo is now clickable back to home -->
-      <a href="/index.html">
+      <!-- Logo clickable back to home -->
+      <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
         <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+        <span class="brand-name">System &amp; Flow</span>
       </a>
-      <span class="brand-name">System &amp; Flow</span>
     </div>
     <nav class="nav">
-      <a href="/index.html">Home</a>
+      <a href="/" aria-current="page">Home</a>
       <a href="/apps.html">Apps</a>
       <a href="/contact.html">Contact</a>
     </nav>
@@ -83,12 +80,14 @@
   <main class="wrap hero">
     <img src="/SNF_logo.png" alt="System & Flow full logo" class="logo-hero" />
     <h1>Project Management.<br/>Simplified.</h1>
-    <div class="cta">
-      <a class="btn primary" href="/apps.html">Explore Tools</a>
-    </div>
     <p class="sub">
-      System &amp; Flow builds toolkits, templates, and mini-apps that make project management easier, faster, and smarter.
+      Built <strong>by project managers, for project managers</strong> — System &amp; Flow delivers
+      lightweight SaaS apps and AI prompts that cut through chaos and make execution simple.
     </p>
+    <div class="cta" style="gap:10px;flex-wrap:wrap;justify-content:center;">
+      <a class="btn primary" href="/apps.html">Explore Tools</a>
+      <a class="btn ghost" href="/contact.html">Join the List</a>
+    </div>
 
     <!-- Newsletter inline form -->
     <section class="signup-inline" style="margin-top:20px;">
@@ -118,21 +117,21 @@
   <!-- Cards -->
   <section class="wrap grid">
     <div class="card">
-      <div class="card-icon">🖥️</div>
-      <h3>PM Ops Kit</h3>
-      <p>All-in-one project ops dashboard.</p>
+      <div class="card-icon">📄</div>
+      <h3>Transcript Analyzer (Free)</h3>
+      <p>Extract Actions, Risks, Decisions from meeting notes in seconds.</p>
       <a class="btn ghost" href="/apps.html">Learn More</a>
     </div>
     <div class="card">
-      <div class="card-icon">⭐</div>
-      <h3>AI Prompt Pack</h3>
-      <p>50 smart prompts to boost productivity.</p>
+      <div class="card-icon">📑</div>
+      <h3>Status Report Generator</h3>
+      <p>Exec‑ready one‑pagers with export to PDF/Markdown.</p>
       <a class="btn ghost" href="/apps.html">Learn More</a>
     </div>
     <div class="card">
-      <div class="card-icon">🗂️</div>
-      <h3>Client &amp; Project Portal</h3>
-      <p>A central hub for client work.</p>
+      <div class="card-icon">⚠️</div>
+      <h3>Risk Radar</h3>
+      <p>Auto‑surface top risks with suggested mitigations.</p>
       <a class="btn ghost" href="/apps.html">Learn More</a>
     </div>
   </section>
@@ -141,33 +140,30 @@
   <div data-include="/partials/footer.html"></div>
   <script src="/include.js" defer></script>
 
-
   <!-- Newsletter script -->
-<script>
-  const nf = document.getElementById("newsletter-form");
-  if (nf) {
-    nf.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
-      const resp = await fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { 'Accept': 'application/json' }
+  <script>
+    const nf = document.getElementById("newsletter-form");
+    if (nf) {
+      nf.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        const resp = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (resp.ok) {
+          form.style.display = "none";
+          document.getElementById("newsletter-success").style.display = "block";
+          if (typeof gtag === 'function') {
+            gtag('event', 'newsletter_signup', { method: 'Formspree' });
+          }
+        } else {
+          alert("Oops! Something went wrong. Please try again.");
+        }
       });
-      if (resp.ok) {
-        form.style.display = "none";
-        document.getElementById("newsletter-success").style.display = "block";
-
-        // ✅ This line tells Google Analytics a signup happened
-        gtag('event', 'newsletter_signup', { method: 'Formspree' });
-
-      } else {
-        alert("Oops! Something went wrong. Please try again.");
-      }
-    });
-  }
-</script>
-
+    }
+  </script>
 </body>
 </html>
