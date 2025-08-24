@@ -3,39 +3,44 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <!-- Primary SEO -->
-  <title>System & Flow — Project Management. Simplified.</title>
-  <meta name="description" content="System & Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter." />
-  <link rel="canonical" href="https://systemnflow.com/" />
+
+  <!-- Primary SEO -->
+  <title>Contact System & Flow | Project Management Made Simple</title>
+  <meta name="description" content="Get in touch with System & Flow. Questions about toolkits, templates, or mini‑apps? We’re here to help you simplify project management." />
+  <link rel="canonical" href="https://systemnflow.com/contact.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
 
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="System & Flow — Project Management. Simplified." />
-  <meta property="og:description" content="System & Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter." />
-  <meta property="og:url" content="https://systemnflow.com/" />
+  <meta property="og:title" content="Contact System & Flow | Project Management Made Simple" />
+  <meta property="og:description" content="Get in touch with System & Flow. Questions about toolkits, templates, or mini‑apps? We’re here to help you simplify project management." />
+  <meta property="og:url" content="https://systemnflow.com/contact.html" />
   <meta property="og:image" content="https://systemnflow.com/SNF_logo.png" />
   <meta property="og:site_name" content="System & Flow" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="System & Flow — Project Management. Simplified." />
-  <meta name="twitter:description" content="System & Flow builds toolkits, templates, and mini‑apps that make project management easier, faster, and smarter." />
+  <meta name="twitter:title" content="Contact System & Flow | Project Management Made Simple" />
+  <meta name="twitter:description" content="Get in touch with System & Flow. Questions about toolkits, templates, or mini‑apps? We’re here to help you simplify project management." />
   <meta name="twitter:image" content="https://systemnflow.com/SNF_logo.png" />
 
-  <!-- JSON‑LD (Organization) -->
+  <!-- JSON‑LD (ContactPage) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "System & Flow",
-    "url": "https://systemnflow.com/",
-    "logo": "https://systemnflow.com/logo.png",
-    "sameAs": [
-      "https://www.instagram.com/systemnflow",
-      "https://www.tiktok.com/@systemnflow",
-      "https://www.linkedin.com/company/systemnflow"
-    ]
+    "@type": "ContactPage",
+    "name": "Contact System & Flow",
+    "url": "https://systemnflow.com/contact.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "System & Flow",
+      "url": "https://systemnflow.com/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "System & Flow",
+      "logo": { "@type": "ImageObject", "url": "https://systemnflow.com/logo.png" }
+    }
   }
   </script>
 
@@ -55,10 +60,7 @@
     gtag('js', new Date());
     gtag('config', 'G-1FRFWG4X18');
   </script>
-  <title>Contact / Join — System & Flow</title>
-  <meta name="description" content="Contact System & Flow or join the list for updates and specials." />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="icon" href="/favicon.ico" />
+
   <style>
     .form-wrap{max-width:680px;margin:0 auto;padding:24px 20px}
     form{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;display:grid;gap:12px}
@@ -76,37 +78,37 @@
   <!-- Header / Navbar -->
   <header class="wrap header">
     <div class="brand">
-      <a href="/index.html">
+      <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
         <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+        <span class="brand-name">System &amp; Flow</span>
       </a>
-      <span class="brand-name">System &amp; Flow</span>
     </div>
     <nav class="nav">
-      <a href="/index.html">Home</a>
+      <a href="/">Home</a>
       <a href="/apps.html">Apps</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/contact.html" aria-current="page">Contact</a>
     </nav>
   </header>
 
   <!-- Intro -->
-  <main class="wrap hero" style="padding:60px 20px 14px">
+  <main id="main" class="wrap hero" style="padding:60px 20px 14px">
     <h1>Contact / Join the List</h1>
     <p class="sub">Get launch news, specials, and coupons. Opt out anytime.</p>
   </main>
 
   <!-- Form -->
   <section class="wrap form-wrap">
-    <form id="contact-form" action="https://formspree.io/f/mzzvlwqy" method="POST">
-      <label>Name
-        <input type="text" name="name" required />
+    <form id="contact-form" action="https://formspree.io/f/mzzvlwqy" method="POST" novalidate>
+      <label for="name">Name
+        <input id="name" type="text" name="name" autocomplete="name" required />
       </label>
 
-      <label>Email
-        <input type="email" name="email" required />
+      <label for="email">Email
+        <input id="email" type="email" name="email" autocomplete="email" required />
       </label>
 
-      <label>Message
-        <textarea name="message" rows="5" required></textarea>
+      <label for="message">Message
+        <textarea id="message" name="message" rows="5" required></textarea>
       </label>
 
       <label class="consent">
@@ -148,6 +150,11 @@
         if (resp.ok) {
           form.style.display = "none";
           document.getElementById("contact-success").style.display = "block";
+
+          // Optional: fire a GA event for contact messages (simple)
+          if (typeof gtag === 'function') {
+            gtag('event', 'contact_submit', { method: 'Formspree' });
+          }
         } else {
           alert("Oops! Something went wrong. Please try again.");
         }
