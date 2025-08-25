@@ -1,16 +1,60 @@
 <footer class="wrap footer-min">
   <div class="foot-left">
-    <img src="/logo.png" alt="System & Flow" class="logo-icon" />
+    <img src="/logo.png" alt="System & Flow logo" class="logo-icon" />
     <span class="brand">System &amp; Flow</span>
   </div>
+
   <div class="foot-right">
-    <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
-    <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+    <nav class="social-links">
+      <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
     <span class="divider">•</span>
-    <p class="muted" style="margin:0 0 8px 0;font-size:13px">
-  System &amp; Flow — Built by PMs, for PMs • Concord, NC • <a href="mailto:info@systemnflow.com">info@systemnflow.com</a>
-</p>
+    <span class="muted">System &amp; Flow — Built by PMs, for PMs • Concord, NC</span>
+    <span class="divider">•</span>
+    <a href="mailto:info@systemnflow.com">info@systemnflow.com</a>
+    <span class="divider">•</span>
     <small>© <span class="year"></span> System &amp; Flow</small>
   </div>
 </footer>
+
+<style>
+  .footer-min {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 0;
+    font-size:14px;
+    border-top:1px solid var(--border);
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .foot-left {
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .foot-right {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .social-links a {
+    margin-right:8px;
+  }
+  .divider {
+    color:var(--muted);
+  }
+  .muted {
+    color:var(--muted);
+  }
+</style>
+
+<script>
+  // Auto-year
+  document.querySelectorAll('.year').forEach(el => {
+    el.textContent = new Date().getFullYear();
+  });
+</script>
