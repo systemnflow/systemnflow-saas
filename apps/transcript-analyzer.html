@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Transcript Analyzer (Free) — System & Flow</title>
+  <meta name="description" content="Turn raw meeting notes into Actions, Risks, and Decisions in seconds. Free tool by System & Flow." />
+  <link rel="canonical" href="https://systemnflow.com/apps/transcript-analyzer.html" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0b1220" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Transcript Analyzer (Free) — System & Flow" />
+  <meta property="og:description" content="Extract Actions, Risks, and Decisions from meeting notes in seconds." />
+  <meta property="og:url" content="https://systemnflow.com/apps/transcript-analyzer.html" />
+  <meta property="og:image" content="https://systemnflow.com/SNF_logo.png" />
+  <meta property="og:site_name" content="System & Flow" />
+
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <link rel="preload" href="/styles.css" as="style" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-1FRFWG4X18');</script>
+</head>
+<body class="dark">
+  <header class="wrap header">
+    <div class="brand">
+      <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+        <span class="brand-name">System &amp; Flow</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap hero" style="padding:60px 20px 14px">
+    <div class="card-top" style="margin-bottom:10px">
+      <h1 style="margin:0">Transcript Analyzer</h1>
+      <span class="badge live"><span class="dot"></span> Free</span>
+    </div>
+    <p class="sub">Paste a transcript → get <strong>Actions</strong>, <strong>Risks</strong>, and <strong>Decisions</strong> in seconds.</p>
+  </main>
+
+  <section class="wrap" style="display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;padding:0 20px 50px">
+    <!-- Placeholder UI (simple for now) -->
+    <div class="card">
+      <h3 style="margin-top:0">Try it</h3>
+      <textarea id="ta-input" rows="10" placeholder="Paste your meeting notes..." style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#0f1726;color:var(--ink)"></textarea>
+      <div class="cta" style="justify-content:flex-start">
+        <button id="ta-run" class="btn primary" type="button">Analyze</button>
+        <a class="btn ghost" href="/contact.html">Send feedback</a>
+      </div>
+    </div>
+
+    <div id="ta-output" class="card" style="display:none">
+      <h3 style="margin-top:0">Results</h3>
+      <div id="ta-actions"><strong>Actions</strong><ul></ul></div>
+      <div id="ta-risks" style="margin-top:10px"><strong>Risks</strong><ul></ul></div>
+      <div id="ta-decisions" style="margin-top:10px"><strong>Decisions</strong><ul></ul></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <h3 style="margin:0">What’s next</h3>
+        <span class="badge soon"><span class="dot"></span> Coming soon</span>
+      </div>
+      <p class="muted">Export to PDF/Markdown, save presets, and email summaries with Pro.</p>
+      <form id="ta-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" style="max-width:560px">
+        <input type="email" name="email" required placeholder="Email for Pro updates" />
+        <input type="hidden" name="_subject" value="Transcript Analyzer Pro — waitlist" />
+        <div class="actions">
+          <button class="btn primary" type="submit">Join waitlist</button>
+        </div>
+      </form>
+      <div id="ta-wait-ok" class="success">✅ You’re on the Pro list.</div>
+    </div>
+  </section>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/include.js" defer></script>
+  <script>
+    // Demo parser (front-end only placeholder). Replace with real backend later.
+    const $ = sel => document.querySelector(sel);
+    const run = $('#ta-run'), input = $('#ta-input'), out = $('#ta-output');
+    function pick(lines, keyword){ return lines.filter(l => l.toLowerCase().includes(keyword)).slice(0,5); }
+    if(run){
+      run.addEventListener('click', ()=>{
+        const txt = (input.value||'').split(/\n+/).map(s=>s.trim()).filter(Boolean);
+        const actions = pick(txt,'action').concat(pick(txt,'todo'));
+        const risks = pick(txt,'risk').concat(pick(txt,'blocked')).concat(pick(txt,'issue'));
+        const decisions = pick(txt,'decided').concat(pick(txt,'approved')).concat(pick(txt,'decision'));
+        function fill(id, arr){
+          const ul = document.querySelector(id+' ul'); ul.innerHTML='';
+          (arr.length?arr:['(No items detected — try including words like “action”, “risk”, or “decision”.)'])
+            .forEach(x=>{ const li=document.createElement('li'); li.textContent=x; ul.appendChild(li); });
+        }
+        fill('#ta-actions', actions);
+        fill('#ta-risks', risks);
+        fill('#ta-decisions', decisions);
+        out.style.display='block';
+        if(window.gtag) gtag('event','demo_analyze',{tool:'transcript_analyzer'});
+      });
+    }
+    // Waitlist
+    const wf=document.getElementById('ta-wait'), ok=document.getElementById('ta-wait-ok');
+    if(wf){wf.addEventListener('submit', async e=>{
+      e.preventDefault();
+      const r=await fetch(wf.action,{method:'POST',body:new FormData(wf),headers:{'Accept':'application/json'}});
+      if(r.ok){wf.style.display='none'; ok.style.display='block'; if(window.gtag) gtag('event','waitlist_join',{tool:'transcript_analyzer'});}
+      else alert('Please try again.');
+    });}
+  </script>
+</body>
+</html>
