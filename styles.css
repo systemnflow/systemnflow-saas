@@ -35,6 +35,19 @@ body.dark{background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system
 .btn.ghost{background:transparent;color:var(--ink)}
 .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:8px 0 0}
 
+/* === Badges === */
+.badge {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px; border-radius:999px;
+  background:#0f1f14; border:1px solid var(--border);
+  color:var(--muted); font-size:12px; line-height:1;
+  white-space:nowrap;
+}
+.badge .dot {width:6px;height:6px;border-radius:50%;background:var(--muted)}
+.badge.live .dot {background:#35d17a}
+.badge.soon .dot {background:#7aa2f7}
+.card-top {display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+
 /* Cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;padding:30px 20px 70px}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
