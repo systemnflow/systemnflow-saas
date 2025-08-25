@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Risk Radar — System & Flow</title>
+  <meta name="description" content="Auto-surface top project risks with AI-suggested mitigations." />
+  <link rel="canonical" href="https://systemnflow.com/apps/risk-radar.html" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0b1220" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/favicon.ico" />
+</head>
+<body class="dark">
+  <header class="wrap header">
+    <div class="brand"><a href="/"><img src="/logo.png" alt="System & Flow" class="logo-icon" /><span class="brand-name">System &amp; Flow</span></a></div>
+    <nav class="nav"><a href="/">Home</a><a href="/apps.html">Apps</a><a href="/pricing.html">Pricing</a><a href="/contact.html">Contact</a></nav>
+  </header>
+
+  <main class="wrap hero">
+    <div class="card-top"><h1>Risk Radar</h1><span class="badge soon"><span class="dot"></span> Coming soon</span></div>
+    <p class="sub">AI-powered radar that flags risks before they explode.</p>
+  </main>
+
+  <section class="wrap" style="max-width:800px;padding:0 20px 50px">
+    <div class="card">
+      <h3>Planned features</h3>
+      <ul style="color:var(--muted);line-height:1.6">
+        <li>Automatic risk extraction from notes/status</li>
+        <li>AI-suggested mitigations</li>
+        <li>Risk scoring + history view</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Join the waitlist</h3>
+      <form id="rr-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form">
+        <input type="email" name="email" required placeholder="Email for Risk Radar updates" />
+        <input type="hidden" name="_subject" value="Risk Radar waitlist — systemnflow.com" />
+        <div class="actions"><button class="btn primary">Join</button></div>
+      </form>
+      <div id="rr-wait-ok" class="success">✅ Added to Risk Radar waitlist.</div>
+    </div>
+  </section>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/include.js" defer></script>
+  <script>
+    const rr=document.getElementById('rr-wait'), ok=document.getElementById('rr-wait-ok');
+    if(rr){rr.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const r=await fetch(rr.action,{method:'POST',body:new FormData(rr),headers:{'Accept':'application/json'}});
+      if(r.ok){rr.style.display='none';ok.style.display='block';}
+      else alert('Please try again.');});
+    }
+  </script>
+</body>
+</html>
