@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <!-- Primary SEO -->
-  <title>System & Flow — Project Management. Simplified.</title>
-  <meta name="description" content="Built by project managers, for project managers. System & Flow delivers lightweight SaaS apps and AI prompts that cut through chaos and make execution simple." />
+  <title>System & Flow — SaaS Apps & AI Prompts for Project Managers</title>
+  <meta name="description" content="Built by project managers, for project managers. Lightweight SaaS apps and AI prompts that cut through chaos and make execution simple." />
   <link rel="canonical" href="https://systemnflow.com/" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
@@ -15,14 +15,14 @@
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="System & Flow — Project Management. Simplified." />
-  <meta property="og:description" content="Built by project managers, for project managers. Lightweight SaaS apps and AI prompts that make PM work faster, easier, and smarter." />
+  <meta property="og:description" content="Lightweight SaaS apps and AI prompts for PMs. Faster, smarter execution without the chaos." />
   <meta property="og:url" content="https://systemnflow.com/" />
   <meta property="og:image" content="https://systemnflow.com/SNF_logo.png" />
   <meta property="og:site_name" content="System & Flow" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="System & Flow — Project Management. Simplified." />
-  <meta name="twitter:description" content="Built by project managers, for project managers. Lightweight SaaS apps and AI prompts that make PM work faster, easier, and smarter." />
+  <meta name="twitter:description" content="Lightweight SaaS apps and AI prompts for PMs. Faster, smarter execution without the chaos." />
   <meta name="twitter:image" content="https://systemnflow.com/SNF_logo.png" />
 
   <!-- JSON‑LD (Organization) -->
@@ -49,6 +49,22 @@
   <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" href="/favicon.ico" />
 
+  <!-- Small page‑scoped polish (badges) -->
+  <style>
+    .badge{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 10px; border-radius:999px;
+      background:#0f1f14; border:1px solid var(--border);
+      color:var(--muted); font-size:12px; line-height:1;
+      white-space:nowrap;
+    }
+    .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--muted)}
+    .badge.live .dot{background:#35d17a}
+    .badge.soon .dot{background:#7aa2f7}
+    .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+    .cta-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  </style>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
   <script>
@@ -63,7 +79,6 @@
   <!-- Header / Navbar -->
   <header class="wrap header">
     <div class="brand">
-      <!-- Logo clickable back to home -->
       <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
         <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
         <span class="brand-name">System &amp; Flow</span>
@@ -84,55 +99,82 @@
       Built <strong>by project managers, for project managers</strong> — System &amp; Flow delivers
       lightweight SaaS apps and AI prompts that cut through chaos and make execution simple.
     </p>
-    <div class="cta" style="gap:10px;flex-wrap:wrap;justify-content:center;">
-      <a class="btn primary" href="/apps.html">Explore Tools</a>
-      <a class="btn ghost" href="/contact.html">Join the List</a>
+
+    <div class="cta-row" role="group" aria-label="Primary actions">
+      <a class="btn primary" href="/apps.html" aria-label="Explore apps and AI prompts">Explore Tools</a>
+      <a class="btn ghost" href="/contact.html" aria-label="Join the email list for launch updates">Join the List</a>
     </div>
 
     <!-- Newsletter inline form -->
     <section class="signup-inline" style="margin-top:20px;">
-      <form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:500px;margin:0 auto;">
+      <form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST"
+            class="newsletter-form" aria-label="Join the newsletter"
+            style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:520px;margin:0 auto;">
         <input type="email" name="email" required placeholder="Email for specials & updates"
+               aria-label="Email address"
                style="flex:1;min-width:220px;padding:12px;border-radius:10px;border:1px solid var(--border);background:#0f1726;color:var(--ink)" />
         <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px">
-          <input type="checkbox" name="marketing_consent" required />
+          <input type="checkbox" name="marketing_consent" required aria-label="Consent to receive emails" />
           I agree to receive emails.
         </label>
-        <button class="btn primary" type="submit">Join</button>
+        <button class="btn primary" type="submit" aria-label="Join the newsletter">Join</button>
 
         <!-- Honeypot -->
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-        <!-- Metadata -->
         <input type="hidden" name="_subject" value="Newsletter signup — systemnflow.com" />
       </form>
 
       <!-- Success message -->
-      <div id="newsletter-success" class="success" style="display:none;text-align:center;margin-top:15px;padding:12px;background:#0f1f14;border:1px solid #1f5d38;color:#c9f1dc;border-radius:10px;">
+      <div id="newsletter-success" class="success"
+           style="display:none;text-align:center;margin-top:15px;padding:12px;background:#0f1f14;border:1px solid #1f5d38;color:#c9f1dc;border-radius:10px;">
         ✅ Thanks for joining! Check your inbox soon.
       </div>
     </section>
   </main>
 
-  <!-- Cards -->
+  <!-- Featured apps (match Apps page look) -->
   <section class="wrap grid">
+    <!-- Transcript Analyzer -->
     <div class="card">
-      <div class="card-icon">📄</div>
-      <h3>Transcript Analyzer (Free)</h3>
-      <p>Extract Actions, Risks, Decisions from meeting notes in seconds.</p>
-      <a class="btn ghost" href="/apps.html">Learn More</a>
+      <div class="card-top">
+        <h3 style="margin:0">Transcript Analyzer (Free)</h3>
+        <span class="badge live" aria-label="Live">
+          <span class="dot" aria-hidden="true"></span> Live
+        </span>
+      </div>
+      <p>Turn raw meeting notes into <strong>Actions, Risks, and Decisions</strong> in seconds.</p>
+      <div class="card-actions">
+        <a class="btn primary" href="/apps.html" aria-label="Open Transcript Analyzer">Open</a>
+        <a class="btn ghost" href="/apps.html" aria-label="Read documentation for Transcript Analyzer">Docs</a>
+      </div>
     </div>
+
+    <!-- Status Report Generator -->
     <div class="card">
-      <div class="card-icon">📑</div>
-      <h3>Status Report Generator</h3>
-      <p>Exec‑ready one‑pagers with export to PDF/Markdown.</p>
-      <a class="btn ghost" href="/apps.html">Learn More</a>
+      <div class="card-top">
+        <h3 style="margin:0">Status Report Generator</h3>
+        <span class="badge soon" aria-label="Coming soon">
+          <span class="dot" aria-hidden="true"></span> Coming&nbsp;Soon
+        </span>
+      </div>
+      <p>Create <strong>exec‑ready one‑pagers</strong> with instant export to PDF or Markdown.</p>
+      <div class="card-actions">
+        <a class="btn ghost" href="/apps.html" aria-label="Get notified about Status Report Generator">Get Notified</a>
+      </div>
     </div>
+
+    <!-- Risk Radar -->
     <div class="card">
-      <div class="card-icon">⚠️</div>
-      <h3>Risk Radar</h3>
-      <p>Auto‑surface top risks with suggested mitigations.</p>
-      <a class="btn ghost" href="/apps.html">Learn More</a>
+      <div class="card-top">
+        <h3 style="margin:0">Risk Radar</h3>
+        <span class="badge soon" aria-label="Coming soon">
+          <span class="dot" aria-hidden="true"></span> Coming&nbsp;Soon
+        </span>
+      </div>
+      <p>Automatically flag top project risks — with <strong>AI‑suggested mitigations</strong>.</p>
+      <div class="card-actions">
+        <a class="btn ghost" href="/apps.html" aria-label="Get notified about Risk Radar">Get Notified</a>
+      </div>
     </div>
   </section>
 
@@ -148,19 +190,23 @@
         e.preventDefault();
         const form = e.target;
         const data = new FormData(form);
-        const resp = await fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (resp.ok) {
-          form.style.display = "none";
-          document.getElementById("newsletter-success").style.display = "block";
-          if (typeof gtag === 'function') {
-            gtag('event', 'newsletter_signup', { method: 'Formspree' });
+        try {
+          const resp = await fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (resp.ok) {
+            form.style.display = "none";
+            document.getElementById("newsletter-success").style.display = "block";
+            if (typeof gtag === 'function') {
+              gtag('event', 'newsletter_signup', { method: 'Formspree' });
+            }
+          } else {
+            alert("Oops! Something went wrong. Please try again.");
           }
-        } else {
-          alert("Oops! Something went wrong. Please try again.");
+        } catch {
+          alert("Network error. Please try again.");
         }
       });
     }
