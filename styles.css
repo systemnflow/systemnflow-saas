@@ -1,226 +1,204 @@
-/* ===============================
-   THEME
-   =============================== */
-:root {
-  --bg: #0b1220;        /* deep navy */
-  --panel: #121a2b;     /* slightly lighter navy */
-  --ink: #e6e9ef;       /* light text */
-  --muted: #9aa4b2;     /* secondary text */
-  --copper: #b8753d;    /* copper accent */
-  --border: #1e2a41;    /* borders */
+/* ================================
+   Theme
+   ================================ */
+:root{
+  --bg:#0b1220;        /* deep navy */
+  --panel:#121a2b;     /* slightly lighter navy */
+  --ink:#e6e9ef;       /* light text */
+  --muted:#9aa4b2;     /* secondary text */
+  --copper:#b8753d;    /* copper accent */
+  --border:#1e2a41;    /* borders */
 }
 
-/* ===============================
-   BASE
-   =============================== */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body.dark {
-  background: var(--bg);
-  color: var(--ink);
+/* ================================
+   Base
+   ================================ */
+*{ box-sizing:border-box }
+html,body{ margin:0; padding:0 }
+body.dark{
+  background:var(--bg);
+  color:var(--ink);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial;
 }
-a { color: inherit; }
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--copper);
-  outline-offset: 2px;
-  border-radius: 8px;
+
+.wrap{ max-width:1100px; margin:0 auto; padding:20px }
+
+/* ================================
+   Header / Navbar
+   ================================ */
+.header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 20px;
+}
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand-name{ white-space:nowrap; font-weight:700; letter-spacing:.2px }
+.logo-icon{ height:28px; width:auto; display:block }
+.brand img{ height:28px; width:auto; display:block }
+
+.nav{ display:flex; gap:16px }
+.nav a{ color:var(--muted); font-size:14px; text-decoration:none }
+.nav a:hover{ color:var(--ink) }
+
+/* ================================
+   Hero
+   ================================ */
+.hero{
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  padding:80px 20px 24px;
+}
+.logo-hero{
+  width:min(300px,70vw); height:auto; display:block; margin:0 auto 18px;
+  filter:drop-shadow(0 6px 24px rgba(0,0,0,.35));
+}
+.hero h1{
+  font-size:42px; line-height:1.1; margin:8px 0 6px;   /* tighter under-headline */
+}
+.sub{
+  color:var(--muted); max-width:720px; margin:0 auto 6px;  /* closer to buttons */
+}
+.cta{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px }
+
+/* ================================
+   Buttons
+   ================================ */
+.btn{
+  padding:12px 16px; border-radius:12px; border:1px solid var(--border);
+  text-decoration:none; display:inline-block;
+}
+.btn.primary{ background:var(--copper); border-color:var(--copper); color:#111; font-weight:600 }
+.btn.ghost{ background:transparent; color:var(--ink) }
+
+/* ================================
+   Badges
+   ================================ */
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px; border-radius:999px;
+  background:#0f1f14; border:1px solid var(--border);
+  color:var(--muted); font-size:12px; line-height:1; white-space:nowrap;
+}
+.badge .dot{ width:6px; height:6px; border-radius:50%; background:var(--muted) }
+.badge.live .dot{ background:#35d17a }
+.badge.soon .dot{ background:#7aa2f7 }
+.card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px }
+
+/* ================================
+   Cards (Equal Height + Uniform Buttons)
+   ================================ */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+  padding:30px 20px 70px;
+  align-items:stretch;                 /* stretch cards to equal height per row */
 }
 
-/* Layout helper */
-.wrap { max-width: 1100px; margin: 0 auto; padding: 20px; }
-
-/* ===============================
-   HEADER / NAVBAR
-   =============================== */
-.header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px;
-}
-.brand { display: flex; align-items: center; gap: 10px; }
-.brand-name { white-space: nowrap; font-weight: 700; letter-spacing: .2px; }
-
-/* small icon in nav */
-.logo-icon {
-  height: 28px !important; width: auto !important; display: block;
-}
-.brand img { height: 28px; width: auto; display: block; }
-
-.nav { display: flex; gap: 16px; }
-.nav a {
-  color: var(--muted); font-size: 14px; text-decoration: none;
-}
-.nav a:hover { color: var(--ink); }
-
-/* ===============================
-   HERO
-   =============================== */
-.hero {
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center; padding: 80px 20px 24px;
-}
-.logo-hero {
-  width: min(300px, 70vw); height: auto; display: block; margin: 0 auto 18px;
-  filter: drop-shadow(0 6px 24px rgba(0,0,0,.35));
-}
-.hero h1 { font-size: 42px; line-height: 1.1; margin: 8px 0 10px; }
-.sub { color: var(--muted); max-width: 720px; margin: 8px auto 0; }
-
-/* Hero spacing */
-.hero { padding: 72px 20px 24px; }         /* slightly less top padding */
-.hero h1 { margin: 8px 0 6px; }            /* tighter under the headline */
-.hero .sub { margin: 6px auto 0; }         /* small gap above the buttons */
-.hero .cta { margin-top: 10px; }           /* small, consistent gap */
-
-/* ===============================
-   BUTTONS
-   =============================== */
-.btn {
-  padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border);
-  text-decoration: none; display: inline-block; transition: all .2s ease;
-}
-.btn.primary {
-  background: var(--copper); border-color: var(--copper);
-  color: #111; font-weight: 600;
-}
-.btn.primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
-.btn.ghost { background: transparent; color: var(--ink); }
-.btn.ghost:hover { background: rgba(255,255,255,.04); transform: translateY(-1px); }
-
-.cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin: 8px 0 0; }
-
-/* ===============================
-   BADGES
-   =============================== */
-.badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 10px; border-radius: 999px;
-  background: #0f1f14; border: 1px solid var(--border);
-  color: var(--muted); font-size: 12px; line-height: 1; white-space: nowrap;
-}
-.badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
-.badge.live .dot { background: #35d17a; }   /* green */
-.badge.soon .dot { background: #7aa2f7; }   /* blue */
-.badge.preview .dot { background: #f59e0b; }/* amber */
-.card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-
-/* ===============================
-   CARDS / GRID
-   =============================== */
-.grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px; padding: 30px 20px 70px;
-}
-.card {
-  background: var(--panel); border: 1px solid var(--border);
-  border-radius: 16px; padding: 18px;
-  display: flex; flex-direction: column; gap: 10px;
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,.25);
-  border-color: #233156;
-}
-.card h3 { margin: .2rem 0 .25rem; font-weight: 700; }
-.card p { color: var(--muted); margin: 0 0 6px; }
-.card-icon { font-size: 28px; margin-bottom: 6px; }
-.grid .card .cta { margin-top: 4px; gap: 10px; }
-
-/* Card action buttons: consistent size */
-.card .card-actions {
-  display: flex;
-  gap: 10px;
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  display:flex;                        /* flex column to pin buttons to bottom */
+  flex-direction:column;
+  min-height: 240px;                   /* safety floor for small-content cards */
 }
 
-.card .card-actions .btn {
-  width: 120px;                 /* <-- uniform width */
-  text-align: center;
-  padding: 10px 12px;           /* consistent height */
-  white-space: nowrap;          /* keep labels on one line */
+.card-icon{ font-size:28px; margin-bottom:6px }
+.card h3{ margin:.2rem 0 .1rem; font-weight:700 }
+.card p{ color:var(--muted); margin:0 0 6px }
+
+/* Push actions to bottom and keep them uniform */
+.card .card-actions{
+  margin-top:auto;                     /* pins actions to the bottom */
+  display:flex; gap:10px;
 }
 
-/* Mobile: let them grow fluidly */
-@media (max-width: 560px) {
-  .card .card-actions .btn {
-    width: auto;
-    flex: 1;                    /* both buttons become equal flexible width */
+.card .card-actions .btn{
+  flex:1;                              /* equal widths inside a card */
+  min-width:120px;
+  text-align:center;
+  padding:10px 12px;                   /* consistent height */
+  white-space:nowrap;
 }
 
-/* ===============================
-   FORMS (shared)
-   =============================== */
-.form, .newsletter-form {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
+/* Mobile: stacked buttons */
+@media (max-width:560px){
+  .card .card-actions{ flex-direction:column }
+  .card .card-actions .btn{ width:100%; min-width:unset }
+}
+
+/* ================================
+   Forms (newsletter + contact)
+   ================================ */
+.form,
+.newsletter-form{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
 }
 
 .form input[type="text"],
 .form input[type="email"],
 .form textarea,
-.newsletter-form input[type="email"] {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #0f1726;
-  color: var(--ink);
+.newsletter-form input[type="email"]{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#0f1726;
+  color:var(--ink);
 }
 
-.form .consent, .newsletter-form .consent {
-  display: flex; align-items: center; gap: 8px;
-  color: var(--muted); font-size: 14px;
-}
-.form .actions, .newsletter-form .actions {
-  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+.form .consent,
+.newsletter-form .consent{
+  display:flex; align-items:center; gap:8px;
+  color:var(--muted); font-size:14px;
 }
 
-/* Inline signup container */
-.signup-inline {
-  display: grid; gap: 10px; justify-items: center;
-  margin: 8px auto 0; padding: 16px;
-  background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
-  max-width: 720px;
-}
-.signup-inline .field {
-  width: 100%; max-width: 480px; padding: 12px;
-  border-radius: 10px; border: 1px solid var(--border);
-  background: #0f1726; color: var(--ink);
+.form .actions,
+.newsletter-form .actions{
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
 }
 
-/* Success banner */
-.success {
-  display: none;            /* shown via JS on success */
-  margin-top: 12px; padding: 12px; border-radius: 10px;
-  background: #0f1f14; border: 1px solid #1f5d38; color: #c9f1dc;
-  font-size: .95rem; max-width: 720px;
+/* Inline signup wrapper */
+.signup-inline{
+  display:grid; gap:10px; justify-items:center;
+  margin:8px auto 0; padding:16px;
+  background:var(--panel); border:1px solid var(--border); border-radius:14px;
+  max-width:720px;
+}
+.signup-inline .field{
+  width:100%; max-width:480px; padding:12px; border-radius:10px;
+  border:1px solid var(--border); background:#0f1726; color:var(--ink);
 }
 
-/* ===============================
-   FOOTER (compact)
-   =============================== */
-.footer-min {
-  border-top: 1px solid var(--border);
-  padding: 18px 0;
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: .85rem; color: var(--muted);
+/* Success panel */
+.success{
+  display:none;
+  margin:12px auto 0; padding:12px;
+  border-radius:10px; max-width:720px;
+  background:#0f1f14; border:1px solid #1f5d38; color:#c9f1dc; font-size:.95rem;
 }
-.footer-min .foot-left { display: flex; align-items: center; gap: 8px; }
-.footer-min .logo-icon { width: 22px; height: 22px; border-radius: 6px; }
-.footer-min .brand { font-weight: 600; color: #e2e8f0; }
 
-.footer-min .foot-right { display: flex; align-items: center; gap: 14px; }
-.footer-min a { color: #cbd5e1; text-decoration: none; }
-.footer-min a:hover { color: #ffffff; }
-.footer-min .divider { opacity: .5; }
+/* ================================
+   Footer (compact)
+   ================================ */
+.footer-min{
+  border-top:1px solid var(--border);
+  padding:14px 0;
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:.85rem; color:var(--muted);
+}
+.footer-min .foot-left{ display:flex; align-items:center; gap:8px }
+.footer-min .logo-icon{ width:22px; height:22px; border-radius:6px }
+.footer-min .brand{ font-weight:600; color:#e2e8f0 }
+.footer-min .foot-right{ display:flex; align-items:center; gap:14px; flex-wrap:wrap }
+.footer-min a{ color:#cbd5e1; text-decoration:none }
+.footer-min a:hover{ color:#ffffff }
+.footer-min .divider{ opacity:.5 }
 
-/* Responsive footer stack */
-@media (max-width: 720px) {
-  .footer-min { flex-direction: column; gap: 8px; text-align: center; }
-  .footer-min .foot-right { gap: 12px; flex-wrap: wrap; justify-content: center; }
+@media (max-width:720px){
+  .footer-min{ flex-direction:column; gap:8px; text-align:center }
+  .footer-min .foot-right{ gap:12px; flex-wrap:wrap; justify-content:center }
 }
