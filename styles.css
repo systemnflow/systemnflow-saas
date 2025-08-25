@@ -130,6 +130,26 @@ textarea:focus-visible {
 .card-icon { font-size: 28px; margin-bottom: 6px; }
 .grid .card .cta { margin-top: 4px; gap: 10px; }
 
+/* Card action buttons: consistent size */
+.card .card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.card .card-actions .btn {
+  width: 120px;                 /* <-- uniform width */
+  text-align: center;
+  padding: 10px 12px;           /* consistent height */
+  white-space: nowrap;          /* keep labels on one line */
+}
+
+/* Mobile: let them grow fluidly */
+@media (max-width: 560px) {
+  .card .card-actions .btn {
+    width: auto;
+    flex: 1;                    /* both buttons become equal flexible width */
+}
+
 /* ===============================
    FORMS (shared)
    =============================== */
