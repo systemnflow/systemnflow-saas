@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Prompt Pack for PMs — System & Flow</title>
+  <meta name="description" content="50+ prompts crafted by PMs to supercharge planning, reporting, and team alignment." />
+  <link rel="canonical" href="https://systemnflow.com/apps/ai-prompt-pack.html" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0b1220" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/favicon.ico" />
+</head>
+<body class="dark">
+  <header class="wrap header">
+    <div class="brand"><a href="/"><img src="/logo.png" alt="System & Flow" class="logo-icon" /><span class="brand-name">System &amp; Flow</span></a></div>
+    <nav class="nav"><a href="/">Home</a><a href="/apps.html">Apps</a><a href="/pricing.html">Pricing</a><a href="/contact.html">Contact</a></nav>
+  </header>
+
+  <main class="wrap hero">
+    <div class="card-top"><h1>AI Prompt Pack for PMs</h1><span class="badge soon"><span class="dot"></span> Coming soon</span></div>
+    <p class="sub">50+ prompts crafted by PMs to save time and sharpen execution.</p>
+  </main>
+
+  <section class="wrap" style="max-width:800px;padding:0 20px 50px">
+    <div class="card">
+      <h3>What you’ll get</h3>
+      <ul style="color:var(--muted);line-height:1.6">
+        <li>Planning prompts: scope, WBS, schedules</li>
+        <li>Status/reporting prompts</li>
+        <li>Risk & issue prompts</li>
+        <li>Team alignment prompts</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Be first to know</h3>
+      <form id="pp-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form">
+        <input type="email" name="email" required placeholder="Email for Prompt Pack updates" />
+        <input type="hidden" name="_subject" value="AI Prompt Pack waitlist — systemnflow.com" />
+        <div class="actions"><button class="btn primary">Join</button></div>
+      </form>
+      <div id="pp-wait-ok" class="success">✅ Added to Prompt Pack waitlist.</div>
+    </div>
+  </section>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/include.js" defer></script>
+  <script>
+    const pp=document.getElementById('pp-wait'), ok=document.getElementById('pp-wait-ok');
+    if(pp){pp.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const r=await fetch(pp.action,{method:'POST',body:new FormData(pp),headers:{'Accept':'application/json'}});
+      if(r.ok){pp.style.display='none';ok.style.display='block';}
+      else alert('Please try again.');});
+    }
+  </script>
+</body>
+</html>
