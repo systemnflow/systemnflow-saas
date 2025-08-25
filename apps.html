@@ -24,22 +24,51 @@
   <meta name="twitter:description" content="SaaS apps and AI prompts designed by project managers, for project managers. Faster, smarter execution without the chaos." />
   <meta name="twitter:image" content="https://systemnflow.com/SNF_logo.png" />
 
-  <!-- JSON-LD -->
+  <!-- JSON-LD (ItemList of Products) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Project Management SaaS Apps & AI Prompts | System & Flow",
+    "@type": "ItemList",
+    "name": "System & Flow Apps",
     "url": "https://systemnflow.com/apps.html",
-    "about": {
-      "@type": "Thing",
-      "name": "Project management SaaS apps and AI prompt packs"
-    },
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "System & Flow",
-      "url": "https://systemnflow.com/"
-    }
+    "itemListElement": [
+      {
+        "@type": "Product",
+        "position": 1,
+        "name": "Transcript Analyzer",
+        "description": "Turn raw meeting notes into Actions, Risks, and Decisions in seconds.",
+        "brand": { "@type": "Brand", "name": "System & Flow" },
+        "url": "https://systemnflow.com/apps.html#transcript-analyzer",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "Product",
+        "position": 2,
+        "name": "Status Report Generator",
+        "description": "Create exec-ready one-pagers with instant export to PDF or Markdown.",
+        "brand": { "@type": "Brand", "name": "System & Flow" },
+        "url": "https://systemnflow.com/apps.html#status-report-generator",
+        "offers": { "@type": "Offer", "price": "19", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "Product",
+        "position": 3,
+        "name": "Risk Radar",
+        "description": "Automatically flag top project risks with AI-suggested mitigations.",
+        "brand": { "@type": "Brand", "name": "System & Flow" },
+        "url": "https://systemnflow.com/apps.html#risk-radar",
+        "offers": { "@type": "Offer", "price": "19", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "Product",
+        "position": 4,
+        "name": "AI Prompt Pack for PMs",
+        "description": "50+ prompts crafted by PMs to supercharge planning, reporting, and alignment.",
+        "brand": { "@type": "Brand", "name": "System & Flow" },
+        "url": "https://systemnflow.com/apps.html#ai-prompt-pack",
+        "offers": { "@type": "Offer", "price": "29", "priceCurrency": "USD" }
+      }
+    ]
   }
   </script>
 
@@ -50,6 +79,19 @@
   <!-- Styles & Favicon -->
   <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" href="/favicon.ico" />
+
+  <!-- Tiny badge style just for this page -->
+  <style>
+    .badge {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:12px; letter-spacing:.2px;
+      padding:4px 8px; border-radius:999px;
+      background:#1b2a43; color:#b9d4ff; border:1px solid #2e436a;
+    }
+    .badge:before { content: "•"; font-size:14px; line-height:0; }
+    .card-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .card .card-actions .btn[disabled] { opacity:.6; cursor:not-allowed; }
+  </style>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
@@ -86,9 +128,12 @@
   <!-- App cards -->
   <section class="wrap grid">
     <!-- 1) Transcript Analyzer (Free) -->
-    <div class="card">
+    <div class="card" id="transcript-analyzer">
       <div class="card-icon">📄</div>
-      <h3>Transcript Analyzer (Free)</h3>
+      <div class="card-head">
+        <h3>Transcript Analyzer (Free)</h3>
+        <span class="badge" title="Live and ready">Live</span>
+      </div>
       <p>Turn raw meeting notes into <strong>Actions, Risks, and Decisions</strong> in seconds.</p>
       <div class="card-actions">
         <a class="btn primary" href="#" rel="nofollow">Open</a>
@@ -97,35 +142,44 @@
     </div>
 
     <!-- 2) Status Report Generator -->
-    <div class="card">
+    <div class="card" id="status-report-generator">
       <div class="card-icon">📑</div>
-      <h3>Status Report Generator</h3>
+      <div class="card-head">
+        <h3>Status Report Generator</h3>
+        <span class="badge" title="Launching soon">Coming Soon</span>
+      </div>
       <p>Create <strong>exec-ready one-pagers</strong> with instant export to PDF or Markdown.</p>
       <div class="card-actions">
-        <a class="btn primary" href="#" rel="nofollow">Open</a>
-        <a class="btn ghost" href="#" rel="nofollow">Learn More</a>
+        <button class="btn primary" disabled>Open</button>
+        <a class="btn ghost" href="/contact.html">Get Notified</a>
       </div>
     </div>
 
     <!-- 3) Risk Radar -->
-    <div class="card">
+    <div class="card" id="risk-radar">
       <div class="card-icon">⚠️</div>
-      <h3>Risk Radar</h3>
-      <p>Automatically flag top project risks — complete with <strong>AI-suggested mitigations</strong>.</p>
+      <div class="card-head">
+        <h3>Risk Radar</h3>
+        <span class="badge" title="Launching soon">Coming Soon</span>
+      </div>
+      <p>Automatically flag top project risks — complete with <strong>AI‑suggested mitigations</strong>.</p>
       <div class="card-actions">
-        <a class="btn primary" href="#" rel="nofollow">Open</a>
-        <a class="btn ghost" href="#" rel="nofollow">Learn More</a>
+        <button class="btn primary" disabled>Open</button>
+        <a class="btn ghost" href="/contact.html">Get Notified</a>
       </div>
     </div>
 
     <!-- 4) AI Prompt Pack -->
-    <div class="card">
+    <div class="card" id="ai-prompt-pack">
       <div class="card-icon">🤖</div>
-      <h3>AI Prompt Pack for PMs</h3>
+      <div class="card-head">
+        <h3>AI Prompt Pack for PMs</h3>
+        <span class="badge" title="Preview coming soon">Coming Soon</span>
+      </div>
       <p>50+ prompts crafted by PMs to supercharge <strong>planning, reporting, and team alignment</strong>.</p>
       <div class="card-actions">
-        <a class="btn primary" href="#" rel="nofollow">Preview</a>
-        <a class="btn ghost" href="/contact.html">Get Updates</a>
+        <button class="btn primary" disabled>Preview</button>
+        <a class="btn ghost" href="/contact.html">Get Notified</a>
       </div>
     </div>
   </section>
