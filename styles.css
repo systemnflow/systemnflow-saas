@@ -8,6 +8,8 @@
   --muted:#9aa4b2;     /* secondary text */
   --copper:#b8753d;    /* copper accent */
   --border:#1e2a41;    /* borders */
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --shadow-lift: 0 14px 38px rgba(0,0,0,.45);
 }
 
 /* ================================
@@ -64,9 +66,11 @@ body.dark{
 .btn{
   padding:12px 16px; border-radius:12px; border:1px solid var(--border);
   text-decoration:none; display:inline-block;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
 }
 .btn.primary{ background:var(--copper); border-color:var(--copper); color:#111; font-weight:600 }
 .btn.ghost{ background:transparent; color:var(--ink) }
+.btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
 
 /* ================================
    Badges
@@ -83,7 +87,7 @@ body.dark{
 .card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px }
 
 /* ================================
-   Cards (Equal Height + Uniform Buttons)
+   Cards (Equal Height + Uniform Buttons + Hover Lift)
    ================================ */
 .grid{
   display:grid;
@@ -101,6 +105,17 @@ body.dark{
   display:flex;                        /* flex column to pin buttons to bottom */
   flex-direction:column;
   min-height: 240px;                   /* safety floor for small-content cards */
+
+  /* ✨ motion */
+  box-shadow: var(--shadow);
+  transform: translateY(0);
+  transition: transform .22s cubic-bezier(.2,.6,.3,1), box-shadow .22s ease, border-color .22s ease;
+}
+.card:hover,
+.card:focus-within{                    /* keyboard focus gets the same affordance */
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+  border-color: #253554;
 }
 
 .card-icon{ font-size:28px; margin-bottom:6px }
@@ -125,6 +140,12 @@ body.dark{
 @media (max-width:560px){
   .card .card-actions{ flex-direction:column }
   .card .card-actions .btn{ width:100%; min-width:unset }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .card, .btn{ transition:none !important; }
+  .card:hover, .card:focus-within, .btn:hover{ transform:none !important; box-shadow:var(--shadow) !important; }
 }
 
 /* ================================
