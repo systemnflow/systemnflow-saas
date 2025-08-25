@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Pricing — System & Flow</title>
+  <meta name="description" content="Simple pricing for lightweight PM SaaS apps and AI prompts. Built by project managers, for project managers." />
+  <link rel="canonical" href="https://systemnflow.com/pricing.html" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0b1220" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pricing — System & Flow" />
+  <meta property="og:description" content="Simple pricing for lightweight PM SaaS apps and AI prompts." />
+  <meta property="og:url" content="https://systemnflow.com/pricing.html" />
+  <meta property="og:image" content="https://systemnflow.com/SNF_logo.png" />
+  <meta property="og:site_name" content="System & Flow" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pricing — System & Flow" />
+  <meta name="twitter:description" content="Simple pricing for lightweight PM SaaS apps and AI prompts." />
+  <meta name="twitter:image" content="https://systemnflow.com/SNF_logo.png" />
+
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <link rel="preload" href="/styles.css" as="style" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-1FRFWG4X18');</script>
+</head>
+<body class="dark">
+  <header class="wrap header">
+    <div class="brand">
+      <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+        <span class="brand-name">System &amp; Flow</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="/pricing.html" aria-current="page">Pricing</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap hero" style="padding:60px 20px 14px">
+    <h1>Simple pricing</h1>
+    <p class="sub">Built by PMs, for PMs. Start free. Upgrade when you’re ready.</p>
+  </main>
+
+  <section class="wrap grid" style="align-items:start">
+    <!-- Free -->
+    <div class="card">
+      <div class="card-top">
+        <h3>Free</h3>
+        <span class="badge live"><span class="dot"></span> Live</span>
+      </div>
+      <p class="muted">Transcript Analyzer • Email updates</p>
+      <ul style="margin:6px 0 10px 18px;color:var(--muted);line-height:1.6">
+        <li>Actions / Risks / Decisions extraction</li>
+        <li>Paste or upload transcript (light size)</li>
+        <li>Basic copy/export</li>
+      </ul>
+      <div class="cta">
+        <a class="btn primary" href="/apps.html">Start free</a>
+      </div>
+    </div>
+
+    <!-- Pro -->
+    <div class="card">
+      <div class="card-top">
+        <h3>Pro</h3>
+        <span class="badge soon"><span class="dot"></span> Coming soon</span>
+      </div>
+      <p class="muted">Status Report Generator + advanced exports</p>
+      <ul style="margin:6px 0 10px 18px;color:var(--muted);line-height:1.6">
+        <li>Exec‑ready one‑pagers</li>
+        <li>PDF / Markdown exports</li>
+        <li>Save/share report presets</li>
+      </ul>
+      <form id="pro-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form">
+        <input type="email" name="email" required placeholder="Email to get early access" />
+        <input type="hidden" name="_subject" value="Pro waitlist — systemnflow.com" />
+        <div class="actions">
+          <button class="btn primary" type="submit">Join waitlist</button>
+        </div>
+      </form>
+      <div id="pro-wait-ok" class="success">✅ Added to Pro waitlist.</div>
+    </div>
+
+    <!-- Suite -->
+    <div class="card">
+      <div class="card-top">
+        <h3>Suite</h3>
+        <span class="badge soon"><span class="dot"></span> Coming soon</span>
+      </div>
+      <p class="muted">Risk Radar • Report Mapper • AI Prompt Pack</p>
+      <ul style="margin:6px 0 10px 18px;color:var(--muted);line-height:1.6">
+        <li>All apps included</li>
+        <li>Priority updates</li>
+        <li>Founding customer perks</li>
+      </ul>
+      <form id="suite-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form">
+        <input type="email" name="email" required placeholder="Email to get suite updates" />
+        <input type="hidden" name="_subject" value="Suite waitlist — systemnflow.com" />
+        <div class="actions">
+          <button class="btn primary" type="submit">Join waitlist</button>
+        </div>
+      </form>
+      <div id="suite-wait-ok" class="success">✅ Added to Suite waitlist.</div>
+    </div>
+  </section>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/include.js" defer></script>
+  <script>
+    function hookWait(id, okId){
+      const f=document.getElementById(id), ok=document.getElementById(okId);
+      if(!f) return;
+      f.addEventListener('submit', async e=>{
+        e.preventDefault();
+        const resp = await fetch(f.action,{ method:'POST', body:new FormData(f), headers:{'Accept':'application/json'}});
+        if(resp.ok){ f.style.display='none'; ok.style.display='block'; if(window.gtag) gtag('event','waitlist_join',{plan:id}); }
+        else alert('Please try again.');
+      });
+    }
+    hookWait('pro-wait','pro-wait-ok');
+    hookWait('suite-wait','suite-wait-ok');
+  </script>
+</body>
+</html>
