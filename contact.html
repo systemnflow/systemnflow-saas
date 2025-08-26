@@ -4,82 +4,53 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- Primary SEO -->
   <title>Contact System & Flow | Built by PMs, for PMs</title>
   <meta name="description" content="Questions about our PM SaaS apps or AI prompts? Contact System & Flow — built by project managers, for project managers." />
   <link rel="canonical" href="https://systemnflow.com/contact.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
 
-  <!-- Open Graph / Social -->
+  <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Contact System & Flow | Built by PMs, for PMs" />
   <meta property="og:description" content="Get in touch about lightweight PM SaaS apps and AI prompts that cut through chaos and make execution simple." />
   <meta property="og:url" content="https://systemnflow.com/contact.html" />
-  <meta property="og:image" content="https://systemnflow.com/SNF_logo.png" />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta property="og:site_name" content="System & Flow" />
-
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact System & Flow | Built by PMs, for PMs" />
   <meta name="twitter:description" content="Get in touch about lightweight PM SaaS apps and AI prompts that cut through chaos and make execution simple." />
-  <meta name="twitter:image" content="https://systemnflow.com/SNF_logo.png" />
+  <meta name="twitter:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
 
-  <!-- JSON‑LD (ContactPage) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "name": "Contact System & Flow",
-    "url": "https://systemnflow.com/contact.html",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "System & Flow",
-      "url": "https://systemnflow.com/"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "System & Flow",
-      "logo": { "@type": "ImageObject", "url": "https://systemnflow.com/logo.png" }
-    }
-  }
-  </script>
-
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
   <link rel="preload" href="/styles.css" as="style" />
-
-  <!-- Styles & Favicon -->
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="icon" href="/favicon.ico" />
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Favicons -->
+  <link rel="icon" href="/assets/img/favicon.ico" />
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/android-chrome-512x512.png" />
+
+  <!-- GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-1FRFWG4X18');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1FRFWG4X18');</script>
 
   <style>
     .form-wrap{max-width:680px;margin:0 auto;padding:24px 20px}
     form{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;display:grid;gap:12px}
     label{font-size:14px;color:var(--muted)}
-    input, textarea{
-      width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);
-      background:#0f1726;color:var(--ink)
-    }
+    input, textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#0f1726;color:var(--ink)}
     .consent{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14px}
     .success{background:#0f1f14;border:1px solid #1f5d38;color:#c9f1dc;padding:12px;border-radius:10px;margin-top:12px;display:none}
   </style>
 </head>
 <body class="dark">
-
-  <!-- Header / Navbar -->
   <header class="wrap header">
     <div class="brand">
       <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+        <img src="/assets/img/logo.png" alt="System & Flow icon" class="logo-icon" />
         <span class="brand-name">System &amp; Flow</span>
       </a>
     </div>
@@ -90,16 +61,11 @@
     </nav>
   </header>
 
-  <!-- Intro -->
   <main id="main" class="wrap hero" style="padding:60px 20px 14px">
     <h1>Contact / Join the List</h1>
-    <p class="sub">
-      Built <strong>by project managers, for project managers.</strong>
-      Ask us about SaaS app access, AI prompts, or early launch updates.
-    </p>
+    <p class="sub">Built <strong>by project managers, for project managers.</strong> Ask us about SaaS app access, AI prompts, or early launch updates.</p>
   </main>
 
-  <!-- Form -->
   <section class="wrap form-wrap">
     <form id="contact-form" action="https://formspree.io/f/mzzvlwqy" method="POST" novalidate>
       <label for="name">Name
@@ -119,49 +85,29 @@
         I agree to receive follow‑ups about this inquiry and occasional product updates.
       </label>
 
-      <!-- Anti-bot honeypot -->
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-      <!-- Optional metadata (no redirect; show inline success) -->
       <input type="hidden" name="_subject" value="New contact — systemnflow.com" />
 
       <button class="btn primary" type="submit">Send</button>
     </form>
 
-    <div id="contact-success" class="success">
-  ✅ Thanks for reaching out! We’ll reply soon.
-  <div style="margin-top:10px">
-    Want a head start? Grab the <strong>free AI Intro for PMs</strong> →
-    <a class="btn" href="/ai-intro.html" style="margin-left:6px">Open AI Intro</a>
-  </div>
-</div>
-
+    <div id="contact-success" class="success">✅ Thanks for reaching out! We’ll reply soon.</div>
   </section>
 
-  <!-- Footer -->
   <div data-include="/partials/footer.html"></div>
   <script src="/include.js" defer></script>
 
-  <!-- Inline success (prevents redirect) -->
   <script>
     const cf = document.getElementById("contact-form");
     if (cf) {
       cf.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        const resp = await fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
+        const data = new FormData(e.target);
+        const resp = await fetch(e.target.action, { method: 'POST', body: data, headers: { 'Accept':'application/json' }});
         if (resp.ok) {
-          form.style.display = "none";
+          e.target.style.display = "none";
           document.getElementById("contact-success").style.display = "block";
-          // GA event for tracking
-          if (typeof gtag === 'function') {
-            gtag('event', 'contact_submit', { method: 'Formspree' });
-          }
+          if (typeof gtag === 'function') gtag('event','contact_submit',{method:'Formspree'});
         } else {
           alert("Oops! Something went wrong. Please try again.");
         }
