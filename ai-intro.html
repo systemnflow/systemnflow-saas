@@ -3,76 +3,89 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Intro for PMs — Free | System & Flow</title>
-  <meta name="description" content="A quick-start guide to using AI as a project manager. Prompts, examples, and guardrails — free." />
+
+  <title>AI Intro for PMs — System & Flow</title>
+  <meta name="description" content="A free, practical introduction to using AI for project management—built by PMs, for PMs." />
   <link rel="canonical" href="https://systemnflow.com/ai-intro.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
+
+  <meta property="og:title" content="AI Intro for PMs — System & Flow" />
+  <meta property="og:description" content="A free, practical introduction to using AI for project management." />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
+  <meta property="og:url" content="https://systemnflow.com/ai-intro.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/assets/img/favicon.ico" />
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+
+  <!-- GA -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-1FRFWG4X18');</script>
 </head>
 <body class="dark">
   <header class="wrap header">
     <div class="brand">
-      <a href="/" aria-label="Go home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-        <img src="/logo.png" alt="System & Flow icon" class="logo-icon" />
+      <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="/assets/img/logo.png" alt="System & Flow icon" class="logo-icon" />
         <span class="brand-name">System &amp; Flow</span>
       </a>
     </div>
     <nav class="nav">
       <a href="/">Home</a>
       <a href="/apps.html">Apps</a>
+      <a href="/ai-intro.html" aria-current="page">AI Intro</a>
       <a href="/contact.html">Contact</a>
     </nav>
   </header>
 
   <main class="wrap hero" style="padding:60px 20px 14px">
-    <h1>AI Intro for PMs — Free</h1>
-    <p class="sub">Built by PMs, for PMs. Start using AI in your daily workflow today — safely and effectively.</p>
+    <h1>AI for PMs, minus the fluff.</h1>
+    <p class="sub">A short, practical starter: prompts that actually ship work, not just “cool demos.”</p>
   </main>
 
-  <section class="wrap" style="display:grid;gap:16px;padding:20px">
-    <div class="card">
-      <h3>What you’ll learn in 10 minutes</h3>
-      <ul style="margin-left:18px">
-        <li>How to frame a clear prompt (context, goal, constraints).</li>
-        <li>3 copy‑paste prompts for: meeting notes → actions, risk scan, and status drafts.</li>
-        <li>Guardrails: privacy, hallucinations, and when not to trust the output.</li>
-      </ul>
+  <section class="wrap" style="max-width:840px;padding:10px 20px 50px">
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+      <div class="card">
+        <h3>Meeting to Outcomes</h3>
+        <p>Turn raw notes into actions, risks, decisions—ready for your tracker.</p>
+      </div>
+      <div class="card">
+        <h3>Risk Surfacing</h3>
+        <p>Spot early signals and ask better “what if” questions.</p>
+      </div>
+      <div class="card">
+        <h3>Status Drafts</h3>
+        <p>Create crisp updates in your voice; keep the accountability.</p>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>Copy‑paste starter prompts</h3>
-      <p><strong>1) Meeting → Actions/Risks/Decisions</strong></p>
-      <pre style="white-space:pre-wrap">You are a project analyst. From the transcript below, return:
-- Actions (assignee, due date if mentioned)
-- Risks (severity, mitigation)
-- Decisions (owner, date)
-Transcript:
-[Paste transcript here]</pre>
-
-      <p><strong>2) Risk scan on tasks/issues</strong></p>
-      <pre style="white-space:pre-wrap">You are a risk analyst. From the task list, identify top 5 risks with mitigation.
-Format: Risk | Why it matters | Likelihood | Severity | Mitigation | Owner | Due</pre>
-
-      <p><strong>3) Exec status one‑pager</strong></p>
-      <pre style="white-space:pre-wrap">You are a PM creating an executive summary. Produce a one‑page status with:
-- Green/Yellow/Red
-- Highlights
-- Blockers
-- Next 3 priorities
-- Budget/Schedule note (if relevant)
-Context: [Paste key notes]</pre>
-    </div>
-
-    <div class="card">
-      <h3>Ready for more?</h3>
-      <p>Try the <a href="/apps.html">Transcript Analyzer</a> (free) or preview the <em>AI Prompt Pack for PMs</em>.</p>
-      <a class="btn primary" href="/apps.html">Explore Tools</a>
-    </div>
+    <form id="ai-intro-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" style="margin-top:22px;max-width:560px">
+      <input type="email" name="email" required placeholder="Email to get the free intro" />
+      <input type="hidden" name="_subject" value="AI Intro request — systemnflow.com" />
+      <div class="actions">
+        <button class="btn primary" type="submit">Send it</button>
+      </div>
+    </form>
+    <div id="ai-intro-ok" class="success">✅ Check your inbox shortly.</div>
   </section>
 
   <div data-include="/partials/footer.html"></div>
   <script src="/include.js" defer></script>
+  <script>
+    const aiF=document.getElementById('ai-intro-form'), ok=document.getElementById('ai-intro-ok');
+    if(aiF){aiF.addEventListener('submit', async e=>{
+      e.preventDefault();
+      const r=await fetch(aiF.action,{method:'POST',body:new FormData(aiF),headers:{'Accept':'application/json'}});
+      if(r.ok){aiF.style.display='none'; ok.style.display='block'; if(window.gtag) gtag('event','newsletter_signup',{source:'ai-intro'});}
+      else alert('Please try again.');
+    });}
+  </script>
 </body>
 </html>
