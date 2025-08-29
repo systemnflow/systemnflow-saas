@@ -1,6 +1,6 @@
-/* ================================
-   Theme
-   ================================ */
+/* =========================================
+   Theme Tokens
+   ========================================= */
 :root{
   --bg:#0b1220;        /* deep navy */
   --panel:#121a2b;     /* slightly lighter navy */
@@ -12,69 +12,132 @@
   --shadow-lift: 0 14px 38px rgba(0,0,0,.45);
 }
 
-/* ================================
-   Base
-   ================================ */
+/* =========================================
+   Base & Typography
+   ========================================= */
 *{ box-sizing:border-box }
 html,body{ margin:0; padding:0 }
-body.dark{
+body{
   background:var(--bg);
   color:var(--ink);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial;
+  line-height:1.45;
+}
+a{ color:var(--ink); text-decoration:none }
+a:hover{ text-decoration:underline }
+img{ max-width:100%; height:auto; display:block }
+.small{ font-size:.95rem }
+.sub{ color:var(--muted); max-width:720px; margin:0 auto 6px }
+.sub a{ color:var(--copper); text-decoration:underline }
+.sub a:hover{ text-decoration:none }
+
+/* Visually-hidden (for a11y) */
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-.wrap{ max-width:1100px; margin:0 auto; padding:20px }
+/* =========================================
+   Layout primitives
+   ========================================= */
+.container{ max-width:1100px; margin:0 auto; padding:0 20px }
+.wrap{ max-width:1100px; margin:0 auto; padding:20px } /* legacy support */
+.section{ padding:30px 0 70px }
 
-/* ================================
+/* Skip link */
+.skip-link{
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.skip-link:focus{
+  position:fixed; left:16px; top:16px; width:auto; height:auto; padding:8px 12px;
+  background:var(--panel); border:1px solid var(--border); border-radius:8px; z-index:1000;
+}
+
+/* =========================================
    Header / Navbar
-   ================================ */
+   ========================================= */
+/* New header (preferred) */
+.site-header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:saturate(140%) blur(6px);
+  background:rgba(11,18,32,.75);
+  border-bottom:1px solid rgba(30,42,65,.6);
+}
+.site-header .brand img{ height:28px }
+.site-header .container{
+  display:flex; align-items:center; justify-content:space-between; padding:14px 20px;
+}
+.nav{ display:flex; gap:16px; align-items:center }
+.nav a{ color:var(--muted); font-size:14px; text-decoration:none; padding:6px 8px; border-radius:8px }
+.nav a[aria-current="page"], .nav a.button{ color:#111; background:var(--copper); border:1px solid var(--copper) }
+.nav a:hover{ color:var(--ink) }
+
+.nav-toggle{
+  display:none; appearance:none; border:1px solid var(--border); background:var(--panel);
+  color:var(--ink); padding:8px 10px; border-radius:10px;
+}
+@media (max-width:760px){
+  .nav-toggle{ display:inline-block }
+  .nav{ position:absolute; right:20px; top:58px; flex-direction:column; gap:10px;
+        background:var(--panel); border:1px solid var(--border); padding:10px; border-radius:14px;
+        box-shadow:var(--shadow); display:none }
+  .nav.open{ display:flex }
+}
+
+/* Legacy header (older pages using .header) */
 .header{
   display:flex; align-items:center; justify-content:space-between;
   padding:16px 20px;
 }
-.brand{ display:flex; align-items:center; gap:10px; }
+.brand{ display:flex; align-items:center; gap:10px }
 .brand-name{ white-space:nowrap; font-weight:700; letter-spacing:.2px }
 .logo-icon{ height:28px; width:auto; display:block }
-.brand img{ height:28px; width:auto; display:block }
 
-.nav{ display:flex; gap:16px }
-.nav a{ color:var(--muted); font-size:14px; text-decoration:none }
-.nav a:hover{ color:var(--ink) }
-
-/* ================================
+/* =========================================
    Hero
-   ================================ */
+   ========================================= */
 .hero{
   display:flex; flex-direction:column; align-items:center; text-align:center;
   padding:80px 20px 24px;
 }
 .logo-hero{
-  width:min(300px,70vw); height:auto; display:block; margin:0 auto 18px;
+  width:min(300px,70vw); height:auto; margin:0 auto 18px;
   filter:drop-shadow(0 6px 24px rgba(0,0,0,.35));
 }
 .hero h1{
-  font-size:42px; line-height:1.1; margin:8px 0 6px;   /* tighter under-headline */
+  font-size:clamp(28px, 4.2vw, 42px);
+  line-height:1.1; margin:8px 0 6px;
 }
-.sub{
-  color:var(--muted); max-width:720px; margin:0 auto 6px;  /* closer to buttons */
-}
-.cta{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px }
+.cta, .cta-row{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px }
 
-/* ================================
+/* =========================================
    Buttons
-   ================================ */
+   ========================================= */
+/* New API */
+.button{
+  padding:12px 16px; border-radius:12px; border:1px solid var(--border);
+  display:inline-flex; align-items:center; justify-content:center;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
+  background:transparent; color:var(--ink);
+}
+.button.primary{ background:var(--copper); border-color:var(--copper); color:#111; font-weight:600 }
+.button.ghost{ background:transparent; color:var(--ink) }
+.button:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35) }
+
+/* Legacy alias (so old pages still look right) */
 .btn{
   padding:12px 16px; border-radius:12px; border:1px solid var(--border);
   text-decoration:none; display:inline-block;
   transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
+  background:transparent; color:var(--ink);
 }
 .btn.primary{ background:var(--copper); border-color:var(--copper); color:#111; font-weight:600 }
 .btn.ghost{ background:transparent; color:var(--ink) }
-.btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
+.btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35) }
 
-/* ================================
+/* =========================================
    Badges
-   ================================ */
+   ========================================= */
 .badge{
   display:inline-flex; align-items:center; gap:6px;
   padding:4px 10px; border-radius:999px;
@@ -86,83 +149,72 @@ body.dark{
 .badge.soon .dot{ background:#7aa2f7 }
 .card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px }
 
-/* ================================
-   Cards (Equal Height + Uniform Buttons + Hover Lift)
-   ================================ */
+/* =========================================
+   Cards & Grid (Equal Height + Uniform Buttons)
+   ========================================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:18px;
   padding:30px 20px 70px;
-  align-items:stretch;                 /* stretch cards to equal height per row */
+  align-items:stretch;
 }
-
 .card{
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:16px;
   padding:18px;
-  display:flex;                        /* flex column to pin buttons to bottom */
-  flex-direction:column;
-  min-height: 240px;                   /* safety floor for small-content cards */
-
-  /* ✨ motion */
+  display:flex; flex-direction:column;
+  min-height: 240px;
   box-shadow: var(--shadow);
   transform: translateY(0);
   transition: transform .22s cubic-bezier(.2,.6,.3,1), box-shadow .22s ease, border-color .22s ease;
 }
 .card:hover,
-.card:focus-within{                    /* keyboard focus gets the same affordance */
+.card:focus-within{
   transform: translateY(-6px);
   box-shadow: var(--shadow-lift);
   border-color: #253554;
 }
-
-.card-icon{ font-size:28px; margin-bottom:6px }
 .card h3{ margin:.2rem 0 .1rem; font-weight:700 }
 .card p{ color:var(--muted); margin:0 0 6px }
-
-/* Push actions to bottom and keep them uniform */
 .card .card-actions{
-  margin-top:auto;                     /* pins actions to the bottom */
-  display:flex; gap:10px;
+  margin-top:auto;
+  display:flex; gap:10px; flex-wrap:wrap;
 }
-
-.card .card-actions .btn{
-  flex:1;                              /* equal widths inside a card */
-  min-width:120px;
-  text-align:center;
-  padding:10px 12px;                   /* consistent height */
-  white-space:nowrap;
+.card .card-actions .btn,
+.card .card-actions .button{
+  flex:1; min-width:120px; text-align:center; padding:10px 12px; white-space:nowrap;
 }
-
-/* Mobile: stacked buttons */
 @media (max-width:560px){
   .card .card-actions{ flex-direction:column }
-  .card .card-actions .btn{ width:100%; min-width:unset }
+  .card .card-actions .btn,
+  .card .card-actions .button{ width:100%; min-width:unset }
 }
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .card, .btn{ transition:none !important; }
-  .card:hover, .card:focus-within, .btn:hover{ transform:none !important; box-shadow:var(--shadow) !important; }
+  .card, .btn, .button{ transition:none !important; }
+  .card:hover, .card:focus-within, .btn:hover, .button:hover{
+    transform:none !important; box-shadow:var(--shadow) !important;
+  }
 }
 
-/* ================================
+/* =========================================
    Forms (newsletter + contact)
-   ================================ */
-.form,
-.newsletter-form{
+   ========================================= */
+.form, .newsletter-form{
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:16px;
   padding:16px;
 }
-
 .form input[type="text"],
 .form input[type="email"],
 .form textarea,
-.newsletter-form input[type="email"]{
+.newsletter-form input[type="email"],
+form.contact input,
+form.contact textarea{
   width:100%;
   padding:12px;
   border-radius:10px;
@@ -170,15 +222,11 @@ body.dark{
   background:#0f1726;
   color:var(--ink);
 }
-
-.form .consent,
-.newsletter-form .consent{
+.form .consent, .newsletter-form .consent{
   display:flex; align-items:center; gap:8px;
   color:var(--muted); font-size:14px;
 }
-
-.form .actions,
-.newsletter-form .actions{
+.form .actions, .newsletter-form .actions{
   display:flex; gap:10px; align-items:center; flex-wrap:wrap;
 }
 
@@ -202,9 +250,63 @@ body.dark{
   background:#0f1f14; border:1px solid #1f5d38; color:#c9f1dc; font-size:.95rem;
 }
 
-/* ================================
-   Footer (compact)
-   ================================ */
+/* =========================================
+   Legal & Disclaimers
+   ========================================= */
+.callout{
+  background: rgba(184,115,61,0.12);
+  border:1px solid var(--copper);
+  color: var(--copper);
+  font-size: .9rem;
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin: 12px 0;
+}
+.disclaimer-banner{
+  background: rgba(255,193,7,.12);
+  border: 1px solid #ffc107;
+  color: #ffc107;
+  font-size: .85rem;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* Dialog / Modal (Terms click-to-read gate) */
+dialog{
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--panel);
+  color:var(--ink);
+  padding:0;
+}
+dialog::backdrop{ background:rgba(0,0,0,.6) }
+
+/* =========================================
+   Footer (full & compact)
+   ========================================= */
+.site-footer{
+  border-top:1px solid var(--border);
+  margin-top:40px;
+}
+.footer-grid{
+  display:grid; gap:18px; align-items:start;
+  grid-template-columns: 1.2fr .8fr 1fr;
+  padding:20px;
+}
+.footer-logo{ width:28px; height:auto; margin-bottom:6px }
+.footer-nav{ list-style:none; padding:0; margin:0; display:grid; gap:8px }
+.footer-nav a{ color:#cbd5e1 }
+.footer-nav a:hover{ color:#ffffff }
+.social{ display:flex; gap:12px; flex-wrap:wrap }
+.legal{ color:var(--muted); padding:10px 20px 20px }
+
+@media (max-width:860px){
+  .footer-grid{ grid-template-columns:1fr; text-align:center; justify-items:center }
+}
+
+/* Compact footer (legacy) */
 .footer-min{
   border-top:1px solid var(--border);
   padding:14px 0;
@@ -215,10 +317,9 @@ body.dark{
 .footer-min .logo-icon{ width:22px; height:22px; border-radius:6px }
 .footer-min .brand{ font-weight:600; color:#e2e8f0 }
 .footer-min .foot-right{ display:flex; align-items:center; gap:14px; flex-wrap:wrap }
-.footer-min a{ color:#cbd5e1; text-decoration:none }
+.footer-min a{ color:#cbd5e1 }
 .footer-min a:hover{ color:#ffffff }
 .footer-min .divider{ opacity:.5 }
-
 @media (max-width:720px){
   .footer-min{ flex-direction:column; gap:8px; text-align:center }
   .footer-min .foot-right{ gap:12px; flex-wrap:wrap; justify-content:center }
