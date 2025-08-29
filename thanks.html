@@ -89,6 +89,11 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
+    // Fire GA conversion event
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', { page: 'thanks' });
+    }
+
     // Auto-redirect after 5 seconds
     setTimeout(() => {
       window.location.href = "/";
