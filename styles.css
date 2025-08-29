@@ -68,7 +68,7 @@ img{ max-width:100%; height:auto; display:block }
 }
 .site-header .brand img{ height:28px; width:auto; display:block }
 
-/* Nav: reset bullets, remove pill backgrounds */
+/* Nav: reset bullets, no pill backgrounds */
 .site-header nav ul,
 .nav{
   list-style:none;
@@ -302,49 +302,13 @@ dialog{
 dialog::backdrop{ background:rgba(0,0,0,.6) }
 
 /* =========================================
-   Footer (full & compact)
+   FOOTERS
    ========================================= */
-.site-footer{
-  border-top:1px solid var(--border);
-  margin-top:40px;
-}
-.footer-grid{
-  display:grid; gap:18px; align-items:start;
-  grid-template-columns: 1.2fr .8fr 1fr;
-  padding:20px;
-}
-.footer-logo{ width:28px; height:auto; margin-bottom:6px }
 
-/* Footer nav: reset list + tidy links */
-.footer-nav{
-  list-style:none;
-  padding:0;
-  margin:0;
-  display:grid;
-  gap:8px;
-}
-.footer-nav li{ margin:0; padding:0 }
-.footer-nav a{ color:#cbd5e1; text-decoration:none }
-.footer-nav a:hover{ color:#ffffff }
+/* Hide the large grid footer everywhere (we're using the compact one) */
+.site-footer{ display:none; }
 
-.social{
-  display:flex; gap:12px; flex-wrap:wrap;
-}
-.social a{ color:#cbd5e1; text-decoration:none }
-.social a:hover{ color:#ffffff }
-
-.legal{
-  color:var(--muted);
-  padding:10px 20px 20px;
-  border-top:1px solid var(--border);
-}
-
-/* Stack footer on mobile */
-@media (max-width:860px){
-  .footer-grid{ grid-template-columns:1fr; text-align:center; justify-items:center }
-}
-
-/* Compact footer (legacy) */
+/* Compact footer (the one you liked) */
 .footer-min{
   border-top:1px solid var(--border);
   padding:14px 0;
@@ -354,11 +318,18 @@ dialog::backdrop{ background:rgba(0,0,0,.6) }
 .footer-min .foot-left{ display:flex; align-items:center; gap:8px }
 .footer-min .logo-icon{ width:22px; height:22px; border-radius:6px }
 .footer-min .brand{ font-weight:600; color:#e2e8f0 }
+.footer-min .tagline{ color:var(--muted) }
 .footer-min .foot-right{ display:flex; align-items:center; gap:14px; flex-wrap:wrap }
 .footer-min a{ color:#cbd5e1; text-decoration:none }
 .footer-min a:hover{ color:#ffffff }
-.footer-min .divider{ opacity:.5 }
+.footer-min .divider{ opacity:.5; margin:0 10px }
+
+/* Collapse nicely on small screens */
 @media (max-width:720px){
   .footer-min{ flex-direction:column; gap:8px; text-align:center }
   .footer-min .foot-right{ gap:12px; flex-wrap:wrap; justify-content:center }
 }
+
+/* ---- (Optional) If any page still has a UL inside the compact footer ---- */
+.footer-min nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:12px }
+.footer-min nav li{ margin:0; padding:0 }
