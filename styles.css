@@ -31,7 +31,7 @@ img{ max-width:100%; height:auto; display:block }
 .sub a{ color:var(--copper); text-decoration:underline }
 .sub a:hover{ text-decoration:none }
 
-/* Visually-hidden (for a11y) */
+/* Visually hidden (a11y) */
 .sr-only{
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
@@ -54,37 +54,60 @@ img{ max-width:100%; height:auto; display:block }
 }
 
 /* =========================================
-   Header / Navbar
+   Header / Navbar (new + legacy)
    ========================================= */
-/* New header (preferred) */
 .site-header{
   position:sticky; top:0; z-index:50;
   backdrop-filter:saturate(140%) blur(6px);
   background:rgba(11,18,32,.75);
   border-bottom:1px solid rgba(30,42,65,.6);
+  padding:16px 0;
 }
-.site-header .brand img{ height:28px }
 .site-header .container{
-  display:flex; align-items:center; justify-content:space-between; padding:14px 20px;
+  display:flex; align-items:center; justify-content:space-between;
 }
-.nav{ display:flex; gap:16px; align-items:center }
-.nav a{ color:var(--muted); font-size:14px; text-decoration:none; padding:6px 8px; border-radius:8px }
-.nav a[aria-current="page"], .nav a.button{ color:#111; background:var(--copper); border:1px solid var(--copper) }
+.site-header .brand img{ height:28px; width:auto; display:block }
+
+/* Nav: reset bullets, remove pill backgrounds */
+.site-header nav ul,
+.nav{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+.site-header nav li{ margin:0; padding:0 }
+.site-header nav a,
+.nav a{
+  color:var(--muted);
+  text-decoration:none;
+  padding:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  font-size:14px;
+}
+.site-header nav a:hover,
 .nav a:hover{ color:var(--ink) }
 
+/* Mobile nav */
 .nav-toggle{
   display:none; appearance:none; border:1px solid var(--border); background:var(--panel);
   color:var(--ink); padding:8px 10px; border-radius:10px;
 }
 @media (max-width:760px){
   .nav-toggle{ display:inline-block }
-  .nav{ position:absolute; right:20px; top:58px; flex-direction:column; gap:10px;
-        background:var(--panel); border:1px solid var(--border); padding:10px; border-radius:14px;
-        box-shadow:var(--shadow); display:none }
+  .nav{
+    position:absolute; right:20px; top:58px; flex-direction:column; gap:10px;
+    background:var(--panel); border:1px solid var(--border); padding:10px; border-radius:14px;
+    box-shadow:var(--shadow); display:none;
+  }
   .nav.open{ display:flex }
 }
 
-/* Legacy header (older pages using .header) */
+/* Legacy header (.header) kept for older pages */
 .header{
   display:flex; align-items:center; justify-content:space-between;
   padding:16px 20px;
@@ -111,29 +134,22 @@ img{ max-width:100%; height:auto; display:block }
 .cta, .cta-row{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px }
 
 /* =========================================
-   Buttons
+   Buttons (new + legacy)
    ========================================= */
-/* New API */
-.button{
+.button,
+.btn{
   padding:12px 16px; border-radius:12px; border:1px solid var(--border);
   display:inline-flex; align-items:center; justify-content:center;
   transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
   background:transparent; color:var(--ink);
+  text-decoration:none;
 }
-.button.primary{ background:var(--copper); border-color:var(--copper); color:#111; font-weight:600 }
-.button.ghost{ background:transparent; color:var(--ink) }
-.button:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35) }
+.button.primary, .btn.primary{ background:var(--copper); border-color:var(--copper); color:#111; font-weight:600 }
+.button.ghost, .btn.ghost{ background:transparent; color:var(--ink) }
+.button:hover, .btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35) }
 
-/* Legacy alias (so old pages still look right) */
-.btn{
-  padding:12px 16px; border-radius:12px; border:1px solid var(--border);
-  text-decoration:none; display:inline-block;
-  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
-  background:transparent; color:var(--ink);
-}
-.btn.primary{ background:var(--copper); border-color:var(--copper); color:#111; font-weight:600 }
-.btn.ghost{ background:transparent; color:var(--ink) }
-.btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35) }
+/* Neutralize accidental .button styling inside header nav */
+.site-header .nav .button{ background:transparent !important; border:0 !important; padding:0 !important; border-radius:0 !important; box-shadow:none !important; }
 
 /* =========================================
    Badges
@@ -150,9 +166,10 @@ img{ max-width:100%; height:auto; display:block }
 .card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px }
 
 /* =========================================
-   Cards & Grid (Equal Height + Uniform Buttons)
+   Cards & Grid
    ========================================= */
-.grid{
+.grid,
+.home-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:18px;
@@ -169,6 +186,7 @@ img{ max-width:100%; height:auto; display:block }
   box-shadow: var(--shadow);
   transform: translateY(0);
   transition: transform .22s cubic-bezier(.2,.6,.3,1), box-shadow .22s ease, border-color .22s ease;
+  min-width:0; /* prevent overflow */
 }
 .card:hover,
 .card:focus-within{
@@ -192,7 +210,7 @@ img{ max-width:100%; height:auto; display:block }
   .card .card-actions .button{ width:100%; min-width:unset }
 }
 
-/* Respect reduced motion */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   .card, .btn, .button{ transition:none !important; }
   .card:hover, .card:focus-within, .btn:hover, .button:hover{
@@ -273,7 +291,7 @@ form.contact textarea{
   line-height: 1.5;
 }
 
-/* Dialog / Modal (Terms click-to-read gate) */
+/* Dialog / Modal */
 dialog{
   border:1px solid var(--border);
   border-radius:16px;
@@ -296,12 +314,32 @@ dialog::backdrop{ background:rgba(0,0,0,.6) }
   padding:20px;
 }
 .footer-logo{ width:28px; height:auto; margin-bottom:6px }
-.footer-nav{ list-style:none; padding:0; margin:0; display:grid; gap:8px }
-.footer-nav a{ color:#cbd5e1 }
-.footer-nav a:hover{ color:#ffffff }
-.social{ display:flex; gap:12px; flex-wrap:wrap }
-.legal{ color:var(--muted); padding:10px 20px 20px }
 
+/* Footer nav: reset list + tidy links */
+.footer-nav{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:grid;
+  gap:8px;
+}
+.footer-nav li{ margin:0; padding:0 }
+.footer-nav a{ color:#cbd5e1; text-decoration:none }
+.footer-nav a:hover{ color:#ffffff }
+
+.social{
+  display:flex; gap:12px; flex-wrap:wrap;
+}
+.social a{ color:#cbd5e1; text-decoration:none }
+.social a:hover{ color:#ffffff }
+
+.legal{
+  color:var(--muted);
+  padding:10px 20px 20px;
+  border-top:1px solid var(--border);
+}
+
+/* Stack footer on mobile */
 @media (max-width:860px){
   .footer-grid{ grid-template-columns:1fr; text-align:center; justify-items:center }
 }
@@ -317,62 +355,10 @@ dialog::backdrop{ background:rgba(0,0,0,.6) }
 .footer-min .logo-icon{ width:22px; height:22px; border-radius:6px }
 .footer-min .brand{ font-weight:600; color:#e2e8f0 }
 .footer-min .foot-right{ display:flex; align-items:center; gap:14px; flex-wrap:wrap }
-.footer-min a{ color:#cbd5e1 }
+.footer-min a{ color:#cbd5e1; text-decoration:none }
 .footer-min a:hover{ color:#ffffff }
 .footer-min .divider{ opacity:.5 }
 @media (max-width:720px){
   .footer-min{ flex-direction:column; gap:8px; text-align:center }
   .footer-min .foot-right{ gap:12px; flex-wrap:wrap; justify-content:center }
 }
-/* === Hotfix: normalize header + nav and legacy .button === */
-
-/* Keep the max-width centered */
-.container{ max-width:1100px; margin:0 auto; padding:0 20px; }
-
-/* Header spacing */
-.site-header{ padding:16px 0; background:transparent; }
-.site-header .brand img{ height:28px; width:auto; display:block; }
-
-/* Make nav items simple links again (no pill backgrounds) */
-.site-header .nav{ display:flex; gap:16px; align-items:center; }
-.site-header .nav a{ color:var(--muted); text-decoration:none; padding:0; border:0; background:transparent; border-radius:0; }
-.site-header .nav a:hover{ color:var(--ink); }
-
-/* If any old .button classes are still on links, neutralize them in nav */
-.site-header .nav .button{ background:transparent !important; border:0 !important; padding:0 !important; border-radius:0 !important; box-shadow:none !important; }
-
-/* Hero breathing room */
-.hero{ padding:80px 20px 24px; text-align:center; }
-
-/* Cards grid: auto-fit across breakpoints */
-.home-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px; }
-
-/* Prevent card overflow */
-.card{ min-width:0; }
-/* === Nav list reset + layout (fixes bullets) === */
-.site-header nav ul,
-nav .nav {          /* cover both cases */
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.site-header nav li { margin: 0; padding: 0; }
-
-/* Keep links clean (no pill backgrounds) */
-.site-header nav a {
-  color: var(--muted);
-  text-decoration: none;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-}
-.site-header nav a:hover { color: var(--ink); }
-
-/* Optional: keep the header tidy */
-.site-header { padding: 16px 0; }
-
