@@ -50,6 +50,10 @@
     .consent{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14px}
     .success{background:#0f1f14;border:1px solid #1f5d38;color:#c9f1dc;padding:12px;border-radius:10px;margin-top:12px;display:none}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .disclaimer-banner{background:rgba(255,193,7,.12);border:1px solid #ffc107;color:#ffc107;font-size:.85rem;padding:10px 12px;border-radius:8px;margin-top:6px;line-height:1.5}
+    /* Modal */
+    dialog#terms-modal{max-width:920px;width:92%;border:1px solid var(--border);border-radius:16px;padding:0;background:var(--card);color:var(--ink)}
+    dialog#terms-modal::backdrop{background:rgba(0,0,0,.5)}
   </style>
 </head>
 
@@ -84,7 +88,12 @@
     <!-- Form -->
     <section class="section">
       <div class="container form-wrap">
-        <form id="contact-form" class="contact" action="https://formspree.io/f/mzzvlwqy" method="POST" novalidate>
+        <form id="contact-form"
+              class="contact"
+              action="https://formspree.io/f/mzzvlwqy"
+              method="POST"
+              novalidate
+              data-requires-terms>
           <label for="name">Name
             <input id="name" type="text" name="name" autocomplete="name" required />
           </label>
@@ -97,12 +106,17 @@
             <textarea id="message" name="message" rows="5" placeholder="How can we help? (e.g., Transcript Analyzer, Status Report Generator, AI Prompt Pack)" required></textarea>
           </label>
 
+          <div class="disclaimer-banner">
+            ⚠️ <strong>Reminder:</strong> Do not include regulated, classified, or highly sensitive corporate data.
+            You are responsible for complying with your organization’s policies.
+          </div>
+
           <div class="consent">
             <input id="consent" type="checkbox" name="marketing_consent" />
             <label for="consent">I agree to receive follow-ups about this inquiry and occasional product updates.</label>
           </div>
 
-          <!-- Honeypot to reduce spam -->
+          <!-- Honeypot -->
           <label class="sr-only" for="gotcha">Do not fill this out</label>
           <input id="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="sr-only" />
 
@@ -145,6 +159,23 @@
     </div>
   </footer>
 
+  <!-- Terms Modal (click-to-read gate) -->
+  <dialog id="terms-modal">
+    <div style="display:flex;flex-direction:column;max-height:80vh">
+      <header style="padding:12px 16px;border-bottom:1px solid var(--border)">
+        <strong>Terms of Service</strong>
+        <span class="small" id="tm-version" style="float:right"></span>
+      </header>
+      <div id="tm-body" style="overflow:auto;flex:1">
+        <iframe id="tm-iframe" src="/terms.html#main" title="Terms of Service" style="width:100%;height:100%;border:0"></iframe>
+      </div>
+      <footer style="display:flex;gap:10px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--border)">
+        <button id="tm-cancel" class="button ghost" type="button">Cancel</button>
+        <button id="tm-accept" class="button primary" type="button" disabled>I’ve read & agree</button>
+      </footer>
+    </div>
+  </dialog>
+
   <script>
     // year
     document.getElementById('y').textContent = new Date().getFullYear();
@@ -180,6 +211,61 @@
         }
       });
     }
+
+    // ---------- Terms click-to-read gate ----------
+    (() => {
+      const TERMS_VERSION = '2025-08-29';
+      const STORAGE_KEY = 'snf_terms_'+TERMS_VERSION;
+      const modal = document.getElementById('terms-modal');
+      const acceptBtn = document.getElementById('tm-accept');
+      const cancelBtn = document.getElementById('tm-cancel');
+      const iframe = document.getElementById('tm-iframe');
+      const ver = document.getElementById('tm-version');
+      if (ver) ver.textContent = 'Version ' + TERMS_VERSION;
+
+      function isAccepted(){ return localStorage.getItem(STORAGE_KEY)==='yes'; }
+      function setAccepted(){ localStorage.setItem(STORAGE_KEY,'yes'); }
+
+      let pendingForm = null;
+      document.addEventListener('submit', (e) => {
+        const f = e.target;
+        if (!f.matches('form[data-requires-terms]')) return;
+        if (isAccepted()) return; // already accepted this version
+        e.preventDefault();
+        pendingForm = f;
+        acceptBtn.disabled = true;
+        modal.showModal();
+      });
+
+      function wireScrollGuard() {
+        try {
+          const doc = iframe.contentDocument || iframe.contentWindow.document;
+          const scroller = doc.scrollingElement || doc.documentElement || doc.body;
+          const onScroll = () => {
+            const pct = (scroller.scrollTop + scroller.clientHeight) / scroller.scrollHeight;
+            if (pct >= 0.98) {
+              acceptBtn.disabled = false;
+              scroller.removeEventListener('scroll', onScroll);
+            }
+          };
+          scroller.addEventListener('scroll', onScroll, { passive: true });
+        } catch (err) {
+          // fallback if cross-origin blocks access
+          acceptBtn.disabled = false;
+        }
+      }
+      iframe.addEventListener('load', wireScrollGuard);
+
+      cancelBtn.addEventListener('click', () => { modal.close(); pendingForm = null; });
+      acceptBtn.addEventListener('click', () => {
+        setAccepted();
+        modal.close();
+        if (pendingForm) { pendingForm.requestSubmit(); pendingForm = null; }
+      });
+
+      // helper to reset consent if needed
+      window.__snf_reset_terms = () => localStorage.removeItem(STORAGE_KEY);
+    })();
   </script>
 </body>
 </html>
