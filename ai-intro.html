@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>AI Intro for PMs — System & Flow</title>
   <meta name="description" content="A free, practical introduction to using AI for project management—built by PMs, for PMs." />
@@ -10,87 +10,173 @@
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
 
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
   <meta property="og:title" content="AI Intro for PMs — System & Flow" />
   <meta property="og:description" content="A free, practical introduction to using AI for project management." />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta property="og:url" content="https://systemnflow.com/ai-intro.html" />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Intro for PMs — System & Flow" />
+  <meta name="twitter:description" content="A free, practical introduction to using AI for project management." />
+  <meta name="twitter:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
 
-  <link rel="preload" href="/styles.css" as="style" />
-  <link rel="stylesheet" href="/styles.css" />
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+  <link rel="manifest" href="/assets/img/site.webmanifest">
+  <link rel="shortcut icon" href="/assets/img/favicon.ico">
 
-  <!-- Favicons & Touch Icons -->
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
-<link rel="manifest" href="/assets/img/site.webmanifest">
-<link rel="mask-icon" href="/assets/img/safari-pinned-tab.svg" color="#0b1220">
-<link rel="shortcut icon" href="/assets/img/favicon.ico">
-<meta name="msapplication-TileColor" content="#0b1220">
-<meta name="msapplication-config" content="/assets/img/browserconfig.xml">
-<meta name="theme-color" content="#0b1220">
-  
+  <!-- CSS -->
+  <link rel="preload" href="/assets/css/main.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
   <!-- GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-1FRFWG4X18');</script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-1FRFWG4X18');
+  </script>
+
+  <style>
+    /* Page-specific light touches */
+    .ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media (max-width:900px){.ai-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.ai-grid{grid-template-columns:1fr}}
+    .newsletter-form{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;max-width:560px}
+    .newsletter-form input[type="email"]{flex:1;min-width:240px;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--ink)}
+    .newsletter-form .actions{display:flex;align-items:center}
+    #ai-intro-ok{display:none;margin-top:10px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  </style>
 </head>
-<body class="dark">
-  <header class="wrap header">
-    <div class="brand">
-      <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
-        <img src="/assets/img/logo.png" alt="System & Flow icon" class="logo-icon" />
-        <span class="brand-name">System &amp; Flow</span>
-      </a>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
+      <nav aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+        <ul id="nav" class="nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Apps</a></li>
+          <li><a href="/ai-intro.html" aria-current="page">AI Intro</a></li>
+          <li><a href="/contact.html" class="button">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="nav">
-      <a href="/">Home</a>
-      <a href="/apps.html">Apps</a>
-      <a href="/ai-intro.html" aria-current="page">AI Intro</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
   </header>
 
-  <main class="wrap hero" style="padding:60px 20px 14px">
-    <h1>AI for PMs, minus the fluff.</h1>
-    <p class="sub">A short, practical starter: prompts that actually ship work, not just “cool demos.”</p>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1>AI for PMs, minus the fluff.</h1>
+        <p class="small" style="max-width:720px">
+          A short, practical starter: prompts that actually ship work, not just “cool demos.”
+        </p>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+      <div class="container" style="max-width:840px">
+        <div class="ai-grid">
+          <div class="card">
+            <h3>Meeting to Outcomes</h3>
+            <p class="small">Turn raw notes into actions, risks, decisions—ready for your tracker.</p>
+          </div>
+          <div class="card">
+            <h3>Risk Surfacing</h3>
+            <p class="small">Spot early signals and ask better “what if” questions.</p>
+          </div>
+          <div class="card">
+            <h3>Status Drafts</h3>
+            <p class="small">Create crisp updates in your voice; keep the accountability.</p>
+          </div>
+        </div>
+
+        <form id="ai-intro-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" novalidate>
+          <label class="sr-only" for="ai-email">Email</label>
+          <input id="ai-email" type="email" name="email" required placeholder="Email to get the free intro" />
+          <input type="hidden" name="_subject" value="AI Intro request — systemnflow.com" />
+          <div class="actions">
+            <button class="button primary" type="submit">Send it</button>
+          </div>
+        </form>
+        <div id="ai-intro-ok" class="small" role="status" aria-live="polite">✅ Check your inbox shortly.</div>
+      </div>
+    </section>
   </main>
 
-  <section class="wrap" style="max-width:840px;padding:10px 20px 50px">
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
-      <div class="card">
-        <h3>Meeting to Outcomes</h3>
-        <p>Turn raw notes into actions, risks, decisions—ready for your tracker.</p>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <img class="footer-logo" src="/assets/img/logo.png" alt="System & Flow" />
+        <p class="small">Project management toolkits & AI prompts.</p>
       </div>
-      <div class="card">
-        <h3>Risk Surfacing</h3>
-        <p>Spot early signals and ask better “what if” questions.</p>
-      </div>
-      <div class="card">
-        <h3>Status Drafts</h3>
-        <p>Create crisp updates in your voice; keep the accountability.</p>
+      <nav aria-label="Footer">
+        <ul class="footer-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Apps</a></li>
+          <li><a href="/ai-intro.html">AI Intro</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="https://systemnflow.gumroad.com">Store</a></li>
+        </ul>
+      </nav>
+      <div class="social">
+        <a href="https://www.instagram.com/systemnflow" aria-label="Instagram">@systemnflow</a>
+        <a href="https://www.tiktok.com/@systemnflow" aria-label="TikTok">@systemnflow</a>
+        <a href="https://www.pinterest.com/systemnflow" aria-label="Pinterest">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" aria-label="YouTube">YouTube</a>
+        <a href="https://www.linkedin.com/company/system-and-flow" aria-label="LinkedIn">LinkedIn</a>
       </div>
     </div>
+    <div class="container legal small">
+      © <span id="y"></span> System & Flow™. All rights reserved.
+    </div>
+  </footer>
 
-    <form id="ai-intro-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" style="margin-top:22px;max-width:560px">
-      <input type="email" name="email" required placeholder="Email to get the free intro" />
-      <input type="hidden" name="_subject" value="AI Intro request — systemnflow.com" />
-      <div class="actions">
-        <button class="btn primary" type="submit">Send it</button>
-      </div>
-    </form>
-    <div id="ai-intro-ok" class="success">✅ Check your inbox shortly.</div>
-  </section>
-
-  <div data-include="/partials/footer.html"></div>
-  <script src="/include.js" defer></script>
   <script>
-    const aiF=document.getElementById('ai-intro-form'), ok=document.getElementById('ai-intro-ok');
-    if(aiF){aiF.addEventListener('submit', async e=>{
-      e.preventDefault();
-      const r=await fetch(aiF.action,{method:'POST',body:new FormData(aiF),headers:{'Accept':'application/json'}});
-      if(r.ok){aiF.style.display='none'; ok.style.display='block'; if(window.gtag) gtag('event','newsletter_signup',{source:'ai-intro'});}
-      else alert('Please try again.');
-    });}
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // mobile nav
+    const btn = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('nav');
+    if (btn && nav) {
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        nav.classList.toggle('open');
+      });
+    }
+
+    // form ajax
+    const aiF = document.getElementById('ai-intro-form');
+    const ok = document.getElementById('ai-intro-ok');
+    if (aiF) {
+      aiF.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const r = await fetch(aiF.action, {
+          method: 'POST',
+          body: new FormData(aiF),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (r.ok) {
+          aiF.style.display = 'none';
+          ok.style.display = 'block';
+          if (window.gtag) gtag('event', 'newsletter_signup', { source: 'ai-intro' });
+        } else {
+          alert('Please try again.');
+        }
+      });
+    }
   </script>
 </body>
 </html>
