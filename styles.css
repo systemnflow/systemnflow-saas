@@ -349,3 +349,30 @@ dialog::backdrop{ background:rgba(0,0,0,.6) }
 
 /* Prevent card overflow */
 .card{ min-width:0; }
+/* === Nav list reset + layout (fixes bullets) === */
+.site-header nav ul,
+nav .nav {          /* cover both cases */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.site-header nav li { margin: 0; padding: 0; }
+
+/* Keep links clean (no pill backgrounds) */
+.site-header nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.site-header nav a:hover { color: var(--ink); }
+
+/* Optional: keep the header tidy */
+.site-header { padding: 16px 0; }
+
