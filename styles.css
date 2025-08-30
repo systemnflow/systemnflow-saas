@@ -339,3 +339,50 @@ dialog::backdrop{ background:rgba(0,0,0,.6) }
 /* If any page has a UL inside compact footer, keep it tidy */
 .footer-min nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:12px }
 .footer-min nav li{ margin:0; padding:0 }
+/* ================= FOOTER FORCE-FIX ================ */
+
+/* Nuke the large grid footer everywhere */
+footer.site-footer { display: none !important; }
+
+/* Compact footer you want */
+footer.footer-min{
+  border-top:1px solid var(--border) !important;
+  padding:14px 0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  font-size:.85rem !important;
+  color:var(--muted) !important;
+  gap:0 !important;
+}
+
+footer.footer-min .foot-left{ display:flex !important; align-items:center !important; gap:8px !important }
+footer.footer-min .logo-icon{ width:22px !important; height:22px !important; border-radius:6px !important }
+footer.footer-min .brand{ font-weight:600 !important; color:#e2e8f0 !important }
+footer.footer-min .tagline{ color:var(--muted) !important }
+footer.footer-min .foot-right{ display:flex !important; align-items:center !important; gap:14px !important; flex-wrap:wrap !important }
+footer.footer-min a{ color:#cbd5e1 !important; text-decoration:none !important }
+footer.footer-min a:hover{ color:#ffffff !important }
+footer.footer-min .divider{ opacity:.5 !important; margin:0 10px !important }
+
+/* Little © bar under the compact footer */
+.legal{
+  color:var(--muted) !important;
+  padding:10px 20px 20px !important;
+  border-top:1px solid var(--border) !important;
+}
+
+/* Mobile stack */
+@media (max-width:720px){
+  footer.footer-min{
+    flex-direction:column !important;
+    gap:8px !important;
+    text-align:center !important;
+  }
+  footer.footer-min .foot-right{
+    gap:12px !important;
+    flex-wrap:wrap !important;
+    justify-content:center !important;
+  }
+}
+
