@@ -175,36 +175,31 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <img class="footer-logo" src="/assets/img/logo.png" alt="System & Flow" />
-        <p class="small">Project management toolkits & AI prompts.</p>
-      </div>
-      <nav aria-label="Footer">
-        <ul class="footer-nav">
-          <li><a href="/" aria-current="page">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="https://systemnflow.gumroad.com">Store</a></li>
-        </ul>
-      </nav>
-      <div class="social">
-        <a href="https://www.instagram.com/systemnflow" aria-label="Instagram">@systemnflow</a>
-        <a href="https://www.tiktok.com/@systemnflow" aria-label="TikTok">@systemnflow</a>
-        <a href="https://www.pinterest.com/systemnflow" aria-label="Pinterest">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" aria-label="YouTube">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow" aria-label="LinkedIn">LinkedIn</a>
-      </div>
-    </div>
-    <div class="container legal small">
-      © <span id="y"></span> System & Flow™. All rights reserved.
-    </div>
-  </footer>
+<footer class="footer-min">
+  <div class="foot-left">
+    <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
+    <span class="brand">System &amp; Flow</span>
+    <span class="divider">•</span>
+    <span class="tagline">Project management toolkits &amp; AI prompts.</span>
+  </div>
 
-  <script>
-    // year
-    document.getElementById('y').textContent = new Date().getFullYear();
+  <div class="foot-right">
+    <a href="/">Home</a>
+    <a href="/apps.html">Apps</a>
+    <a href="/contact.html">Contact</a>
+    <a href="https://www.youtube.com/@Systemnflow" rel="noopener">YouTube</a>
+    <a href="https://www.linkedin.com/company/system-and-flow" rel="noopener">LinkedIn</a>
+    <!-- remove Pinterest entirely since you don't use it -->
+  </div>
+</footer>
+
+<div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
+
+<script>
+  // year stamp (keep once per page)
+  (function(){ var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear(); })();
+</script>
+
 
     // mobile nav
     const btn = document.querySelector('.nav-toggle');
