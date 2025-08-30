@@ -148,7 +148,7 @@ img{ max-width:100%; height:auto; display:block }
 .button.ghost, .btn.ghost{ background:transparent; color:var(--ink) }
 .button:hover, .btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35) }
 
-/* Neutralize accidental .button styling inside header nav */
+/* kill accidental .button styling inside header nav */
 .site-header .nav .button{ background:transparent !important; border:0 !important; padding:0 !important; border-radius:0 !important; box-shadow:none !important; }
 
 /* =========================================
@@ -324,12 +324,18 @@ dialog::backdrop{ background:rgba(0,0,0,.6) }
 .footer-min a:hover{ color:#ffffff }
 .footer-min .divider{ opacity:.5; margin:0 10px }
 
+/* The small © bar below the compact footer */
+.legal{
+  color:var(--muted);
+  padding:10px 20px 20px; /* same spacing as before */
+}
+
 /* Collapse nicely on small screens */
 @media (max-width:720px){
   .footer-min{ flex-direction:column; gap:8px; text-align:center }
   .footer-min .foot-right{ gap:12px; flex-wrap:wrap; justify-content:center }
 }
 
-/* ---- (Optional) If any page still has a UL inside the compact footer ---- */
+/* If any page has a UL inside compact footer, keep it tidy */
 .footer-min nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:12px }
 .footer-min nav li{ margin:0; padding:0 }
