@@ -1,20 +1,27 @@
-/* =========================================
+/* ======================================================
+   System & Flow — Global Styles
+   (One file to style all pages like the screenshot)
+   ====================================================== */
+
+/* -------------------------
    Theme Tokens
-   ========================================= */
+-------------------------- */
 :root{
-  --bg:#0b1220;        /* deep navy */
-  --panel:#121a2b;     /* slightly lighter navy */
-  --ink:#e6e9ef;       /* light text */
-  --muted:#9aa4b2;     /* secondary text */
-  --copper:#b8753d;    /* copper accent */
-  --border:#1e2a41;    /* borders */
-  --shadow: 0 10px 30px rgba(0,0,0,.35);
-  --shadow-lift: 0 14px 38px rgba(0,0,0,.45);
+  --bg:#0b1220;           /* deep navy */
+  --panel:#121a2b;        /* card/nav panel */
+  --ink:#e6e9ef;          /* primary text */
+  --muted:#9aa4b2;        /* secondary text */
+  --accent:#b8753d;       /* copper accent */
+  --accent-ink:#111;      /* text on accent */
+  --border:#1e2a41;       /* lines / inputs */
+  --good:#40d278;         /* live */
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --shadow-lift:0 14px 38px rgba(0,0,0,.45);
 }
 
-/* =========================================
-   Base & Typography
-   ========================================= */
+/* -------------------------
+   Base / Typography
+-------------------------- */
 *{ box-sizing:border-box }
 html,body{ margin:0; padding:0 }
 body{
@@ -27,22 +34,20 @@ a{ color:var(--ink); text-decoration:none }
 a:hover{ text-decoration:underline }
 img{ max-width:100%; height:auto; display:block }
 .small{ font-size:.95rem }
-.sub{ color:var(--muted); max-width:720px; margin:0 auto 6px }
-.sub a{ color:var(--copper); text-decoration:underline }
-.sub a:hover{ text-decoration:none }
+.muted{ color:var(--muted) }
 
-/* Visually hidden (a11y) */
+/* a11y hidden */
 .sr-only{
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-/* =========================================
-   Layout primitives
-   ========================================= */
+/* -------------------------
+   Layout helpers
+-------------------------- */
 .container{ max-width:1100px; margin:0 auto; padding:0 20px }
-.wrap{ max-width:1100px; margin:0 auto; padding:20px } /* legacy support */
 .section{ padding:30px 0 70px }
+.wrap{ max-width:1100px; margin:0 auto; padding:20px }
 
 /* Skip link */
 .skip-link{
@@ -53,107 +58,118 @@ img{ max-width:100%; height:auto; display:block }
   background:var(--panel); border:1px solid var(--border); border-radius:8px; z-index:1000;
 }
 
-/* =========================================
-   Header / Navbar (new + legacy)
-   ========================================= */
+/* -------------------------
+   Header (tight, clean)
+-------------------------- */
 .site-header{
   position:sticky; top:0; z-index:50;
   backdrop-filter:saturate(140%) blur(6px);
-  background:rgba(11,18,32,.75);
+  background:rgba(11,18,32,.85);
   border-bottom:1px solid rgba(30,42,65,.6);
-  padding:16px 0;
 }
 .site-header .container{
   display:flex; align-items:center; justify-content:space-between;
+  padding:12px 20px;
 }
-.site-header .brand img{ height:28px; width:auto; display:block }
+.site-header .brand{
+  display:flex; align-items:center; gap:10px;
+  color:#c3b6ff;                        /* subtle purple-ish label like screenshot */
+  font-weight:600; letter-spacing:.1px; font-size:14px;
+}
+.site-header .brand img{ height:28px; width:auto }
+.site-header nav ul{
+  margin:0; padding:0; list-style:none;
+  display:flex; gap:20px; align-items:center;
+}
+.site-header nav a{
+  color:var(--muted); text-decoration:none; font-size:14px; padding:4px 0;
+}
+.site-header nav a:hover{ color:var(--ink) }
+.site-header nav a[aria-current="page"]{ color:var(--ink) }
 
-/* Nav: reset bullets, no pill backgrounds */
-.site-header nav ul,
-.nav{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  gap:16px;
-  align-items:center;
-}
-.site-header nav li{ margin:0; padding:0 }
-.site-header nav a,
-.nav a{
-  color:var(--muted);
-  text-decoration:none;
-  padding:0;
-  background:transparent;
-  border:0;
-  border-radius:0;
-  font-size:14px;
-}
-.site-header nav a:hover,
-.nav a:hover{ color:var(--ink) }
-
-/* Mobile nav */
+/* Mobile nav button (kept minimal) */
 .nav-toggle{
   display:none; appearance:none; border:1px solid var(--border); background:var(--panel);
   color:var(--ink); padding:8px 10px; border-radius:10px;
 }
 @media (max-width:760px){
   .nav-toggle{ display:inline-block }
-  .nav{
-    position:absolute; right:20px; top:58px; flex-direction:column; gap:10px;
-    background:var(--panel); border:1px solid var(--border); padding:10px; border-radius:14px;
+  .site-header nav ul{
+    position:absolute; right:20px; top:56px; flex-direction:column; gap:10px;
+    background:var(--panel); border:1px solid var(--border); padding:10px 14px; border-radius:14px;
     box-shadow:var(--shadow); display:none;
   }
-  .nav.open{ display:flex }
+  .site-header nav ul.open{ display:flex }
 }
 
-/* Legacy header (.header) kept for older pages */
-.header{
-  display:flex; align-items:center; justify-content:space-between;
-  padding:16px 20px;
-}
-.brand{ display:flex; align-items:center; gap:10px }
-.brand-name{ white-space:nowrap; font-weight:700; letter-spacing:.2px }
-.logo-icon{ height:28px; width:auto; display:block }
-
-/* =========================================
-   Hero
-   ========================================= */
+/* -------------------------
+   Hero (centered big headline)
+-------------------------- */
 .hero{
   display:flex; flex-direction:column; align-items:center; text-align:center;
-  padding:80px 20px 24px;
+  padding:60px 20px 18px;
 }
 .logo-hero{
-  width:min(300px,70vw); height:auto; margin:0 auto 18px;
-  filter:drop-shadow(0 6px 24px rgba(0,0,0,.35));
+  width:min(360px,70vw); height:auto; border-radius:18px;
+  border:1px solid var(--border);
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+  margin:0 auto 16px;
 }
 .hero h1{
-  font-size:clamp(28px, 4.2vw, 42px);
-  line-height:1.1; margin:8px 0 6px;
+  font-size:clamp(32px,5.2vw,52px);
+  line-height:1.05; font-weight:800;
+  margin:10px 0 8px;
 }
-.cta, .cta-row{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px }
+.hero p{ color:var(--muted); max-width:820px; margin:0 auto }
 
-/* =========================================
-   Buttons (new + legacy)
-   ========================================= */
-.button,
-.btn{
-  padding:12px 16px; border-radius:12px; border:1px solid var(--border);
+/* CTA row */
+.cta-row{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px }
+
+/* -------------------------
+   Buttons (primary + ghost)
+-------------------------- */
+.button, .btn{
   display:inline-flex; align-items:center; justify-content:center;
-  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
+  padding:10px 14px; border-radius:12px; border:1px solid var(--border);
   background:transparent; color:var(--ink);
-  text-decoration:none;
+  transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+  text-decoration:none; font-weight:600; font-size:.95rem;
 }
-.button.primary, .btn.primary{ background:var(--copper); border-color:var(--copper); color:#111; font-weight:600 }
-.button.ghost, .btn.ghost{ background:transparent; color:var(--ink) }
-.button:hover, .btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.35) }
+.button.primary, .btn.primary{
+  background:var(--accent); border-color:var(--accent); color:var(--accent-ink);
+}
+.button.ghost, .btn.ghost{
+  background:transparent; color:var(--ink); border-color:var(--border);
+}
+.button:hover, .btn:hover{
+  transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,0,0,.35);
+}
 
-/* kill accidental .button styling inside header nav */
-.site-header .nav .button{ background:transparent !important; border:0 !important; padding:0 !important; border-radius:0 !important; box-shadow:none !important; }
+/* -------------------------
+   Newsletter panel
+-------------------------- */
+.newsletter-form{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  max-width:800px;
+  margin:16px auto 0;
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center;
+}
+.newsletter-form input[type="email"]{
+  flex:1; min-width:260px; padding:12px; border-radius:10px;
+  border:1px solid var(--border); background:#0f1726; color:var(--ink);
+}
+.newsletter-form label{ color:var(--muted); font-size:14px; display:flex; align-items:center; gap:8px }
+.success{
+  display:none; margin:12px auto 0; padding:12px; border-radius:10px; max-width:800px;
+  background:#0f1f14; border:1px solid #1f5d38; color:#c9f1dc; font-size:.95rem;
+}
 
-/* =========================================
-   Badges
-   ========================================= */
+/* -------------------------
+   Badges (Live / Coming Soon)
+-------------------------- */
 .badge{
   display:inline-flex; align-items:center; gap:6px;
   padding:4px 10px; border-radius:999px;
@@ -161,228 +177,103 @@ img{ max-width:100%; height:auto; display:block }
   color:var(--muted); font-size:12px; line-height:1; white-space:nowrap;
 }
 .badge .dot{ width:6px; height:6px; border-radius:50%; background:var(--muted) }
-.badge.live .dot{ background:#35d17a }
-.badge.soon .dot{ background:#7aa2f7 }
-.card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px }
+.badge.live .dot{ background:var(--good) }
+.badge.soon .dot{ background:#b87333 }
 
-/* =========================================
-   Cards & Grid
-   ========================================= */
-.grid,
+/* -------------------------
+   Cards (3-up features)
+-------------------------- */
 .home-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:18px;
-  padding:30px 20px 70px;
-  align-items:stretch;
+  display:grid; gap:18px; grid-template-columns:repeat(3,1fr);
 }
+@media (max-width:900px){ .home-grid{ grid-template-columns:1fr 1fr } }
+@media (max-width:560px){ .home-grid{ grid-template-columns:1fr } }
+
 .card{
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:16px;
-  padding:18px;
-  display:flex; flex-direction:column;
-  min-height: 240px;
-  box-shadow: var(--shadow);
-  transform: translateY(0);
-  transition: transform .22s cubic-bezier(.2,.6,.3,1), box-shadow .22s ease, border-color .22s ease;
-  min-width:0; /* prevent overflow */
+  padding:16px;
+  display:flex; flex-direction:column; gap:10px;
+  box-shadow:var(--shadow);
+  transition:transform .22s cubic-bezier(.2,.6,.3,1), box-shadow .22s ease, border-color .22s ease;
+  min-width:0;
 }
-.card:hover,
-.card:focus-within{
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lift);
-  border-color: #253554;
-}
+.card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lift); border-color:#253554 }
 .card h3{ margin:.2rem 0 .1rem; font-weight:700 }
 .card p{ color:var(--muted); margin:0 0 6px }
+
 .card .card-actions{
-  margin-top:auto;
-  display:flex; gap:10px; flex-wrap:wrap;
+  margin-top:auto; display:flex; gap:10px; flex-wrap:wrap;
 }
-.card .card-actions .btn,
-.card .card-actions .button{
-  flex:1; min-width:120px; text-align:center; padding:10px 12px; white-space:nowrap;
-}
-@media (max-width:560px){
-  .card .card-actions{ flex-direction:column }
-  .card .card-actions .btn,
-  .card .card-actions .button{ width:100%; min-width:unset }
+.card .card-actions .button{ min-width:120px }
+
+/* “Learn More” look */
+.card .button.ghost{
+  border-color:var(--border);
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .card, .btn, .button{ transition:none !important; }
-  .card:hover, .card:focus-within, .btn:hover, .button:hover{
-    transform:none !important; box-shadow:var(--shadow) !important;
-  }
-}
-
-/* =========================================
-   Forms (newsletter + contact)
-   ========================================= */
-.form, .newsletter-form{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px;
-}
-.form input[type="text"],
-.form input[type="email"],
-.form textarea,
-.newsletter-form input[type="email"],
-form.contact input,
-form.contact textarea{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:#0f1726;
-  color:var(--ink);
-}
-.form .consent, .newsletter-form .consent{
-  display:flex; align-items:center; gap:8px;
-  color:var(--muted); font-size:14px;
-}
-.form .actions, .newsletter-form .actions{
-  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-}
-
-/* Inline signup wrapper */
-.signup-inline{
-  display:grid; gap:10px; justify-items:center;
-  margin:8px auto 0; padding:16px;
-  background:var(--panel); border:1px solid var(--border); border-radius:14px;
-  max-width:720px;
-}
-.signup-inline .field{
-  width:100%; max-width:480px; padding:12px; border-radius:10px;
-  border:1px solid var(--border); background:#0f1726; color:var(--ink);
-}
-
-/* Success panel */
-.success{
-  display:none;
-  margin:12px auto 0; padding:12px;
-  border-radius:10px; max-width:720px;
-  background:#0f1f14; border:1px solid #1f5d38; color:#c9f1dc; font-size:.95rem;
-}
-
-/* =========================================
-   Legal & Disclaimers
-   ========================================= */
+/* -------------------------
+   Legal / callouts (for ToS pages)
+-------------------------- */
 .callout{
   background: rgba(184,115,61,0.12);
-  border:1px solid var(--copper);
-  color: var(--copper);
-  font-size: .9rem;
-  padding: 12px 14px;
-  border-radius: 12px;
-  margin: 12px 0;
-}
-.disclaimer-banner{
-  background: rgba(255,193,7,.12);
-  border: 1px solid #ffc107;
-  color: #ffc107;
-  font-size: .85rem;
-  padding: 10px 12px;
-  border-radius: 8px;
-  margin-top: 8px;
-  line-height: 1.5;
+  border:1px solid var(--accent);
+  color: var(--accent);
+  font-size:.9rem;
+  padding:12px 14px; border-radius:12px; margin:12px 0;
 }
 
-/* Dialog / Modal */
-dialog{
-  border:1px solid var(--border);
-  border-radius:16px;
-  background:var(--panel);
-  color:var(--ink);
-  padding:0;
-}
-dialog::backdrop{ background:rgba(0,0,0,.6) }
-
-/* =========================================
-   FOOTERS
-   ========================================= */
-
-/* Hide the large grid footer everywhere (we're using the compact one) */
-.site-footer{ display:none; }
-
-/* Compact footer (the one you liked) */
+/* -------------------------
+   Footer bar (compact, 3 zones)
+-------------------------- */
 .footer-min{
   border-top:1px solid var(--border);
-  padding:14px 0;
-  display:flex; align-items:center; justify-content:space-between;
-  font-size:.85rem; color:var(--muted);
+  background:rgba(10,15,26,.85);
+  backdrop-filter:saturate(140%) blur(6px);
+  padding:10px 0;
 }
-.footer-min .foot-left{ display:flex; align-items:center; gap:8px }
+.footer-min .container{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  flex-wrap:wrap;
+}
+.footer-min .foot-left{ display:flex; align-items:center; gap:8px; min-width:160px }
 .footer-min .logo-icon{ width:22px; height:22px; border-radius:6px }
-.footer-min .brand{ font-weight:600; color:#e2e8f0 }
-.footer-min .tagline{ color:var(--muted) }
-.footer-min .foot-right{ display:flex; align-items:center; gap:14px; flex-wrap:wrap }
-.footer-min a{ color:#cbd5e1; text-decoration:none }
-.footer-min a:hover{ color:#ffffff }
-.footer-min .divider{ opacity:.5; margin:0 10px }
+.footer-min .brand{ font-weight:600; color:#e2e8f0; font-size:.92rem }
 
-/* The small © bar below the compact footer */
+.footer-min .foot-center{
+  display:flex; gap:14px; align-items:center; justify-content:center;
+  flex:1 1 auto; min-width:200px; color:var(--muted); font-size:.9rem;
+}
+.footer-min .foot-center a{ color:#cbd5e1 }
+.footer-min .foot-center a:hover{ color:#ffffff }
+
+.footer-min .foot-right{
+  display:flex; gap:12px; align-items:center; justify-content:flex-end;
+  min-width:220px; color:var(--muted); font-size:.9rem;
+}
+.footer-min a{ text-decoration:none }
+.footer-min .divider{ opacity:.5; }
+
+/* Legal line under bar */
 .legal{
-  color:var(--muted);
-  padding:10px 20px 20px; /* same spacing as before */
+  color:var(--muted); padding:8px 20px 20px; text-align:right;
+  border-top:1px solid var(--border);
 }
 
-/* Collapse nicely on small screens */
-@media (max-width:720px){
-  .footer-min{ flex-direction:column; gap:8px; text-align:center }
-  .footer-min .foot-right{ gap:12px; flex-wrap:wrap; justify-content:center }
-}
-
-/* If any page has a UL inside compact footer, keep it tidy */
-.footer-min nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:12px }
-.footer-min nav li{ margin:0; padding:0 }
-/* ================= FOOTER FORCE-FIX ================ */
-
-/* Nuke the large grid footer everywhere */
-footer.site-footer { display: none !important; }
-
-/* Compact footer you want */
-footer.footer-min{
-  border-top:1px solid var(--border) !important;
-  padding:14px 0 !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  font-size:.85rem !important;
-  color:var(--muted) !important;
-  gap:0 !important;
-}
-
-footer.footer-min .foot-left{ display:flex !important; align-items:center !important; gap:8px !important }
-footer.footer-min .logo-icon{ width:22px !important; height:22px !important; border-radius:6px !important }
-footer.footer-min .brand{ font-weight:600 !important; color:#e2e8f0 !important }
-footer.footer-min .tagline{ color:var(--muted) !important }
-footer.footer-min .foot-right{ display:flex !important; align-items:center !important; gap:14px !important; flex-wrap:wrap !important }
-footer.footer-min a{ color:#cbd5e1 !important; text-decoration:none !important }
-footer.footer-min a:hover{ color:#ffffff !important }
-footer.footer-min .divider{ opacity:.5 !important; margin:0 10px !important }
-
-/* Little © bar under the compact footer */
-.legal{
-  color:var(--muted) !important;
-  padding:10px 20px 20px !important;
-  border-top:1px solid var(--border) !important;
-}
-
-/* Mobile stack */
-@media (max-width:720px){
-  footer.footer-min{
-    flex-direction:column !important;
-    gap:8px !important;
-    text-align:center !important;
+/* Stack footer nicely on small screens */
+@media (max-width:820px){
+  .footer-min .container{
+    flex-direction:column; align-items:center; text-align:center;
   }
-  footer.footer-min .foot-right{
-    gap:12px !important;
-    flex-wrap:wrap !important;
-    justify-content:center !important;
-  }
+  .footer-min .foot-right{ justify-content:center }
+  .legal{ text-align:center }
 }
 
+/* -------------------------
+   Reduce motion (pref)
+-------------------------- */
+@media (prefers-reduced-motion: reduce){
+  .button, .card{ transition:none !important }
+  .card:hover{ transform:none !important; box-shadow:var(--shadow) !important }
+}
