@@ -175,65 +175,74 @@
     </section>
   </main>
 
-<footer class="footer-min">
-  <div class="foot-left">
-    <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
-    <span class="brand">System &amp; Flow</span>
-    <span class="divider">•</span>
-    <span class="tagline">Project management toolkits &amp; AI prompts.</span>
-  </div>
+  <!-- Compact footer -->
+  <footer class="footer-min">
+    <div class="foot-left">
+      <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
+      <span class="brand">System &amp; Flow</span>
+      <span class="divider">•</span>
+      <span class="tagline">Project management toolkits &amp; AI prompts.</span>
+    </div>
 
-  <div class="foot-right">
-    <a href="/">Home</a>
-    <a href="/apps.html">Apps</a>
-    <a href="/contact.html">Contact</a>
-    <a href="https://www.youtube.com/@Systemnflow" rel="noopener">YouTube</a>
-    <a href="https://www.linkedin.com/company/system-and-flow" rel="noopener">LinkedIn</a>
-    <!-- remove Pinterest entirely since you don't use it -->
-  </div>
-</footer>
+    <div class="foot-right">
+      <a href="/">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="/contact.html">Contact</a>
+      <a href="https://www.youtube.com/@Systemnflow" rel="noopener">YouTube</a>
+      <a href="https://www.linkedin.com/company/system-and-flow" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
 
-<div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
+  <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
 
-<script>
-  // year stamp (keep once per page)
-  (function(){ var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear(); })();
-</script>
-
+  <!-- Scripts -->
+  <script>
+    // year
+    (function () {
+      var y = document.getElementById('y');
+      if (y) y.textContent = new Date().getFullYear();
+    })();
 
     // mobile nav
-    const btn = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('nav');
-    if (btn && nav) {
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        nav.classList.toggle('open');
-      });
-    }
+    (function () {
+      const btn = document.querySelector('.nav-toggle');
+      const nav = document.getElementById('nav');
+      if (btn && nav) {
+        btn.addEventListener('click', () => {
+          const open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open));
+          nav.classList.toggle('open');
+        });
+      }
+    })();
 
     // newsletter AJAX
-    const nf = document.getElementById('newsletter-form');
-    const ok = document.getElementById('newsletter-success');
-    if (nf) {
+    (function () {
+      const nf = document.getElementById('newsletter-form');
+      const ok = document.getElementById('newsletter-success');
+      if (!nf) return;
       nf.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const resp = await fetch(nf.action, {
-          method: nf.method,
-          body: new FormData(nf),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (resp.ok) {
-          nf.style.display = 'none';
-          ok.style.display = 'block';
-          if (typeof gtag === 'function') {
-            gtag('event','newsletter_signup',{ method:'Formspree' });
+        try {
+          const resp = await fetch(nf.action, {
+            method: nf.method,
+            body: new FormData(nf),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (resp.ok) {
+            nf.style.display = 'none';
+            if (ok) ok.style.display = 'block';
+            if (typeof gtag === 'function') {
+              gtag('event', 'newsletter_signup', { method: 'Formspree' });
+            }
+          } else {
+            alert('Oops! Something went wrong. Please try again.');
           }
-        } else {
-          alert('Oops! Something went wrong. Please try again.');
+        } catch {
+          alert('Network error. Please try again.');
         }
       });
-    }
+    })();
   </script>
 </body>
 </html>
