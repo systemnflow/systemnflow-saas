@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Primary SEO -->
   <title>System & Flow — SaaS Apps & AI Prompts for Project Managers</title>
   <meta name="description" content="Built by project managers, for project managers. Lightweight SaaS apps and AI prompts that cut through chaos and make execution simple." />
   <link rel="canonical" href="https://systemnflow.com/" />
@@ -43,7 +42,7 @@
   <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
 
-  <!-- Favicons & PWA -->
+  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
@@ -58,38 +57,23 @@
     gtag('js', new Date());
     gtag('config', 'G-1FRFWG4X18');
   </script>
-
-  <style>
-    /* Page-specific light touches */
-    .logo-hero{width:280px;max-width:60vw;margin:0 auto 12px;border-radius:18px;border:1px solid var(--border)}
-    .home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    @media (max-width:900px){.home-grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:560px){.home-grid{grid-template-columns:1fr}}
-    .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-    .badge{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;border:1px solid var(--border);padding:4px 8px;border-radius:999px}
-    .badge .dot{width:8px;height:8px;border-radius:50%}
-    .badge.live{background:rgba(64,210,120,.12)}
-    .badge.live .dot{background:#40d278}
-    .badge.soon{background:rgba(184,115,51,.12)}
-    .badge.soon .dot{background:#b87333}
-    .card-actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-    .newsletter-form input[type="email"]{flex:1;min-width:220px;padding:12px;border-radius:10px;border:1px solid var(--border);background:#0f1726;color:var(--ink)}
-    .success{display:none}
-  </style>
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
+      <a class="brand" href="/" aria-label="System & Flow">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+      </a>
       <nav aria-label="Primary">
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-        <ul id="nav" class="nav">
+        <ul id="nav">
           <li><a href="/" aria-current="page">Home</a></li>
           <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/contact.html" class="button">Contact</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -98,35 +82,35 @@
   <main id="main">
     <!-- Hero -->
     <section class="hero">
-      <div class="container" style="text-align:center">
+      <div class="container">
         <img src="/assets/img/SNF_logo.png" alt="System & Flow full logo" class="logo-hero" width="300" height="300" loading="eager" decoding="async" />
-        <h1>Project Management.<br>Simplified.</h1>
-        <p class="small" style="max-width:760px;margin:0 auto">
+        <h1>Project Management.<br> Simplified.</h1>
+        <p class="small">
           Built <strong>by project managers, for project managers</strong> — System &amp; Flow delivers
           lightweight SaaS apps and AI prompts that cut through chaos and make execution simple.
         </p>
 
-        <div class="cta-row" role="group" aria-label="Primary actions" style="justify-content:center;margin-top:12px">
-          <a class="button primary" href="/apps.html" aria-label="Explore apps and AI prompts">Explore Tools</a>
-          <a class="button ghost" href="/contact.html" aria-label="Join the email list for launch updates">Join the List</a>
+        <div class="cta-row" role="group" aria-label="Primary actions">
+          <a class="button primary" href="/apps.html">Explore Tools</a>
+          <a class="button ghost" href="/contact.html">Join the List</a>
         </div>
 
         <!-- Newsletter inline form -->
-        <form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST"
-              class="newsletter-form" aria-label="Join the newsletter"
-              style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:520px;margin:18px auto 0">
-          <label class="sr-only" for="nl-email">Email</label>
-          <input id="nl-email" type="email" name="email" required placeholder="Email for specials & updates" />
-          <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px">
-            <input type="checkbox" name="marketing_consent" required aria-label="Consent to receive emails" />
-            I agree to receive emails.
-          </label>
-          <button class="button primary" type="submit" aria-label="Join the newsletter">Join</button>
-          <!-- Honeypot -->
-          <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <input type="hidden" name="_subject" value="Newsletter signup — systemnflow.com" />
-        </form>
-        <div id="newsletter-success" class="success small" role="status" aria-live="polite" style="text-align:center;margin-top:12px">
+        <div class="newsletter-wrap">
+          <form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" aria-label="Join the newsletter">
+            <label class="sr-only" for="nl-email">Email</label>
+            <input id="nl-email" type="email" name="email" required placeholder="Email for specials &amp; updates" />
+            <label>
+              <input type="checkbox" name="marketing_consent" required aria-label="Consent to receive emails" />
+              I agree to receive emails.
+            </label>
+            <button class="button primary" type="submit">Join</button>
+            <!-- Honeypot -->
+            <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <input type="hidden" name="_subject" value="Newsletter signup — systemnflow.com" />
+          </form>
+        </div>
+        <div id="newsletter-success" class="success small" role="status" aria-live="polite">
           ✅ Thanks for joining! Check your inbox soon.
         </div>
       </div>
@@ -138,37 +122,37 @@
         <!-- Transcript Analyzer -->
         <article class="card">
           <div class="card-top">
-            <h3 style="margin:0">Transcript Analyzer (Free)</h3>
+            <h3>Transcript Analyzer (Free)</h3>
             <span class="badge live" aria-label="Live"><span class="dot" aria-hidden="true"></span>Live</span>
           </div>
           <p class="small">Turn raw meeting notes into <strong>Actions, Risks, and Decisions</strong> in seconds.</p>
           <div class="card-actions">
-            <a class="button primary" href="/apps.html" aria-label="Open Transcript Analyzer">Open</a>
-            <a class="button ghost" href="/apps.html" aria-label="Read documentation for Transcript Analyzer">Docs</a>
+            <a class="button primary" href="/apps.html">Open</a>
+            <a class="button ghost" href="/apps.html">Docs</a>
           </div>
         </article>
 
         <!-- Status Report Generator -->
         <article class="card">
           <div class="card-top">
-            <h3 style="margin:0">Status Report Generator</h3>
+            <h3>Status Report Generator</h3>
             <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
           </div>
           <p class="small">Create <strong>exec-ready one-pagers</strong> with instant export to PDF or Markdown.</p>
           <div class="card-actions">
-            <a class="button ghost" href="/apps.html" aria-label="Get notified about Status Report Generator">Get Notified</a>
+            <a class="button ghost" href="/apps.html">Get Notified</a>
           </div>
         </article>
 
         <!-- Risk Radar -->
         <article class="card">
           <div class="card-top">
-            <h3 style="margin:0">Risk Radar</h3>
+            <h3>Risk Radar</h3>
             <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
           </div>
           <p class="small">Automatically flag top project risks — with <strong>AI-suggested mitigations</strong>.</p>
           <div class="card-actions">
-            <a class="button ghost" href="/apps.html" aria-label="Get notified about Risk Radar">Get Notified</a>
+            <a class="button ghost" href="/apps.html">Get Notified</a>
           </div>
         </article>
       </div>
@@ -177,19 +161,20 @@
 
   <!-- Compact footer -->
   <footer class="footer-min">
-    <div class="foot-left">
-      <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
-      <span class="brand">System &amp; Flow</span>
-      <span class="divider">•</span>
-      <span class="tagline">Project management toolkits &amp; AI prompts.</span>
-    </div>
-
-    <div class="foot-right">
-      <a href="/">Home</a>
-      <a href="/apps.html">Apps</a>
-      <a href="/contact.html">Contact</a>
-      <a href="https://www.youtube.com/@Systemnflow" rel="noopener">YouTube</a>
-      <a href="https://www.linkedin.com/company/system-and-flow" rel="noopener">LinkedIn</a>
+    <div class="container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
+        <span class="brand">System &amp; Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Project management toolkits &amp; AI prompts.</span>
+      </div>
+      <div class="foot-right">
+        <a href="/">Home</a>
+        <a href="/apps.html">Apps</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://www.youtube.com/@Systemnflow" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/system-and-flow" rel="noopener">LinkedIn</a>
+      </div>
     </div>
   </footer>
 
@@ -198,18 +183,15 @@
   <!-- Scripts -->
   <script>
     // year
-    (function () {
-      var y = document.getElementById('y');
-      if (y) y.textContent = new Date().getFullYear();
-    })();
+    (function(){ var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear(); })();
 
     // mobile nav
-    (function () {
-      const btn = document.querySelector('.nav-toggle');
-      const nav = document.getElementById('nav');
-      if (btn && nav) {
-        btn.addEventListener('click', () => {
-          const open = btn.getAttribute('aria-expanded') === 'true';
+    (function(){
+      const btn=document.querySelector('.nav-toggle');
+      const nav=document.getElementById('nav');
+      if(btn && nav){
+        btn.addEventListener('click',()=>{
+          const open=btn.getAttribute('aria-expanded')==='true';
           btn.setAttribute('aria-expanded', String(!open));
           nav.classList.toggle('open');
         });
@@ -217,28 +199,26 @@
     })();
 
     // newsletter AJAX
-    (function () {
-      const nf = document.getElementById('newsletter-form');
-      const ok = document.getElementById('newsletter-success');
-      if (!nf) return;
-      nf.addEventListener('submit', async (e) => {
+    (function(){
+      const nf=document.getElementById('newsletter-form');
+      const ok=document.getElementById('newsletter-success');
+      if(!nf) return;
+      nf.addEventListener('submit', async (e)=>{
         e.preventDefault();
-        try {
-          const resp = await fetch(nf.action, {
-            method: nf.method,
-            body: new FormData(nf),
-            headers: { 'Accept': 'application/json' }
+        try{
+          const resp=await fetch(nf.action,{
+            method:nf.method,
+            body:new FormData(nf),
+            headers:{'Accept':'application/json'}
           });
-          if (resp.ok) {
-            nf.style.display = 'none';
-            if (ok) ok.style.display = 'block';
-            if (typeof gtag === 'function') {
-              gtag('event', 'newsletter_signup', { method: 'Formspree' });
-            }
-          } else {
+          if(resp.ok){
+            nf.style.display='none';
+            if(ok) ok.style.display='block';
+            if(typeof gtag==='function'){ gtag('event','newsletter_signup',{method:'Formspree'}); }
+          }else{
             alert('Oops! Something went wrong. Please try again.');
           }
-        } catch {
+        }catch{
           alert('Network error. Please try again.');
         }
       });
