@@ -2,17 +2,17 @@
    System & Flow — Global Styles
    =============================== */
 
-:root {
-  --bg: #0b1220;
-  --panel: #121a2b;
-  --ink: #e6e9ef;
-  --muted: #9aa4b2;
-  --accent: #b8753d;
-  --accent-ink: #111;
-  --border: #1e2a41;
-  --good: #40d278;
-  --shadow: 0 10px 30px rgba(0,0,0,.35);
-  --shadow-lift: 0 14px 38px rgba(0,0,0,.45);
+:root{
+  --bg:#0b1220;
+  --panel:#121a2b;
+  --ink:#e6e9ef;
+  --muted:#9aa4b2;
+  --accent:#b8753d;
+  --accent-ink:#111;
+  --border:#1e2a41;
+  --good:#40d278;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --shadow-lift:0 14px 38px rgba(0,0,0,.45);
 }
 
 *{ box-sizing:border-box; margin:0; padding:0 }
@@ -21,8 +21,9 @@ img{ max-width:100%; height:auto; display:block }
 body{
   background:var(--bg);
   color:var(--ink);
-  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
-  font-size:16px; line-height:1.6;
+  font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.6;
 }
 
 a{ color:var(--accent); text-decoration:none }
@@ -37,21 +38,26 @@ a:hover{ color:var(--ink) }
 .site-header{
   background:var(--bg);
   border-bottom:1px solid var(--border);
-  padding:.6rem 0;
+  padding:.5rem 0;
 }
 .site-header .container{
   display:flex; align-items:center; justify-content:space-between;
 }
 .site-header .brand-wrap{ display:flex; align-items:center; gap:.5rem }
+
+/* 🔒 Force any image in header to a sane size,
+   even if the HTML forgot class="logo" */
+.site-header img,
 .site-header .logo{
-  /* FIX: small, consistent logo size in header */
-  height:24px;             /* <- adjust this if you want even smaller/larger */
+  height:24px;            /* tweak this number if you want smaller/larger */
   width:auto;
   object-fit:contain;
 }
-@media (min-width: 900px){
+@media (min-width:900px){
+  .site-header img,
   .site-header .logo{ height:26px }
 }
+
 .site-header .brand{ font-weight:600; font-size:1rem; color:var(--ink) }
 
 .nav-links{ list-style:none; display:flex; gap:1.25rem }
@@ -63,7 +69,6 @@ a:hover{ color:var(--ink) }
    ===================== */
 .hero{ text-align:center; padding:2rem 1rem }
 .hero-logo{
-  /* smaller hero emblem so it doesn’t dominate */
   height:120px; width:auto; margin:0 auto 1rem; object-fit:contain;
 }
 .hero h1{ font-size:2rem; margin-bottom:.5rem }
@@ -99,7 +104,7 @@ a:hover{ color:var(--ink) }
    Cards / Grid
    ===================== */
 .grid{
-  display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+  display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   padding:1rem;
 }
 .card{
@@ -115,30 +120,43 @@ a:hover{ color:var(--ink) }
 .badge.soon{ color:var(--accent) }
 
 /* =====================
-   Footer (compact)
+   Footer (extra compact)
    ===================== */
 .footer-min{
-  background:var(--bg); border-top:1px solid var(--border);
-  padding:.25rem 0; color:var(--muted); font-size:.9rem;
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:0;                        /* no outside padding */
+  color:var(--muted);
+  font-size:.88rem;
+  line-height:1.2;                  /* tighter lines */
 }
+
+/* first row */
 .footer-container{
-  max-width:1100px; margin:0 auto; padding:0 1rem;
-  display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;
+  max-width:1100px; margin:0 auto;
+  padding:.35rem 1rem;              /* tight inner padding */
+  display:flex; justify-content:space-between; align-items:center;
+  gap:.75rem; flex-wrap:wrap;
 }
-.footer-min .foot-left{ display:flex; align-items:center; gap:.5rem }
-.footer-min .logo-icon{ height:18px; width:auto; border-radius:6px }  /* smaller footer logo */
+.footer-min .foot-left{ display:flex; align-items:center; gap:.45rem }
+.footer-min .logo-icon{ height:18px; width:auto; border-radius:6px }
 .footer-min .brand{ font-weight:600; color:var(--ink) }
 .footer-min .divider{ color:var(--ink) }
 .footer-min .tagline{ color:var(--muted) }
-.footer-min .foot-right{ display:flex; gap:.75rem; align-items:center }
-.footer-min .foot-right a{ color:var(--muted); font-size:.9rem }
+.footer-min .foot-right{ display:flex; gap:.6rem; align-items:center }
+.footer-min .foot-right a{ color:var(--muted); font-size:.88rem }
 .footer-min .foot-right a:hover{ color:var(--ink) }
-.legal{ text-align:center; padding-top:.25rem; color:var(--muted); font-size:.8rem }
 
-/* =====================
-   Page-specific hook (optional)
-   Add body class like <body class="page-home"> to target just one page.
-   ===================== */
-/*
-.page-home .hero-logo { height:110px; }
-*/
+/* legal line (second row) — tiny and tight */
+.legal{
+  text-align:center;
+  padding:.15rem 0;                 /* minimal vertical space */
+  margin:0;                         /* kill any default margins */
+  color:var(--muted);
+  font-size:.78rem;
+  line-height:1.2;
+}
+
+/* remove accidental margins inside footer */
+.footer-min p,
+.footer-min span{ margin:0 }
