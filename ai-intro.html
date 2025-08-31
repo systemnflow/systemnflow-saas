@@ -40,23 +40,12 @@
     gtag('js', new Date());
     gtag('config', 'G-1FRFWG4X18');
   </script>
-
-  <style>
-    /* Page-specific light touches */
-    .ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    @media (max-width:900px){.ai-grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:560px){.ai-grid{grid-template-columns:1fr}}
-    .newsletter-form{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;max-width:560px}
-    .newsletter-form input[type="email"]{flex:1;min-width:240px;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--ink)}
-    .newsletter-form .actions{display:flex;align-items:center}
-    #ai-intro-ok{display:none;margin-top:10px}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
-  </style>
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
       <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
@@ -75,9 +64,9 @@
   <main id="main">
     <!-- Hero -->
     <section class="hero">
-      <div class="container">
+      <div class="container" style="text-align:center">
         <h1>AI for PMs, minus the fluff.</h1>
-        <p class="small" style="max-width:720px">
+        <p class="small sub">
           A short, practical starter: prompts that actually ship work, not just “cool demos.”
         </p>
       </div>
@@ -86,97 +75,101 @@
     <!-- Content -->
     <section class="section">
       <div class="container" style="max-width:840px">
-        <div class="ai-grid">
-          <div class="card">
+        <div class="home-grid">
+          <article class="card">
             <h3>Meeting to Outcomes</h3>
             <p class="small">Turn raw notes into actions, risks, decisions—ready for your tracker.</p>
-          </div>
-          <div class="card">
+          </article>
+          <article class="card">
             <h3>Risk Surfacing</h3>
             <p class="small">Spot early signals and ask better “what if” questions.</p>
-          </div>
-          <div class="card">
+          </article>
+          <article class="card">
             <h3>Status Drafts</h3>
             <p class="small">Create crisp updates in your voice; keep the accountability.</p>
-          </div>
+          </article>
         </div>
 
+        <!-- Signup -->
         <form id="ai-intro-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" novalidate>
           <label class="sr-only" for="ai-email">Email</label>
           <input id="ai-email" type="email" name="email" required placeholder="Email to get the free intro" />
           <input type="hidden" name="_subject" value="AI Intro request — systemnflow.com" />
+          <label class="consent">
+            <input type="checkbox" name="marketing_consent" required /> I agree to receive emails.
+          </label>
           <div class="actions">
             <button class="button primary" type="submit">Send it</button>
           </div>
         </form>
-        <div id="ai-intro-ok" class="small" role="status" aria-live="polite">✅ Check your inbox shortly.</div>
+        <div id="ai-intro-ok" class="success" role="status" aria-live="polite">✅ Check your inbox shortly.</div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <img class="footer-logo" src="/assets/img/logo.png" alt="System & Flow" />
-        <p class="small">Project management toolkits & AI prompts.</p>
+  <!-- Footer (compact) -->
+  <footer class="footer-min">
+    <div class="container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
+        <span class="brand">System &amp; Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Project management toolkits &amp; AI prompts.</span>
       </div>
-      <nav aria-label="Footer">
-        <ul class="footer-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/ai-intro.html">AI Intro</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="https://systemnflow.gumroad.com">Store</a></li>
-        </ul>
-      </nav>
-      <div class="social">
-        <a href="https://www.instagram.com/systemnflow" aria-label="Instagram">@systemnflow</a>
-        <a href="https://www.tiktok.com/@systemnflow" aria-label="TikTok">@systemnflow</a>
-        <a href="https://www.pinterest.com/systemnflow" aria-label="Pinterest">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" aria-label="YouTube">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow" aria-label="LinkedIn">LinkedIn</a>
+      <div class="foot-right">
+        <a href="/">Home</a>
+        <a href="/apps.html">Apps</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://systemnflow.gumroad.com">Store</a>
+        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
+        <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
       </div>
     </div>
-    <div class="container legal small">
-      © <span id="y"></span> System & Flow™. All rights reserved.
-    </div>
+    <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
   </footer>
 
+  <!-- Scripts -->
   <script>
     // year
     document.getElementById('y').textContent = new Date().getFullYear();
 
     // mobile nav
-    const btn = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('nav');
-    if (btn && nav) {
+    (function () {
+      const btn = document.querySelector('.nav-toggle');
+      const nav = document.getElementById('nav');
+      if (!btn || !nav) return;
       btn.addEventListener('click', () => {
         const open = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!open));
         nav.classList.toggle('open');
       });
-    }
+    })();
 
     // form ajax
-    const aiF = document.getElementById('ai-intro-form');
-    const ok = document.getElementById('ai-intro-ok');
-    if (aiF) {
+    (function () {
+      const aiF = document.getElementById('ai-intro-form');
+      const ok = document.getElementById('ai-intro-ok');
+      if (!aiF) return;
       aiF.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const r = await fetch(aiF.action, {
-          method: 'POST',
-          body: new FormData(aiF),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (r.ok) {
-          aiF.style.display = 'none';
-          ok.style.display = 'block';
-          if (window.gtag) gtag('event', 'newsletter_signup', { source: 'ai-intro' });
-        } else {
-          alert('Please try again.');
+        try {
+          const r = await fetch(aiF.action, {
+            method: 'POST',
+            body: new FormData(aiF),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (r.ok) {
+            aiF.style.display = 'none';
+            if (ok) ok.style.display = 'block';
+            if (window.gtag) gtag('event', 'newsletter_signup', { source: 'ai-intro' });
+          } else {
+            alert('Please try again.');
+          }
+        } catch {
+          alert('Network error. Please try again.');
         }
       });
-    }
+    })();
   </script>
 </body>
 </html>
