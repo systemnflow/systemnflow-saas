@@ -1,10 +1,46 @@
-body {
+/* ===============================
+   System & Flow — Global Styles
+   =============================== */
+
+:root {
+  --bg: #0b1220;
+  --panel: #121a2b;
+  --ink: #e6e9ef;
+  --muted: #9aa4b2;
+  --accent: #b8753d;
+  --accent-ink: #111;
+  --border: #1e2a41;
+  --good: #40d278;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 14px 38px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  background: #0b1220;
-  color: #e6e9ef;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
   font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
   line-height: 1.6;
 }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+/* =====================
+   Layout Containers
+   ===================== */
 
 .container {
   max-width: 1100px;
@@ -12,32 +48,52 @@ body {
   padding: 1rem;
 }
 
+/* =====================
+   Header
+   ===================== */
+
 .site-header {
-  background: #0b1220;
-  border-bottom: 1px solid #1e2a41;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
   padding: 0.75rem 0;
 }
 
 .site-header .container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 1rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+}
+
+.site-header .logo {
+  width: 28px;
+  height: auto;
+  margin-right: 0.5rem;
+}
+
+.site-header .brand {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1rem;
-  padding: 0;
+  gap: 1.25rem;
 }
 
-.nav-links a {
-  color: #9aa4b2;
-  text-decoration: none;
+.nav-links li a {
+  color: var(--muted);
+  font-size: 0.95rem;
 }
+
+.nav-links li a:hover {
+  color: var(--ink);
+}
+
+/* =====================
+   Hero Section
+   ===================== */
 
 .hero {
   text-align: center;
@@ -70,15 +126,19 @@ body {
 }
 
 .primary {
-  background: #b8753d;
-  color: #111;
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 .ghost {
   background: transparent;
-  color: #e6e9ef;
-  border: 1px solid #1e2a41;
+  color: var(--ink);
+  border: 1px solid var(--border);
 }
+
+/* =====================
+   Newsletter Form
+   ===================== */
 
 .newsletter-form {
   margin-top: 1rem;
@@ -91,9 +151,9 @@ body {
 .newsletter-form input[type="email"] {
   padding: 0.6rem;
   border-radius: 5px;
-  border: 1px solid #1e2a41;
-  background: #0b1220;
-  color: #e6e9ef;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--ink);
   width: 300px;
 }
 
@@ -102,41 +162,46 @@ body {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: #e6e9ef;
+  color: var(--ink);
 }
 
 .newsletter-form button {
   padding: 0.6rem 1rem;
-  background: #b8753d;
+  background: var(--accent);
   border: none;
   border-radius: 5px;
-  color: #111;
+  color: var(--accent-ink);
   font-weight: bold;
   cursor: pointer;
 }
 
 .success {
-  color: #40d278;
+  color: var(--good);
   font-size: 0.9rem;
 }
+
+/* =====================
+   Grid & Cards
+   ===================== */
 
 .grid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 1rem;
 }
 
 .card {
-  background: #121a2b;
+  background: var(--panel);
   padding: 1rem;
-  border: 1px solid #1e2a41;
+  border: 1px solid var(--border);
   border-radius: 8px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow);
 }
 
 .card-actions {
@@ -145,8 +210,8 @@ body {
 
 .badge {
   display: inline-block;
-  background: #1e2a41;
-  color: #40d278;
+  background: var(--border);
+  color: var(--good);
   font-size: 0.8rem;
   padding: 0.2rem 0.5rem;
   border-radius: 5px;
@@ -154,14 +219,18 @@ body {
 }
 
 .badge.soon {
-  color: #b8753d;
+  color: var(--accent);
 }
 
+/* =====================
+   Footer
+   ===================== */
+
 .footer-min {
-  background: #0b1220;
-  border-top: 1px solid #1e2a41;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
   padding: 0.5rem 0;
-  color: #9aa4b2;
+  color: var(--muted);
   font-size: 0.95rem;
 }
 
@@ -190,30 +259,30 @@ body {
 
 .footer-min .brand {
   font-weight: 600;
-  color: #e6e9ef;
+  color: var(--ink);
 }
 
 .footer-min .divider {
-  color: #e6e9ef;
+  color: var(--ink);
 }
 
 .footer-min .tagline {
-  color: #9aa4b2;
+  color: var(--muted);
 }
 
 .footer-min .foot-right a {
   margin-left: 0.75rem;
-  color: #9aa4b2;
+  color: var(--muted);
   text-decoration: none;
 }
 
 .footer-min .foot-right a:hover {
-  color: #e6e9ef;
+  color: var(--ink);
 }
 
 .legal {
   text-align: center;
   padding-top: 1rem;
-  color: #9aa4b2;
+  color: var(--muted);
   font-size: 0.85rem;
 }
