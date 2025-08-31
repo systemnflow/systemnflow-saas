@@ -61,7 +61,7 @@ img{ max-width:100%; height:auto; display:block }
 }
 
 /* -------------------------
-   Header (brand + dropdown menu)
+   Header (brand + DROPDOWN with icon-only toggle)
 -------------------------- */
 .site-header{
   position:sticky; top:0; z-index:50;
@@ -80,36 +80,47 @@ img{ max-width:100%; height:auto; display:block }
 }
 .site-header .brand img{ height:28px; width:auto }
 .site-header .brand::after{
-  content:"System \00A0&\00A0 Flow";            /* non-breaking spaces around & */
+  content:"System \00A0&\00A0 Flow";          /* non-breaking spaces around & */
   font-weight:700; font-size:15px; letter-spacing:.2px;
   color:#e2e8f0; opacity:.95; transform:translateY(.5px);
 }
 .site-header .brand:hover::after{ opacity:1 }
 @media (max-width:420px){
-  .site-header .brand::after{ display:none }      /* hide label on tiny screens */
+  .site-header .brand::after{ display:none }    /* hide label on tiny screens */
 }
 
-/* Dropdown menu — visible on ALL breakpoints */
+/* Dropdown menu container */
 .site-header nav{ position:relative }
+
+/* === ICON-ONLY HAMBURGER BUTTON === */
 .nav-toggle{
-  display:inline-flex; align-items:center; gap:8px;
+  position:relative;
+  width:42px; height:34px;
+  padding:0; margin:0;
   appearance:none;
   background:var(--panel);
-  color:var(--ink);
   border:1px solid var(--border);
-  padding:8px 12px;
   border-radius:12px;
-  font-size:14px; line-height:1;
   cursor:pointer;
+  color:transparent;                 /* hide any text if present */
+  overflow:hidden;
 }
 .nav-toggle:hover{ filter:brightness(1.05) }
 .nav-toggle[aria-expanded="true"]{ border-color:#253554 }
 
-/* The dropdown panel */
+/* draw 3 lines */
+.nav-toggle::before{
+  content:"";
+  position:absolute; left:10px; right:10px;
+  top:9px; height:2px; background:var(--ink);
+  box-shadow:0 7px 0 0 var(--ink), 0 14px 0 0 var(--ink);
+}
+
+/* Dropdown panel */
 .site-header nav ul{
   margin:0; padding:8px; list-style:none;
   position:absolute; right:0; top:calc(100% + 10px);
-  display:none;                                     /* toggled via .open */
+  display:none;                                /* toggled via .open */
   flex-direction:column; gap:4px;
   min-width:220px;
   background:var(--panel);
@@ -119,7 +130,6 @@ img{ max-width:100%; height:auto; display:block }
 }
 .site-header nav ul.open{ display:flex }
 
-/* Dropdown items */
 .site-header nav li{ display:block }
 .site-header nav a{
   display:block;
@@ -135,7 +145,7 @@ img{ max-width:100%; height:auto; display:block }
   color:var(--ink); background:#0f1726; font-weight:600;
 }
 
-/* If markup still uses class="button" for header links, neutralize it */
+/* neutralize legacy .button class if used in header links */
 .site-header nav a.button{
   background:transparent !important;
   border:none !important;
@@ -276,7 +286,7 @@ form.contact input, form.contact textarea{
 .card .card-actions .button{ min-width:120px }
 
 /* -------------------------
-   Footer (centered, line-free, sticky)
+   Footer (SOCIAL ONLY)
 -------------------------- */
 .footer-min{
   background:transparent; border:none;
@@ -289,10 +299,32 @@ form.contact input, form.contact textarea{
 }
 .footer-min .foot-left,
 .footer-min .foot-right{ display:flex; gap:14px; align-items:center; flex-wrap:wrap }
+
+/* Hide all non-social links in the right cluster.
+   Allow: TikTok, Instagram, Pinterest, YouTube, LinkedIn. */
+.footer-min .foot-right a{
+  display:none;
+}
+.footer-min .foot-right a[href*="tiktok.com"],
+.footer-min .foot-right a[href*="instagram.com"],
+.footer-min .foot-right a[href*="pinterest.com"],
+.footer-min .foot-right a[href*="youtube.com"],
+.footer-min .foot-right a[href*="linkedin.com"]{
+  display:inline-flex;
+}
+
+/* Slight badge look for socials */
+.footer-min .foot-right a{
+  padding:6px 10px; border:1px solid var(--border); border-radius:10px;
+  background:var(--panel); color:#cbd5e1; text-decoration:none; font-size:.92rem;
+}
+.footer-min .foot-right a:hover{ color:#ffffff; filter:brightness(1.05) }
+
 .footer-min .logo-icon{ width:22px; height:22px; border-radius:6px }
 .footer-min .brand{ font-weight:600; color:#e2e8f0; font-size:.92rem }
 .footer-min .tagline{ color:var(--muted); font-size:.92rem }
 .footer-min .divider{ display:none }
+
 .footer-min a{ color:#cbd5e1; text-decoration:none; font-size:.92rem }
 .footer-min a:hover{ color:#ffffff }
 
