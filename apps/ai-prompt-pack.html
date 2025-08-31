@@ -3,56 +3,159 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>AI Prompt Pack for PMs — System & Flow</title>
-  <meta name="description" content="50+ prompts crafted by PMs to supercharge planning, reporting, and team alignment." />
+  <meta name="description" content="50+ prompts crafted by PMs to supercharge planning, reporting, risk visibility, and team alignment." />
   <link rel="canonical" href="https://systemnflow.com/apps/ai-prompt-pack.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Prompt Pack for PMs — System & Flow" />
+  <meta property="og:description" content="50+ prompts crafted by PMs to save time and sharpen execution." />
+  <meta property="og:url" content="https://systemnflow.com/apps/ai-prompt-pack.html" />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+  <link rel="manifest" href="/assets/img/site.webmanifest">
+  <link rel="shortcut icon" href="/assets/img/favicon.ico">
+
+  <!-- CSS -->
+  <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="icon" href="/favicon.ico" />
+
+  <!-- GA -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-1FRFWG4X18');
+  </script>
 </head>
-<body class="dark">
-  <header class="wrap header">
-    <div class="brand"><a href="/"><img src="/logo.png" alt="System & Flow" class="logo-icon" /><span class="brand-name">System &amp; Flow</span></a></div>
-    <nav class="nav"><a href="/">Home</a><a href="/apps.html">Apps</a><a href="/pricing.html">Pricing</a><a href="/contact.html">Contact</a></nav>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
+      <nav aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+        <ul id="nav" class="nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Apps</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/contact.html" class="button">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main class="wrap hero">
-    <div class="card-top"><h1>AI Prompt Pack for PMs</h1><span class="badge soon"><span class="dot"></span> Coming soon</span></div>
-    <p class="sub">50+ prompts crafted by PMs to save time and sharpen execution.</p>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container" style="text-align:center">
+        <div class="card-top" style="justify-content:center; gap:12px; margin-bottom:10px">
+          <h1 style="margin:0">AI Prompt Pack for PMs</h1>
+          <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
+        </div>
+        <p class="small" style="max-width:720px;margin:0 auto">
+          50+ prompts crafted by PMs to save time and sharpen execution—planning, status, risks, and team alignment.
+        </p>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+      <div class="container" style="max-width:840px; display:grid; gap:18px">
+        <article class="card">
+          <h3>What you’ll get</h3>
+          <ul class="small" style="color:var(--muted);line-height:1.8; margin:8px 0 0">
+            <li>Planning prompts: scope, WBS, schedules</li>
+            <li>Status / reporting prompts</li>
+            <li>Risk &amp; issue prompts</li>
+            <li>Team alignment prompts</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Be first to know</h3>
+          <form id="pp-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" novalidate>
+            <label class="sr-only" for="pp-email">Email</label>
+            <input id="pp-email" type="email" name="email" required placeholder="Email for Prompt Pack updates" />
+            <input type="hidden" name="_subject" value="AI Prompt Pack waitlist — systemnflow.com" />
+            <div class="actions">
+              <button class="button primary" type="submit">Join</button>
+            </div>
+          </form>
+          <div id="pp-wait-ok" class="success">✅ Added to Prompt Pack waitlist.</div>
+        </article>
+      </div>
+    </section>
   </main>
 
-  <section class="wrap" style="max-width:800px;padding:0 20px 50px">
-    <div class="card">
-      <h3>What you’ll get</h3>
-      <ul style="color:var(--muted);line-height:1.6">
-        <li>Planning prompts: scope, WBS, schedules</li>
-        <li>Status/reporting prompts</li>
-        <li>Risk & issue prompts</li>
-        <li>Team alignment prompts</li>
-      </ul>
+  <footer class="footer-min">
+    <div class="container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
+        <span class="brand">System &amp; Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Project management toolkits &amp; AI prompts.</span>
+      </div>
+      <div class="foot-right">
+        <a href="/">Home</a>
+        <a href="/apps.html">Apps</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
+        <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
+      </div>
     </div>
-    <div class="card">
-      <h3>Be first to know</h3>
-      <form id="pp-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form">
-        <input type="email" name="email" required placeholder="Email for Prompt Pack updates" />
-        <input type="hidden" name="_subject" value="AI Prompt Pack waitlist — systemnflow.com" />
-        <div class="actions"><button class="btn primary">Join</button></div>
-      </form>
-      <div id="pp-wait-ok" class="success">✅ Added to Prompt Pack waitlist.</div>
-    </div>
-  </section>
+    <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
+  </footer>
 
-  <div data-include="/partials/footer.html"></div>
-  <script src="/include.js" defer></script>
   <script>
-    const pp=document.getElementById('pp-wait'), ok=document.getElementById('pp-wait-ok');
-    if(pp){pp.addEventListener('submit',async e=>{
-      e.preventDefault();
-      const r=await fetch(pp.action,{method:'POST',body:new FormData(pp),headers:{'Accept':'application/json'}});
-      if(r.ok){pp.style.display='none';ok.style.display='block';}
-      else alert('Please try again.');});
-    }
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // mobile nav
+    (function () {
+      const btn = document.querySelector('.nav-toggle');
+      const nav = document.getElementById('nav');
+      if (!btn || !nav) return;
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        nav.classList.toggle('open');
+      });
+    })();
+
+    // waitlist ajax
+    (function () {
+      const f = document.getElementById('pp-wait');
+      const ok = document.getElementById('pp-wait-ok');
+      if (!f) return;
+      f.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try{
+          const r = await fetch(f.action, {
+            method: 'POST',
+            body: new FormData(f),
+            headers: { 'Accept':'application/json' }
+          });
+          if (r.ok) {
+            f.style.display='none';
+            ok.style.display='block';
+            if (window.gtag) gtag('event','newsletter_signup',{ source:'ai-prompt-pack' });
+          } else { alert('Please try again.'); }
+        }catch{ alert('Network error. Please try again.'); }
+      });
+    })();
   </script>
 </body>
 </html>
