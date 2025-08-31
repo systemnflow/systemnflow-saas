@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Primary SEO -->
   <title>Project Management SaaS Apps & AI Prompts | System & Flow</title>
   <meta name="description" content="Lightweight SaaS apps and AI prompts — built by project managers, for project managers. Save hours, cut through noise, and focus on execution." />
   <link rel="canonical" href="https://systemnflow.com/apps.html" />
@@ -17,7 +16,6 @@
   <meta property="og:description" content="SaaS apps and AI prompts designed by project managers, for project managers. Faster, smarter execution without the chaos." />
   <meta property="og:url" content="https://systemnflow.com/apps.html" />
   <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
-
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Project Management SaaS Apps & AI Prompts | System & Flow" />
   <meta name="twitter:description" content="SaaS apps and AI prompts designed by project managers, for project managers. Faster, smarter execution without the chaos." />
@@ -30,7 +28,7 @@
   <link rel="manifest" href="/assets/img/site.webmanifest">
   <link rel="shortcut icon" href="/assets/img/favicon.ico">
 
-  <!-- CSS -->
+  <!-- CSS (global only) -->
   <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
 
@@ -54,21 +52,6 @@
     gtag('js', new Date());
     gtag('config', 'G-1FRFWG4X18');
   </script>
-
-  <style>
-    /* Page-specific light touches */
-    .apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    @media (max-width:900px){.apps-grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:560px){.apps-grid{grid-template-columns:1fr}}
-    .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-    .badge{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;border:1px solid var(--border);padding:4px 8px;border-radius:999px}
-    .badge .dot{width:8px;height:8px;border-radius:50%}
-    .badge.live{background:rgba(64,210,120,.12)}
-    .badge.live .dot{background:#40d278}
-    .badge.soon{background:rgba(184,115,51,.12)} /* copper tint */
-    .badge.soon .dot{background:#b87333}
-    .card-actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-  </style>
 </head>
 
 <body>
@@ -79,7 +62,7 @@
       <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
       <nav aria-label="Primary">
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-        <ul id="nav" class="nav">
+        <ul id="nav">
           <li><a href="/">Home</a></li>
           <li><a href="/apps.html" aria-current="page">Apps</a></li>
           <li><a href="/contact.html" class="button">Contact</a></li>
@@ -91,18 +74,17 @@
   <main id="main">
     <!-- Hero -->
     <section class="hero">
-      <div class="container">
+      <div class="container" style="text-align:center">
         <h1>SaaS Apps &amp; AI Prompts</h1>
-        <p class="small" style="max-width:740px">
+        <p class="small" style="max-width:740px;margin:0 auto">
           Built by project managers, for project managers. Start with the free Analyzer, then explore premium apps and prompt packs.
         </p>
       </div>
     </section>
 
-    <!-- Cards -->
+    <!-- App cards (use global grid/card styles) -->
     <section class="section">
-      <div class="container apps-grid">
-
+      <div class="container home-grid">
         <!-- Transcript Analyzer (Live) -->
         <article class="card">
           <div class="card-top">
@@ -134,7 +116,7 @@
             <h3 style="margin:0">Risk Radar</h3>
             <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
           </div>
-          <p class="small">Automatically flag top project risks — complete with <strong>AI-suggested mitigations</strong>.</p>
+          <p class="small">Automatically flag top project risks — with <strong>AI-suggested mitigations</strong>.</p>
           <div class="card-actions">
             <a class="button ghost" href="/contact.html" aria-label="Get notified about Risk Radar">Get Notified</a>
           </div>
@@ -151,52 +133,45 @@
             <a class="button ghost" href="/contact.html" aria-label="Get notified about AI Prompt Pack">Get Notified</a>
           </div>
         </article>
-
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <img class="footer-logo" src="/assets/img/logo.png" alt="System & Flow" />
-        <p class="small">Project management toolkits & AI prompts.</p>
+  <!-- Compact, centered, line-free footer -->
+  <footer class="footer-min">
+    <div class="container">
+      <img class="logo-icon" src="/assets/img/logo.png" alt="" />
+      <span class="brand">System &amp; Flow</span>
+      <span class="tagline">Project management toolkits &amp; AI prompts.</span>
+
+      <div class="foot-right">
+        <a href="/">Home</a>
+        <a href="/apps.html" aria-current="page">Apps</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://www.youtube.com/@Systemnflow" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/system-and-flow" rel="noopener">LinkedIn</a>
       </div>
-      <nav aria-label="Footer">
-        <ul class="footer-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="https://systemnflow.gumroad.com">Store</a></li>
-        </ul>
-      </nav>
-      <div class="social">
-        <a href="https://www.instagram.com/systemnflow" aria-label="Instagram">@systemnflow</a>
-        <a href="https://www.tiktok.com/@systemnflow" aria-label="TikTok">@systemnflow</a>
-        <a href="https://www.pinterest.com/systemnflow" aria-label="Pinterest">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" aria-label="YouTube">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow" aria-label="LinkedIn">LinkedIn</a>
-      </div>
-    </div>
-    <div class="container legal small">
-      © <span id="y"></span> System & Flow™. All rights reserved.
     </div>
   </footer>
+  <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
 
   <script>
     // year
-    document.getElementById('y').textContent = new Date().getFullYear();
+    (function(){var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear();})();
 
     // mobile nav
-    const btn = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('nav');
-    if (btn && nav) {
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        nav.classList.toggle('open');
-      });
-    }
+    (function(){
+      const btn=document.querySelector('.nav-toggle');
+      const nav=document.getElementById('nav');
+      if(btn && nav){
+        btn.addEventListener('click',()=>{
+          const open=btn.getAttribute('aria-expanded')==='true';
+          btn.setAttribute('aria-expanded', String(!open));
+          nav.classList.toggle('open');
+        });
+      }
+    })();
   </script>
 </body>
 </html>
+
