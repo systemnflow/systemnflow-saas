@@ -40,26 +40,12 @@
     gtag('js', new Date());
     gtag('config', 'G-1FRFWG4X18');
   </script>
-
-  <style>
-    /* Page-specific light touches */
-    .form-wrap{max-width:680px;margin:0 auto;padding:24px 20px}
-    form.contact{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;display:grid;gap:12px}
-    form.contact label{font-size:14px;color:var(--muted);display:grid;gap:6px}
-    form.contact input, form.contact textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#0f1726;color:var(--ink)}
-    .consent{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14px}
-    .success{background:#0f1f14;border:1px solid #1f5d38;color:#c9f1dc;padding:12px;border-radius:10px;margin-top:12px;display:none}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    .disclaimer-banner{background:rgba(255,193,7,.12);border:1px solid #ffc107;color:#ffc107;font-size:.85rem;padding:10px 12px;border-radius:8px;margin-top:6px;line-height:1.5}
-    /* Modal */
-    dialog#terms-modal{max-width:920px;width:92%;border:1px solid var(--border);border-radius:16px;padding:0;background:var(--card);color:var(--ink)}
-    dialog#terms-modal::backdrop{background:rgba(0,0,0,.5)}
-  </style>
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
       <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
@@ -77,9 +63,9 @@
   <main id="main">
     <!-- Hero -->
     <section class="hero">
-      <div class="container">
+      <div class="container" style="text-align:center">
         <h1>Contact / Join the List</h1>
-        <p class="small" style="max-width:720px">
+        <p class="small sub" style="max-width:720px;margin:0 auto">
           Built <strong>by project managers, for project managers.</strong> Ask us about SaaS app access, AI prompts, or early launch updates.
         </p>
       </div>
@@ -87,34 +73,31 @@
 
     <!-- Form -->
     <section class="section">
-      <div class="container form-wrap">
+      <div class="container" style="max-width:680px">
         <form id="contact-form"
-              class="contact"
+              class="contact form"
               action="https://formspree.io/f/mzzvlwqy"
               method="POST"
               novalidate
               data-requires-terms>
-          <label for="name">Name
-            <input id="name" type="text" name="name" autocomplete="name" required />
-          </label>
+          <label class="small" for="name">Name</label>
+          <input id="name" type="text" name="name" autocomplete="name" required />
 
-          <label for="email">Email
-            <input id="email" type="email" name="email" autocomplete="email" required />
-          </label>
+          <label class="small" for="email">Email</label>
+          <input id="email" type="email" name="email" autocomplete="email" required />
 
-          <label for="message">Message
-            <textarea id="message" name="message" rows="5" placeholder="How can we help? (e.g., Transcript Analyzer, Status Report Generator, AI Prompt Pack)" required></textarea>
-          </label>
+          <label class="small" for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="How can we help? (e.g., Transcript Analyzer, Status Report Generator, AI Prompt Pack)" required></textarea>
 
           <div class="disclaimer-banner">
             ⚠️ <strong>Reminder:</strong> Do not include regulated, classified, or highly sensitive corporate data.
             You are responsible for complying with your organization’s policies.
           </div>
 
-          <div class="consent">
+          <label class="consent">
             <input id="consent" type="checkbox" name="marketing_consent" />
-            <label for="consent">I agree to receive follow-ups about this inquiry and occasional product updates.</label>
-          </div>
+            I agree to receive follow-ups about this inquiry and occasional product updates.
+          </label>
 
           <!-- Honeypot -->
           <label class="sr-only" for="gotcha">Do not fill this out</label>
@@ -122,7 +105,9 @@
 
           <input type="hidden" name="_subject" value="New contact — systemnflow.com" />
 
-          <button class="button primary" type="submit">Send</button>
+          <div class="actions">
+            <button class="button primary" type="submit">Send</button>
+          </div>
         </form>
 
         <div id="contact-success" class="success" role="status" aria-live="polite">
@@ -132,31 +117,25 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <img class="footer-logo" src="/assets/img/logo.png" alt="System & Flow" />
-        <p class="small">Project management toolkits & AI prompts.</p>
+  <!-- Footer (compact) -->
+  <footer class="footer-min">
+    <div class="container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
+        <span class="brand">System &amp; Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Project management toolkits &amp; AI prompts.</span>
       </div>
-      <nav aria-label="Footer">
-        <ul class="footer-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="https://systemnflow.gumroad.com">Store</a></li>
-        </ul>
-      </nav>
-      <div class="social">
-        <a href="https://www.instagram.com/systemnflow" aria-label="Instagram">@systemnflow</a>
-        <a href="https://www.tiktok.com/@systemnflow" aria-label="TikTok">@systemnflow</a>
-        <a href="https://www.pinterest.com/systemnflow" aria-label="Pinterest">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" aria-label="YouTube">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow" aria-label="LinkedIn">LinkedIn</a>
+      <div class="foot-right">
+        <a href="/">Home</a>
+        <a href="/apps.html">Apps</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://systemnflow.gumroad.com">Store</a>
+        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
+        <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
       </div>
     </div>
-    <div class="container legal small">
-      © <span id="y"></span> System & Flow™. All rights reserved.
-    </div>
+    <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
   </footer>
 
   <!-- Terms Modal (click-to-read gate) -->
@@ -176,46 +155,53 @@
     </div>
   </dialog>
 
+  <!-- Scripts -->
   <script>
     // year
     document.getElementById('y').textContent = new Date().getFullYear();
 
     // mobile nav
-    const btn = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('nav');
-    if (btn && nav) {
+    (function () {
+      const btn = document.querySelector('.nav-toggle');
+      const nav = document.getElementById('nav');
+      if (!btn || !nav) return;
       btn.addEventListener('click', () => {
         const open = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!open));
         nav.classList.toggle('open');
       });
-    }
+    })();
 
     // AJAX submit
-    const cf = document.getElementById('contact-form');
-    const success = document.getElementById('contact-success');
-    if (cf) {
+    (function () {
+      const cf = document.getElementById('contact-form');
+      const success = document.getElementById('contact-success');
+      if (!cf) return;
       cf.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const resp = await fetch(cf.action, {
-          method: 'POST',
-          body: new FormData(cf),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (resp.ok) {
-          cf.style.display = 'none';
-          success.style.display = 'block';
-          if (typeof gtag === 'function') gtag('event','contact_submit',{method:'Formspree'});
-        } else {
-          alert('Oops! Something went wrong. Please try again.');
+        try {
+          const resp = await fetch(cf.action, {
+            method: 'POST',
+            body: new FormData(cf),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (resp.ok) {
+            cf.style.display = 'none';
+            if (success) success.style.display = 'block';
+            if (typeof gtag === 'function') gtag('event','contact_submit',{method:'Formspree'});
+          } else {
+            alert('Oops! Something went wrong. Please try again.');
+          }
+        } catch {
+          alert('Network error. Please try again.');
         }
       });
-    }
+    })();
 
     // ---------- Terms click-to-read gate ----------
     (() => {
       const TERMS_VERSION = '2025-08-29';
-      const STORAGE_KEY = 'snf_terms_'+TERMS_VERSION;
+      const STORAGE_KEY = 'snf_terms_' + TERMS_VERSION;
       const modal = document.getElementById('terms-modal');
       const acceptBtn = document.getElementById('tm-accept');
       const cancelBtn = document.getElementById('tm-cancel');
@@ -223,14 +209,14 @@
       const ver = document.getElementById('tm-version');
       if (ver) ver.textContent = 'Version ' + TERMS_VERSION;
 
-      function isAccepted(){ return localStorage.getItem(STORAGE_KEY)==='yes'; }
-      function setAccepted(){ localStorage.setItem(STORAGE_KEY,'yes'); }
+      const isAccepted = () => localStorage.getItem(STORAGE_KEY) === 'yes';
+      const setAccepted = () => localStorage.setItem(STORAGE_KEY, 'yes');
 
       let pendingForm = null;
       document.addEventListener('submit', (e) => {
         const f = e.target;
         if (!f.matches('form[data-requires-terms]')) return;
-        if (isAccepted()) return; // already accepted this version
+        if (isAccepted()) return;
         e.preventDefault();
         pendingForm = f;
         acceptBtn.disabled = true;
@@ -250,7 +236,7 @@
           };
           scroller.addEventListener('scroll', onScroll, { passive: true });
         } catch (err) {
-          // fallback if cross-origin blocks access
+          // cross-origin fallback
           acceptBtn.disabled = false;
         }
       }
@@ -263,7 +249,7 @@
         if (pendingForm) { pendingForm.requestSubmit(); pendingForm = null; }
       });
 
-      // helper to reset consent if needed
+      // helper
       window.__snf_reset_terms = () => localStorage.removeItem(STORAGE_KEY);
     })();
   </script>
