@@ -61,7 +61,7 @@ img{ max-width:100%; height:auto; display:block }
 }
 
 /* -------------------------
-   Header
+   Header (brand + dropdown menu)
 -------------------------- */
 .site-header{
   position:sticky; top:0; z-index:50;
@@ -71,73 +71,79 @@ img{ max-width:100%; height:auto; display:block }
 }
 .site-header .container{
   display:flex; align-items:center; justify-content:space-between;
-  padding:12px 20px;
-  column-gap:28px;                                /* give brand/nav a little breathing room */
+  padding:12px 20px; column-gap:28px;
 }
 
 /* Brand: show name next to icon (CSS-only) */
 .site-header .brand{
-  display:flex; align-items:center; gap:12px;     /* more space from the icon */
-  white-space:nowrap;
+  display:flex; align-items:center; gap:12px; white-space:nowrap;
 }
 .site-header .brand img{ height:28px; width:auto }
 .site-header .brand::after{
-  /* NBSP around ampersand to keep clean spacing: System & Flow */
-  content:"System \00A0&\00A0 Flow";
-  font-weight:700;
-  font-size:15px;
-  letter-spacing:.2px;
-  color:#e2e8f0;
-  opacity:.95;
-  transform:translateY(.5px);                     /* optical baseline tweak */
+  content:"System \00A0&\00A0 Flow";            /* non-breaking spaces around & */
+  font-weight:700; font-size:15px; letter-spacing:.2px;
+  color:#e2e8f0; opacity:.95; transform:translateY(.5px);
 }
 .site-header .brand:hover::after{ opacity:1 }
 @media (max-width:420px){
   .site-header .brand::after{ display:none }      /* hide label on tiny screens */
 }
 
-/* Top-right menu spacing/appearance */
-.site-header nav ul{
-  margin:0; padding:0; list-style:none;
-  display:flex; align-items:center;
-  gap:28px;                                       /* wider item spacing */
+/* Dropdown menu — visible on ALL breakpoints */
+.site-header nav{ position:relative }
+.nav-toggle{
+  display:inline-flex; align-items:center; gap:8px;
+  appearance:none;
+  background:var(--panel);
+  color:var(--ink);
+  border:1px solid var(--border);
+  padding:8px 12px;
+  border-radius:12px;
+  font-size:14px; line-height:1;
+  cursor:pointer;
 }
+.nav-toggle:hover{ filter:brightness(1.05) }
+.nav-toggle[aria-expanded="true"]{ border-color:#253554 }
+
+/* The dropdown panel */
+.site-header nav ul{
+  margin:0; padding:8px; list-style:none;
+  position:absolute; right:0; top:calc(100% + 10px);
+  display:none;                                     /* toggled via .open */
+  flex-direction:column; gap:4px;
+  min-width:220px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+}
+.site-header nav ul.open{ display:flex }
+
+/* Dropdown items */
+.site-header nav li{ display:block }
 .site-header nav a{
+  display:block;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:14px;
   color:var(--muted);
   text-decoration:none;
-  font-size:14px;
-  padding:6px 2px;                                 /* a bit more click area, no pill */
-  line-height:1;
+  line-height:1.1;
 }
-.site-header nav a:hover{ color:var(--ink) }
-.site-header nav a[aria-current="page"]{ color:var(--ink) }
+.site-header nav a:hover{ color:var(--ink); background:#0f1726 }
+.site-header nav a[aria-current="page"]{
+  color:var(--ink); background:#0f1726; font-weight:600;
+}
 
-/* Strip “button” styling if markup still uses class="button" */
+/* If markup still uses class="button" for header links, neutralize it */
 .site-header nav a.button{
   background:transparent !important;
   border:none !important;
-  padding:6px 2px !important;
-  border-radius:0 !important;
+  padding:10px 12px !important;
+  border-radius:10px !important;
   color:var(--muted) !important;
   box-shadow:none !important;
   transform:none !important;
-}
-.site-header nav a.button:hover{ color:var(--ink) !important }
-
-/* Mobile nav */
-.nav-toggle{
-  display:none; appearance:none; border:1px solid var(--border); background:var(--panel);
-  color:var(--ink); padding:8px 10px; border-radius:10px;
-}
-@media (max-width:760px){
-  .nav-toggle{ display:inline-block }
-  .site-header nav ul{
-    position:absolute; right:20px; top:56px; flex-direction:column; gap:10px;
-    background:var(--panel); border:1px solid var(--border);
-    padding:10px 14px; border-radius:14px; box-shadow:var(--shadow);
-    display:none;
-  }
-  .site-header nav ul.open{ display:flex }
 }
 
 /* -------------------------
