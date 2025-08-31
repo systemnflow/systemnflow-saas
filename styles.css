@@ -22,13 +22,17 @@
    Base / Typography
 -------------------------- */
 *{ box-sizing:border-box }
-html,body{ margin:0; padding:0 }
+html,body{ margin:0; padding:0; height:100% }           /* <- for sticky footer */
 body{
+  min-height:100svh;                                     /* <- for sticky footer */
+  display:flex; flex-direction:column;                   /* <- for sticky footer */
   background:var(--bg);
   color:var(--ink);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial;
   line-height:1.45;
 }
+main{ flex:1 0 auto }                                    /* <- for sticky footer */
+
 a{ color:var(--ink); text-decoration:none }
 a:hover{ text-decoration:underline }
 img{ max-width:100%; height:auto; display:block }
@@ -143,10 +147,7 @@ img{ max-width:100%; height:auto; display:block }
 /* -------------------------
    Newsletter panel
 -------------------------- */
-.newsletter-wrap{
-  display:flex; justify-content:center;
-  margin-top:16px;
-}
+.newsletter-wrap{ display:flex; justify-content:center; margin-top:16px }
 .newsletter-form{
   background:var(--panel);
   border:1px solid var(--border);
@@ -200,48 +201,44 @@ img{ max-width:100%; height:auto; display:block }
 .card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lift); border-color:#253554 }
 .card h3{ margin:.2rem 0 .1rem; font-weight:700 }
 .card p{ color:var(--muted); margin:0 0 6px }
-
 .card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px }
-.card .card-actions{
-  margin-top:auto; display:flex; gap:10px; flex-wrap:wrap;
-}
+.card .card-actions{ margin-top:auto; display:flex; gap:10px; flex-wrap:wrap }
 .card .card-actions .button{ min-width:120px }
 
 /* -------------------------
-   Footer (compact bar you liked)
+   Footer (centered, line-free, sticky to bottom)
 -------------------------- */
 .footer-min{
-  border-top:1px solid var(--border);
-  background:rgba(10,15,26,.85);
-  backdrop-filter:saturate(140%) blur(6px);
-  padding:10px 0;
+  /* no borders/lines, no dim background */
+  background:transparent;
+  border:none;
+  padding:12px 0 4px;
+  margin-top:auto;                                           /* sits at page bottom */
 }
 .footer-min .container{
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-  flex-wrap:wrap;
+  display:flex; align-items:center; justify-content:center;  /* center everything */
+  gap:16px; flex-wrap:wrap; text-align:center;
 }
-.footer-min .foot-left{ display:flex; align-items:center; gap:8px; min-width:200px }
+.footer-min .foot-left,
+.footer-min .foot-right{ display:flex; gap:14px; align-items:center; flex-wrap:wrap }
 .footer-min .logo-icon{ width:22px; height:22px; border-radius:6px }
 .footer-min .brand{ font-weight:600; color:#e2e8f0; font-size:.92rem }
-.footer-min .tagline{ color:var(--muted); font-size:.9rem }
-
-.footer-min .foot-right{
-  display:flex; gap:14px; align-items:center; flex-wrap:wrap; justify-content:flex-end;
-}
+.footer-min .tagline{ color:var(--muted); font-size:.92rem }
+.footer-min .divider{ display:none }                          /* no bullet/line */
 .footer-min a{ color:#cbd5e1; text-decoration:none; font-size:.92rem }
 .footer-min a:hover{ color:#ffffff }
-.footer-min .divider{ opacity:.5 }
 
+/* Legal line — centered, no border, sits just above bottom edge */
 .legal{
-  color:var(--muted); padding:8px 20px 20px; text-align:right;
-  border-top:1px solid var(--border);
+  color:var(--muted);
+  text-align:center;
+  padding:6px 0 18px;
+  border:0;                                                  /* remove line */
 }
 
-/* Stack footer nicely on small screens */
+/* Stack/footer on small screens remains centered */
 @media (max-width:820px){
-  .footer-min .container{ flex-direction:column; align-items:center; text-align:center }
-  .footer-min .foot-right{ justify-content:center }
-  .legal{ text-align:center }
+  .footer-min .container{ flex-direction:row; justify-content:center }
 }
 
 /* -------------------------
