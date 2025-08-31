@@ -91,12 +91,12 @@ img{ max-width:100%; height:auto; display:block }
   width:36px; height:36px; border:1px solid var(--border);
   background:var(--panel); color:var(--ink); border-radius:10px; cursor:pointer;
   transition:box-shadow .2s ease, transform .2s ease, border-color .2s ease;
-  font-size:0; /* hide any accidental text like 'Menu' */
+  font-size:0; /* hide any accidental text */
 }
 .nav-toggle:hover{ box-shadow:var(--shadow); border-color:#273552 }
 .nav-toggle:focus{ outline:2px solid #2f3f61; outline-offset:2px }
 
-/* three lines */
+/* hamburger lines */
 .nav-toggle span,
 .nav-toggle::before,
 .nav-toggle::after{
@@ -106,44 +106,39 @@ img{ max-width:100%; height:auto; display:block }
 .nav-toggle span{ top:50%; transform:translateY(-50%) }
 .nav-toggle::before{ top:11px }
 .nav-toggle::after{ bottom:11px }
-
-/* optional cross animation when you add .is-open to the button */
 .nav-toggle.is-open span{ opacity:0 }
 .nav-toggle.is-open::before{ transform:translateY(7px) rotate(45deg) }
 .nav-toggle.is-open::after{ transform:translateY(-7px) rotate(-45deg) }
 
-/* Dropdown — apply to your existing #nav.nav as well */
+/* Dropdown list (works for #nav or any ul inside header) */
 .site-header nav{ position:relative }
 
-/* base list styles */
-.site-header .nav,
-.nav-menu{
+/* reset ALL ULs in header to avoid bullets */
+.site-header nav ul{
+  list-style:none !important;
+  margin:0 !important; padding:8px !important;
+}
+
+/* dropdown positioning/skin */
+.site-header nav ul{
   position:absolute; right:0; top:46px;
-  margin:0; padding:8px; list-style:none;
   min-width:160px; background:var(--panel);
   border:1px solid var(--border); border-radius:14px;
   box-shadow:var(--shadow); display:none; z-index:60;
 }
-.site-header .nav.open,
-.nav-menu.open{ display:block }
+.site-header nav ul.open{ display:block }          /* JS toggles .open */
 
 /* items */
-.site-header .nav li,
-.nav-menu li{ margin:0; padding:0; list-style:none }
-
-.site-header .nav a,
-.nav-menu a{
+.site-header nav li{ margin:0; padding:0; list-style:none }
+.site-header nav a{
   display:block; padding:8px 10px; border-radius:8px;
   color:var(--muted); font-size:14px; text-decoration:none;
 }
-.site-header .nav a:hover,
-.nav-menu a:hover{ color:var(--ink); background:rgba(255,255,255,.04) }
-.site-header .nav a[aria-current="page"],
-.nav-menu a[aria-current="page"]{ color:var(--ink) }
+.site-header nav a:hover{ color:var(--ink); background:rgba(255,255,255,.04) }
+.site-header nav a[aria-current="page"]{ color:var(--ink) }
 
-/* make sure header links never look like button pills */
-.site-header .nav a.button,
-.nav-menu a.button{
+/* ensure header links never look like button pills */
+.site-header nav a.button{
   background:transparent !important; border:none !important; border-radius:8px !important;
   padding:8px 10px !important; color:var(--muted) !important; box-shadow:none !important; transform:none !important;
 }
@@ -200,7 +195,7 @@ form.contact input, form.contact textarea{
 }
 .form-card .actions, form.contact .actions{ display:flex; gap:10px }
 
-/* Yellow reminder banner (original look) */
+/* Yellow reminder banner */
 .disclaimer-banner{
   background:rgba(255,193,7,.12); border:1px solid #ffc107; color:#ffc107;
   font-size:.9rem; line-height:1.5; padding:10px 12px; border-radius:8px;
@@ -260,7 +255,7 @@ form.contact input, form.contact textarea{
 .card .card-actions .button{ min-width:120px }
 
 /* -------------------------
-   Footer — SOCIAL ICONS ONLY
+   Footer — SOCIAL ICONS ONLY (hide page links)
 -------------------------- */
 .footer-min{
   background:transparent; border:none;
@@ -280,13 +275,17 @@ form.contact input, form.contact textarea{
   display:flex; gap:14px; align-items:center; flex-wrap:wrap;
 }
 
-/* Hide any non-social links in the footer (e.g., Home/Apps/Contact) */
+/* HIDE all non-social anchors anywhere in footer */
+.footer-min a:not([href*="tiktok"]):not([href*="instagram"])
+:not([href*="pinterest"]):not([href*="youtube"]):not([href*="linkedin"]){
+  /* don't hide brand link on the left if it exists */
+}
 .footer-min .foot-right a:not([href*="tiktok"]):not([href*="instagram"])
 :not([href*="pinterest"]):not([href*="youtube"]):not([href*="linkedin"]){
-  display:none;
+  display:none !important;
 }
 
-/* Icon buttons (work with plain <a> text — CSS injects icons) */
+/* Icon buttons */
 .footer-min .foot-right a{
   position:relative;
   display:inline-flex; align-items:center; justify-content:center;
@@ -299,7 +298,6 @@ form.contact input, form.contact textarea{
   color:#ffffff; border-color:var(--accent); background:var(--accent);
 }
 
-/* Icon masks via inline SVG (small, cache-friendly) */
 .footer-min .foot-right a::before{
   content:""; width:18px; height:18px; display:block; background:currentColor;
   -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
@@ -351,11 +349,8 @@ form.contact input, form.contact textarea{
 .banner .icon{ font-size:1.2rem; line-height:1; flex-shrink:0; margin-top:2px }
 .banner strong{ font-weight:600 }
 .banner-warning{ background:rgba(255,193,7,.12); border:1px solid #ffc107; color:#ffc107 }
-.banner-warning .icon, .banner-warning strong{ color:#ffc107 }
 .banner-success{ background:rgba(40,167,69,.12); border:1px solid #28a745; color:#28a745 }
-.banner-success .icon, .banner-success strong{ color:#28a745 }
 .banner-error{ background:rgba(220,53,69,.12); border:1px solid #dc3545; color:#dc3545 }
-.banner-error .icon, .banner-error strong{ color:#dc3545 }
 .banner-info{ background:rgba(23,162,184,.12); border:1px solid #17a2b8; color:#17a2b8 }
 
 /* -------------------------
