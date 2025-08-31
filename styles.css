@@ -25,13 +25,13 @@
 html,body{ margin:0; padding:0; height:100% }
 body{
   min-height:100svh;
-  display:flex; flex-direction:column;              /* sticky, line-free footer */
+  display:flex; flex-direction:column;          /* sticky, line-free footer */
   background:var(--bg);
   color:var(--ink);
   font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial;
   line-height:1.45;
 }
-main{ flex:1 0 auto }                               /* keep footer pushed down */
+main{ flex:1 0 auto }                           /* keep footer pushed down */
 
 a{ color:var(--ink); text-decoration:none }
 a:hover{ text-decoration:underline }
@@ -72,41 +72,51 @@ img{ max-width:100%; height:auto; display:block }
 .site-header .container{
   display:flex; align-items:center; justify-content:space-between;
   padding:12px 20px;
+  column-gap:28px;                                /* give brand/nav a little breathing room */
 }
 
 /* Brand: show name next to icon (CSS-only) */
 .site-header .brand{
-  display:flex; align-items:center; gap:10px;
+  display:flex; align-items:center; gap:12px;     /* more space from the icon */
+  white-space:nowrap;
 }
 .site-header .brand img{ height:28px; width:auto }
 .site-header .brand::after{
-  content:"System \0026 Flow";
+  /* NBSP around ampersand to keep clean spacing: System & Flow */
+  content:"System \00A0&\00A0 Flow";
   font-weight:700;
   font-size:15px;
   letter-spacing:.2px;
   color:#e2e8f0;
-  opacity:.92;
+  opacity:.95;
+  transform:translateY(.5px);                     /* optical baseline tweak */
 }
 .site-header .brand:hover::after{ opacity:1 }
 @media (max-width:420px){
-  .site-header .brand::after{ display:none }        /* hide label on tiny screens */
+  .site-header .brand::after{ display:none }      /* hide label on tiny screens */
 }
 
+/* Top-right menu spacing/appearance */
 .site-header nav ul{
   margin:0; padding:0; list-style:none;
-  display:flex; gap:20px; align-items:center;
+  display:flex; align-items:center;
+  gap:28px;                                       /* wider item spacing */
 }
 .site-header nav a{
-  color:var(--muted); text-decoration:none; font-size:14px; padding:4px 0;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+  padding:6px 2px;                                 /* a bit more click area, no pill */
+  line-height:1;
 }
 .site-header nav a:hover{ color:var(--ink) }
 .site-header nav a[aria-current="page"]{ color:var(--ink) }
 
-/* Remove pill/circle for any header link that has class="button" */
+/* Strip “button” styling if markup still uses class="button" */
 .site-header nav a.button{
   background:transparent !important;
   border:none !important;
-  padding:4px 0 !important;
+  padding:6px 2px !important;
   border-radius:0 !important;
   color:var(--muted) !important;
   box-shadow:none !important;
@@ -174,43 +184,33 @@ img{ max-width:100%; height:auto; display:block }
 }
 
 /* -------------------------
-   Forms (global — used by Contact, etc.)
+   Forms (Contact, etc.)
 -------------------------- */
 .form-card, form.contact{
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:16px;
   padding:18px;
-  display:grid;
-  gap:12px;
+  display:grid; gap:12px;
   box-shadow:var(--shadow);
 }
-.form-card label,
-form.contact label{
-  display:grid; gap:6px;
-  font-size:14px; color:var(--muted);
+.form-card label, form.contact label{
+  display:grid; gap:6px; font-size:14px; color:var(--muted);
 }
 .form-card input, .form-card textarea,
 form.contact input, form.contact textarea{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:#0f1726;
-  color:var(--ink);
+  width:100%; padding:12px; border-radius:10px;
+  border:1px solid var(--border); background:#0f1726; color:var(--ink);
 }
-.form-card .actions,
-form.contact .actions{ display:flex; gap:10px }
+.form-card .actions, form.contact .actions{ display:flex; gap:10px }
 
 /* Yellow reminder banner (original look) */
 .disclaimer-banner{
   background:rgba(255,193,7,.12);
   border:1px solid #ffc107;
   color:#ffc107;
-  font-size:.9rem;
-  line-height:1.5;
-  padding:10px 12px;
-  border-radius:8px;
+  font-size:.9rem; line-height:1.5;
+  padding:10px 12px; border-radius:8px;
 }
 
 /* -------------------------
@@ -218,11 +218,8 @@ form.contact .actions{ display:flex; gap:10px }
 -------------------------- */
 .newsletter-wrap{ display:flex; justify-content:center; margin-top:16px }
 .newsletter-form{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:14px;
-  max-width:800px; width:100%;
+  background:var(--panel); border:1px solid var(--border); border-radius:16px;
+  padding:14px; max-width:800px; width:100%;
   display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center;
 }
 .newsletter-form input[type="email"]{
@@ -278,7 +275,7 @@ form.contact .actions{ display:flex; gap:10px }
 .footer-min{
   background:transparent; border:none;
   padding:12px 0 4px;
-  margin-top:auto;                                  /* sits at page bottom */
+  margin-top:auto;
 }
 .footer-min .container{
   display:flex; align-items:center; justify-content:center;
