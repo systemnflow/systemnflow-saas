@@ -40,6 +40,22 @@
     gtag('js', new Date());
     gtag('config', 'G-1FRFWG4X18');
   </script>
+
+  <style>
+    /* Page-specific light touches to restore the panel + layout */
+    .form-wrap{max-width:680px;margin:0 auto}
+    .form.contact{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      display:grid;
+      gap:12px;
+    }
+    .form.contact .actions{display:flex;justify-content:flex-start}
+    .form.contact .consent{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+    #contact-success{max-width:680px;margin:12px auto 0;text-align:center}
+  </style>
 </head>
 
 <body>
@@ -73,7 +89,7 @@
 
     <!-- Form -->
     <section class="section">
-      <div class="container" style="max-width:680px">
+      <div class="container form-wrap">
         <form id="contact-form"
               class="contact form"
               action="https://formspree.io/f/mzzvlwqy"
@@ -235,9 +251,8 @@
             }
           };
           scroller.addEventListener('scroll', onScroll, { passive: true });
-        } catch (err) {
-          // cross-origin fallback
-          acceptBtn.disabled = false;
+        } catch {
+          acceptBtn.disabled = false; // cross-origin fallback
         }
       }
       iframe.addEventListener('load', wireScrollGuard);
@@ -249,7 +264,6 @@
         if (pendingForm) { pendingForm.requestSubmit(); pendingForm = null; }
       });
 
-      // helper
       window.__snf_reset_terms = () => localStorage.removeItem(STORAGE_KEY);
     })();
   </script>
