@@ -5,70 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>System & Flow — Project Management Made Simple</title>
   <meta name="description" content="Simplify project execution with lightweight SaaS tools and AI prompts built by PMs, for PMs. Avoid chaos. Move faster." />
-  <link rel="canonical" href="https://systemnflow.com/" />
-  <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#0b1220" />
-  <meta name="google-site-verification" content="0ymp-CLDEvtP7eEedX-2OpObweOUFgGrU8-_ZMqKaVo" />
-
-  <!-- Social -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="System & Flow — Project Management Made Simple" />
-  <meta property="og:description" content="SaaS tools and AI for project managers. Get results faster with fewer headaches." />
-  <meta property="og:url" content="https://systemnflow.com/" />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="System & Flow — Project Management Made Simple" />
-  <meta name="twitter:description" content="SaaS tools and AI for project managers. Get results faster with fewer headaches." />
-  <meta name="twitter:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
-
-  <!-- Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "System & Flow",
-    "url": "https://systemnflow.com/",
-    "logo": "https://systemnflow.com/assets/img/logo.png",
-    "sameAs": [
-      "https://www.instagram.com/systemnflow",
-      "https://www.tiktok.com/@systemnflow",
-      "https://www.linkedin.com/company/system-and-flow"
-    ]
-  }
-  </script>
-
-  <!-- CSS -->
-  <link rel="preload" href="/styles.css" as="style" />
-  <link rel="stylesheet" href="/styles.css" />
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
-  <link rel="manifest" href="/assets/img/site.webmanifest">
-  <link rel="shortcut icon" href="/assets/img/favicon.ico">
-
-  <!-- GA -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-1FRFWG4X18');
-  </script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- Header -->
   <header class="site-header">
     <div class="container">
       <a class="brand" href="/" aria-label="System & Flow">
-        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <img src="logo.png" alt="System & Flow logo" />
+        <span>System & Flow</span>
       </a>
-      <nav aria-label="Primary">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-        <ul id="nav">
+      <nav>
+        <ul class="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/apps.html">Tools</a></li>
           <li><a href="/contact.html">Contact</a></li>
@@ -77,135 +24,71 @@
     </div>
   </header>
 
-  <main id="main">
-    <!-- Hero -->
+  <main>
     <section class="hero">
       <div class="container">
-        <img src="/assets/img/SNF_logo.png" alt="System & Flow full logo" class="logo-hero" width="300" height="300" loading="eager" decoding="async" />
+        <img src="SNF_logo.png" alt="System & Flow Logo" class="hero-logo">
         <h1>Project Management.<br>Simplified.</h1>
-        <p class="small">
-          SaaS tools and AI prompts <strong>built by PMs</strong> to eliminate chaos, flag risks early, and speed up execution.
-        </p>
+        <p class="tagline">SaaS tools and AI prompts <strong>built by PMs</strong> to eliminate chaos, flag risks early, and speed up execution.</p>
         <div class="cta-row">
           <a class="button primary" href="/apps.html">Explore Tools</a>
           <a class="button ghost" href="/contact.html">Early Access List</a>
         </div>
-        <div class="newsletter-wrap">
-          <form id="newsletter-form" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form">
-            <label class="sr-only" for="nl-email">Email</label>
-            <input id="nl-email" type="email" name="email" required placeholder="Get product launches + PM tips" />
-            <label>
-              <input type="checkbox" name="marketing_consent" required aria-label="Consent to receive emails" />
-              I agree to receive emails.
-            </label>
-            <button class="button primary" type="submit">Join</button>
-            <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <input type="hidden" name="_subject" value="Newsletter signup — systemnflow.com" />
-          </form>
-        </div>
-        <div id="newsletter-success" class="success small" role="status" aria-live="polite">
-          ✅ You’re in. Launch alerts coming your way.
-        </div>
+        <form class="newsletter-form" method="POST">
+          <input type="email" placeholder="Get product launches + PM tips" required>
+          <label><input type="checkbox" required> I agree to receive emails.</label>
+          <button class="button primary" type="submit">Join</button>
+        </form>
+        <div class="success">✅ You’re in. Launch alerts coming your way.</div>
       </div>
     </section>
 
-    <!-- Featured Apps -->
-    <section class="section">
-      <div class="container home-grid">
-        <article class="card">
-          <div class="card-top">
-            <h3>Transcript Analyzer</h3>
-            <span class="badge live"><span class="dot"></span>Live</span>
-          </div>
-          <p class="small">Auto-extract <strong>Actions, Risks, Decisions</strong> from raw meetings in seconds.</p>
+    <section class="tools">
+      <div class="container grid">
+        <div class="card">
+          <h3>Transcript Analyzer</h3>
+          <span class="badge live">Live</span>
+          <p>Auto-extract <strong>Actions, Risks, Decisions</strong> from raw meetings in seconds.</p>
           <div class="card-actions">
             <a class="button primary" href="/apps.html">Open</a>
             <a class="button ghost" href="/apps.html">Docs</a>
           </div>
-        </article>
-
-        <article class="card">
-          <div class="card-top">
-            <h3>Status Report Generator</h3>
-            <span class="badge soon"><span class="dot"></span>Q4 2025</span>
-          </div>
-          <p class="small">Get <strong>VP-ready summaries</strong> exported as PDF or Markdown in one click.</p>
-          <div class="card-actions">
-            <a class="button ghost" href="/apps.html">Notify Me</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-top">
-            <h3>Risk Radar</h3>
-            <span class="badge soon"><span class="dot"></span>Coming Soon</span>
-          </div>
-          <p class="small">Auto-detect critical project risks — and get <strong>AI-backed mitigation tips</strong>.</p>
-          <div class="card-actions">
-            <a class="button ghost" href="/apps.html">Notify Me</a>
-          </div>
-        </article>
+        </div>
+        <div class="card">
+          <h3>Status Report Generator</h3>
+          <span class="badge soon">Q4 2025</span>
+          <p>Get <strong>VP-ready summaries</strong> exported as PDF or Markdown in one click.</p>
+          <a class="button ghost" href="/apps.html">Notify Me</a>
+        </div>
+        <div class="card">
+          <h3>Risk Radar</h3>
+          <span class="badge soon">Coming Soon</span>
+          <p>Auto-detect critical project risks — and get <strong>AI-backed mitigation tips</strong>.</p>
+          <a class="button ghost" href="/apps.html">Notify Me</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer-min">
     <div class="container">
       <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" />
         <span class="brand">System & Flow</span>
-        <span class="divider">&bull;</span>
+        <span class="divider">•</span>
         <span class="tagline">Smarter tools. Faster PMs.</span>
       </div>
       <div class="foot-right">
-        <a href="https://www.tiktok.com/@systemnflow" aria-label="TikTok">TikTok</a>
-        <a href="https://www.instagram.com/systemnflow" aria-label="Instagram">Instagram</a>
-        <a href="https://www.pinterest.com/systemnflow" aria-label="Pinterest">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" aria-label="YouTube">YouTube</a>
+        <a href="https://www.tiktok.com/@systemnflow">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
       </div>
     </div>
+    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
   </footer>
-  <div class="legal small">© <span id="y"></span> System & Flow™. All rights reserved.</div>
 
-  <!-- Scripts -->
   <script>
-    (function(){ var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear(); })();
-    (function(){
-      const btn=document.querySelector('.nav-toggle');
-      const nav=document.getElementById('nav');
-      if(btn && nav){
-        btn.addEventListener('click',()=>{
-          const open=btn.getAttribute('aria-expanded')==='true';
-          btn.setAttribute('aria-expanded', String(!open));
-          nav.classList.toggle('open');
-        });
-      }
-    })();
-    (function(){
-      const nf=document.getElementById('newsletter-form');
-      const ok=document.getElementById('newsletter-success');
-      if(!nf) return;
-      nf.addEventListener('submit', async (e)=>{
-        e.preventDefault();
-        try{
-          const resp=await fetch(nf.action,{
-            method:nf.method,
-            body:new FormData(nf),
-            headers:{'Accept':'application/json'}
-          });
-          if(resp.ok){
-            nf.style.display='none';
-            if(ok) ok.style.display='block';
-            if(typeof gtag==='function'){ gtag('event','newsletter_signup',{method:'Formspree'}); }
-          }else{
-            alert('Oops! Something went wrong. Please try again.');
-          }
-        }catch{
-          alert('Network error. Please try again.');
-        }
-      });
-    })();
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
