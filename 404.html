@@ -31,20 +31,12 @@
   <!-- CSS -->
   <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
-
-  <style>
-    /* 404-specific tweaks (kept tiny; rest comes from main.css) */
-    .rfr-hero{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding:56px 20px 8px}
-    .rfr-hero img{width:320px;max-width:80vw;border-radius:18px;border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02)}
-    .rfr-hero h1{font-size:clamp(22px,3.2vw,34px);margin:12px 0 4px;line-height:1.25}
-    .rfr-hero p.subtle{color:var(--muted);max-width:720px;margin:0 auto;font-size:15px}
-    .rfr-actions{display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap}
-  </style>
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
       <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
@@ -59,12 +51,13 @@
     </div>
   </header>
 
+  <!-- Main -->
   <main id="main">
     <section class="rfr-hero">
       <img src="/assets/img/rfr-unplug.png" width="320" height="256" loading="lazy" decoding="async" alt="Ronnie accidentally unplugged the site" />
       <h1>Red-Flag Ronnie got here first.</h1>
       <p class="subtle">
-        The page you’re looking for doesn’t exist (or Ronnie unplugged something he shouldn’t).
+        The page you’re looking for doesn’t exist (or Ronnie unplugged something he shouldn’t).  
         You’re still in the right place for PM tools that feel simple.
       </p>
       <div class="rfr-actions">
@@ -74,33 +67,32 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <img class="footer-logo" src="/assets/img/logo.png" alt="System & Flow" />
-        <p class="small">Project management toolkits & AI prompts.</p>
+  <!-- Footer -->
+  <footer class="footer-min">
+    <div class="container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" />
+        <span class="brand">System &amp; Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Project management toolkits &amp; AI prompts.</span>
       </div>
-      <nav aria-label="Footer">
-        <ul class="footer-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="https://systemnflow.gumroad.com">Store</a></li>
-        </ul>
-      </nav>
-      <div class="social">
-        <a href="https://www.instagram.com/systemnflow" aria-label="Instagram">@systemnflow</a>
-        <a href="https://www.tiktok.com/@systemnflow" aria-label="TikTok">@systemnflow</a>
-        <a href="https://www.pinterest.com/systemnflow" aria-label="Pinterest">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" aria-label="YouTube">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow" aria-label="LinkedIn">LinkedIn</a>
+      <div class="foot-right">
+        <a href="/">Home</a>
+        <a href="/apps.html">Apps</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://systemnflow.gumroad.com">Store</a>
+        <a href="https://www.instagram.com/systemnflow">Instagram</a>
+        <a href="https://www.tiktok.com/@systemnflow">TikTok</a>
+        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
+        <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
       </div>
     </div>
-    <div class="container legal small">
-      © <span id="y"></span> System & Flow™. All rights reserved.
+    <div class="legal small">
+      © <span id="y"></span> System &amp; Flow™. All rights reserved.
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
     // year
     document.getElementById('y').textContent = new Date().getFullYear();
