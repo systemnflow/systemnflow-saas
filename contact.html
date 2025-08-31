@@ -32,6 +32,48 @@
   <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
 
+  <!-- Page-only fixes to restore panel + stacked fields -->
+  <style>
+    .form-wrap{max-width:680px;margin:0 auto}
+    form.contact{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      display:grid;
+      gap:12px;
+      box-shadow:var(--shadow);
+    }
+    form.contact label{
+      display:grid;
+      gap:6px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    form.contact input,
+    form.contact textarea{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#0f1726;
+      color:var(--ink);
+    }
+    .actions{display:flex;gap:10px}
+    .consent{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:14px}
+
+    /* Original yellow reminder banner */
+    .disclaimer-banner{
+      background:rgba(255,193,7,.12);
+      border:1px solid #ffc107;
+      color:#ffc107;
+      font-size:.9rem;
+      line-height:1.5;
+      padding:10px 12px;
+      border-radius:8px;
+    }
+  </style>
+
   <!-- GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
   <script>
@@ -65,7 +107,7 @@
     <section class="hero">
       <div class="container" style="text-align:center">
         <h1>Contact / Join the List</h1>
-        <p class="small sub">
+        <p class="small" style="max-width:720px;margin:0 auto">
           Built <strong>by project managers, for project managers.</strong> Ask us about SaaS app access, AI prompts, or early launch updates.
         </p>
       </div>
@@ -73,23 +115,25 @@
 
     <!-- Form -->
     <section class="section">
-      <div class="container">
+      <div class="container form-wrap">
         <form id="contact-form"
-              class="form contact"
+              class="contact"
               action="https://formspree.io/f/mzzvlwqy"
               method="POST"
               novalidate
               data-requires-terms>
-          <label class="small" for="name">Name</label>
-          <input id="name" type="text" name="name" autocomplete="name" required />
+          <label for="name">Name
+            <input id="name" type="text" name="name" autocomplete="name" required />
+          </label>
 
-          <label class="small" for="email">Email</label>
-          <input id="email" type="email" name="email" autocomplete="email" required />
+          <label for="email">Email
+            <input id="email" type="email" name="email" autocomplete="email" required />
+          </label>
 
-          <label class="small" for="message">Message</label>
-          <textarea id="message" name="message" rows="5" placeholder="How can we help? (e.g., Transcript Analyzer, Status Report Generator, AI Prompt Pack)" required></textarea>
+          <label for="message">Message
+            <textarea id="message" name="message" rows="5" placeholder="How can we help? (e.g., Transcript Analyzer, Status Report Generator, AI Prompt Pack)" required></textarea>
+          </label>
 
-          <!-- Original yellow reminder banner -->
           <div class="disclaimer-banner">
             ⚠️ <strong>Reminder:</strong> Do not include regulated, classified, or highly sensitive corporate data.
             You are responsible for complying with your organization’s policies.
@@ -228,7 +272,7 @@
         try {
           const doc = iframe.contentDocument || iframe.contentWindow.document;
           const scroller = doc.scrollingElement || doc.documentElement || doc.body;
-          const onScroll = () => {
+        const onScroll = () => {
             const pct = (scroller.scrollTop + scroller.clientHeight) / scroller.scrollHeight;
             if (pct >= 0.98) {
               acceptBtn.disabled = false;
@@ -237,7 +281,7 @@
           };
           scroller.addEventListener('scroll', onScroll, { passive: true });
         } catch {
-          acceptBtn.disabled = false; // cross-origin fallback
+          acceptBtn.disabled = false;
         }
       }
       iframe.addEventListener('load', wireScrollGuard);
@@ -248,9 +292,6 @@
         modal.close();
         if (pendingForm) { pendingForm.requestSubmit(); pendingForm = null; }
       });
-
-      // helper
-      window.__snf_reset_terms = () => localStorage.removeItem(STORAGE_KEY);
     })();
   </script>
 </body>
