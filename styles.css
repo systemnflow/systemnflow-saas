@@ -25,13 +25,13 @@
 html,body{ margin:0; padding:0; height:100% }
 body{
   min-height:100svh;
-  display:flex; flex-direction:column;          /* sticky, line-free footer */
+  display:flex; flex-direction:column;              /* sticky, line-free footer */
   background:var(--bg);
   color:var(--ink);
   font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial;
   line-height:1.45;
 }
-main{ flex:1 0 auto }                           /* keep footer pushed down */
+main{ flex:1 0 auto }                               /* keep footer pushed down */
 
 a{ color:var(--ink); text-decoration:none }
 a:hover{ text-decoration:underline }
@@ -61,7 +61,7 @@ img{ max-width:100%; height:auto; display:block }
 }
 
 /* -------------------------
-   Header (brand + DROPDOWN with icon-only toggle)
+   Header (brand + hamburger dropdown)
 -------------------------- */
 .site-header{
   position:sticky; top:0; z-index:50;
@@ -71,89 +71,90 @@ img{ max-width:100%; height:auto; display:block }
 }
 .site-header .container{
   display:flex; align-items:center; justify-content:space-between;
-  padding:12px 20px; column-gap:28px;
+  padding:12px 20px;
+  gap:16px;
 }
 
-/* Brand: show name next to icon (CSS-only) */
+/* Brand: icon + text (CSS-only text so you don't have to change HTML) */
 .site-header .brand{
-  display:flex; align-items:center; gap:12px; white-space:nowrap;
+  display:flex; align-items:center; gap:10px; min-width:0;
 }
-.site-header .brand img{ height:28px; width:auto }
+.site-header .brand img{ height:28px; width:auto; flex:0 0 auto }
 .site-header .brand::after{
-  content:"System \00A0&\00A0 Flow";          /* non-breaking spaces around & */
-  font-weight:700; font-size:15px; letter-spacing:.2px;
-  color:#e2e8f0; opacity:.95; transform:translateY(.5px);
+  content:"System \00A0&\00A0 Flow";
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:.2px;
+  color:#e2e8f0;
+  opacity:.92;
+  white-space:nowrap;
 }
 .site-header .brand:hover::after{ opacity:1 }
 @media (max-width:420px){
-  .site-header .brand::after{ display:none }    /* hide label on tiny screens */
+  .site-header .brand::after{ display:none } /* hide label on tiny screens */
 }
 
-/* Dropdown menu container */
-.site-header nav{ position:relative }
-
-/* === ICON-ONLY HAMBURGER BUTTON === */
+/* Hamburger button (3 lines, no words) */
 .nav-toggle{
   position:relative;
-  width:42px; height:34px;
-  padding:0; margin:0;
-  appearance:none;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:12px;
-  cursor:pointer;
-  color:transparent;                 /* hide any text if present */
-  overflow:hidden;
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px;
+  appearance:none; border:1px solid var(--border);
+  background:var(--panel); color:var(--ink);
+  border-radius:10px; cursor:pointer;
+  transition:box-shadow .2s ease, transform .2s ease, border-color .2s ease;
 }
-.nav-toggle:hover{ filter:brightness(1.05) }
-.nav-toggle[aria-expanded="true"]{ border-color:#253554 }
+.nav-toggle:hover{ box-shadow:var(--shadow); border-color:#273552 }
+.nav-toggle:focus{ outline:2px solid #2f3f61; outline-offset:2px }
 
-/* draw 3 lines */
-.nav-toggle::before{
+/* the 3 lines */
+.nav-toggle span,
+.nav-toggle::before,
+.nav-toggle::after{
   content:"";
-  position:absolute; left:10px; right:10px;
-  top:9px; height:2px; background:var(--ink);
-  box-shadow:0 7px 0 0 var(--ink), 0 14px 0 0 var(--ink);
+  position:absolute; left:8px; right:8px; height:2px;
+  background:#cbd5e1; border-radius:2px; transition:transform .2s ease, opacity .2s ease;
 }
+.nav-toggle span{ top:50%; transform:translateY(-50%) }
+.nav-toggle::before{ top:11px }
+.nav-toggle::after{ bottom:11px }
 
-/* Dropdown panel */
-.site-header nav ul{
+/* optional 'open' animation (if you add .is-open to the button) */
+.nav-toggle.is-open span{ opacity:0 }
+.nav-toggle.is-open::before{ transform:translateY(7px) rotate(45deg) }
+.nav-toggle.is-open::after{ transform:translateY(-7px) rotate(-45deg) }
+
+/* Dropdown menu */
+.site-header nav{ position:relative }
+.nav-menu{
+  position:absolute; right:0; top:46px;
   margin:0; padding:8px; list-style:none;
-  position:absolute; right:0; top:calc(100% + 10px);
-  display:none;                                /* toggled via .open */
-  flex-direction:column; gap:4px;
-  min-width:220px;
+  min-width:160px;
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:14px;
   box-shadow:var(--shadow);
+  display:none; z-index:60;
 }
-.site-header nav ul.open{ display:flex }
+.nav-menu.open{ display:block }
+.nav-menu li{ margin:0 }
+.nav-menu a{
+  display:block; padding:8px 10px; border-radius:8px;
+  color:var(--muted); text-decoration:none; font-size:14px;
+}
+.nav-menu a:hover{ color:var(--ink); background:rgba(255,255,255,.04) }
+.nav-menu a[aria-current="page"]{ color:var(--ink) }
 
-.site-header nav li{ display:block }
-.site-header nav a{
-  display:block;
-  padding:10px 12px;
-  border-radius:10px;
-  font-size:14px;
-  color:var(--muted);
-  text-decoration:none;
-  line-height:1.1;
-}
-.site-header nav a:hover{ color:var(--ink); background:#0f1726 }
-.site-header nav a[aria-current="page"]{
-  color:var(--ink); background:#0f1726; font-weight:600;
-}
-
-/* neutralize legacy .button class if used in header links */
+/* Ensure there are no "button pills" inside header links */
 .site-header nav a.button{
-  background:transparent !important;
-  border:none !important;
-  padding:10px 12px !important;
-  border-radius:10px !important;
-  color:var(--muted) !important;
-  box-shadow:none !important;
-  transform:none !important;
+  background:transparent !important; border:none !important;
+  padding:8px 10px !important; border-radius:8px !important;
+  color:var(--muted) !important; box-shadow:none !important; transform:none !important;
+}
+
+/* Always show hamburger (works great for expansion) */
+@media (min-width:761px){
+  /* keep same behavior on desktop; no wide-menu words */
 }
 
 /* -------------------------
@@ -207,26 +208,36 @@ img{ max-width:100%; height:auto; display:block }
   border:1px solid var(--border);
   border-radius:16px;
   padding:18px;
-  display:grid; gap:12px;
+  display:grid;
+  gap:12px;
   box-shadow:var(--shadow);
 }
-.form-card label, form.contact label{
-  display:grid; gap:6px; font-size:14px; color:var(--muted);
+.form-card label,
+form.contact label{
+  display:grid; gap:6px;
+  font-size:14px; color:var(--muted);
 }
 .form-card input, .form-card textarea,
 form.contact input, form.contact textarea{
-  width:100%; padding:12px; border-radius:10px;
-  border:1px solid var(--border); background:#0f1726; color:var(--ink);
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#0f1726;
+  color:var(--ink);
 }
-.form-card .actions, form.contact .actions{ display:flex; gap:10px }
+.form-card .actions,
+form.contact .actions{ display:flex; gap:10px }
 
 /* Yellow reminder banner (original look) */
 .disclaimer-banner{
   background:rgba(255,193,7,.12);
   border:1px solid #ffc107;
   color:#ffc107;
-  font-size:.9rem; line-height:1.5;
-  padding:10px 12px; border-radius:8px;
+  font-size:.9rem;
+  line-height:1.5;
+  padding:10px 12px;
+  border-radius:8px;
 }
 
 /* -------------------------
@@ -234,8 +245,11 @@ form.contact input, form.contact textarea{
 -------------------------- */
 .newsletter-wrap{ display:flex; justify-content:center; margin-top:16px }
 .newsletter-form{
-  background:var(--panel); border:1px solid var(--border); border-radius:16px;
-  padding:14px; max-width:800px; width:100%;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  max-width:800px; width:100%;
   display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center;
 }
 .newsletter-form input[type="email"]{
@@ -286,47 +300,47 @@ form.contact input, form.contact textarea{
 .card .card-actions .button{ min-width:120px }
 
 /* -------------------------
-   Footer (SOCIAL ONLY)
+   Footer — SOCIAL ICONS ONLY
 -------------------------- */
 .footer-min{
   background:transparent; border:none;
   padding:12px 0 4px;
-  margin-top:auto;
+  margin-top:auto;                                  /* sits at page bottom */
 }
 .footer-min .container{
   display:flex; align-items:center; justify-content:center;
   gap:16px; flex-wrap:wrap; text-align:center;
 }
-.footer-min .foot-left,
-.footer-min .foot-right{ display:flex; gap:14px; align-items:center; flex-wrap:wrap }
-
-/* Hide all non-social links in the right cluster.
-   Allow: TikTok, Instagram, Pinterest, YouTube, LinkedIn. */
-.footer-min .foot-right a{
-  display:none;
-}
-.footer-min .foot-right a[href*="tiktok.com"],
-.footer-min .foot-right a[href*="instagram.com"],
-.footer-min .foot-right a[href*="pinterest.com"],
-.footer-min .foot-right a[href*="youtube.com"],
-.footer-min .foot-right a[href*="linkedin.com"]{
-  display:inline-flex;
-}
-
-/* Slight badge look for socials */
-.footer-min .foot-right a{
-  padding:6px 10px; border:1px solid var(--border); border-radius:10px;
-  background:var(--panel); color:#cbd5e1; text-decoration:none; font-size:.92rem;
-}
-.footer-min .foot-right a:hover{ color:#ffffff; filter:brightness(1.05) }
-
+.footer-min .foot-left{ display:flex; gap:10px; align-items:center }
 .footer-min .logo-icon{ width:22px; height:22px; border-radius:6px }
 .footer-min .brand{ font-weight:600; color:#e2e8f0; font-size:.92rem }
 .footer-min .tagline{ color:var(--muted); font-size:.92rem }
-.footer-min .divider{ display:none }
 
-.footer-min a{ color:#cbd5e1; text-decoration:none; font-size:.92rem }
-.footer-min a:hover{ color:#ffffff }
+/* Social icons row */
+.footer-min .foot-right{
+  display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+}
+
+/* Generic icon link (works with inline SVG or icon fonts) */
+.footer-min .foot-right a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px;
+  border-radius:50%;
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:#cbd5e1;
+  font-size:18px;             /* icon-font size */
+  line-height:1;
+  transition:all .2s ease;
+}
+.footer-min .foot-right a:hover{
+  color:#ffffff;
+  border-color:var(--accent);
+  background:var(--accent);
+}
+.footer-min .foot-right a svg{
+  width:18px; height:18px; fill:currentColor; display:block;
+}
 
 /* Legal line */
 .legal{
@@ -365,6 +379,6 @@ form.contact input, form.contact textarea{
    Reduce Motion
 -------------------------- */
 @media (prefers-reduced-motion:reduce){
-  .button, .card{ transition:none !important }
+  .button, .card, .nav-toggle{ transition:none !important }
   .card:hover{ transform:none !important; box-shadow:var(--shadow) !important }
 }
