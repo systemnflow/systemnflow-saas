@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>System & Flow — Project Management Made Simple</title>
   <meta name="description" content="Simplify project execution with lightweight SaaS tools and AI prompts built by PMs, for PMs." />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
+  <link rel="shortcut icon" href="assets/img/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/img/site.webmanifest" />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -29,7 +37,7 @@
   <main>
     <section class="hero">
       <div class="container">
-        <img src="assets/img/snf_logo.png" alt="System & Flow Logo" class="hero-logo" style="width: 180px; max-width: 100%;" />
+        <img src="assets/img/snf_logo.png" alt="System & Flow Logo" class="hero-logo" />
         <h1>Project Management.<br />Simplified.</h1>
         <p class="tagline">
           SaaS tools and AI prompts <strong>built by PMs</strong> to eliminate chaos, flag risks early, and speed up execution.
@@ -105,7 +113,6 @@
   <!-- Scripts -->
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-
     function handleSubscribe(event) {
       event.preventDefault();
       const form = event.target;
