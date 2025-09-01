@@ -9,60 +9,31 @@
   <meta name="robots" content="noindex,follow" />
   <meta name="theme-color" content="#0b1220" />
 
-  <!-- Open Graph / Twitter -->
+  <!-- OG/Twitter Meta -->
   <meta property="og:title" content="404 | Red-Flag Ronnie Strikes Again" />
   <meta property="og:description" content="Red-Flag Ronnie unplugged something again. But you’re still in the right place for PM tools that actually work." />
   <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicons -->
+  <!-- Icons -->
   <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
   <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png" />
   <link rel="manifest" href="/assets/img/site.webmanifest" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Logo size fix -->
   <style>
-    @keyframes flicker {
-      0% { opacity: 1; }
-      100% { opacity: 0.85; }
-    }
-    .rfr-hero {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 6rem 2rem;
-      text-align: center;
-      animation: flicker 1.5s ease-in-out infinite alternate;
-    }
-    .rfr-hero img {
-      width: 220px;
-      height: auto;
-      margin-bottom: 2rem;
-    }
-    .rfr-hero h1 {
-      font-size: 2rem;
-      color: var(--ink);
-      margin-bottom: 0.5rem;
-    }
-    .rfr-hero p {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-    .rfr-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-    .rfr-joke {
-      font-size: 0.9rem;
-      font-style: italic;
-      color: var(--muted);
+    .site-header img {
+      height: 28px;
+      width: auto;
+      max-width: 160px;
+      object-fit: contain;
     }
   </style>
 
+  <!-- Auto-redirect -->
   <script>
     setTimeout(() => {
       window.location.href = "/";
@@ -73,7 +44,7 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="/">
+      <a class="brand-wrap" href="/">
         <img src="/assets/img/logo.png" alt="System & Flow logo" />
       </a>
     </div>
@@ -84,10 +55,12 @@
       <img src="/assets/img/rfr-unplug.png" alt="Red-Flag Ronnie unplugged something again" />
       <h1>Red-Flag Ronnie Unplugged Us.</h1>
       <p>The page you're looking for is MIA — Ronnie probably pulled the wrong cable again. But don’t worry… we’ll plug you back in.</p>
+
       <div class="rfr-actions">
         <a href="/" class="button primary">Return to Homepage</a>
         <a href="/apps.html" class="button ghost">Browse PM Tools</a>
       </div>
+
       <div class="rfr-joke" id="pm-joke"></div>
     </section>
   </main>
@@ -117,8 +90,10 @@
   </footer>
 
   <script>
+    // Current year
     document.getElementById('y').textContent = new Date().getFullYear();
 
+    // PM joke rotation
     const jokes = [
       "Why did the project manager cross the road? Because the risk register told them to.",
       "How many PMs does it take to change a light bulb? None. It’s a scope change.",
