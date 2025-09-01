@@ -100,15 +100,18 @@ a:hover {
 }
 .hero-logo {
   display: block;
-  margin: 0 auto 2rem;
-  max-width: 280px;
-  width: 80%;
+  margin: 0 auto 2.25rem;
+  max-width: 240px;
+  width: 60%;
   height: auto;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
-  border-radius: 12px;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.45));
+  border-radius: 10px;
+  transition: transform 0.3s ease;
 }
 
-
+.hero-logo:hover {
+  transform: scale(1.03);
+  }   
 /* Optional: add responsive tweaks if needed */
 @media (max-width: 768px) {
 .hero-logo {
