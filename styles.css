@@ -70,9 +70,10 @@ a:hover {
 }
 
 .site-header .brand-wrap img {
-  height: 32px;
+  height: 24px;  /* Made smaller */
   width: auto;
   object-fit: contain;
+  content: url("assets/img/logo.png");  /* Pointing to your correct file */
 }
 
 .site-header .brand {
