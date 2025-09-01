@@ -8,20 +8,18 @@
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
 
-  <!-- Social -->
-  <meta property="og:type" content="website" />
+  <!-- Open Graph & Twitter -->
   <meta property="og:title" content="Contact System & Flow | Built by PMs, for PMs" />
   <meta property="og:description" content="Get in touch about lightweight PM SaaS apps and AI prompts that cut through chaos and make execution simple." />
   <meta property="og:url" content="https://systemnflow.com/contact.html" />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
+  <meta property="og:image" content="/assets/img/snf_logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact System & Flow | Built by PMs, for PMs" />
   <meta name="twitter:description" content="Get in touch about lightweight PM SaaS apps and AI prompts that cut through chaos and make execution simple." />
-  <meta name="twitter:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
+  <meta name="twitter:image" content="/assets/img/snf_logo.png" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
   <link rel="manifest" href="/assets/img/site.webmanifest">
 
@@ -65,9 +63,15 @@
       padding: 10px 12px;
       border-radius: 8px;
     }
+    nav ul.nav-links {
+      display: flex;
+      gap: 16px;
+      margin-left: auto;
+      align-items: center;
+    }
   </style>
 
-  <!-- GA -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -80,7 +84,7 @@
 <body>
   <!-- Header -->
   <header class="site-header">
-    <div class="container">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between">
       <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
         <img src="/assets/img/logo.png" alt="System & Flow logo" />
         <span class="brand">System & Flow</span>
@@ -111,8 +115,7 @@
               class="contact"
               action="https://formspree.io/f/mzzvlwqy"
               method="POST"
-              novalidate
-              data-requires-terms>
+              novalidate>
           <label for="name">Name
             <input id="name" type="text" name="name" autocomplete="name" required />
           </label>
@@ -145,10 +148,6 @@
             <button class="button primary" type="submit">Send</button>
           </div>
         </form>
-
-        <div id="contact-success" class="success" role="status" aria-live="polite">
-          ✅ Thanks for reaching out! We’ll reply soon.
-        </div>
       </div>
     </section>
   </main>
@@ -176,38 +175,32 @@
     </div>
   </footer>
 
-  <!-- Year Script -->
+  <!-- Footer Year Script -->
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 
-  <!-- Contact Submit Handler + Terms Gate -->
+  <!-- Redirect on Success -->
   <script>
-    // Submit handler
-    (function () {
-      const cf = document.getElementById('contact-form');
-      const success = document.getElementById('contact-success');
-      if (!cf) return;
-      cf.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        try {
-          const resp = await fetch(cf.action, {
-            method: 'POST',
-            body: new FormData(cf),
-            headers: { 'Accept': 'application/json' }
-          });
-          if (resp.ok) {
-            cf.style.display = 'none';
-            if (success) success.style.display = 'block';
-            if (typeof gtag === 'function') gtag('event','contact_submit',{method:'Formspree'});
-          } else {
-            alert('Oops! Something went wrong. Please try again.');
-          }
-        } catch {
-          alert('Network error. Please try again.');
+    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      try {
+        const resp = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (resp.ok) {
+          if (typeof gtag === 'function') gtag('event','contact_submit',{method:'Formspree'});
+          window.location.href = "/thank-you.html";
+        } else {
+          alert('Something went wrong. Please try again.');
         }
-      });
-    })();
+      } catch {
+        alert('Network error. Please try again.');
+      }
+    });
   </script>
 </body>
 </html>
