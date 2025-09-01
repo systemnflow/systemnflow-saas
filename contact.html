@@ -1,3 +1,4 @@
+<!-- CONTACT.HTML -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,22 +27,28 @@
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    .form-wrap { max-width: 680px; margin: 0 auto; }
+    .form-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
     form.contact {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 18px;
       display: grid;
-      gap: 12px;
+      gap: 14px;
       box-shadow: var(--shadow);
     }
+
     form.contact label {
       display: grid;
       gap: 6px;
       font-size: 14px;
       color: var(--muted);
     }
+
     form.contact input,
     form.contact textarea {
       width: 100%;
@@ -51,8 +58,7 @@
       background: #0f1726;
       color: var(--ink);
     }
-    .actions { display: flex; gap: 10px; }
-    .consent { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 14px; }
+
     .disclaimer-banner {
       background: rgba(255,193,7,.12);
       border: 1px solid #ffc107;
@@ -62,6 +68,16 @@
       padding: 10px 12px;
       border-radius: 8px;
     }
+
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
     nav ul.nav-links {
       display: flex;
       gap: 16px;
@@ -98,6 +114,7 @@
     </div>
   </header>
 
+  <!-- Main -->
   <main>
     <section class="hero">
       <div class="container" style="text-align:center">
@@ -112,7 +129,7 @@
       <div class="container form-wrap">
         <form 
           class="contact"
-          action="https://formsubmit.co/forms@systemnflow.com" 
+          action="https://formsubmit.co/75c13fb805073e5ae7a1f7ac8d63269d" 
           method="POST"
         >
           <label for="name">Name
@@ -132,22 +149,22 @@
             You are responsible for complying with your organization’s policies.
           </div>
 
-          <label class="consent">
-            <input id="consent" type="checkbox" name="marketing_consent" />
-            I agree to receive follow-ups about this inquiry and occasional product updates.
-          </label>
+          <div class="consent">
+            <input type="checkbox" name="marketing_consent" id="consent" />
+            <label for="consent">I agree to receive follow-ups about this inquiry and occasional product updates.</label>
+          </div>
 
           <!-- Honeypot -->
-          <input type="text" name="_honey" style="display:none">
+          <input type="text" name="_honey" style="display:none" />
 
           <!-- Disable CAPTCHA -->
-          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_captcha" value="false" />
 
           <!-- Redirect after submit -->
-          <input type="hidden" name="_next" value="https://systemnflow.com/thank-you.html">
+          <input type="hidden" name="_next" value="https://systemnflow.com/thank-you.html" />
 
           <!-- Email subject -->
-          <input type="hidden" name="_subject" value="New Contact — System & Flow">
+          <input type="hidden" name="_subject" value="New Contact — System & Flow" />
 
           <div class="actions">
             <button class="button primary" type="submit">Send</button>
@@ -180,7 +197,6 @@
     </div>
   </footer>
 
-  <!-- Footer Year -->
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
