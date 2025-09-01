@@ -1,7 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About — System & Flow</title>
   <meta name="description" content="Built by project managers, for project managers. Why System & Flow exists and what we’re building next." />
@@ -9,7 +9,7 @@
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
 
-  <!-- Social -->
+  <!-- Open Graph / Social Meta -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="About — System & Flow" />
   <meta property="og:description" content="Built by project managers, for project managers." />
@@ -24,34 +24,34 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
-  <link rel="manifest" href="/assets/img/site.webmanifest">
   <link rel="shortcut icon" href="/assets/img/favicon.ico">
+  <link rel="manifest" href="/assets/img/site.webmanifest">
 
-  <!-- CSS -->
-  <link rel="preload" href="/styles.css" as="style" />
-  <link rel="stylesheet" href="/styles.css" />
+  <!-- Styles -->
+  <link rel="preload" href="/styles.css" as="style">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-  <!-- Injected Header -->
+  <!-- Shared Header -->
   <div id="header-placeholder"></div>
 
   <main id="main">
     <!-- Hero -->
     <section class="hero">
       <div class="container">
-        <img src="/assets/img/snf_logo.png" alt="System & Flow" class="hero-logo" />
+        <img src="/assets/img/snf_logo.png" alt="System & Flow Logo" class="hero-logo" />
         <h1>Smart Tools for Smarter PMs</h1>
-        <p class="sub">We build tools that speak fluent chaos—then translate it into clarity.</p>
+        <p class="sub">We build tools that speak fluent chaos — then translate it into clarity.</p>
       </div>
     </section>
 
-    <!-- Body -->
+    <!-- Content -->
     <section class="section">
       <div class="container" style="max-width:820px">
         <h2>Why System & Flow Exists</h2>
         <p>Most PM tools feel like they were built by engineers who’ve never run a meeting. We’re different.
-          We’re PMs who got tired of bloated software, status reports that require therapy, and platforms that forget people still lead projects.</p>
+        We’re PMs who got tired of bloated software, status reports that require therapy, and platforms that forget people still lead projects.</p>
 
         <h2>What We’re Building</h2>
         <ul class="small" style="line-height:1.8">
@@ -62,9 +62,22 @@
         </ul>
 
         <h2>Stay in the Loop</h2>
-        <form id="about-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" aria-label="Join the newsletter" novalidate>
+        <form 
+          id="about-wait" 
+          action="https://formspree.io/f/mzzvlwqy" 
+          method="POST" 
+          class="newsletter-form" 
+          aria-label="Join the newsletter" 
+          novalidate
+        >
           <label class="sr-only" for="about-email">Email</label>
-          <input id="about-email" type="email" name="email" required placeholder="Email for early access & updates" />
+          <input 
+            id="about-email" 
+            type="email" 
+            name="email" 
+            required 
+            placeholder="Email for early access & updates" 
+          />
           <input type="hidden" name="_subject" value="About page signup — systemnflow.com" />
           <label class="consent">
             <input type="checkbox" name="marketing_consent" required /> I agree to receive emails.
@@ -73,7 +86,11 @@
             <button class="button primary" type="submit">Join</button>
           </div>
         </form>
-        <div id="about-wait-ok" class="success" role="status" aria-live="polite" style="display:none">✅ You’re on the list.</div>
+
+        <div id="about-wait-ok" class="success" role="status" aria-live="polite" style="display:none">
+          ✅ You’re on the list.
+        </div>
+
         <p class="small muted" style="margin-top:8px">
           No spam. Just smart tools and sharper PM moves. Unsubscribe anytime.
         </p>
@@ -81,20 +98,18 @@
     </section>
   </main>
 
-  <!-- Injected Footer -->
+  <!-- Shared Footer -->
   <div id="footer-placeholder"></div>
 
-  <!-- Scripts -->
+  <!-- Include Header/Footer Logic -->
   <script>
-    // Inject shared header and footer
     async function includeHTML(selector, file) {
       const el = document.querySelector(selector);
       if (!el) return;
       try {
         const res = await fetch(file);
         if (!res.ok) throw new Error(`Could not load ${file}`);
-        const html = await res.text();
-        el.innerHTML = html;
+        el.innerHTML = await res.text();
       } catch (err) {
         console.error(err);
       }
@@ -104,21 +119,22 @@
     includeHTML("#footer-placeholder", "/partials/footer.html");
   </script>
 
-  <!-- Page-Specific JS -->
+  <!-- Newsletter Form Logic -->
   <script>
     (function () {
       const form = document.getElementById('about-wait');
       const ok = document.getElementById('about-wait-ok');
       if (!form) return;
+
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         try {
-          const r = await fetch(form.action, {
+          const res = await fetch(form.action, {
             method: 'POST',
             body: new FormData(form),
             headers: { 'Accept': 'application/json' }
           });
-          if (r.ok) {
+          if (res.ok) {
             form.style.display = 'none';
             if (ok) ok.style.display = 'block';
             if (window.gtag) gtag('event', 'newsletter_signup', { source: 'about' });
