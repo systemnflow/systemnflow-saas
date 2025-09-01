@@ -99,13 +99,19 @@ a:hover {
   padding: 2rem 1rem;
 }
 .hero-logo {
-  max-height: 72px;
-  width: auto;
-  margin: 0 auto 1rem;
+display: block;
+margin: 0 auto 2rem auto;
+max-width: 250px; /* ← Adjust size here */
+height: auto;
+border-radius: 4px;
+box-shadow: 0 4px 14px rgba(0,0,0,0.25);
 }
-@media (max-width: 480px) {
-  .hero-logo {
-    max-height: 48px;
+
+
+/* Optional: add responsive tweaks if needed */
+@media (max-width: 768px) {
+.hero-logo {
+max-width: 180px;
   }
 }
 .hero h1 {
