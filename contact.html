@@ -25,7 +25,6 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
-
   <style>
     .form-wrap { max-width: 680px; margin: 0 auto; }
     form.contact {
@@ -111,11 +110,11 @@
 
     <section class="section">
       <div class="container form-wrap">
-        <form id="contact-form"
-              class="contact"
-              action="https://formspree.io/f/mzzvlwqy"
-              method="POST"
-              novalidate>
+        <form 
+          class="contact"
+          action="https://formsubmit.co/forms@systemnflow.com" 
+          method="POST"
+        >
           <label for="name">Name
             <input id="name" type="text" name="name" autocomplete="name" required />
           </label>
@@ -139,10 +138,16 @@
           </label>
 
           <!-- Honeypot -->
-          <label class="sr-only" for="gotcha">Do not fill this out</label>
-          <input id="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="sr-only" />
+          <input type="text" name="_honey" style="display:none">
 
-          <input type="hidden" name="_subject" value="New contact — systemnflow.com" />
+          <!-- Disable CAPTCHA -->
+          <input type="hidden" name="_captcha" value="false">
+
+          <!-- Redirect after submit -->
+          <input type="hidden" name="_next" value="https://systemnflow.com/thank-you.html">
+
+          <!-- Email subject -->
+          <input type="hidden" name="_subject" value="New Contact — System & Flow">
 
           <div class="actions">
             <button class="button primary" type="submit">Send</button>
@@ -175,32 +180,9 @@
     </div>
   </footer>
 
-  <!-- Footer Year Script -->
+  <!-- Footer Year -->
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-
-  <!-- Redirect on Success -->
-  <script>
-    document.getElementById('contact-form').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const form = e.target;
-      try {
-        const resp = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (resp.ok) {
-          if (typeof gtag === 'function') gtag('event','contact_submit',{method:'Formspree'});
-          window.location.href = "/thank-you.html";
-        } else {
-          alert('Something went wrong. Please try again.');
-        }
-      } catch {
-        alert('Network error. Please try again.');
-      }
-    });
   </script>
 </body>
 </html>
