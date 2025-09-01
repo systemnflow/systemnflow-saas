@@ -9,30 +9,20 @@
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
-  <link rel="shortcut icon" href="assets/img/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
   <link rel="manifest" href="assets/img/site.webmanifest" />
 
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Inject header and footer -->
+  <script src="partials/header.js" defer></script>
+  <script src="partials/footer.js" defer></script>
 </head>
 
 <body>
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
-        <img src="assets/img/logo.png" alt="System & Flow Logo" />
-        <span class="brand">System & Flow</span>
-      </a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Tools</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <!-- Header (Injected) -->
+  <div id="header"></div>
 
   <!-- Hero -->
   <main>
@@ -49,33 +39,33 @@
           <a class="button ghost" href="/contact.html">Early Access List</a>
         </div>
 
-        <!-- Newsletter Signup Form -->
+        <!-- Email Signup -->
         <form 
-  action="https://formsubmit.co/29418741ca9d5678c6e09e4012d15f59" 
-  method="POST"
-  class="newsletter-form"
->
-  <input 
-    type="email" 
-    name="email" 
-    placeholder="Enter your email to get launch alerts" 
-    required 
-  />
-  <label>
-    <input type="checkbox" required />
-    I agree to receive updates and promotional emails.
-  </label>
-  <input type="hidden" name="_captcha" value="false" />
-  <input type="hidden" name="_next" value="https://systemnflow.com/thank-you.html" />
-  <button type="submit" class="button primary">Join</button>
-</form>
-
+          action="https://formsubmit.co/29418741ca9d5678c6e09e4012d15f59" 
+          method="POST"
+          class="newsletter-form"
+        >
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Enter your email to get launch alerts" 
+            required 
+          />
+          <label>
+            <input type="checkbox" required />
+            I agree to receive updates and promotional emails.
+          </label>
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://systemnflow.com/thank-you.html" />
+          <button type="submit" class="button primary">Join</button>
+        </form>
       </div>
     </section>
 
     <!-- Tools Grid -->
     <section class="tools">
       <div class="container grid">
+        <!-- Tool Card 1 -->
         <div class="card">
           <h3>Transcript Analyzer</h3>
           <span class="badge live">Live</span>
@@ -86,6 +76,7 @@
           </div>
         </div>
 
+        <!-- Tool Card 2 -->
         <div class="card">
           <h3>Status Report Generator</h3>
           <span class="badge soon">Q4 2025</span>
@@ -93,6 +84,7 @@
           <a class="button ghost" href="/notify/status-report.html">Notify Me</a>
         </div>
 
+        <!-- Tool Card 3 -->
         <div class="card">
           <h3>Risk Radar</h3>
           <span class="badge soon">Coming Soon</span>
@@ -103,34 +95,7 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer-min">
-    <div class="container footer-container">
-      <div class="foot-left">
-        <img class="logo-icon" src="assets/img/logo.png" alt="System & Flow logo icon" />
-        <span class="brand">System & Flow</span>
-        <span class="divider">•</span>
-        <span class="tagline">Smarter tools. Faster PMs.</span>
-      </div>
-
-      <div class="foot-right">
-        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
-        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
-      </div>
-    </div>
-
-    <div class="legal">
-      © <span id="y"></span> System & Flow™. All rights reserved.
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <!-- Footer (Injected) -->
+  <div id="footer"></div>
 </body>
 </html>
