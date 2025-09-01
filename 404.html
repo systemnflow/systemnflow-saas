@@ -9,35 +9,64 @@
   <meta name="robots" content="noindex,follow" />
   <meta name="theme-color" content="#0b1220" />
 
-  <!-- OG/Twitter Meta -->
+  <!-- Social -->
   <meta property="og:title" content="404 | Red-Flag Ronnie Strikes Again" />
   <meta property="og:description" content="Red-Flag Ronnie unplugged something again. But you’re still in the right place for PM tools that actually work." />
   <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Icons -->
-  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png" />
-  <link rel="manifest" href="/assets/img/site.webmanifest" />
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png">
+  <link rel="manifest" href="/assets/img/site.webmanifest">
 
-  <!-- Styles -->
+  <!-- CSS -->
   <link rel="stylesheet" href="/styles.css" />
-
-  <!-- Logo size fix -->
   <style>
+    .rfr-hero {
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    .rfr-hero img {
+      display: block;
+      margin: 0 auto 2rem;
+      width: 320px;
+      max-width: 80vw;
+      animation: wave 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes wave {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(1.5deg); }
+    }
+
+    .rfr-actions {
+      margin: 1.5rem 0;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .rfr-joke {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
     .site-header img {
       height: 28px;
-      width: auto;
       max-width: 160px;
       object-fit: contain;
     }
   </style>
 
-  <!-- Auto-redirect -->
   <script>
     setTimeout(() => {
       window.location.href = "/";
-    }, 6000);
+    }, 15000); // 15 seconds to let the joke breathe
   </script>
 </head>
 
@@ -90,10 +119,8 @@
   </footer>
 
   <script>
-    // Current year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // PM joke rotation
     const jokes = [
       "Why did the project manager cross the road? Because the risk register told them to.",
       "How many PMs does it take to change a light bulb? None. It’s a scope change.",
