@@ -333,3 +333,28 @@ a:hover {
   font-style: italic;
   color: var(--muted);
 }
+/* -------------------------
+   Consent Checkbox Styling
+-------------------------- */
+.consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.consent input[type="checkbox"] {
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.consent label {
+  margin: 0;
+  font-weight: 400;
+}
