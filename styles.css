@@ -8,6 +8,7 @@
   --ink: #e6e9ef;
   --muted: #9aa4b2;
   --accent: #b8753d;
+  --accent-hover: #d88945;
   --accent-ink: #111;
   --border: #1e2a41;
   --good: #40d278;
@@ -98,7 +99,7 @@ a:hover {
   padding: 2rem 1rem;
 }
 .hero-logo {
-  max-height: 64px;
+  max-height: 72px;
   width: auto;
   margin: 0 auto 1rem;
 }
@@ -119,6 +120,9 @@ a:hover {
   flex-wrap: wrap;
 }
 
+/* -------------------
+   Buttons
+-------------------- */
 .button {
   padding: 0.5rem 1rem;
   border: none;
@@ -126,15 +130,25 @@ a:hover {
   font-weight: 700;
   text-decoration: none;
   display: inline-block;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 .primary {
   background: var(--accent);
   color: var(--accent-ink);
 }
+.primary:hover {
+  background: var(--accent-hover);
+}
 .ghost {
   background: transparent;
   color: var(--ink);
   border: 1px solid var(--border);
+}
+.ghost:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent-hover);
 }
 
 /* -------------------
