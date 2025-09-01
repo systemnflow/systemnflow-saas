@@ -1,12 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>Contact System & Flow | Built by PMs, for PMs</title>
   <meta name="description" content="Questions about our PM SaaS apps or AI prompts? Contact System & Flow — built by project managers, for project managers." />
-  <link rel="canonical" href="https://systemnflow.com/contact.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
 
@@ -15,62 +13,57 @@
   <meta property="og:title" content="Contact System & Flow | Built by PMs, for PMs" />
   <meta property="og:description" content="Get in touch about lightweight PM SaaS apps and AI prompts that cut through chaos and make execution simple." />
   <meta property="og:url" content="https://systemnflow.com/contact.html" />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact System & Flow | Built by PMs, for PMs" />
   <meta name="twitter:description" content="Get in touch about lightweight PM SaaS apps and AI prompts that cut through chaos and make execution simple." />
-  <meta name="twitter:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
+  <meta name="twitter:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
   <link rel="manifest" href="/assets/img/site.webmanifest">
-  <link rel="shortcut icon" href="/assets/img/favicon.ico">
 
-  <!-- CSS -->
-  <link rel="preload" href="/styles.css" as="style" />
+  <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
 
-  <!-- Page-only fixes to restore panel + stacked fields -->
   <style>
-    .form-wrap{max-width:680px;margin:0 auto}
-    form.contact{
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:18px;
-      display:grid;
-      gap:12px;
-      box-shadow:var(--shadow);
+    .form-wrap { max-width: 680px; margin: 0 auto; }
+    form.contact {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+      box-shadow: var(--shadow);
     }
-    form.contact label{
-      display:grid;
-      gap:6px;
-      font-size:14px;
-      color:var(--muted);
+    form.contact label {
+      display: grid;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--muted);
     }
     form.contact input,
-    form.contact textarea{
-      width:100%;
-      padding:12px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      background:#0f1726;
-      color:var(--ink);
+    form.contact textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0f1726;
+      color: var(--ink);
     }
-    .actions{display:flex;gap:10px}
-    .consent{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:14px}
-
-    /* Original yellow reminder banner */
-    .disclaimer-banner{
-      background:rgba(255,193,7,.12);
-      border:1px solid #ffc107;
-      color:#ffc107;
-      font-size:.9rem;
-      line-height:1.5;
-      padding:10px 12px;
-      border-radius:8px;
+    .actions { display: flex; gap: 10px; }
+    .consent { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 14px; }
+    .disclaimer-banner {
+      background: rgba(255,193,7,.12);
+      border: 1px solid #ffc107;
+      color: #ffc107;
+      font-size: .9rem;
+      line-height: 1.5;
+      padding: 10px 12px;
+      border-radius: 8px;
     }
   </style>
 
@@ -85,25 +78,24 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
   <!-- Header -->
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
-      <nav aria-label="Primary">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-        <ul id="nav" class="nav">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
           <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
+          <li><a href="/apps.html">Tools</a></li>
           <li><a href="/contact.html" aria-current="page" class="button">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main id="main">
-    <!-- Hero -->
+  <main>
     <section class="hero">
       <div class="container" style="text-align:center">
         <h1>Contact / Join the List</h1>
@@ -113,7 +105,6 @@
       </div>
     </section>
 
-    <!-- Form -->
     <section class="section">
       <div class="container form-wrap">
         <form id="contact-form"
@@ -162,62 +153,37 @@
     </section>
   </main>
 
-  <!-- Footer (compact) -->
+  <!-- Footer -->
   <footer class="footer-min">
-    <div class="container">
+    <div class="container footer-container">
       <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
-        <span class="brand">System &amp; Flow</span>
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
         <span class="divider">•</span>
-        <span class="tagline">Project management toolkits &amp; AI prompts.</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
       </div>
       <div class="foot-right">
-        <a href="/">Home</a>
-        <a href="/apps.html">Apps</a>
-        <a href="/contact.html">Contact</a>
-        <a href="https://systemnflow.gumroad.com">Store</a>
-        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
-    <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
+    <div class="legal">
+      © <span id="y"></span> System & Flow™. All rights reserved.
+    </div>
   </footer>
 
-  <!-- Terms Modal (click-to-read gate) -->
-  <dialog id="terms-modal">
-    <div style="display:flex;flex-direction:column;max-height:80vh">
-      <header style="padding:12px 16px;border-bottom:1px solid var(--border)">
-        <strong>Terms of Service</strong>
-        <span class="small" id="tm-version" style="float:right"></span>
-      </header>
-      <div id="tm-body" style="overflow:auto;flex:1">
-        <iframe id="tm-iframe" src="/terms.html#main" title="Terms of Service" style="width:100%;height:100%;border:0"></iframe>
-      </div>
-      <footer style="display:flex;gap:10px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--border)">
-        <button id="tm-cancel" class="button ghost" type="button">Cancel</button>
-        <button id="tm-accept" class="button primary" type="button" disabled>I’ve read & agree</button>
-      </footer>
-    </div>
-  </dialog>
-
-  <!-- Scripts -->
+  <!-- Year Script -->
   <script>
-    // year
     document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 
-    // mobile nav
-    (function () {
-      const btn = document.querySelector('.nav-toggle');
-      const nav = document.getElementById('nav');
-      if (!btn || !nav) return;
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        nav.classList.toggle('open');
-      });
-    })();
-
-    // AJAX submit
+  <!-- Contact Submit Handler + Terms Gate -->
+  <script>
+    // Submit handler
     (function () {
       const cf = document.getElementById('contact-form');
       const success = document.getElementById('contact-success');
@@ -240,57 +206,6 @@
         } catch {
           alert('Network error. Please try again.');
         }
-      });
-    })();
-
-    // ---------- Terms click-to-read gate ----------
-    (() => {
-      const TERMS_VERSION = '2025-08-29';
-      const STORAGE_KEY = 'snf_terms_' + TERMS_VERSION;
-      const modal = document.getElementById('terms-modal');
-      const acceptBtn = document.getElementById('tm-accept');
-      const cancelBtn = document.getElementById('tm-cancel');
-      const iframe = document.getElementById('tm-iframe');
-      const ver = document.getElementById('tm-version');
-      if (ver) ver.textContent = 'Version ' + TERMS_VERSION;
-
-      const isAccepted = () => localStorage.getItem(STORAGE_KEY) === 'yes';
-      const setAccepted = () => localStorage.setItem(STORAGE_KEY, 'yes');
-
-      let pendingForm = null;
-      document.addEventListener('submit', (e) => {
-        const f = e.target;
-        if (!f.matches('form[data-requires-terms]')) return;
-        if (isAccepted()) return;
-        e.preventDefault();
-        pendingForm = f;
-        acceptBtn.disabled = true;
-        modal.showModal();
-      });
-
-      function wireScrollGuard() {
-        try {
-          const doc = iframe.contentDocument || iframe.contentWindow.document;
-          const scroller = doc.scrollingElement || doc.documentElement || doc.body;
-        const onScroll = () => {
-            const pct = (scroller.scrollTop + scroller.clientHeight) / scroller.scrollHeight;
-            if (pct >= 0.98) {
-              acceptBtn.disabled = false;
-              scroller.removeEventListener('scroll', onScroll);
-            }
-          };
-          scroller.addEventListener('scroll', onScroll, { passive: true });
-        } catch {
-          acceptBtn.disabled = false;
-        }
-      }
-      iframe.addEventListener('load', wireScrollGuard);
-
-      cancelBtn.addEventListener('click', () => { modal.close(); pendingForm = null; });
-      acceptBtn.addEventListener('click', () => {
-        setAccepted();
-        modal.close();
-        if (pendingForm) { pendingForm.requestSubmit(); pendingForm = null; }
       });
     })();
   </script>
