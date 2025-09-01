@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>System & Flow — Project Management Made Simple</title>
   <meta name="description" content="Simplify project execution with lightweight SaaS tools and AI prompts built by PMs, for PMs." />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Social -->
+  <meta property="og:title" content="System & Flow — Project Management Made Simple" />
+  <meta property="og:description" content="Lightweight SaaS apps and AI prompts built by PMs, for PMs." />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
@@ -14,18 +22,28 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Inject header and footer -->
-  <script src="partials/header.js" defer></script>
-  <script src="partials/footer.js" defer></script>
 </head>
 
 <body>
-  <!-- Header (Injected) -->
-  <div id="header"></div>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Hero -->
   <main>
+    <!-- Hero -->
     <section class="hero">
       <div class="container">
         <img src="assets/img/snf_logo.png" alt="System & Flow full logo" class="hero-logo" />
@@ -95,7 +113,31 @@
     </section>
   </main>
 
-  <!-- Footer (Injected) -->
-  <div id="footer"></div>
+  <!-- Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">
+      © <span id="y"></span> System & Flow™. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
