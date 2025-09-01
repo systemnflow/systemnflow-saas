@@ -1,7 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>404 | Red-Flag Ronnie Strikes Again</title>
   <meta name="description" content="Red-Flag Ronnie unplugged something again. But you’re still in the right place for PM tools that actually work." />
@@ -15,10 +15,10 @@
   <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Icons -->
-  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png">
-  <link rel="manifest" href="/assets/img/site.webmanifest">
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/styles.css" />
@@ -55,32 +55,19 @@
       font-size: 0.95rem;
       margin-top: 1rem;
     }
-
-    </style>
+  </style>
 
   <script>
+    // Auto-redirect after 15 seconds
     setTimeout(() => {
       window.location.href = "/";
-    }, 15000); // 15 seconds to let the joke breathe
+    }, 15000);
   </script>
 </head>
 
 <body>
-  <header class="site-header">
-  <div class="container">
-    <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
-      <img src="/assets/img/logo.png" alt="System & Flow logo" />
-      <span class="brand">System & Flow</span>
-    </a>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/apps.html">Tools</a></li>
-        <li><a href="/contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  <!-- Injected Header -->
+  <div id="header-placeholder"></div>
 
   <main>
     <section class="rfr-hero">
@@ -97,33 +84,29 @@
     </section>
   </main>
 
-  <footer class="footer-min">
-    <div class="footer-container">
-      <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo" />
-        <span class="brand">System & Flow</span>
-        <span class="divider">•</span>
-        <span class="tagline">Smarter tools. Faster PMs.</span>
-      </div>
-      <div class="foot-right">
-        <a href="/">Home</a>
-        <a href="/apps.html">Apps</a>
-        <a href="/contact.html">Contact</a>
-        <a href="https://systemnflow.gumroad.com">Store</a>
-        <a href="https://www.instagram.com/systemnflow">Instagram</a>
-        <a href="https://www.tiktok.com/@systemnflow">TikTok</a>
-        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
-      </div>
-    </div>
-    <div class="legal small">
-      © <span id="y"></span> System & Flow™. All rights reserved.
-    </div>
-  </footer>
+  <!-- Injected Footer -->
+  <div id="footer-placeholder"></div>
 
+  <!-- Inject Header/Footer via JS -->
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    async function includeHTML(selector, file) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Could not load ${file}`);
+        el.innerHTML = await res.text();
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
+    includeHTML("#header-placeholder", "/partials/header.html");
+    includeHTML("#footer-placeholder", "/partials/footer.html");
+  </script>
+
+  <!-- Random PM Joke Script -->
+  <script>
     const jokes = [
       "Why did the project manager cross the road? Because the risk register told them to.",
       "How many PMs does it take to change a light bulb? None. It’s a scope change.",
