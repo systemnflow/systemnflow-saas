@@ -16,32 +16,54 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png">
-  <link rel="manifest" href="/assets/img/site.webmanifest">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
 
-  <!-- CSS -->
+  <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    .rfr-hero {
-      text-align: center;
-      padding: 4rem 1rem;
-      animation: flicker 1s ease-in-out infinite alternate;
-    }
     @keyframes flicker {
       0% { opacity: 1; }
       100% { opacity: 0.85; }
     }
-    .joke {
-      margin-top: 1.5rem;
+    .rfr-hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+      text-align: center;
+      animation: flicker 1.5s ease-in-out infinite alternate;
+    }
+    .rfr-hero img {
+      width: 220px;
+      height: auto;
+      margin-bottom: 2rem;
+    }
+    .rfr-hero h1 {
+      font-size: 2rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .rfr-hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .rfr-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .rfr-joke {
+      font-size: 0.9rem;
       font-style: italic;
       color: var(--muted);
-      font-size: 0.95rem;
     }
   </style>
 
   <script>
-    // Redirect after 6 seconds
     setTimeout(() => {
       window.location.href = "/";
     }, 6000);
@@ -51,27 +73,29 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
+      <a class="brand" href="/">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+      </a>
     </div>
   </header>
 
   <main>
     <section class="rfr-hero">
-      <img src="/assets/img/rfr-unplug.png" width="320" height="256" loading="lazy" alt="Red-Flag Ronnie waving a red flag after unplugging something" />
+      <img src="/assets/img/rfr-unplug.png" alt="Red-Flag Ronnie unplugged something again" />
       <h1>Red-Flag Ronnie Unplugged Us.</h1>
       <p>The page you're looking for is MIA — Ronnie probably pulled the wrong cable again. But don’t worry… we’ll plug you back in.</p>
       <div class="rfr-actions">
         <a href="/" class="button primary">Return to Homepage</a>
         <a href="/apps.html" class="button ghost">Browse PM Tools</a>
       </div>
-      <div class="joke" id="pm-joke"></div>
+      <div class="rfr-joke" id="pm-joke"></div>
     </section>
   </main>
 
   <footer class="footer-min">
-    <div class="container">
+    <div class="footer-container">
       <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" />
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo" />
         <span class="brand">System & Flow</span>
         <span class="divider">•</span>
         <span class="tagline">Smarter tools. Faster PMs.</span>
