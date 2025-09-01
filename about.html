@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>About — System & Flow</title>
   <meta name="description" content="Built by project managers, for project managers. Why System & Flow exists and what we’re building next." />
   <link rel="canonical" href="https://systemnflow.com/about.html" />
@@ -31,15 +30,6 @@
   <!-- CSS -->
   <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
-
-  <!-- GA -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-1FRFWG4X18');
-  </script>
 </head>
 
 <body>
@@ -65,31 +55,27 @@
     <!-- Hero -->
     <section class="hero">
       <div class="container" style="text-align:center">
-        <h1>Built by PMs, for PMs</h1>
-        <p class="small sub">
-          We’re project managers who wanted fewer clicks, clearer status, and tools that don’t fight you.
-        </p>
+        <h1>Smart Tools for Smarter PMs</h1>
+        <p class="sub">We build tools that speak fluent chaos—then translate it into clarity.</p>
       </div>
     </section>
 
     <!-- Body -->
     <section class="section">
       <div class="container" style="max-width:820px">
-        <h2 style="margin-top:0">Why System &amp; Flow</h2>
-        <p>
-          Most PM tools are heavy. We prefer fast, focused apps that do one job beautifully—turn a messy meeting into decisions,
-          ship a clean status report, or surface the real risks before they explode.
-        </p>
+        <h2>Why System & Flow Exists</h2>
+        <p>Most PM tools feel like they were built by engineers who’ve never run a meeting. We’re different.
+          We’re PMs who got tired of bloated software, status reports that require therapy, and platforms that forget people still lead projects.</p>
 
-        <h2>What we’re building</h2>
+        <h2>What We’re Building</h2>
         <ul class="small" style="line-height:1.8">
-          <li><strong>Transcript Analyzer (Free):</strong> actions, risks, and decisions in seconds.</li>
-          <li><strong>Status Report Generator (Pro):</strong> exec-ready one-pagers.</li>
-          <li><strong>Risk Radar (Suite):</strong> proactive risk visibility with mitigations.</li>
-          <li><strong>AI Prompt Pack for PMs:</strong> planning, reporting, and alignment shortcuts.</li>
+          <li><strong>Transcript Analyzer (Free):</strong> Turn meeting chaos into clean actions, risks & decisions.</li>
+          <li><strong>Status Report Generator (Pro):</strong> Auto-generate exec-ready updates in under 2 mins.</li>
+          <li><strong>Risk Radar (Suite):</strong> AI-powered risk surfacing and proactive mitigation visibility.</li>
+          <li><strong>AI Prompt Pack (PM Edition):</strong> Strategy, status, & stakeholder shortcuts that hit hard.</li>
         </ul>
 
-        <h2>Stay in the loop</h2>
+        <h2>Stay in the Loop</h2>
         <form id="about-wait" action="https://formspree.io/f/mzzvlwqy" method="POST" class="newsletter-form" aria-label="Join the newsletter" novalidate>
           <label class="sr-only" for="about-email">Email</label>
           <input id="about-email" type="email" name="email" required placeholder="Email for early access & updates" />
@@ -103,20 +89,20 @@
         </form>
         <div id="about-wait-ok" class="success" role="status" aria-live="polite">✅ You’re on the list.</div>
         <p class="small muted" style="margin-top:8px">
-          We’ll email occasionally with launch updates and early access invites. Unsubscribe anytime.
+          No spam. Just smart tools and sharper PM moves. Unsubscribe anytime.
         </p>
       </div>
     </section>
   </main>
 
-  <!-- Footer (compact) -->
+  <!-- Footer -->
   <footer class="footer-min">
     <div class="container">
       <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
-        <span class="brand">System &amp; Flow</span>
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" />
+        <span class="brand">System & Flow</span>
         <span class="divider">•</span>
-        <span class="tagline">Project management toolkits &amp; AI prompts.</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
       </div>
       <div class="foot-right">
         <a href="/">Home</a>
@@ -127,15 +113,13 @@
         <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
       </div>
     </div>
-    <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
+    <div class="legal small">© <span id="y"></span> System & Flow™. All rights reserved.</div>
   </footer>
 
   <!-- Scripts -->
   <script>
-    // year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // mobile nav
     (function () {
       const btn = document.querySelector('.nav-toggle');
       const nav = document.getElementById('nav');
@@ -147,7 +131,6 @@
       });
     })();
 
-    // newsletter ajax
     (function () {
       const form = document.getElementById('about-wait');
       const ok = document.getElementById('about-wait-ok');
