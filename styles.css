@@ -2,6 +2,9 @@
    System & Flow — Global Styles (WWBD 1.1)
    ======================================== */
 
+/* -------------------------
+   Theme Tokens
+-------------------------- */
 :root {
   --bg: #0b1220;
   --panel: #121a2b;
@@ -16,6 +19,9 @@
   --shadow-lift: 0 14px 38px rgba(0, 0, 0, 0.45);
 }
 
+/* -------------------------
+   Reset
+-------------------------- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -50,9 +56,9 @@ a:hover {
   padding: 1rem;
 }
 
-/* -------------------
+/* -------------------------
    Header
--------------------- */
+-------------------------- */
 .site-header {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
@@ -70,8 +76,6 @@ a:hover {
 }
 .brand-wrap img {
   height: 28px;
-  width: auto;
-  object-fit: contain;
 }
 .brand {
   font-weight: 600;
@@ -91,9 +95,9 @@ a:hover {
   color: var(--ink);
 }
 
-/* -------------------
-   Hero
--------------------- */
+/* -------------------------
+   Hero Section
+-------------------------- */
 .hero {
   text-align: center;
   padding: 2rem 1rem;
@@ -103,18 +107,12 @@ a:hover {
   margin: 0 auto 2.75rem;
   max-width: 340px;
   width: 60%;
-  height: auto;
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.45));
   border-radius: 10px;
   transition: transform 0.3s ease;
 }
 .hero-logo:hover {
   transform: scale(1.03);
-}
-@media (max-width: 768px) {
-  .hero-logo {
-    max-width: 180px;
-  }
 }
 .hero h1 {
   font-size: 2rem;
@@ -123,14 +121,14 @@ a:hover {
 .cta-row {
   margin: 1rem 0;
   display: flex;
-  gap: 0.5rem;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-/* -------------------
+/* -------------------------
    Buttons
--------------------- */
+-------------------------- */
 .button {
   padding: 0.5rem 1rem;
   border: none;
@@ -159,50 +157,75 @@ a:hover {
   border-color: var(--accent-hover);
 }
 
-/* -------------------
-   Newsletter
--------------------- */
-.newsletter-form {
-  margin-top: 1rem;
+/* -------------------------
+   Contact / Form Styling
+-------------------------- */
+.form-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+form.contact {
+  width: 100%;
+  max-width: 640px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
-.newsletter-form input[type='email'] {
-  padding: 0.6rem;
+form.contact label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+form.contact input[type="text"],
+form.contact input[type="email"],
+form.contact textarea {
+  padding: 0.65rem;
   border-radius: 5px;
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--panel);
   color: var(--ink);
-  width: 300px;
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  width: 100%;
 }
-.newsletter-form label {
-  font-size: 0.9rem;
-  color: var(--ink);
+.disclaimer-banner {
+  background: var(--panel);
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  border-left: 4px solid var(--accent);
+  color: var(--muted);
+}
+.actions {
   display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 0.5rem;
-}
-.newsletter-form button {
-  background: var(--accent);
-  border: none;
-  border-radius: 5px;
-  color: var(--accent-ink);
-  font-weight: 700;
-  cursor: pointer;
-  padding: 0.6rem 1rem;
-}
-.success {
-  color: var(--good);
-  font-size: 0.9rem;
+  justify-content: flex-start;
 }
 
-/* -------------------
-   Cards
--------------------- */
+/* -------------------------
+   Consent Checkbox
+-------------------------- */
+.consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+.consent label {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* -------------------------
+   Cards / Grid
+-------------------------- */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -236,9 +259,9 @@ a:hover {
   color: var(--accent);
 }
 
-/* -------------------
+/* -------------------------
    Footer
--------------------- */
+-------------------------- */
 .footer-min {
   background: var(--bg);
   border-top: 1px solid var(--border);
@@ -292,9 +315,9 @@ a:hover {
   font-size: 0.78rem;
 }
 
-/* -------------------
-   404: Red-Flag Ronnie
--------------------- */
+/* -------------------------
+   404 Page: Red-Flag Ronnie
+-------------------------- */
 .rfr-hero {
   max-width: 960px;
   margin: 0 auto;
@@ -303,7 +326,6 @@ a:hover {
 }
 .rfr-hero img {
   width: 220px;
-  height: auto;
   margin-bottom: 2rem;
   animation: wave 2.5s ease-in-out infinite alternate;
 }
@@ -333,28 +355,22 @@ a:hover {
   font-style: italic;
   color: var(--muted);
 }
+
 /* -------------------------
-   Consent Checkbox Styling
+   Responsive (Mobile)
 -------------------------- */
-.consent {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--muted);
-  margin-top: 4px;
-  line-height: 1.4;
-}
+@media (max-width: 640px) {
+  .nav-links {
+    gap: 1rem;
+  }
 
-.consent input[type="checkbox"] {
-  margin: 0;
-  width: 16px;
-  height: 16px;
-  accent-color: var(--accent);
-  flex-shrink: 0;
-}
+  form.contact {
+    padding: 0 0.5rem;
+  }
 
-.consent label {
-  margin: 0;
-  font-weight: 400;
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
