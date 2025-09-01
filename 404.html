@@ -4,65 +4,67 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>404 | Red-Flag Ronnie Strikes Again</title>
-  <meta name="description" content="Uh-oh. Red-Flag Ronnie pulled the wrong plug again. But you’re still in the right place for fast, focused PM tools." />
+  <meta name="description" content="Red-Flag Ronnie unplugged something again. But you’re still in the right place for PM tools that actually work." />
   <link rel="canonical" href="https://systemnflow.com/404.html" />
   <meta name="robots" content="noindex,follow" />
   <meta name="theme-color" content="#0b1220" />
 
   <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website" />
   <meta property="og:title" content="404 | Red-Flag Ronnie Strikes Again" />
-  <meta property="og:description" content="Uh-oh. Red-Flag Ronnie pulled the wrong plug again. But you’re still in the right place for fast, focused PM tools." />
-  <meta property="og:url" content="https://systemnflow.com/404.html" />
+  <meta property="og:description" content="Red-Flag Ronnie unplugged something again. But you’re still in the right place for PM tools that actually work." />
   <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="404 | Red-Flag Ronnie Strikes Again" />
-  <meta name="twitter:description" content="Uh-oh. Red-Flag Ronnie pulled the wrong plug again. But you’re still in the right place for fast, focused PM tools." />
-  <meta name="twitter:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png">
   <link rel="manifest" href="/assets/img/site.webmanifest">
-  <link rel="shortcut icon" href="/assets/img/favicon.ico">
 
   <!-- CSS -->
-  <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .rfr-hero {
+      text-align: center;
+      padding: 4rem 1rem;
+      animation: flicker 1s ease-in-out infinite alternate;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      100% { opacity: 0.85; }
+    }
+    .joke {
+      margin-top: 1.5rem;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+
+  <script>
+    // Redirect after 6 seconds
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 6000);
+  </script>
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="/">
-        <img src="/assets/img/logo.png" alt="System & Flow logo" />
-      </a>
-      <nav aria-label="Primary">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-        <ul id="nav" class="nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/contact.html" class="button">Contact</a></li>
-        </ul>
-      </nav>
+      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
     </div>
   </header>
 
-  <main id="main">
+  <main>
     <section class="rfr-hero">
-      <img src="/assets/img/rfr-unplug.png" width="320" height="256" loading="lazy" decoding="async" alt="Red-Flag Ronnie waving a red flag after unplugging something" />
-      <h1>404: Red-Flag Ronnie Unplugged Us.</h1>
-      <p class="subtle">
-        The page you’re looking for is missing—or maybe Ronnie got curious with a cable again.  
-        No worries. You’re still in System & Flow territory.
-      </p>
+      <img src="/assets/img/rfr-unplug.png" width="320" height="256" loading="lazy" alt="Red-Flag Ronnie waving a red flag after unplugging something" />
+      <h1>Red-Flag Ronnie Unplugged Us.</h1>
+      <p>The page you're looking for is MIA — Ronnie probably pulled the wrong cable again. But don’t worry… we’ll plug you back in.</p>
       <div class="rfr-actions">
         <a href="/" class="button primary">Return to Homepage</a>
         <a href="/apps.html" class="button ghost">Browse PM Tools</a>
       </div>
+      <div class="joke" id="pm-joke"></div>
     </section>
   </main>
 
@@ -91,19 +93,16 @@
   </footer>
 
   <script>
-    // Update year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Mobile nav toggle
-    const btn = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('nav');
-    if (btn && nav) {
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        nav.classList.toggle('open');
-      });
-    }
+    const jokes = [
+      "Why did the project manager cross the road? Because the risk register told them to.",
+      "How many PMs does it take to change a light bulb? None. It’s a scope change.",
+      "What's a PM's favorite band? Gantt-z N' Roses.",
+      "Why did Ronnie unplug the server? He thought it was a team-building exercise.",
+      "I asked my PM to be more agile… they started doing jumping jacks during standup."
+    ];
+    document.getElementById('pm-joke').textContent = jokes[Math.floor(Math.random() * jokes.length)];
   </script>
 </body>
 </html>
