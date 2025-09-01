@@ -1,20 +1,27 @@
-<!-- footer.html -->
 <footer class="footer-min">
-  <div class="container">
+  <div class="container footer-container">
     <div class="foot-left">
-      <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" />
+      <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
       <span class="brand">System & Flow</span>
       <span class="divider">•</span>
       <span class="tagline">Smarter tools. Faster PMs.</span>
     </div>
+
     <div class="foot-right">
-      <a href="/">Home</a>
-      <a href="/apps.html">Apps</a>
-      <a href="/contact.html">Contact</a>
-      <a href="https://systemnflow.gumroad.com">Store</a>
-      <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
-      <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
+      <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+      <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
     </div>
   </div>
-  <div class="legal small">© <span id="y"></span> System & Flow™. All rights reserved.</div>
+
+  <div class="legal">
+    © <span id="y"></span> System & Flow™. All rights reserved.
+  </div>
 </footer>
+
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+</script>
