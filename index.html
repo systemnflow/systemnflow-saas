@@ -49,14 +49,24 @@
           <a class="button ghost" href="/contact.html">Early Access List</a>
         </div>
 
-        <form class="newsletter-form" method="POST" onsubmit="return handleSubscribe(event)">
-          <input type="email" placeholder="Enter your email to get launch alerts" required aria-label="Email address" />
-          <label>
-            <input type="checkbox" required />
-            I agree to receive updates and promotional emails.
-          </label>
-          <button type="submit" class="button primary">Join</button>
-        </form>
+        <form
+  class="newsletter-form"
+  action="https://formspree.io/f/mzzavvbl"
+  method="POST"
+>
+  <input
+    type="email"
+    name="email"
+    placeholder="Enter your email to get launch alerts"
+    required
+  />
+  <label>
+    <input type="checkbox" required />
+    I agree to receive updates and promotional emails.
+  </label>
+  <input type="hidden" name="_redirect" value="https://systemnflow.com/thank-you.html" />
+  <button type="submit" class="button primary">Join</button>
+</form>
 
         <div class="success" style="display: none;">✅ You’re in. Launch alerts coming your way.</div>
       </div>
