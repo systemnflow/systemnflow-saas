@@ -35,21 +35,8 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
-      <nav aria-label="Primary">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-        <ul id="nav" class="nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/about.html" aria-current="page">About</a></li>
-          <li><a href="/contact.html" class="button">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <!-- Injected Header -->
+  <div id="header-placeholder"></div>
 
   <main id="main">
     <!-- Hero -->
@@ -95,42 +82,31 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer-min">
-    <div class="container">
-      <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" />
-        <span class="brand">System & Flow</span>
-        <span class="divider">•</span>
-        <span class="tagline">Smarter tools. Faster PMs.</span>
-      </div>
-      <div class="foot-right">
-        <a href="/">Home</a>
-        <a href="/apps.html">Apps</a>
-        <a href="/contact.html">Contact</a>
-        <a href="https://systemnflow.gumroad.com">Store</a>
-        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
-      </div>
-    </div>
-    <div class="legal small">© <span id="y"></span> System & Flow™. All rights reserved.</div>
-  </footer>
+  <!-- Injected Footer -->
+  <div id="footer-placeholder"></div>
 
   <!-- Scripts -->
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // Inject shared header and footer
+    async function includeHTML(selector, file) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Could not load ${file}`);
+        const html = await res.text();
+        el.innerHTML = html;
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
-    (function () {
-      const btn = document.querySelector('.nav-toggle');
-      const nav = document.getElementById('nav');
-      if (!btn || !nav) return;
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        nav.classList.toggle('open');
-      });
-    })();
+    includeHTML("#header-placeholder", "/partials/header.html");
+    includeHTML("#footer-placeholder", "/partials/footer.html");
+  </script>
 
+  <!-- Page-Specific JS -->
+  <script>
     (function () {
       const form = document.getElementById('about-wait');
       const ok = document.getElementById('about-wait-ok');
