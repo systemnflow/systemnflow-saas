@@ -1,60 +1,20 @@
-<footer class="wrap footer-min">
-  <div class="foot-left">
-    <img src="/assets/img/logo.png" alt="System & Flow" class="logo-icon" />
-    <span class="brand">System &amp; Flow</span>
+<!-- footer.html -->
+<footer class="footer-min">
+  <div class="container">
+    <div class="foot-left">
+      <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" />
+      <span class="brand">System & Flow</span>
+      <span class="divider">•</span>
+      <span class="tagline">Smarter tools. Faster PMs.</span>
+    </div>
+    <div class="foot-right">
+      <a href="/">Home</a>
+      <a href="/apps.html">Apps</a>
+      <a href="/contact.html">Contact</a>
+      <a href="https://systemnflow.gumroad.com">Store</a>
+      <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
+      <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
+    </div>
   </div>
-
-  <div class="foot-right">
-    <nav class="social-links">
-      <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
-      <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
-    </nav>
-    <span class="divider">•</span>
-    <span class="muted">System &amp; Flow — Built by PMs, for PMs • Concord, NC</span>
-    <span class="divider">•</span>
-    <a href="mailto:info@systemnflow.com">info@systemnflow.com</a>
-    <span class="divider">•</span>
-    <small>© <span class="year"></span> System &amp; Flow</small>
-  </div>
+  <div class="legal small">© <span id="y"></span> System & Flow™. All rights reserved.</div>
 </footer>
-
-<style>
-  .footer-min {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 0;
-    font-size:14px;
-    border-top:1px solid var(--border);
-    flex-wrap:wrap;
-    gap:12px;
-  }
-  .foot-left {
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .foot-right {
-    display:flex;
-    align-items:center;
-    gap:8px;
-    flex-wrap:wrap;
-  }
-  .social-links a {
-    margin-right:8px;
-  }
-  .divider {
-    color:var(--muted);
-  }
-  .muted {
-    color:var(--muted);
-  }
-</style>
-
-<script>
-  // Auto-year
-  document.querySelectorAll('.year').forEach(el => {
-    el.textContent = new Date().getFullYear();
-  });
-</script>
