@@ -17,28 +17,43 @@
   <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta property="og:url" content="https://systemnflow.com/apps.html" />
 
-  <!-- Favicon -->
   <link rel="icon" href="/assets/img/favicon.ico" />
   <link rel="stylesheet" href="/styles.css" />
 
   <style>
-    /* Hover animation for cards */
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background-color: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
     .card:hover {
       transform: translateY(-6px);
-      transition: transform 0.2s ease-in-out;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .badge {
-      display: inline-flex;
-      align-items: center;
-      font-size: 0.75rem;
-      padding: 0.25em 0.5em;
-      border-radius: 9999px;
-      background: #1e2a41;
+      font-size: 0.7rem;
+      padding: 0.2em 0.6em;
+      border-radius: 999px;
+      background-color: #1e2a41;
       color: #9aa4b2;
-      margin-left: 0.5rem;
     }
-
     .badge.live { background-color: #40d27833; color: #40d278; }
     .badge.soon { background-color: #b8753d33; color: #b8753d; }
 
@@ -47,7 +62,6 @@
     }
   </style>
 
-  <!-- GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -59,34 +73,24 @@
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- Injected Header -->
   <div id="header-placeholder"></div>
 
   <main id="main">
-    <!-- Hero Section -->
     <section class="hero">
       <div class="container" style="text-align:center">
-        <img src="/assets/img/SNF_logo.png" alt="System & Flow logo" style="width:120px;height:auto;margin-bottom:1rem" />
-
+        <img src="/assets/img/SNF_logo.png" alt="System & Flow logo" style="width:110px;margin-bottom:1rem">
         <h1>Project Management.<br>Simplified.</h1>
-
-        <p class="small" style="max-width:700px;margin:0 auto">
+        <p class="small" style="max-width:720px;margin:0 auto">
           SaaS tools and AI prompts <strong>built by PMs</strong> to eliminate chaos, flag risks early, and speed up execution.
         </p>
-
         <div style="margin-top:1.5rem">
           <a class="button primary" href="/apps.html">Explore Tools</a>
           <a class="button ghost" href="/contact.html">Early Access List</a>
         </div>
-
         <form style="margin-top:1.5rem">
           <input type="text" placeholder="Get product launches + PM tips" />
           <div style="margin-top:0.5rem">
-            <label>
-              <input type="checkbox" checked /> I agree to receive emails.
-            </label>
-            <br/>
+            <label><input type="checkbox" checked /> I agree to receive emails.</label><br/>
             <button type="submit" class="button primary" style="margin-top:0.5rem">Join</button>
           </div>
           <div class="small" style="margin-top:0.5rem;color:#40d278">
@@ -96,11 +100,8 @@
       </div>
     </section>
 
-    <!-- App Cards -->
     <section class="section">
       <div class="container home-grid">
-
-        <!-- Live App -->
         <article class="card">
           <div class="card-top">
             <h3>Transcript Analyzer</h3>
@@ -113,7 +114,6 @@
           </div>
         </article>
 
-        <!-- Status Report Generator -->
         <article class="card">
           <div class="card-top">
             <h3>Status Report Generator</h3>
@@ -125,7 +125,6 @@
           </div>
         </article>
 
-        <!-- Risk Radar -->
         <article class="card">
           <div class="card-top">
             <h3>Risk Radar</h3>
@@ -136,15 +135,12 @@
             <a class="button ghost" href="/contact.html">Notify Me</a>
           </div>
         </article>
-
       </div>
     </section>
   </main>
 
-  <!-- Injected Footer -->
   <div id="footer-placeholder"></div>
 
-  <!-- Inject partials -->
   <script>
     async function includeHTML(selector, file) {
       const el = document.querySelector(selector);
@@ -161,7 +157,6 @@
     includeHTML("#header-placeholder", "/partials/header.html");
     includeHTML("#footer-placeholder", "/partials/footer.html");
 
-    // mobile nav toggle
     (function(){
       const btn=document.querySelector('.nav-toggle');
       const nav=document.getElementById('nav');
