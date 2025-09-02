@@ -3,24 +3,59 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>System & Flow | Project Management Tools</title>
   <meta name="description" content="SaaS tools and AI prompts built by PMs to eliminate chaos, flag risks early, and speed up execution." />
   <link rel="canonical" href="https://systemnflow.com/apps.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
-
-  <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="System & Flow | Project Management Tools" />
   <meta property="og:description" content="SaaS tools and AI prompts built by PMs to eliminate chaos, flag risks early, and speed up execution." />
   <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
   <meta property="og:url" content="https://systemnflow.com/apps.html" />
-
   <link rel="icon" href="/assets/img/favicon.ico" />
   <link rel="stylesheet" href="/styles.css" />
 
   <style>
+    .hero-split {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 3rem 0;
+    }
+
+    .hero-split .content {
+      flex: 1 1 360px;
+    }
+
+    .hero-split .graphic {
+      flex: 1 1 300px;
+      text-align: center;
+    }
+
+    .ronnie-hero {
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .headline-hook {
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 1rem;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .hero-subtitle {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 0;
+    }
+
     .home-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -60,11 +95,6 @@
     .card-actions .button + .button {
       margin-left: 0.5rem;
     }
-
-    .ronnie {
-      max-width: 180px;
-      margin: 1.5rem auto 1rem;
-    }
   </style>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
@@ -81,27 +111,25 @@
 
   <main id="main">
     <section class="hero">
-      <div class="container" style="text-align:center">
-        <img src="/assets/img/snflow_tmlogo.svg" alt="System & Flow Logo" style="width:100px;margin-bottom:1.5rem">
-        <h1>Project Management.<br>Simplified.</h1>
-        <p class="small" style="max-width:720px;margin:0 auto">
-          SaaS tools and AI prompts <strong>built by PMs</strong> to eliminate chaos, flag risks early, and speed up execution.
-        </p>
-        <div style="margin-top:1.5rem">
-          <a class="button primary" href="/apps.html">Explore Tools</a>
-          <a class="button ghost" href="/contact.html">Early Access List</a>
+      <div class="container hero-split">
+        <div class="content">
+          <div class="headline-hook">RED FLAG RONNIE</div>
+          <h1 class="hero-subtitle">SABOTEURS</h1>
+          <p class="small" style="max-width:480px">
+            Ronnie spots the chaos before you do. From missed actions to buried risks — he's already on it.
+          </p>
+          <div style="margin-top:1.5rem">
+            <a class="button primary" href="#tools">Explore Tools</a>
+            <a class="button ghost" href="/contact.html">Early Access List</a>
+          </div>
+        </div>
+        <div class="graphic">
+          <img class="ronnie-hero" src="/assets/img/rfr-ronnie-hero.png" alt="Red Flag Ronnie illustration" />
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container" style="text-align:center">
-        <img class="ronnie" src="/assets/img/red-flag-ronnie.png" alt="Red Flag Ronnie illustration">
-        <p class="small">
-          <strong>Ronnie spots the chaos before you do.</strong> From missed actions to buried risks — he's already on it.
-        </p>
-      </div>
-
+    <section class="section" id="tools">
       <div class="container home-grid">
         <article class="card">
           <div class="card-top">
