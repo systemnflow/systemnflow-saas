@@ -28,7 +28,7 @@
   <link rel="manifest" href="/assets/img/site.webmanifest">
   <link rel="shortcut icon" href="/assets/img/favicon.ico">
 
-  <!-- CSS (global only) -->
+  <!-- CSS -->
   <link rel="preload" href="/styles.css" as="style" />
   <link rel="stylesheet" href="/styles.css" />
 
@@ -57,19 +57,8 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
-      <nav aria-label="Primary">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-        <ul id="nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html" aria-current="page">Apps</a></li>
-          <li><a href="/contact.html" class="button">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <!-- Injected Header -->
+  <div id="header-placeholder"></div>
 
   <main id="main">
     <!-- Hero -->
@@ -137,29 +126,27 @@
     </section>
   </main>
 
-  <!-- Compact, centered, line-free footer -->
-  <footer class="footer-min">
-    <div class="container">
-      <img class="logo-icon" src="/assets/img/logo.png" alt="" />
-      <span class="brand">System &amp; Flow</span>
-      <span class="tagline">Project management toolkits &amp; AI prompts.</span>
+  <!-- Injected Footer -->
+  <div id="footer-placeholder"></div>
 
-      <div class="foot-right">
-        <a href="/">Home</a>
-        <a href="/apps.html" aria-current="page">Apps</a>
-        <a href="/contact.html">Contact</a>
-        <a href="https://www.youtube.com/@Systemnflow" rel="noopener">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-  </footer>
-  <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
-
+  <!-- Inject header/footer via JS -->
   <script>
-    // year
-    (function(){var y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear();})();
+    async function includeHTML(selector, file) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Could not load ${file}`);
+        el.innerHTML = await res.text();
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
-    // mobile nav
+    includeHTML("#header-placeholder", "/partials/header.html");
+    includeHTML("#footer-placeholder", "/partials/footer.html");
+
+    // mobile nav toggle
     (function(){
       const btn=document.querySelector('.nav-toggle');
       const nav=document.getElementById('nav');
@@ -174,4 +161,3 @@
   </script>
 </body>
 </html>
-
