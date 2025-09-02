@@ -4,45 +4,48 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Project Management SaaS Apps & AI Prompts | System & Flow</title>
-  <meta name="description" content="Lightweight SaaS apps and AI prompts — built by project managers, for project managers. Save hours, cut through noise, and focus on execution." />
+  <title>System & Flow | Project Management Tools</title>
+  <meta name="description" content="SaaS tools and AI prompts built by PMs to eliminate chaos, flag risks early, and speed up execution." />
   <link rel="canonical" href="https://systemnflow.com/apps.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b1220" />
 
-  <!-- Open Graph / Social -->
+  <!-- Social -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Project Management SaaS Apps & AI Prompts | System & Flow" />
-  <meta property="og:description" content="SaaS apps and AI prompts designed by project managers, for project managers. Faster, smarter execution without the chaos." />
-  <meta property="og:url" content="https://systemnflow.com/apps.html" />
+  <meta property="og:title" content="System & Flow | Project Management Tools" />
+  <meta property="og:description" content="SaaS tools and AI prompts built by PMs to eliminate chaos, flag risks early, and speed up execution." />
   <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Project Management SaaS Apps & AI Prompts | System & Flow" />
-  <meta name="twitter:description" content="SaaS apps and AI prompts designed by project managers, for project managers. Faster, smarter execution without the chaos." />
-  <meta name="twitter:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
+  <meta property="og:url" content="https://systemnflow.com/apps.html" />
 
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
-  <link rel="manifest" href="/assets/img/site.webmanifest">
-  <link rel="shortcut icon" href="/assets/img/favicon.ico">
-
-  <!-- CSS -->
-  <link rel="preload" href="/styles.css" as="style" />
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/img/favicon.ico" />
   <link rel="stylesheet" href="/styles.css" />
 
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebPage",
-    "name":"Project Management SaaS Apps & AI Prompts | System & Flow",
-    "url":"https://systemnflow.com/apps.html",
-    "about":{"@type":"Thing","name":"Project management SaaS apps and AI prompt packs"},
-    "isPartOf":{"@type":"WebSite","name":"System & Flow","url":"https://systemnflow.com/"}
-  }
-  </script>
+  <style>
+    /* Hover animation for cards */
+    .card:hover {
+      transform: translateY(-6px);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.75rem;
+      padding: 0.25em 0.5em;
+      border-radius: 9999px;
+      background: #1e2a41;
+      color: #9aa4b2;
+      margin-left: 0.5rem;
+    }
+
+    .badge.live { background-color: #40d27833; color: #40d278; }
+    .badge.soon { background-color: #b8753d33; color: #b8753d; }
+
+    .card-actions .button + .button {
+      margin-left: 0.5rem;
+    }
+  </style>
 
   <!-- GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
@@ -61,67 +64,79 @@
   <div id="header-placeholder"></div>
 
   <main id="main">
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="hero">
       <div class="container" style="text-align:center">
-        <h1>SaaS Apps &amp; AI Prompts</h1>
-        <p class="small" style="max-width:740px;margin:0 auto">
-          Built by project managers, for project managers. Start with the free Analyzer, then explore premium apps and prompt packs.
+        <img src="/assets/img/SNF_logo.png" alt="System & Flow logo" style="width:120px;height:auto;margin-bottom:1rem" />
+
+        <h1>Project Management.<br>Simplified.</h1>
+
+        <p class="small" style="max-width:700px;margin:0 auto">
+          SaaS tools and AI prompts <strong>built by PMs</strong> to eliminate chaos, flag risks early, and speed up execution.
         </p>
+
+        <div style="margin-top:1.5rem">
+          <a class="button primary" href="/apps.html">Explore Tools</a>
+          <a class="button ghost" href="/contact.html">Early Access List</a>
+        </div>
+
+        <form style="margin-top:1.5rem">
+          <input type="text" placeholder="Get product launches + PM tips" />
+          <div style="margin-top:0.5rem">
+            <label>
+              <input type="checkbox" checked /> I agree to receive emails.
+            </label>
+            <br/>
+            <button type="submit" class="button primary" style="margin-top:0.5rem">Join</button>
+          </div>
+          <div class="small" style="margin-top:0.5rem;color:#40d278">
+            ✅ You’re in. Launch alerts coming your way.
+          </div>
+        </form>
       </div>
     </section>
 
-    <!-- App cards (use global grid/card styles) -->
+    <!-- App Cards -->
     <section class="section">
       <div class="container home-grid">
-        <!-- Transcript Analyzer (Live) -->
+
+        <!-- Live App -->
         <article class="card">
           <div class="card-top">
-            <h3 style="margin:0">Transcript Analyzer (Free)</h3>
-            <span class="badge live" aria-label="Live"><span class="dot" aria-hidden="true"></span>Live</span>
+            <h3>Transcript Analyzer</h3>
+            <span class="badge live">Live</span>
           </div>
-          <p class="small">Turn raw meeting notes into <strong>Actions, Risks, and Decisions</strong> in seconds.</p>
+          <p class="small">Auto-extract <strong>Actions, Risks, Decisions</strong> from raw meetings in <strong>seconds</strong>.</p>
           <div class="card-actions">
-            <a class="button primary" href="#" rel="nofollow" aria-label="Open Transcript Analyzer">Open</a>
-            <a class="button ghost" href="#" rel="nofollow" aria-label="Read documentation for Transcript Analyzer">Docs</a>
+            <a class="button primary" href="#">Open</a>
+            <a class="button ghost" href="#">Docs</a>
           </div>
         </article>
 
-        <!-- Status Report Generator (Coming Soon) -->
+        <!-- Status Report Generator -->
         <article class="card">
           <div class="card-top">
-            <h3 style="margin:0">Status Report Generator</h3>
-            <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
+            <h3>Status Report Generator</h3>
+            <span class="badge soon">Q4 2025</span>
           </div>
-          <p class="small">Create <strong>exec-ready one-pagers</strong> with instant export to PDF or Markdown.</p>
+          <p class="small">Get <strong>VP-ready summaries</strong> exported as PDF or Markdown in one click.</p>
           <div class="card-actions">
-            <a class="button ghost" href="/contact.html" aria-label="Get notified about Status Report Generator">Get Notified</a>
+            <a class="button ghost" href="/contact.html">Notify Me</a>
           </div>
         </article>
 
-        <!-- Risk Radar (Coming Soon) -->
+        <!-- Risk Radar -->
         <article class="card">
           <div class="card-top">
-            <h3 style="margin:0">Risk Radar</h3>
-            <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
+            <h3>Risk Radar</h3>
+            <span class="badge soon">Coming Soon</span>
           </div>
-          <p class="small">Automatically flag top project risks — with <strong>AI-suggested mitigations</strong>.</p>
+          <p class="small">Auto-detect critical project risks — and get <strong>AI-backed mitigation tips</strong>.</p>
           <div class="card-actions">
-            <a class="button ghost" href="/contact.html" aria-label="Get notified about Risk Radar">Get Notified</a>
+            <a class="button ghost" href="/contact.html">Notify Me</a>
           </div>
         </article>
 
-        <!-- AI Prompt Pack (Coming Soon) -->
-        <article class="card">
-          <div class="card-top">
-            <h3 style="margin:0">AI Prompt Pack for PMs</h3>
-            <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
-          </div>
-          <p class="small">50+ prompts crafted by PMs to supercharge <strong>planning, reporting, and team alignment</strong>.</p>
-          <div class="card-actions">
-            <a class="button ghost" href="/contact.html" aria-label="Get notified about AI Prompt Pack">Get Notified</a>
-          </div>
-        </article>
       </div>
     </section>
   </main>
@@ -129,7 +144,7 @@
   <!-- Injected Footer -->
   <div id="footer-placeholder"></div>
 
-  <!-- Inject header/footer via JS -->
+  <!-- Inject partials -->
   <script>
     async function includeHTML(selector, file) {
       const el = document.querySelector(selector);
