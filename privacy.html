@@ -31,9 +31,8 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-
-  <!-- Header Include -->
-  <!--#include virtual="/includes/header.html" -->
+  <!-- Injected Header -->
+  <div id="header-placeholder"></div>
 
   <!-- Main -->
   <main class="site-wrap">
@@ -90,8 +89,25 @@
     </section>
   </main>
 
-  <!-- Footer Include (SOCIAL LINKS ONLY) -->
-  <!--#include virtual="/includes/footer.html" -->
+  <!-- Injected Footer -->
+  <div id="footer-placeholder"></div>
 
+  <!-- Inject Header/Footer via JS -->
+  <script>
+    async function includeHTML(selector, file) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Could not load ${file}`);
+        el.innerHTML = await res.text();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    includeHTML("#header-placeholder", "/partials/header.html");
+    includeHTML("#footer-placeholder", "/partials/footer.html");
+  </script>
 </body>
 </html>
