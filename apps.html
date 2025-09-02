@@ -17,28 +17,29 @@
   <link rel="stylesheet" href="/styles.css" />
 
   <style>
-    .hero-split {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 2rem;
-      padding: 3rem 0 2rem 0;
-    }
+   .hero-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; /* ← was flex-end */
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 4rem 0 2rem;
+}
 
-    .hero-split .content {
-      flex: 1 1 360px;
-    }
+.hero-split .graphic {
+  flex: 1 1 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .hero-split .graphic {
-      flex: 1 1 360px;
-      text-align: center;
-    }
+.ronnie-hero {
+  max-width: 320px;        /* smaller width than before */
+  height: auto;
+  object-fit: contain;
+  margin-top: 1rem;
+}
 
-    .ronnie-hero {
-      max-width: 360px;
-      margin: 0 auto;
-    }
 
     .headline-hook {
       color: var(--accent);
