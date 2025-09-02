@@ -60,6 +60,11 @@
     .card-actions .button + .button {
       margin-left: 0.5rem;
     }
+
+    .ronnie {
+      max-width: 180px;
+      margin: 1.5rem auto 1rem;
+    }
   </style>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
@@ -72,13 +77,12 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
   <div id="header-placeholder"></div>
 
   <main id="main">
     <section class="hero">
       <div class="container" style="text-align:center">
-        <img src="/assets/img/SNF_logo.png" alt="System & Flow logo" style="width:110px;margin-bottom:1rem">
+        <img src="/assets/img/snflow_tmlogo.svg" alt="System & Flow Logo" style="width:100px;margin-bottom:1.5rem">
         <h1>Project Management.<br>Simplified.</h1>
         <p class="small" style="max-width:720px;margin:0 auto">
           SaaS tools and AI prompts <strong>built by PMs</strong> to eliminate chaos, flag risks early, and speed up execution.
@@ -87,20 +91,17 @@
           <a class="button primary" href="/apps.html">Explore Tools</a>
           <a class="button ghost" href="/contact.html">Early Access List</a>
         </div>
-        <form style="margin-top:1.5rem">
-          <input type="text" placeholder="Get product launches + PM tips" />
-          <div style="margin-top:0.5rem">
-            <label><input type="checkbox" checked /> I agree to receive emails.</label><br/>
-            <button type="submit" class="button primary" style="margin-top:0.5rem">Join</button>
-          </div>
-          <div class="small" style="margin-top:0.5rem;color:#40d278">
-            ✅ You’re in. Launch alerts coming your way.
-          </div>
-        </form>
       </div>
     </section>
 
     <section class="section">
+      <div class="container" style="text-align:center">
+        <img class="ronnie" src="/assets/img/red-flag-ronnie.png" alt="Red Flag Ronnie illustration">
+        <p class="small">
+          <strong>Ronnie spots the chaos before you do.</strong> From missed actions to buried risks — he's already on it.
+        </p>
+      </div>
+
       <div class="container home-grid">
         <article class="card">
           <div class="card-top">
@@ -156,18 +157,6 @@
 
     includeHTML("#header-placeholder", "/partials/header.html");
     includeHTML("#footer-placeholder", "/partials/footer.html");
-
-    (function(){
-      const btn=document.querySelector('.nav-toggle');
-      const nav=document.getElementById('nav');
-      if(btn && nav){
-        btn.addEventListener('click',()=>{
-          const open=btn.getAttribute('aria-expanded')==='true';
-          btn.setAttribute('aria-expanded', String(!open));
-          nav.classList.toggle('open');
-        });
-      }
-    })();
   </script>
 </body>
 </html>
