@@ -18,13 +18,14 @@
 
   <style>
     /* ---------- Hero layout ---------- */
+    .hero { padding-bottom: 0; margin-bottom: 0; }         /* pull hero closer to tools */
     .hero-split{
       display:flex;
       flex-wrap:wrap;
-      align-items:center;          /* lift copy to center with the bigger graphic */
+      align-items:center;          /* center copy with bigger graphic */
       justify-content:space-between;
       gap:2.25rem;
-      padding:2rem 0 0rem;         /* tightened (was 2.25rem 0 .75rem) */
+      padding:1.75rem 0 0rem;      /* tighter than before */
     }
     .hero-split .content{
       flex:1 1 360px;
@@ -40,14 +41,12 @@
     }
 
     /* ---------- Ronnie size + pop ---------- */
-    .ronnie-wrap{
-      position:relative;
-    }
+    .ronnie-wrap{ position:relative; }
     .ronnie-wrap::before{
       content:"";
       position:absolute;
       inset:auto -6% -4% -6%;      /* subtle overspill halo */
-      height:70%;
+      height:66%;                  /* slightly shorter so it sits tighter */
       margin:auto;
       background:radial-gradient(ellipse at 50% 70%,
                  rgba(184,117,61,.20) 0%, rgba(184,117,61,.06) 40%,
@@ -57,7 +56,7 @@
       pointer-events:none;
     }
     .ronnie-hero{
-      max-height:520px;            /* ~1.7–2x bigger than before */
+      max-height:520px;
       width:auto;
       margin-top:.25rem;
       filter: drop-shadow(0 12px 24px rgba(0,0,0,.35));
@@ -78,22 +77,28 @@
       color:var(--ink);
       margin-top:0;
     }
+
+    /* ------ Divider + Tools spacing (primary tightening here) ------ */
     .section-divider{
       border:0;
       border-top:1px solid var(--border);
-      margin:1rem auto 0;          /* tightened (was 1.75rem auto 0) */
+      margin:.5rem auto 0;         /* much tighter */
       max-width:920px;
+      transform: translateY(-6px); /* visually tucks the rule up toward hero */
     }
+    #tools { padding-top: 0; margin-top: 0; }  /* remove any top spacing */
     .section-title{
       text-align:center;
-      margin:1.5rem auto 1rem;     /* tightened (was 2.5rem auto 1.5rem) */
+      margin:.75rem auto .75rem;   /* tighter title spacing */
     }
+
     .home-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
       gap:2rem;
-      margin-top:2rem;
+      margin-top:1.25rem;          /* reduced top margin above cards */
     }
+
     .card{
       background-color:var(--panel);
       border:1px solid var(--border);
@@ -116,6 +121,7 @@
       .hero-split{ flex-direction:column-reverse; align-items:center; text-align:center; }
       .hero-split .graphic{ align-items:center; }
       .ronnie-hero{ max-height:340px; }
+      .section-divider{ transform:none; }  /* keep it clean on small screens */
     }
   </style>
 
