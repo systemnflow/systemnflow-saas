@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | System & Flow</title>
+  <meta name="description" content="Weekly PM Prompt Packs, AI tools, and sabotage detection tips from Ronnie at System & Flow.">
+  <link rel="canonical" href="https://systemnflow.com/blog">
+  <meta property="og:title" content="PM Prompt Blog | System & Flow">
+  <meta property="og:description" content="Copy-paste prompt packs, AI walkthroughs, and sabotage detection for modern PMs.">
+  <meta property="og:url" content="https://systemnflow.com/blog">
+  <meta property="og:image" content="/assets/img/snf_logo.png">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    main {
+      padding: 2.5rem 1rem;
+      max-width: 860px;
+      margin: auto;
+    }
+    .post-preview {
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+    .post-preview h2 {
+      margin-top: 0;
+    }
+    .post-preview p {
+      color: var(--muted);
+    }
+    .post-preview a {
+      display: inline-block;
+      margin-top: 0.75rem;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .blog-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .blog-header h1 {
+      font-size: 2.5rem;
+      color: var(--ink);
+    }
+    .blog-header p {
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <div class="blog-header">
+      <h1>📬 The PM Prompt Pulse</h1>
+      <p>Weekly prompt packs, AI walkthroughs, and sabotage detection from Ronnie and the System & Flow team.</p>
+    </div>
+
+    <section class="post-preview">
+      <h2><a href="/blog/issue-01.html">Issue #01: 5 Prompts to Fix Scope Creep</a></h2>
+      <p>
+        In this debut issue, we drop 5 field-tested prompts to help PMs tame scope creep, extract clean RAID logs, and catch sabotage before it spreads. Plus, Ronnie’s risk detector prompt and a demo of our Transcript Analyzer.
+      </p>
+      <a href="/blog/issue-01.html">Read Issue #01 →</a>
+    </section>
+
+    <section class="post-preview">
+      <h2><a href="#">Issue #02: Status Reports Without the BS</a></h2>
+      <p>
+        Learn how to automate VP-ready updates in under 60 seconds, from executive summaries to bullet-point ELT updates and stakeholder-ready visuals.
+      </p>
+      <a href="#">Coming Soon →</a>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    async function includeHTML(selector, file) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Could not load ${file}`);
+        el.innerHTML = await res.text();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    includeHTML("#header-placeholder", "/partials/header.html");
+    includeHTML("#footer-placeholder", "/partials/footer.html");
+  </script>
+</body>
+</html>
