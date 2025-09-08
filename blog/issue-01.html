@@ -1,38 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blog | System & Flow</title>
-  <meta name="description" content="Weekly PM Prompt Packs, AI tools, and sabotage detection tips from Ronnie at System & Flow.">
-  <link rel="canonical" href="https://systemnflow.com/blog">
-  <meta property="og:title" content="PM Prompt Blog | System & Flow">
-  <meta property="og:description" content="Copy-paste prompt packs, AI walkthroughs, and sabotage detection for modern PMs.">
-  <meta property="og:url" content="https://systemnflow.com/blog">
-  <meta property="og:image" content="/assets/img/snf_logo.png">
-  <link rel="stylesheet" href="/styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PM Prompt Pulse | System & Flow</title>
+  <meta name="description" content="Weekly prompt packs, AI walkthroughs, and sabotage detection from Ronnie and the System & Flow team." />
+  <link rel="canonical" href="https://systemnflow.com/blog" />
+  <meta property="og:title" content="PM Prompt Blog | System & Flow" />
+  <meta property="og:description" content="Copy-paste prompt packs, AI walkthroughs, and sabotage detection for modern PMs." />
+  <meta property="og:url" content="https://systemnflow.com/blog" />
+  <meta property="og:image" content="/assets/img/snf_logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
   <style>
+    .blog-banner {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 0 0 12px 12px;
+      margin-bottom: 2.5rem;
+    }
     main {
       padding: 2.5rem 1rem;
       max-width: 860px;
       margin: auto;
     }
     .post-preview {
-      margin-bottom: 2.5rem;
+      margin-bottom: 3.5rem;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
+      padding-bottom: 2rem;
     }
     .post-preview h2 {
       margin-top: 0;
+      font-size: 1.75rem;
+      color: var(--ink);
     }
     .post-preview p {
       color: var(--muted);
+      line-height: 1.6;
+      font-size: 1rem;
     }
     .post-preview a {
       display: inline-block;
-      margin-top: 0.75rem;
+      margin-top: 1rem;
       color: var(--accent);
       font-weight: bold;
+      text-decoration: none;
+    }
+    .post-preview .meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
     }
     .blog-header {
       text-align: center;
@@ -44,32 +61,38 @@
     }
     .blog-header p {
       color: var(--muted);
+      font-size: 1.1rem;
     }
   </style>
 </head>
+
 <body>
   <div id="header-placeholder"></div>
 
-    <main>
+  <img class="blog-banner" src="/assets/img/ronnie-scope-creep-banner.png" alt="Ronnie tackles Scope Creep">
+
+  <main>
     <div class="blog-header">
       <h1>📬 The PM Prompt Pulse</h1>
       <p>Weekly prompt packs, AI walkthroughs, and sabotage detection from Ronnie and the System & Flow team.</p>
     </div>
 
     <section class="post-preview">
-      <h2><a href="/blog/issue-01-5-prompts-scope-creep.html">Issue #01: 5 Prompts to Fix Scope Creep</a></h2>
+      <div class="meta">Issue #01 • Sept 8, 2025 • 3 min read</div>
+      <h2><a href="/blog/issue-01-5-prompts-scope-creep.html">5 Prompts to Fix Scope Creep</a></h2>
       <p>
-        In this debut issue, we drop 5 field-tested prompts to help PMs tame scope creep, extract clean RAID logs, and catch sabotage before it spreads. Plus, Ronnie’s risk detector prompt and a demo of our Transcript Analyzer.
+        These field-tested prompts help PMs lock scope, extract RAID logs, and shut down sabotage fast. Bonus: Ronnie’s risk detector + Transcript Analyzer demo.
       </p>
-      <a href="/blog/issue-01-5-prompts-scope-creep.html">Read Issue #01 →</a>
+      <a href="/blog/issue-01-5-prompts-scope-creep.html">Read Full Issue →</a>
     </section>
 
     <section class="post-preview">
-      <h2><a href="#">Issue #02: Status Reports Without the BS</a></h2>
+      <div class="meta">Issue #02 • Coming Soon</div>
+      <h2><a href="#">Status Reports Without the BS</a></h2>
       <p>
-        Learn how to automate VP-ready updates in under 60 seconds, from executive summaries to bullet-point ELT updates and stakeholder-ready visuals.
+        Automate updates in 60 seconds — from ELT bullet points to VP-ready visuals. One prompt does it all.
       </p>
-      <a href="#">Coming Soon →</a>
+      <a href="#">Preview Issue #02 →</a>
     </section>
   </main>
 
