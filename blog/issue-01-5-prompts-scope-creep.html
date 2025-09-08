@@ -15,15 +15,62 @@
 
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    main { max-width: 860px; margin: 0 auto; padding: 2.25rem 1rem 3rem; }
-    article h1 { margin-top: 0; font-size: 2.2rem; }
-    .lede { color: var(--muted); margin-top:.5rem; }
-    .meta { color: var(--muted); font-size: .9rem; margin-bottom: 1.25rem; }
-    .callout { background: var(--panel); border:1px solid var(--border); border-radius:12px; padding:1rem 1.25rem; margin:1rem 0; }
-    pre { background: #0e1526; border:1px solid var(--border); padding:1rem; border-radius:10px; overflow:auto; }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; color: #e6e9ef; }
-    .hr { height:1px; background: var(--border); margin: 2rem 0; }
-    .ad { background: var(--panel); border:1px solid var(--border); border-radius:14px; padding:1.25rem 1.5rem; margin-top:2rem; }
+    /* ===== Layout ===== */
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 2rem 1rem 3.25rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 720px) minmax(260px, 1fr);
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+
+    /* ===== Header ===== */
+    .breadcrumb { font-size:.9rem; color: var(--muted); margin-bottom: .75rem; }
+    .breadcrumb a { color: var(--muted); }
+    .kicker { display:inline-block; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:.25rem; }
+    h1.title { margin:.1rem 0 .5rem; font-size:2.4rem; line-height:1.15; }
+    .meta { color:var(--muted); font-size:.95rem; }
+
+    /* ===== Article ===== */
+    article { background: transparent; }
+    article p { font-size:1.02rem; line-height:1.65; color: var(--ink); }
+    .lede { color: var(--muted); margin: .75rem 0 1.25rem; }
+    .section { margin: 1.75rem 0 1.25rem; }
+    .section h2 { font-size:1.25rem; margin: 0 0 .6rem; }
+    .rule { height:1px; background:var(--border); margin: 1.5rem 0; }
+
+    /* ===== Code blocks with header + copy ===== */
+    .codecard { border:1px solid var(--border); border-radius:12px; overflow:hidden; background:#0e1526; }
+    .codebar {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.55rem .75rem; background: #121a2b; border-bottom:1px solid var(--border);
+      font-size:.85rem; color: var(--muted);
+    }
+    .copybtn {
+      border:1px solid var(--border); background:transparent; color:var(--ink);
+      border-radius:8px; padding:.35rem .55rem; font-size:.8rem; cursor:pointer;
+    }
+    .copybtn:active { transform: translateY(1px); }
+    pre { margin:0; padding:1rem 1rem 1.1rem; overflow:auto; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:.95rem; color:#e6e9ef; }
+
+    /* ===== Sidebar ===== */
+    aside { position: sticky; top: 84px; }
+    .toc, .promo {
+      background: var(--panel); border:1px solid var(--border); border-radius:14px; padding:1rem 1rem;
+    }
+    .toc h3, .promo h3 { margin:.2rem 0 .6rem; font-size:1.05rem; }
+    .toc a { display:block; color:var(--ink); margin:.3rem 0; font-size:.95rem; }
+    .toc a small { color: var(--muted); }
+    .promo p { color: var(--muted); font-size:.95rem; }
+    .promo .button { margin-top:.5rem; }
+
+    /* ===== Ad / Footer CTA ===== */
+    .ad {
+      background: var(--panel); border:1px solid var(--border); border-radius:14px;
+      padding:1.1rem 1.25rem; margin-top:1.75rem;
+    }
     .foot-cta { text-align:center; margin-top:2rem; }
     .badge { display:inline-block; padding:.2em .6em; font-size:.7rem; border-radius:999px; background:#1e2a41; color:#9aa4b2; }
   </style>
@@ -31,90 +78,157 @@
 <body>
   <div id="header-placeholder"></div>
 
-  <main>
-    <article>
-      <header>
-        <p class="badge">PM Prompt Pulse</p>
-        <h1>Issue #01 — 5 Prompts to Fix Scope Creep</h1>
-        <p class="meta">Weekly prompt packs, AI walkthroughs, and sabotage detection from Ronnie · <time datetime="2025-09-08">Sept 8, 2025</time></p>
-        <p class="lede">Copy, paste, adapt. These prompts help you lock scope, extract RAID, report up fast — and catch soft sabotage before it spreads.</p>
-      </header>
+  <main class="wrap">
+    <div class="breadcrumb"><a href="/blog">← Back to Blog</a></div>
 
-      <h2>1) Executive Summary (≤100 words, neutral)</h2>
-      <pre><code>You are a neutral program manager. Summarize this meeting in ≤100 words.
+    <header>
+      <span class="kicker">PM Prompt Pulse</span>
+      <h1 class="title">Issue #01 — 5 Prompts to Fix Scope Creep</h1>
+      <p class="meta">Weekly prompt packs, AI walkthroughs, and sabotage detection from Ronnie ·
+        <time datetime="2025-09-08">Sept 8, 2025</time></p>
+    </header>
+
+    <div class="grid">
+      <!-- ===== Article ===== -->
+      <article id="content">
+        <p class="lede">Copy, paste, adapt. These prompts help you lock scope, extract RAID, report up fast — and catch soft sabotage before it spreads.</p>
+
+        <!-- 1 -->
+        <section id="exec-summary" class="section">
+          <h2>1) Executive Summary (≤100 words, neutral)</h2>
+          <div class="codecard">
+            <div class="codebar"><span>Prompt</span><button class="copybtn" data-copy="#code1">Copy</button></div>
+            <pre><code id="code1">You are a neutral program manager. Summarize this meeting in ≤100 words.
 Include: progress, 1–2 risks, decisions made, next 3 actions (with owners).
 Tone: factual, non-defensive.
 Input:
 [PASTE NOTES OR TRANSCRIPT]</code></pre>
+          </div>
+        </section>
 
-      <h2>2) RAID Extractor (Markdown tables)</h2>
-      <pre><code>From the text, extract four tables: Risks, Actions, Issues, Decisions.
+        <!-- 2 -->
+        <section id="raid" class="section">
+          <h2>2) RAID Extractor (Markdown tables)</h2>
+          <div class="codecard">
+            <div class="codebar"><span>Prompt</span><button class="copybtn" data-copy="#code2">Copy</button></div>
+            <pre><code id="code2">From the text, extract four tables: Risks, Actions, Issues, Decisions.
 Columns:
 - Risks: Risk | Trigger phrase (verbatim) | Prob (L/M/H) | Impact (L/M/H) | Mitigation | Owner
 - Actions: Owner | Action | Due date (best guess) | Priority (H/M/L)
 - Issues: Issue | Severity | Unblocker | ETA
 - Decisions: Decision | Date | Context | Next review date
 Return Markdown tables only.</code></pre>
+          </div>
+        </section>
 
-      <h2>3) Stakeholder Update (ELT — 5 bullets)</h2>
-      <pre><code>Draft a 5-bullet ELT update for [PROJECT]. Bullets: progress, upcoming, risks, asks, timeline.
+        <!-- 3 -->
+        <section id="elt" class="section">
+          <h2>3) Stakeholder Update (ELT — 5 bullets)</h2>
+          <div class="codecard">
+            <div class="codebar"><span>Prompt</span><button class="copybtn" data-copy="#code3">Copy</button></div>
+            <pre><code id="code3">Draft a 5-bullet ELT update for [PROJECT]. Bullets: progress, upcoming, risks, asks, timeline.
 No jargon, ≤14 words per bullet, bold the ask.</code></pre>
+          </div>
+        </section>
 
-      <h2>4) Scope Clamp (Acceptance Criteria)</h2>
-      <pre><code>Rewrite these requirements into crisp acceptance criteria using Gherkin style (Given/When/Then).
+        <!-- 4 -->
+        <section id="scope" class="section">
+          <h2>4) Scope Clamp (Acceptance Criteria)</h2>
+          <div class="codecard">
+            <div class="codebar"><span>Prompt</span><button class="copybtn" data-copy="#code4">Copy</button></div>
+            <pre><code id="code4">Rewrite these requirements into crisp acceptance criteria using Gherkin style (Given/When/Then).
 Flag any ambiguous terms and propose concrete alternatives.
 Input:
 [PASTE REQUIREMENTS]</code></pre>
+          </div>
+        </section>
 
-      <h2>5) Next-Meeting Agenda (30 minutes)</h2>
-      <pre><code>Create a 30-minute agenda to close open questions and unblock the critical path.
+        <!-- 5 -->
+        <section id="agenda" class="section">
+          <h2>5) Next-Meeting Agenda (30 minutes)</h2>
+          <div class="codecard">
+            <div class="codebar"><span>Prompt</span><button class="copybtn" data-copy="#code5">Copy</button></div>
+            <pre><code id="code5">Create a 30-minute agenda to close open questions and unblock the critical path.
 Include timeboxes, desired outcomes, and who must attend (role-based).</code></pre>
+          </div>
+        </section>
 
-      <div class="hr"></div>
+        <div class="rule"></div>
 
-      <h2>Ronnie’s Red Flag — Silent Sabotage Detector</h2>
-      <pre><code>Scan the transcript for soft sabotage signals: hedging, status theater, passive blockers.
+        <!-- Red Flag -->
+        <section id="red-flag" class="section">
+          <h2>Ronnie’s Red Flag — Silent Sabotage Detector</h2>
+          <div class="codecard">
+            <div class="codebar"><span>Prompt</span><button class="copybtn" data-copy="#code6">Copy</button></div>
+            <pre><code id="code6">Scan the transcript for soft sabotage signals: hedging, status theater, passive blockers.
 Return a list: Phrase | Why it's risky | Suggested direct follow-up question.</code></pre>
+          </div>
 
-      <div class="callout">
-        <strong>Sample Output Pattern</strong>
-        <ul>
-          <li>Executive Summary — 3 bullets, neutral tone.</li>
-          <li>Actions — table with Owner / Action / Due / Priority.</li>
-          <li>Risks — probability, impact, trigger phrase, mitigation owner.</li>
-          <li>Decisions — concise bullets.</li>
-          <li>Open Questions — for next meeting.</li>
-        </ul>
-      </div>
+          <div class="ad">
+            <h3>🎯 Transcript Analyzer — Free Demo</h3>
+            <p>Turn raw meeting notes into <strong>Actions, Risks &amp; Decisions</strong> in seconds. Paste a transcript or use our sample. Export to PDF/Markdown via email.</p>
+            <a class="button primary" href="/#tools?utm_source=blog&utm_medium=issue01&utm_campaign=analyzer">Try the Analyzer</a>
+            <a class="button ghost" href="/contact.html?utm_source=blog&utm_medium=issue01&utm_campaign=access">Get Early Access</a>
+          </div>
 
-      <div class="ad">
-        <h3>🎯 Transcript Analyzer — Free Demo</h3>
-        <p>Turn raw meeting notes into <strong>Actions, Risks &amp; Decisions</strong> in seconds. Paste a transcript or use our sample. Export to PDF/Markdown via email.</p>
-        <a class="button primary" href="/#tools?utm_source=blog&utm_medium=issue01&utm_campaign=analyzer">Try the Analyzer</a>
-        <a class="button ghost" href="/contact.html?utm_source=blog&utm_medium=issue01&utm_campaign=access">Get Early Access</a>
-      </div>
+          <div class="foot-cta">
+            <p>📬 Like this? Get the <strong>PM Prompt Pulse</strong> in your inbox each week.</p>
+            <a class="button" href="/contact.html?utm_source=blog&utm_medium=issue01&utm_campaign=subscribe">Subscribe</a>
+          </div>
+        </section>
+      </article>
 
-      <div class="foot-cta">
-        <p>📬 Like this? Get the <strong>PM Prompt Pulse</strong> in your inbox each week.</p>
-        <a class="button" href="/contact.html?utm_source=blog&utm_medium=issue01&utm_campaign=subscribe">Subscribe</a>
-      </div>
-    </article>
+      <!-- ===== Sidebar ===== -->
+      <aside>
+        <div class="toc" style="margin-bottom:1rem;">
+          <h3>In this issue</h3>
+          <a href="#exec-summary">1) Executive Summary <small>≤100 words</small></a>
+          <a href="#raid">2) RAID Extractor</a>
+          <a href="#elt">3) ELT Update</a>
+          <a href="#scope">4) Scope Clamp</a>
+          <a href="#agenda">5) Next-Meeting Agenda</a>
+          <a href="#red-flag">Ronnie’s Red Flag</a>
+        </div>
+
+        <div class="promo">
+          <h3>⚡ PM Prompt Pack (Free 7)</h3>
+          <p>Grab 7 field-tested prompts (PDF) and get future issues of the Pulse.</p>
+          <a class="button primary" href="/contact.html?utm_source=blog&utm_medium=issue01&utm_campaign=free7">Get the Free 7</a>
+        </div>
+      </aside>
+    </div>
   </main>
 
   <div id="footer-placeholder"></div>
 
   <script>
+    // Include header/footer
     async function includeHTML(selector, file) {
       const el = document.querySelector(selector);
       if (!el) return;
       try {
         const res = await fetch(file);
-        if (!res.ok) throw new Error(`Could not load ${file}`);
+        if (!res.ok) throw new Error("Could not load " + file);
         el.innerHTML = await res.text();
       } catch (err) { console.error(err); }
     }
     includeHTML('#header-placeholder', '/partials/header.html');
     includeHTML('#footer-placeholder', '/partials/footer.html');
+
+    // Copy buttons
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.copybtn');
+      if (!btn) return;
+      const sel = btn.getAttribute('data-copy');
+      const codeEl = document.querySelector(sel);
+      if (!codeEl) return;
+      const text = codeEl.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const prev = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = prev, 1200);
+      });
+    });
   </script>
 </body>
 </html>
