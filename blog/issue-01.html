@@ -12,33 +12,63 @@
   <meta property="og:image" content="/assets/img/snf_logo.png" />
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    .blog-banner {
+    .banner-wrapper {
+      position: relative;
       width: 100%;
-      max-height: 360px;
-      object-fit: cover;
-      border-radius: 0 0 12px 12px;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 0 0 16px 16px;
       margin-bottom: 2.5rem;
+      background: #0b1220;
     }
+
+    .banner-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
     main {
       padding: 2.5rem 1rem;
       max-width: 860px;
       margin: auto;
     }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .blog-header h1 {
+      font-size: 2.5rem;
+      color: var(--ink);
+    }
+
+    .blog-header p {
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
     .post-preview {
       margin-bottom: 3.5rem;
       border-bottom: 1px solid var(--border);
       padding-bottom: 2rem;
     }
+
     .post-preview h2 {
       margin-top: 0;
       font-size: 1.75rem;
       color: var(--ink);
     }
+
     .post-preview p {
       color: var(--muted);
       line-height: 1.6;
       font-size: 1rem;
     }
+
     .post-preview a {
       display: inline-block;
       margin-top: 1rem;
@@ -46,22 +76,11 @@
       font-weight: bold;
       text-decoration: none;
     }
+
     .post-preview .meta {
       font-size: 0.9rem;
       color: var(--muted);
       margin-bottom: 0.75rem;
-    }
-    .blog-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    .blog-header h1 {
-      font-size: 2.5rem;
-      color: var(--ink);
-    }
-    .blog-header p {
-      color: var(--muted);
-      font-size: 1.1rem;
     }
   </style>
 </head>
@@ -69,7 +88,9 @@
 <body>
   <div id="header-placeholder"></div>
 
-  <img class="blog-banner" src="/assets/img/ronnie-scope-creep-banner.png" alt="Ronnie tackles Scope Creep">
+  <div class="banner-wrapper">
+    <img src="/assets/img/ronnie-scope-creep-banner.png" alt="Ronnie tackles Scope Creep">
+  </div>
 
   <main>
     <div class="blog-header">
