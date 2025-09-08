@@ -24,44 +24,40 @@
       transition: width .08s linear;
     }
 
-    /* ===== Hero (image element + overlay) ===== */
-    .hero {
-      position: relative;
-      border-bottom: 1px solid var(--border);
-      background: radial-gradient(80% 100% at 50% 0%, #131a2b 0%, #0b1220 100%); /* graceful fallback */
-    }
-    .hero-media {
-      position: relative;
-      max-width: 100%;
-      width: 100%;
-      aspect-ratio: 21 / 9;           /* stable height; tweak if you want taller/shorter */
-      overflow: hidden;
-    }
+    /* ===== Hero (short banner) ===== */
+    .hero { position: relative; border-bottom: 1px solid var(--border); background: #0b1220; }
+    .hero-media { position: relative; width: 100%; max-width: 100%; aspect-ratio: 32 / 7; overflow: hidden; }
     .hero-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;               /* cover the area without stretching */
-      object-position: center 35%;     /* nudge crop focus downward slightly */
-      display: block;
+      width: 100%; height: 100%; display: block;
+      object-fit: cover;
+      object-position: center 22%; /* show a touch more of the top; tweak as needed */
     }
-    .hero-media::after {
-      /* readable text overlay */
-      content: "";
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,.36) 100%);
-      pointer-events: none;
+    .hero-media::after{
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,.35) 100%);
+      pointer-events:none;
     }
-
-    .hero-inner {
-      position: absolute; left: 0; right: 0; bottom: 0;
-      z-index: 1;
-      max-width: 1120px; margin: 0 auto; padding: 0 1rem 2.25rem;
+    .hero-inner{
+      position:absolute; left:0; right:0; bottom:0; z-index:1;
+      max-width:1120px; margin:0 auto; padding:0 1rem 1.6rem;
       display:flex; align-items:flex-end; justify-content:space-between; gap:1rem;
     }
-    .hero-meta { max-width: 780px; }
-    .kicker { display:inline-block; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:.25rem; }
-    h1.title { margin:.15rem 0 .35rem; font-size:2.6rem; line-height:1.12; color: var(--ink); }
-    .meta { color:var(--muted); font-size:.95rem; }
+    .hero-meta{ max-width:780px; }
+    .kicker{ display:inline-block; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:.25rem; }
+    h1.title{ margin:.15rem 0 .2rem; font-size:2.2rem; line-height:1.15; color:var(--ink); }
+    .meta{ color:var(--muted); font-size:.95rem; }
+
+    /* Taller on smaller screens for breathing room */
+    @media (max-width: 1024px){
+      .hero-media{ aspect-ratio: 21 / 7; }
+      h1.title{ font-size:2rem; }
+      .hero-inner{ padding-bottom:1.4rem; }
+    }
+    @media (max-width: 640px){
+      .hero-media{ aspect-ratio: 16 / 9; }
+      .hero-img{ object-position: center 30%; }
+      h1.title{ font-size:1.7rem; }
+    }
 
     /* ===== Layout ===== */
     .wrap { max-width: 1120px; margin: 0 auto; padding: 2rem 1rem 3.25rem; }
@@ -77,7 +73,7 @@
     .section h2 { font-size:1.25rem; margin: 0 0 .6rem; }
     .rule { height:1px; background:var(--border); margin: 1.5rem 0; }
 
-    /* ===== Code blocks w/ copy ===== */
+    /* ===== Code blocks ===== */
     .codecard { border:1px solid var(--border); border-radius:12px; overflow:hidden; background:#0e1526; }
     .codebar { display:flex; align-items:center; justify-content:space-between; padding:.55rem .75rem; background:#121a2b; border-bottom:1px solid var(--border); font-size:.85rem; color: var(--muted); }
     .copybtn { border:1px solid var(--border); background:transparent; color:var(--ink); border-radius:8px; padding:.35rem .55rem; font-size:.8rem; cursor:pointer; }
@@ -107,7 +103,6 @@
   <!-- Cover / Hero -->
   <section class="hero">
     <div class="hero-media">
-      <!-- Update path if you move the image -->
       <img class="hero-img" src="/assets/img/issue-01-hero.jpg" alt="PM Prompt Pulse cover — Issue #01: 5 Prompts to Fix Scope Creep" />
     </div>
     <div class="hero-inner">
@@ -125,11 +120,9 @@
     <div class="breadcrumb"><a href="/blog">← Back to Blog</a></div>
 
     <div class="grid">
-      <!-- ===== Article ===== -->
       <article id="content">
         <p class="lede">Copy, paste, adapt. These prompts help you lock scope, extract RAID, report up fast — and catch soft sabotage before it spreads.</p>
 
-        <!-- 1 -->
         <section id="exec-summary" class="section">
           <h2>1) Executive Summary (≤100 words, neutral)</h2>
           <div class="codecard">
@@ -142,7 +135,6 @@ Input:
           </div>
         </section>
 
-        <!-- 2 -->
         <section id="raid" class="section">
           <h2>2) RAID Extractor (Markdown tables)</h2>
           <div class="codecard">
@@ -157,7 +149,6 @@ Return Markdown tables only.</code></pre>
           </div>
         </section>
 
-        <!-- 3 -->
         <section id="elt" class="section">
           <h2>3) Stakeholder Update (ELT — 5 bullets)</h2>
           <div class="codecard">
@@ -167,7 +158,6 @@ No jargon, ≤14 words per bullet, bold the ask.</code></pre>
           </div>
         </section>
 
-        <!-- 4 -->
         <section id="scope" class="section">
           <h2>4) Scope Clamp (Acceptance Criteria)</h2>
           <div class="codecard">
@@ -179,7 +169,6 @@ Input:
           </div>
         </section>
 
-        <!-- 5 -->
         <section id="agenda" class="section">
           <h2>5) Next-Meeting Agenda (30 minutes)</h2>
           <div class="codecard">
@@ -191,7 +180,6 @@ Include timeboxes, desired outcomes, and who must attend (role-based).</code></p
 
         <div class="rule"></div>
 
-        <!-- Red Flag -->
         <section id="red-flag" class="section">
           <h2>Ronnie’s Red Flag — Silent Sabotage Detector</h2>
           <div class="codecard">
@@ -214,7 +202,6 @@ Return a list: Phrase | Why it's risky | Suggested direct follow-up question.</c
         </section>
       </article>
 
-      <!-- ===== Sidebar ===== -->
       <aside>
         <div class="toc" style="margin-bottom:1rem;">
           <h3>In this issue</h3>
