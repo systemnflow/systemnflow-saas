@@ -1,40 +1,179 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Issue #01 – 5 Prompts to Fix Scope Creep | PM Prompt Pulse</title>
-  <meta name="description" content="Weekly prompt packs, AI walkthroughs, and sabotage detection from Ronnie and the System & Flow team." />
-  <link rel="canonical" href="https://systemnflow.com/blog/issue-01-5-prompts-scope-creep.html" />
-  <meta property="og:title" content="Issue #01 – 5 Prompts to Fix Scope Creep" />
-  <meta property="og:description" content="5 AI prompts to fix scope creep, extract RAID logs, and catch sabotage early — built by Ronnie at System & Flow." />
-  <meta property="og:url" content="https://systemnflow.com/blog/issue-01-5-prompts-scope-creep.html" />
-  <meta property="og:image" content="/assets/img/ronnie-avatar.png" />
-  
-  <!-- ✅ FIXED FAVICON -->
-  <link rel="icon" href="/assets/img/favicon.png" type="image/png" />
-  <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png" />
 
-  <link rel="stylesheet" href="/styles.css" />
+  <!-- ✅ Favicon -->
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
 
   <style>
     :root {
+      --bg: #0b1220;
       --ink: #e6e9ef;
       --muted: #9aa4b2;
       --accent: #b8753d;
-      --bg: #0b1220;
-      --border: #1e2a41;
       --panel: #121a2b;
-      --good: #40d278;
+      --border: #1e2a41;
     }
 
     body {
+      margin: 0;
       font-family: system-ui, sans-serif;
       background: var(--bg);
       color: var(--ink);
-      margin: 0;
-      padding: 0;
+      padding: 2rem;
     }
 
-    main {
-      max-width: 860px;
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .header img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .header small {
+      color: var(--muted);
+      display: block;
+      margin-top: 0.25rem;
+    }
+
+    .intro {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .red-flag {
+      background: var(--panel);
+      padding: 1rem;
+      border-radius: 12px;
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .red-flag img {
+      width: 140px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .red-flag .text {
+      flex: 1;
+    }
+
+    .red-flag .text h2 {
+      margin: 0 0 0.5rem;
+    }
+
+    .red-flag code {
+      display: inline-block;
+      background: #1a2639;
+      padding: 0.25rem 0.5rem;
+      margin: 0.25rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .prompts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .prompt {
+      background: var(--panel);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .prompt h3 {
+      margin: 0;
+      color: var(--accent);
+    }
+
+    .prompt p {
+      margin: 0.5rem 0 0 0;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      .prompts {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ✅ Blog Header -->
+    <div class="header">
+      <img src="/assets/img/ronnie-avatar.png" alt="Ronnie avatar" />
+      <div>
+        <h1>Issue #01 – 5 Prompts to Fix Scope Creep</h1>
+        <small>Posted Sept 8, 2025 · Built by Ronnie at System & Flow</small>
+      </div>
+    </div>
+
+    <!-- ✅ Intro -->
+    <p class="intro">
+      Copy, paste, adapt. These prompts help you lock scope, extract RAID, report up fast — and catch soft sabotage before it spreads.
+    </p>
+
+    <!-- ✅ Ronnie Red Flag Detector -->
+    <div class="red-flag">
+      <img src="/assets/img/ronnie-redflag-detector.png" alt="Ronnie holding red flag" />
+      <div class="text">
+        <h2>🚩 Ronnie’s Red Flag Detector</h2>
+        <p>Scan the transcript for sabotage signals:</p>
+        <code>hedging</code> <code>status theater</code> <code>passive blockers</code>
+      </div>
+    </div>
+
+    <!-- ✅ Prompts Grid -->
+    <div class="prompts">
+      <div class="prompt">
+        <h3>1. Executive Summary Prompt</h3>
+        <p>Summarize the meeting in under 100 words with next actions and risks.</p>
+      </div>
+      <div class="prompt">
+        <h3>2. RAID Extractor Prompt</h3>
+        <p>Make tables of risks, actions, issues, and decisions from text.</p>
+      </div>
+      <div class="prompt">
+        <h3>3. Stakeholder Update Prompt</h3>
+        <p>Draft a 5-bullet status update for leaders with RAID and highlights.</p>
+      </div>
+      <div class="prompt">
+        <h3>4. Scope Clamp Prompt</h3>
+        <p>Rewrite requirements into crisp, testable scope statements.</p>
+      </div>
+      <div class="prompt">
+        <h3>5. Sabotage Recovery Prompt</h3>
+        <p>De-escalate blockers and re-center team focus with firm but diplomatic replies.</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
