@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Issue #01 – 5 Prompts to Fix Scope Creep | PM Prompt Pulse</title>
 
-  <!-- ✅ SEO & Social -->
+  <!-- SEO & Social -->
   <meta name="description" content="5 AI prompts to fix scope creep, extract RAID, and detect project sabotage. Built by Ronnie at System & Flow." />
   <link rel="canonical" href="https://systemnflow.com/blog/issue-01-5-prompts-scope-creep.html" />
   <meta name="robots" content="index,follow" />
@@ -13,145 +13,55 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Issue #01 – 5 Prompts to Fix Scope Creep" />
   <meta property="og:description" content="5 AI prompts to fix scope creep, extract RAID, and detect soft sabotage. Built by Ronnie at System & Flow." />
-  <meta property="og:image" content="/assets/img/pm-prompt-pulse-issue-01.png" />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/pm-prompt-pulse-issue-01.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- ✅ Favicon -->
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
+  <!-- Favicon (✅ Matches index.html) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
 
-  <!-- ✅ Styles -->
-  <style>
-    :root {
-      --bg: #0b1220;
-      --ink: #e6e9ef;
-      --muted: #9aa4b2;
-      --accent: #b8753d;
-      --panel: #121a2b;
-      --border: #1e2a41;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      padding: 2rem;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .header img {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-    }
-
-    .header h1 {
-      font-size: 1.8rem;
-      margin: 0;
-    }
-
-    .header small {
-      color: var(--muted);
-      display: block;
-      margin-top: 0.25rem;
-    }
-
-    .intro {
-      font-size: 1.05rem;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    .red-flag {
-      background: var(--panel);
-      padding: 1rem;
-      border-radius: 12px;
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .red-flag img {
-      width: 140px;
-      height: auto;
-      border-radius: 8px;
-    }
-
-    .red-flag .text {
-      flex: 1;
-    }
-
-    .red-flag .text h2 {
-      margin: 0 0 0.5rem;
-    }
-
-    .red-flag code {
-      display: inline-block;
-      background: #1a2639;
-      padding: 0.25rem 0.5rem;
-      margin: 0.25rem;
-      border-radius: 4px;
-      font-family: monospace;
-    }
-
-    .prompts {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .prompt {
-      background: var(--panel);
-      padding: 1rem;
-      border-radius: 10px;
-    }
-
-    .prompt h3 {
-      margin: 0;
-      color: var(--accent);
-    }
-
-    .prompt p {
-      margin: 0.5rem 0 0 0;
-      color: var(--ink);
-      font-size: 0.95rem;
-    }
-
-    @media (max-width: 600px) {
-      .prompts {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
-  <div class="container">
 
-    <!-- ✅ Blog Header -->
-    <div class="header">
-      <img src="/assets/img/ronnie-avatar.png" alt="Ronnie avatar" />
-      <div>
-        <h1>Issue #01 – 5 Prompts to Fix Scope Creep</h1>
-        <small>Posted Sept 8, 2025 · Built by Ronnie at System & Flow</small>
+<body>
+  <!-- ✅ Global Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ✅ Blog Content -->
+  <main class="container">
+    <div class="blog-header">
+      <div class="blog-header-inner">
+        <img class="ronnie-icon" src="/assets/img/ronnie-avatar.png" alt="Ronnie avatar" />
+        <div>
+          <div class="blog-kicker">PM Prompt Pulse</div>
+          <h1 class="blog-title">Issue #01 – 5 Prompts to Fix Scope Creep</h1>
+          <div class="blog-meta">Posted Sept 8, 2025 · Built by Ronnie at System & Flow</div>
+        </div>
       </div>
     </div>
 
-    <!-- ✅ Intro -->
-    <p class="intro">
+    <p class="blog-intro">
       Copy, paste, adapt. These prompts help you lock scope, extract RAID, report up fast — and catch soft sabotage before it spreads.
     </p>
 
-    <!-- ✅ Ronnie Red Flag Detector -->
+    <!-- ✅ Red Flag Block -->
     <div class="red-flag">
       <img src="/assets/img/ronnie-redflag-detector.png" alt="Ronnie holding red flag" />
       <div class="text">
@@ -161,30 +71,56 @@
       </div>
     </div>
 
-    <!-- ✅ Prompts Grid -->
-    <div class="prompts">
-      <div class="prompt">
+    <!-- ✅ Prompt Cards -->
+    <div class="grid">
+      <div class="card">
         <h3>1. Executive Summary Prompt</h3>
-        <p>Summarize the meeting in under 100 words with next actions and risks.</p>
+        <p class="prompt-desc">Summarize the meeting in under 100 words with next actions and risks.</p>
       </div>
-      <div class="prompt">
+      <div class="card">
         <h3>2. RAID Extractor Prompt</h3>
-        <p>Make tables of risks, actions, issues, and decisions from text.</p>
+        <p class="prompt-desc">Make tables of risks, actions, issues, and decisions from text.</p>
       </div>
-      <div class="prompt">
+      <div class="card">
         <h3>3. Stakeholder Update Prompt</h3>
-        <p>Draft a 5-bullet status update for leaders with RAID and highlights.</p>
+        <p class="prompt-desc">Draft a 5-bullet status update for leaders with RAID and highlights.</p>
       </div>
-      <div class="prompt">
+      <div class="card">
         <h3>4. Scope Clamp Prompt</h3>
-        <p>Rewrite requirements into crisp, testable scope statements.</p>
+        <p class="prompt-desc">Rewrite requirements into crisp, testable scope statements.</p>
       </div>
-      <div class="prompt">
+      <div class="card">
         <h3>5. Sabotage Recovery Prompt</h3>
-        <p>De-escalate blockers and re-center team focus with firm but diplomatic replies.</p>
+        <p class="prompt-desc">De-escalate blockers and re-center team focus with firm but diplomatic replies.</p>
       </div>
     </div>
+  </main>
 
-  </div>
+  <!-- ✅ Global Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">
+      © <span id="y"></span> System & Flow™. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
