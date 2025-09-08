@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Issue #01 — 5 Prompts to Fix Scope Creep | System & Flow</title>
+  <meta name="description" content="Copy-paste prompt pack to fix scope creep, extract RAID, and report up fast — plus Ronnie’s sabotage detector prompt and a Transcript Analyzer demo." />
+  <link rel="canonical" href="https://systemnflow.com/blog/issue-01-5-prompts-scope-creep.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Issue #01 — 5 Prompts to Fix Scope Creep" />
+  <meta property="og:description" content="5 prompts + sabotage detector prompt. Copy, paste, ship." />
+  <meta property="og:url" content="https://systemnflow.com/blog/issue-01-5-prompts-scope-creep.html" />
+  <meta property="og:image" content="/assets/img/snf_logo.png" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    main { max-width: 860px; margin: 0 auto; padding: 2.25rem 1rem 3rem; }
+    article h1 { margin-top: 0; font-size: 2.2rem; }
+    .lede { color: var(--muted); margin-top:.5rem; }
+    .meta { color: var(--muted); font-size: .9rem; margin-bottom: 1.25rem; }
+    .callout { background: var(--panel); border:1px solid var(--border); border-radius:12px; padding:1rem 1.25rem; margin:1rem 0; }
+    pre { background: #0e1526; border:1px solid var(--border); padding:1rem; border-radius:10px; overflow:auto; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; color: #e6e9ef; }
+    .hr { height:1px; background: var(--border); margin: 2rem 0; }
+    .ad { background: var(--panel); border:1px solid var(--border); border-radius:14px; padding:1.25rem 1.5rem; margin-top:2rem; }
+    .foot-cta { text-align:center; margin-top:2rem; }
+    .badge { display:inline-block; padding:.2em .6em; font-size:.7rem; border-radius:999px; background:#1e2a41; color:#9aa4b2; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <article>
+      <header>
+        <p class="badge">PM Prompt Pulse</p>
+        <h1>Issue #01 — 5 Prompts to Fix Scope Creep</h1>
+        <p class="meta">Weekly prompt packs, AI walkthroughs, and sabotage detection from Ronnie · <time datetime="2025-09-08">Sept 8, 2025</time></p>
+        <p class="lede">Copy, paste, adapt. These prompts help you lock scope, extract RAID, report up fast — and catch soft sabotage before it spreads.</p>
+      </header>
+
+      <h2>1) Executive Summary (≤100 words, neutral)</h2>
+      <pre><code>You are a neutral program manager. Summarize this meeting in ≤100 words.
+Include: progress, 1–2 risks, decisions made, next 3 actions (with owners).
+Tone: factual, non-defensive.
+Input:
+[PASTE NOTES OR TRANSCRIPT]</code></pre>
+
+      <h2>2) RAID Extractor (Markdown tables)</h2>
+      <pre><code>From the text, extract four tables: Risks, Actions, Issues, Decisions.
+Columns:
+- Risks: Risk | Trigger phrase (verbatim) | Prob (L/M/H) | Impact (L/M/H) | Mitigation | Owner
+- Actions: Owner | Action | Due date (best guess) | Priority (H/M/L)
+- Issues: Issue | Severity | Unblocker | ETA
+- Decisions: Decision | Date | Context | Next review date
+Return Markdown tables only.</code></pre>
+
+      <h2>3) Stakeholder Update (ELT — 5 bullets)</h2>
+      <pre><code>Draft a 5-bullet ELT update for [PROJECT]. Bullets: progress, upcoming, risks, asks, timeline.
+No jargon, ≤14 words per bullet, bold the ask.</code></pre>
+
+      <h2>4) Scope Clamp (Acceptance Criteria)</h2>
+      <pre><code>Rewrite these requirements into crisp acceptance criteria using Gherkin style (Given/When/Then).
+Flag any ambiguous terms and propose concrete alternatives.
+Input:
+[PASTE REQUIREMENTS]</code></pre>
+
+      <h2>5) Next-Meeting Agenda (30 minutes)</h2>
+      <pre><code>Create a 30-minute agenda to close open questions and unblock the critical path.
+Include timeboxes, desired outcomes, and who must attend (role-based).</code></pre>
+
+      <div class="hr"></div>
+
+      <h2>Ronnie’s Red Flag — Silent Sabotage Detector</h2>
+      <pre><code>Scan the transcript for soft sabotage signals: hedging, status theater, passive blockers.
+Return a list: Phrase | Why it's risky | Suggested direct follow-up question.</code></pre>
+
+      <div class="callout">
+        <strong>Sample Output Pattern</strong>
+        <ul>
+          <li>Executive Summary — 3 bullets, neutral tone.</li>
+          <li>Actions — table with Owner / Action / Due / Priority.</li>
+          <li>Risks — probability, impact, trigger phrase, mitigation owner.</li>
+          <li>Decisions — concise bullets.</li>
+          <li>Open Questions — for next meeting.</li>
+        </ul>
+      </div>
+
+      <div class="ad">
+        <h3>🎯 Transcript Analyzer — Free Demo</h3>
+        <p>Turn raw meeting notes into <strong>Actions, Risks &amp; Decisions</strong> in seconds. Paste a transcript or use our sample. Export to PDF/Markdown via email.</p>
+        <a class="button primary" href="/#tools?utm_source=blog&utm_medium=issue01&utm_campaign=analyzer">Try the Analyzer</a>
+        <a class="button ghost" href="/contact.html?utm_source=blog&utm_medium=issue01&utm_campaign=access">Get Early Access</a>
+      </div>
+
+      <div class="foot-cta">
+        <p>📬 Like this? Get the <strong>PM Prompt Pulse</strong> in your inbox each week.</p>
+        <a class="button" href="/contact.html?utm_source=blog&utm_medium=issue01&utm_campaign=subscribe">Subscribe</a>
+      </div>
+    </article>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    async function includeHTML(selector, file) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Could not load ${file}`);
+        el.innerHTML = await res.text();
+      } catch (err) { console.error(err); }
+    }
+    includeHTML('#header-placeholder', '/partials/header.html');
+    includeHTML('#footer-placeholder', '/partials/footer.html');
+  </script>
+</body>
+</html>
