@@ -446,4 +446,42 @@ form.contact textarea {
 .blog-cta .button {
   margin: .5rem;
 }
+/* -------------------------
+   Red Flag Detector Block
+-------------------------- */
+.red-flag {
+  display: flex;
+  gap: 1.5rem;
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  align-items: flex-start;
+  max-width: 780px;
+  margin: 2rem auto;
+  flex-wrap: wrap;
+}
+.red-flag img {
+  width: 120px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.red-flag .text {
+  flex: 1;
+}
+.red-flag .text h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: var(--ink);
+}
+.red-flag code {
+  display: inline-block;
+  background: #1a2639;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem 0.35rem 0 0;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
 
