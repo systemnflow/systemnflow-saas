@@ -11,14 +11,14 @@
   <meta property="og:title" content="Issue #01 — 5 Prompts to Fix Scope Creep" />
   <meta property="og:description" content="5 prompts + sabotage detector prompt. Copy, paste, ship." />
   <meta property="og:url" content="https://systemnflow.com/blog/issue-01-5-prompts-scope-creep.html" />
-  <meta property="og:image" content="/assets/img/snf_logo.png" />
+  <meta property="og:image" content="/assets/img/SNF_logo.png" />
 
   <link rel="stylesheet" href="/styles.css" />
   <style>
     /* ========= Hero image ========= */
     :root{
-      /* UPDATE this path to your hero image if desired */
-      --hero-img: url('/assets/img/blog/issue-01-hero.jpg');
+      /* Path to your uploaded hero image */
+      --hero-img: url('/assets/img/issue-01-hero.jpg');
     }
     .progress {
       position: fixed; left: 0; top: 0; height: 4px; width: 0%;
@@ -48,21 +48,10 @@
       max-width: 1120px; margin: 0 auto; padding: 4.75rem 1rem 2.5rem;
       display:flex; align-items:flex-end; justify-content:space-between; gap:1rem;
     }
-    .hero-meta {
-      max-width: 780px;
-    }
+    .hero-meta { max-width: 780px; }
     .kicker { display:inline-block; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:.25rem; }
     h1.title { margin:.15rem 0 .35rem; font-size:2.6rem; line-height:1.12; color: var(--ink); }
     .meta { color:var(--muted); font-size:.95rem; }
-
-    /* ========= Theme toggle (blog-only) ========= */
-    .theme-toggle {
-      display:inline-flex; align-items:center; gap:.5rem;
-      border:1px solid var(--border); padding:.4rem .6rem; border-radius:999px;
-      background: rgba(0,0,0,.2);
-      color: var(--ink); cursor:pointer; user-select:none;
-    }
-    .theme-toggle[aria-pressed="true"] { background: rgba(255,255,255,.06); }
 
     /* ========= Layout ========= */
     .wrap { max-width: 1120px; margin: 0 auto; padding: 2rem 1rem 3.25rem; }
@@ -99,20 +88,6 @@
     .ad { background: var(--panel); border:1px solid var(--border); border-radius:14px; padding:1.1rem 1.25rem; margin-top:1.75rem; }
     .foot-cta { text-align:center; margin-top:2rem; }
     .badge { display:inline-block; padding:.2em .6em; font-size:.7rem; border-radius:999px; background:#1e2a41; color:#9aa4b2; }
-
-    /* ========= Blog-only light theme ========= */
-    body.blog-light {
-      --bg: #f7f8fb;
-      --panel: #ffffff;
-      --ink: #0b1220;
-      --muted: #5e6675;
-      --border: #dfe4ee;
-      --accent: #b8753d;
-    }
-    body.blog-light .hero-cover { border-bottom-color: var(--border); }
-    body.blog-light .codecard { background:#0f1220; }
-    body.blog-light .codebar { background:#1b2132; }
-    body.blog-light .theme-toggle { background: rgba(255,255,255,.9); color:#0b1220; }
   </style>
 </head>
 <body>
@@ -127,9 +102,7 @@
         <h1 class="title">Issue #01 — 5 Prompts to Fix Scope Creep</h1>
         <p class="meta">Weekly prompt packs, AI walkthroughs, and sabotage detection from Ronnie · <time datetime="2025-09-08">Sept 8, 2025</time></p>
       </div>
-      <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle light/dark">
-        <span aria-hidden="true">🌗</span><span class="sr">Toggle theme</span>
-      </button>
+      <!-- (Theme toggle removed) -->
     </div>
   </section>
 
@@ -274,25 +247,6 @@ Return a list: Phrase | Why it's risky | Suggested direct follow-up question.</c
     window.addEventListener('scroll', setProgress, {passive:true});
     window.addEventListener('resize', setProgress);
     setProgress();
-
-    // theme toggle (blog-only)
-    const toggle = document.getElementById('themeToggle');
-    const key = 'snf_blog_theme';
-    function applyTheme(mode){
-      document.body.classList.toggle('blog-light', mode === 'light');
-      toggle.setAttribute('aria-pressed', mode === 'light' ? 'true' : 'false');
-    }
-    function currentPreferred(){
-      const saved = localStorage.getItem(key);
-      if (saved) return saved;
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    }
-    applyTheme(currentPreferred());
-    toggle.addEventListener('click', () => {
-      const next = document.body.classList.contains('blog-light') ? 'dark' : 'light';
-      localStorage.setItem(key, next);
-      applyTheme(next);
-    });
 
     // copy buttons
     document.addEventListener('click', (e) => {
