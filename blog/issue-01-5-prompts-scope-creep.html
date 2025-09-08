@@ -11,64 +11,30 @@
   <meta property="og:url" content="https://systemnflow.com/blog/issue-01-5-prompts-scope-creep.html" />
   <meta property="og:image" content="/assets/img/ronnie-avatar.png" />
   
-  <!-- 🛠 Favicon fix -->
+  <!-- ✅ FIXED FAVICON -->
   <link rel="icon" href="/assets/img/favicon.png" type="image/png" />
   <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png" />
 
   <link rel="stylesheet" href="/styles.css" />
-</head>
 
+  <style>
+    :root {
+      --ink: #e6e9ef;
+      --muted: #9aa4b2;
+      --accent: #b8753d;
+      --bg: #0b1220;
+      --border: #1e2a41;
+      --panel: #121a2b;
+      --good: #40d278;
+    }
 
-<body>
-  <main>
-    <div class="blog-header">
-      <img src="/assets/img/ronnie-avatar.png" alt="Ronnie avatar" />
-      <div>
-        <h1>Issue #01 – 5 Prompts to Fix Scope Creep</h1>
-        <small>Posted Sept 8, 2025 · Built by Ronnie at System & Flow</small>
-      </div>
-    </div>
+    body {
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      margin: 0;
+      padding: 0;
+    }
 
-    <p class="intro">
-      Copy, paste, adapt. These prompts help you lock scope, extract RAID, report up fast — and catch soft sabotage before it spreads.
-    </p>
-
-    <div class="ronnie-detector">
-      <img src="/assets/img/ronnie-redflag-detector.png" alt="Ronnie holding a red flag" />
-      <div class="text">
-        <h2>🚩 Ronnie’s Red Flag Detector</h2>
-        <p>Scan the transcript for sabotage signals like:</p>
-        <code>hedging</code> <code>status theater</code> <code>passive blockers</code>
-      </div>
-    </div>
-
-    <div class="prompts">
-      <div class="prompt">
-        <h3>1. Executive Summary Prompt</h3>
-        <p>Summarize the meeting in under 100 words with next actions and risks.</p>
-      </div>
-      <div class="prompt">
-        <h3>2. RAID Extractor Prompt</h3>
-        <p>Make tables of risks, actions, issues, and decisions from text.</p>
-      </div>
-      <div class="prompt">
-        <h3>3. Stakeholder Update Prompt</h3>
-        <p>Draft a 5-bullet status update for leaders with RAID and highlights.</p>
-      </div>
-      <div class="prompt">
-        <h3>4. Scope Clamp Prompt</h3>
-        <p>Rewrite requirements into crisp, testable scope statements.</p>
-      </div>
-      <div class="prompt">
-        <h3>5. Sabotage Recovery Prompt</h3>
-        <p>De-escalate blockers and re-center team focus with firm but diplomatic replies.</p>
-      </div>
-    </div>
-
-    <div class="cta">
-      <h2>Want the full walkthrough?</h2>
-      <button onclick="window.location.href='/blog/issue-01-5-prompts-scope-creep.html'">Read Full Issue</button>
-    </div>
-  </main>
-</body>
-</html>
+    main {
+      max-width: 860px;
