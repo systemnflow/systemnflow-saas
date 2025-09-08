@@ -1,64 +1,15 @@
-'use client';
+// apps/raid/page.tsx
 
-import { useState } from 'react';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-
-export default function RAIDExtractorPage() {
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [raid, setRaid] = useState<{
-    Risks: string[];
-    Actions: string[];
-    Issues: string[];
-    Decisions: string[];
-  } | null>(null);
-
-  const extractRaid = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/extract-raid', {
-        method: 'POST',
-        body: JSON.stringify({ input }),
-      });
-      const data = await res.json();
-      setRaid(data);
-    } catch (e) {
-      console.error(e);
-    }
-    setLoading(false);
-  };
-
+export default function RaidExtractor() {
   return (
-    <main className="max-w-3xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Ronnie’s RAID Extractor™</h1>
-      <Textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        rows={10}
-        placeholder="Paste your transcript, notes, or meeting summary here..."
-      />
-      <Button className="mt-4" onClick={extractRaid} disabled={loading}>
-        {loading ? 'Extracting RAID...' : 'Extract RAID'}
-      </Button>
-
-      {raid && (
-        <Card className="mt-6">
-          <CardContent>
-            {['Risks', 'Actions', 'Issues', 'Decisions'].map((key) => (
-              <div key={key}>
-                <h2 className="text-lg font-semibold mt-4">{key}</h2>
-                <ul className="list-disc list-inside text-sm">
-                  {raid[key as keyof typeof raid].map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      )}
+    <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+      <h1>🚨 Ronnie’s RAID Extractor™</h1>
+      <p>Start by entering the project issue or chaos you're facing. Ronnie will break it down using RAID (Risks, Assumptions, Issues, Dependencies).</p>
+      <form>
+        <label htmlFor="input">Describe your issue:</label><br />
+        <textarea id="input" rows={6} style={{ width: "100%", marginTop: "1rem" }}></textarea><br />
+        <button type="submit" style={{ marginTop: "1rem" }}>Extract RAID</button>
+      </form>
     </main>
   );
 }
