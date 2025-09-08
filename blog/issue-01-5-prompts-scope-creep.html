@@ -72,27 +72,50 @@
     </div>
 
     <!-- ✅ Prompt Cards -->
-    <div class="grid">
-      <div class="card">
-        <h3>1. Executive Summary Prompt</h3>
-        <p class="prompt-desc">Summarize the meeting in under 100 words with next actions and risks.</p>
-      </div>
-      <div class="card">
-        <h3>2. RAID Extractor Prompt</h3>
-        <p class="prompt-desc">Make tables of risks, actions, issues, and decisions from text.</p>
-      </div>
-      <div class="card">
-        <h3>3. Stakeholder Update Prompt</h3>
-        <p class="prompt-desc">Draft a 5-bullet status update for leaders with RAID and highlights.</p>
-      </div>
-      <div class="card">
-        <h3>4. Scope Clamp Prompt</h3>
-        <p class="prompt-desc">Rewrite requirements into crisp, testable scope statements.</p>
-      </div>
-      <div class="card">
-        <h3>5. Sabotage Recovery Prompt</h3>
-        <p class="prompt-desc">De-escalate blockers and re-center team focus with firm but diplomatic replies.</p>
-      </div>
+    <div class="prompt">
+  <h3>1. Executive Summary Prompt</h3>
+  <p class="prompt-desc">
+    <strong>"Summarize the top 3 takeaways from the meeting in 100 words or less. 
+    Include one action, one blocker, and one decision. Write it like you're briefing the COO at 7AM."</strong><br>
+    <em>(Tone: sharp, risk-aware, and ready for exec eyes.)</em>
+  </p>
+</div>
+
+<div class="prompt">
+  <h3>2. RAID Extractor Prompt</h3>
+  <p class="prompt-desc">
+    <strong>"Scan this transcript and pull out all Risks, Actions, Issues, and Decisions. 
+    Organize them in a markdown table. Prioritize by urgency, not just order mentioned."</strong><br>
+    <em>(Goal: Make chaos digestible for dashboards or stakeholder decks.)</em>
+  </p>
+</div>
+
+<div class="prompt">
+  <h3>3. Stakeholder Update Prompt</h3>
+  <p class="prompt-desc">
+    <strong>"Write a 5-bullet update for senior stakeholders. Highlight wins, delays, RAID elements, and next steps — each in 15 words max. No filler, just fire."</strong><br>
+    <em>(Tone: status sniper. Fast, clean, informative.)</em>
+  </p>
+</div>
+
+<div class="prompt">
+  <h3>4. Scope Clamp Prompt</h3>
+  <p class="prompt-desc">
+    <strong>"Rewrite these vague requirements into crisp, testable scope statements. 
+    Each line must start with a verb and end with a measurable outcome."</strong><br>
+    <em>(Designed to kill scope creep mid-sentence.)</em>
+  </p>
+</div>
+
+<div class="prompt">
+  <h3>5. Sabotage Recovery Prompt</h3>
+  <p class="prompt-desc">
+    <strong>"Identify soft sabotage in this thread (hedging, deflecting, overcomplicating). 
+    Rewrite the reply to re-center on clarity, accountability, and delivery — without triggering defensiveness."</strong><br>
+    <em>(Ronnie’s red flag radar + diplomacy mode.)</em>
+  </p>
+</div>
+
     </div>
   </main>
 
