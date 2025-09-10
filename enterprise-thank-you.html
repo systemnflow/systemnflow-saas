@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You | System & Flow</title>
+  <meta name="description" content="Thank you for contacting System & Flow Enterprise. We’ll be in touch shortly." />
+  <meta name="theme-color" content="#0b1220" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/img/site.webmanifest" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Redirect to homepage in 5 seconds -->
+  <meta http-equiv="refresh" content="5;url=/index.html" />
+</head>
+
+<body>
+  <!-- 🔹 Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🔹 Thank You Content -->
+  <main class="container" style="max-width: 800px; margin: 4rem auto; padding: 2rem; text-align:center;">
+    <h1>✅ Thank You</h1>
+    <p style="color: var(--muted); margin-top: 1rem;">
+      Your enterprise inquiry has been received.  
+      Our team will review your details and get back to you shortly.
+    </p>
+    <p style="margin-top: 1rem; font-size:0.9rem; color: var(--muted);">
+      You’ll be redirected to the <a href="/">homepage</a> in a few seconds.
+    </p>
+  </main>
+
+  <!-- 🔹 Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">
+      © <span id="y"></span> System & Flow™. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
