@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ronnie’s RAID Extractor™ Pro | System & Flow</title>
+  <meta name="description" content="Pro edition of Ronnie’s RAID Extractor™ with full RAID history, Excel/PDF export, and more." />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="robots" content="noindex,follow" />
+
+  <!-- Social -->
+  <meta property="og:title" content="Ronnie’s RAID Extractor™ Pro | System & Flow" />
+  <meta property="og:description" content="Full Pro access: Save RAID history, Excel/PDF exports, and more." />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <!-- 🔹 Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🔹 Main -->
+  <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
+    <h1 style="text-align:center;">Ronnie’s RAID Extractor™ Pro</h1>
+    <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
+      Welcome to the <strong>Pro edition</strong> — enjoy full access including 
+      <strong>Save RAID history</strong>, <strong>Excel/PDF export</strong>, and more.
+    </p>
+
+    <!-- Confidence Score -->
+    <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
+      Ronnie’s Confidence Score: <span style="color:var(--accent); font-weight:600;">100% (Pro Mode)</span>
+    </div>
+
+    <!-- Textarea -->
+    <textarea id="input" rows="12" placeholder="Paste transcript..."
+      style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
+
+    <!-- File Upload -->
+    <div style="margin:1rem 0;">
+      <label for="fileInput" style="display:block; margin-bottom:0.5rem; color:var(--muted); font-size:0.9rem;">
+        Or upload a transcript (.txt, .docx, .pdf)
+      </label>
+      <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color:var(--ink);" />
+    </div>
+
+    <!-- Buttons -->
+    <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+      <button id="run" class="button primary">Extract RAID</button>
+      <button id="download" class="button ghost">Download CSV</button>
+      <button id="downloadExcel" class="button ghost">Download Excel</button>
+      <button id="downloadPDF" class="button ghost">Download PDF</button>
+      <button id="copy" class="button ghost">Copy to Clipboard</button>
+      <button id="save" class="button ghost">Save RAID Log</button>
+    </div>
+
+    <div id="output" style="margin-top:2rem;"></div>
+
+    <!-- Pro Status Banner -->
+    <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px solid var(--accent); border-radius:8px; background:var(--panel); color:var(--accent);">
+      🎉 You are using the <strong>Pro version</strong> — all features unlocked.
+    </div>
+  </main>
+
+  <!-- 🔹 Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Here you'd wire up the Save RAID feature, Excel/PDF exports, etc.
+    // Since this is the Pro page, nothing is locked.
+  </script>
+</body>
+</html>
