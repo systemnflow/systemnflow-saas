@@ -1,217 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>Pricing — System & Flow</title>
-  <meta name="description" content="Simple, transparent pricing for System & Flow’s SaaS apps and AI prompts." />
-  <link rel="canonical" href="https://systemnflow.com/pricing.html" />
-  <meta name="robots" content="index,follow" />
+  <title>Pricing | System & Flow</title>
+  <meta name="description" content="Choose a plan for Ronnie’s RAID Extractor and other System & Flow tools. Free, Pro, and Enterprise options available." />
   <meta name="theme-color" content="#0b1220" />
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Pricing — System & Flow" />
-  <meta property="og:description" content="Simple, transparent pricing for System & Flow’s SaaS apps and AI prompts." />
-  <meta property="og:url" content="https://systemnflow.com/pricing.html" />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Pricing — System & Flow" />
-  <meta name="twitter:description" content="Simple, transparent pricing for System & Flow’s SaaS apps and AI prompts." />
-  <meta name="twitter:image" content="https://systemnflow.com/assets/img/SNF_logo.png" />
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
-  <link rel="manifest" href="/assets/img/site.webmanifest" />
-  <link rel="shortcut icon" href="/assets/img/favicon.ico" />
-
-  <!-- CSS -->
-  <link rel="preload" href="/styles.css" as="style" />
+  <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
-
-  <!-- GA -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-1FRFWG4X18');
-  </script>
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- Header -->
+  <!-- 🔹 Global Header -->
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="/"><img src="/assets/img/logo.png" alt="System & Flow logo" /></a>
-      <nav aria-label="Primary">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-        <ul id="nav" class="nav">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
           <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Apps</a></li>
-          <li><a href="/pricing.html" aria-current="page">Pricing</a></li>
-          <li><a href="/contact.html" class="button">Contact</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main id="main">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container" style="text-align:center">
-        <h1>Simple pricing.</h1>
-        <p class="small sub" style="max-width:720px;margin:0 auto">
-          Start free. Upgrade when you’re ready. Cancel any time.
-        </p>
-      </div>
-    </section>
+  <!-- 🔹 Pricing Content -->
+  <main class="container" style="max-width: 1000px; margin: 4rem auto; padding: 2rem; text-align: center;">
+    <h1>Choose Your Plan</h1>
+    <p style="color: var(--muted); margin-bottom: 2rem;">
+      Upgrade to unlock Pro features like saving RAID history, Excel/PDF exports, and more.
+    </p>
 
-    <!-- Plans (reuse home-grid + card styles from styles.css) -->
-    <section class="section">
-      <div class="container home-grid">
-        <article class="card">
-          <h3>Free</h3>
-          <p class="small">Transcript Analyzer + newsletter.</p>
-          <ul class="small" style="line-height:1.8">
-            <li>Actions, Risks, Decisions</li>
-            <li>Email support (community)</li>
-          </ul>
-          <div class="card-actions">
-            <a class="button primary" href="/contact.html">Get Started</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-top">
-            <h3 style="margin:0">Pro</h3>
-            <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
-          </div>
-          <p class="small">Status Report Generator + AI Prompt Pack.</p>
-          <ul class="small" style="line-height:1.8">
-            <li>Exec-ready one-pagers</li>
-            <li>Export to PDF/Markdown</li>
-            <li>50+ AI prompts for PMs</li>
-          </ul>
-          <div class="card-actions">
-            <a class="button ghost" href="/contact.html">Get Notified</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-top">
-            <h3 style="margin:0">Suite</h3>
-            <span class="badge soon" aria-label="Coming soon"><span class="dot" aria-hidden="true"></span>Coming&nbsp;Soon</span>
-          </div>
-          <p class="small">Everything in Pro + Risk Radar.</p>
-          <ul class="small" style="line-height:1.8">
-            <li>AI-suggested mitigations</li>
-            <li>Priority support</li>
-          </ul>
-          <div class="card-actions">
-            <a class="button ghost" href="/contact.html">Get Notified</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- FAQ (uses global form/card styles so no inline CSS needed) -->
-    <section class="section">
-      <div class="container" style="max-width:820px">
-        <h2 style="margin-top:0">Pricing FAQ</h2>
-
-        <details class="form">
-          <summary><strong>How does billing work?</strong></summary>
-          <div class="small" style="margin-top:8px;color:var(--muted)">
-            Pro and Suite will be monthly subscriptions billed at the start of each cycle. You can switch plans or cancel anytime
-            from your account; changes take effect at the next renewal.
-          </div>
-        </details>
-
-        <details class="form">
-          <summary><strong>Do you offer refunds?</strong></summary>
-          <div class="small" style="margin-top:8px;color:var(--muted)">
-            Yes — if something truly isn’t working for you, contact us within 14 days of purchase and we’ll make it right.
-          </div>
-        </details>
-
-        <details class="form">
-          <summary><strong>Team pricing or volume discounts?</strong></summary>
-          <div class="small" style="margin-top:8px;color:var(--muted)">
-            Yes. For 10+ seats, we offer tiered discounts and centralized billing. <a href="/contact.html">Contact us</a>
-            with your team size and procurement requirements.
-          </div>
-        </details>
-
-        <details class="form">
-          <summary><strong>Do you support purchase orders (POs) or invoices?</strong></summary>
-          <div class="small" style="margin-top:8px;color:var(--muted)">
-            We support PO/invoice-based purchasing for approved organizations. <a href="/contact.html">Reach out</a> for vendor onboarding docs.
-          </div>
-        </details>
-
-        <details class="form">
-          <summary><strong>What’s included in the Free plan?</strong></summary>
-          <div class="small" style="margin-top:8px;color:var(--muted)">
-            Transcript Analyzer, product updates, and access to select templates. You can upgrade anytime to unlock Status Report
-            Generator, AI Prompt Pack, and (soon) Risk Radar.
-          </div>
-        </details>
-
-        <details class="form">
-          <summary><strong>Is my data secure?</strong></summary>
-          <div class="small" style="margin-top:8px;color:var(--muted)">
-            Yes. We follow least-privilege principles, encrypted transport, and never sell your data. Enterprise security overview is
-            available on request.
-          </div>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer (compact, no Pinterest) -->
-  <footer class="footer-min">
-    <div class="container">
-      <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System &amp; Flow" />
-        <span class="brand">System &amp; Flow</span>
-        <span class="divider">•</span>
-        <span class="tagline">Project management toolkits &amp; AI prompts.</span>
-      </div>
-      <div class="foot-right">
-        <a href="/">Home</a>
-        <a href="/apps.html">Apps</a>
-        <a href="/pricing.html">Pricing</a>
-        <a href="/contact.html">Contact</a>
-        <a href="https://systemnflow.gumroad.com">Store</a>
-        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
-        <a href="https://www.linkedin.com/company/system-and-flow">LinkedIn</a>
-      </div>
-    </div>
-    <div class="legal small">© <span id="y"></span> System &amp; Flow™. All rights reserved.</div>
-  </footer>
-
-  <!-- Scripts -->
-  <script>
-    // year
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // mobile nav
-    (function () {
-      const btn = document.querySelector('.nav-toggle');
-      const nav = document.getElementById('nav');
-      if (!btn || !nav) return;
-      btn.addEventListener('click', () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        nav.classList.toggle('open');
-      });
-    })();
-  </script>
-</body>
-</html>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+      
+      <!-- Free -->
+      <div class="card" style="border: 1px solid
