@@ -43,11 +43,11 @@
   </header>
 
   <!-- 🔹 RAID Extractor Content -->
-  <main class="container" style="max-width: 800px; margin: 4rem auto; padding: 2rem;">
+  <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
     <h1 style="text-align:center; margin-bottom: 0.5rem;">Ronnie’s RAID Extractor™</h1>
     <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
-      Paste a transcript below. Ronnie will extract <strong>Risks</strong>, 
-      <strong>Actions</strong>, <strong>Issues</strong>, and <strong>Decisions</strong>.
+      Paste a transcript below. Ronnie will extract <strong>⚠️ Risks</strong>, 
+      <strong>✅ Actions</strong>, <strong>🛑 Issues</strong>, and <strong>📌 Decisions</strong>.
     </p>
 
     <textarea 
@@ -57,11 +57,12 @@
       style="width: 100%; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--ink);">
     </textarea>
 
-    <button id="run" class="button primary" style="margin-top: 1.5rem;">
-      Extract RAID
-    </button>
+    <div style="margin-top: 1.5rem; display:flex; gap:1rem;">
+      <button id="run" class="button primary">Extract RAID</button>
+      <button id="download" class="button ghost">Download CSV</button>
+    </div>
 
-    <div id="output" style="margin-top: 2rem; font-weight: bold;"></div>
+    <div id="output" style="margin-top: 2rem;"></div>
   </main>
 
   <!-- 🔹 Global Footer -->
@@ -91,6 +92,24 @@
  <script>
   document.getElementById("y").textContent = new Date().getFullYear();
 
+  function formatLine(line, type, index) {
+    const icons = { risk: "⚠️", action: "✅", issue: "🛑", decision: "📌" };
+    const labels = { risk: "Risk", action: "Action", issue: "Issue", decision: "Decision" };
+    return `<div><strong>${icons[type]} ${labels[type]} #${index+1}:</strong> ${line}</div>`;
+  }
+
+  function exportCSV(rows) {
+    let csv = "Category,Item\n";
+    rows.forEach(r => csv += `"${r.category}","${r.item.replace(/"/g, '""')}"\n`);
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "raid-log.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   document.getElementById("run").addEventListener("click", () => {
     const text = document.getElementById("input").value.trim();
     const output = document.getElementById("output");
@@ -100,22 +119,17 @@
       return;
     }
 
-    // Simple keyword-based extraction (starter logic)
-    const risks = [];
-    const actions = [];
-    const issues = [];
-    const decisions = [];
-
+    const risks = [], actions = [], issues = [], decisions = [], allRows = [];
     const lines = text.split("\n");
+
     lines.forEach(line => {
       const lower = line.toLowerCase();
-      if (lower.includes("risk")) risks.push(line);
-      else if (lower.includes("action") || lower.includes("will")) actions.push(line);
-      else if (lower.includes("issue") || lower.includes("problem")) issues.push(line);
-      else if (lower.includes("decide") || lower.includes("decision") || lower.includes("agreed")) decisions.push(line);
+      if (lower.includes("risk")) { risks.push(line); allRows.push({category:"Risk", item:line}); }
+      else if (lower.includes("action") || lower.includes("will")) { actions.push(line); allRows.push({category:"Action", item:line}); }
+      else if (lower.includes("issue") || lower.includes("problem")) { issues.push(line); allRows.push({category:"Issue", item:line}); }
+      else if (lower.includes("decide") || lower.includes("decision") || lower.includes("agreed")) { decisions.push(line); allRows.push({category:"Decision", item:line}); }
     });
 
-    // Build table output
     output.innerHTML = `
       <table style="width:100%; border-collapse: collapse; margin-top: 1.5rem;">
         <thead>
@@ -128,14 +142,17 @@
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${risks.join("<br>") || "-"}</td>
-            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${actions.join("<br>") || "-"}</td>
-            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${issues.join("<br>") || "-"}</td>
-            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${decisions.join("<br>") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${risks.map((r,i)=>formatLine(r,"risk",i)).join("") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${actions.map((a,i)=>formatLine(a,"action",i)).join("") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${issues.map((is,i)=>formatLine(is,"issue",i)).join("") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${decisions.map((d,i)=>formatLine(d,"decision",i)).join("") || "-"}</td>
           </tr>
         </tbody>
       </table>
     `;
+
+    // attach data for download
+    document.getElementById("download").onclick = () => exportCSV(allRows);
   });
 </script>
 
