@@ -1,52 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ronnie’s RAID Extractor™ | System & Flow</title>
+  <meta name="description" content="Paste a transcript, get Risks, Actions, Issues, and Decisions extracted instantly with Ronnie’s RAID Extractor™." />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="robots" content="index,follow" />
 
-  <!-- Global styles -->
+  <!-- Social -->
+  <meta property="og:title" content="Ronnie’s RAID Extractor™ | System & Flow" />
+  <meta property="og:description" content="AI-powered RAID extraction for PMs — Risks, Actions, Issues, and Decisions in seconds." />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
-
-  <!-- Meta / Social -->
-  <link rel="icon" href="/assets/img/favicon-32x32.png" />
-  <meta property="og:title" content="Ronnie’s RAID Extractor™" />
-  <meta property="og:description" content="Paste a transcript, get Risks, Actions, Issues, and Decisions in seconds." />
-  <meta property="og:image" content="/assets/img/snf_logo.png" />
-  <meta property="og:url" content="https://systemnflow.com/raid/" />
 </head>
+
 <body>
+  <!-- 🔹 Global Header -->
   <header class="site-header">
-    <a class="logo" href="/"><img src="/assets/img/snf_logo.png" alt="System & Flow" /></a>
-    <nav>
-      <a href="/tools.html">Tools</a>
-      <a href="/blog/">Blog</a>
-      <a href="/raid/">RAID Extractor</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <main class="container" style="max-width: 800px; margin: 2rem auto; padding: 1rem;">
-    <h1>Ronnie’s RAID Extractor™</h1>
-    <p>Paste a transcript below. Ronnie will extract Risks, Actions, Issues, and Decisions.</p>
+  <!-- 🔹 RAID Extractor Content -->
+  <main class="container" style="max-width: 800px; margin: 4rem auto; padding: 2rem;">
+    <h1 style="text-align:center; margin-bottom: 0.5rem;">Ronnie’s RAID Extractor™</h1>
+    <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
+      Paste a transcript below. Ronnie will extract <strong>Risks</strong>, 
+      <strong>Actions</strong>, <strong>Issues</strong>, and <strong>Decisions</strong>.
+    </p>
 
-    <textarea id="input" rows="12" placeholder="Paste transcript..." 
-      style="width: 100%; padding: 12px; border-radius: 8px;"></textarea>
-    <button id="run" 
-      style="margin-top: 1rem; padding: 10px 16px; border-radius: 10px;">Extract RAID</button>
+    <textarea 
+      id="input" 
+      rows="12" 
+      placeholder="Paste transcript..."
+      style="width: 100%; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--ink);">
+    </textarea>
 
-    <div id="output" style="margin-top: 1rem; font-weight: bold;"></div>
+    <button id="run" class="button primary" style="margin-top: 1.5rem;">
+      Extract RAID
+    </button>
+
+    <div id="output" style="margin-top: 2rem; font-weight: bold;"></div>
   </main>
 
+  <!-- 🔹 Global Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">
+      © <span id="y"></span> System & Flow™. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Script -->
   <script>
-    document.getElementById('run').addEventListener('click', () => {
-      const text = document.getElementById('input').value.trim();
-      const output = document.getElementById('output');
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    document.getElementById("run").addEventListener("click", () => {
+      const text = document.getElementById("input").value.trim();
+      const output = document.getElementById("output");
       if (!text) {
-        output.textContent = 'Paste a transcript first.';
+        output.textContent = "⚠️ Paste something first.";
       } else {
-        // Temporary placeholder
-        output.textContent = '✅ Parsed RAID goes here.';
+        output.textContent = "✅ Parsed RAID goes here. (Next: make this smarter!)";
       }
     });
   </script>
