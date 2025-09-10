@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ronnie’s RAID Extractor™ | System & Flow</title>
-  <meta name="description" content="Upload or paste a transcript, then instantly extract Risks, Actions, Issues, and Decisions with Ronnie’s RAID Extractor™." />
+  <meta name="description" content="Paste a transcript, get Risks, Actions, Issues, and Decisions extracted instantly with Ronnie’s RAID Extractor™." />
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="index,follow" />
 
@@ -22,10 +22,6 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -47,34 +43,38 @@
   </header>
 
   <!-- 🔹 RAID Extractor Content -->
-  <main class="container" style="max-width: 950px; margin: 4rem auto; padding: 2rem;">
+  <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
     <h1 style="text-align:center; margin-bottom: 0.5rem;">Ronnie’s RAID Extractor™</h1>
     <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
-      Paste or upload your transcript. Ronnie will extract <strong>⚠️ Risks</strong>, 
-      <strong>✅ Actions</strong>, <strong>🛑 Issues</strong>, and <strong>📌 Decisions</strong> — plus tags, owners, and confidence scores.
+      Paste a transcript below. Ronnie will extract <strong>⚠️ Risks</strong>, 
+      <strong>✅ Actions</strong>, <strong>🛑 Issues</strong>, and <strong>📌 Decisions</strong>.
     </p>
 
-    <!-- File Upload -->
-    <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="margin-bottom:1rem;" />
-
-    <!-- Paste Area -->
     <textarea 
       id="input" 
       rows="12" 
-      placeholder="Paste transcript or upload a file..."
+      placeholder="Paste transcript..."
       style="width: 100%; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--ink);">
     </textarea>
 
-    <!-- Actions -->
-    <div style="margin-top: 1.5rem; display:flex; flex-wrap:wrap; gap:1rem;">
+    <div style="margin-top: 1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
       <button id="run" class="button primary">Extract RAID</button>
+      <button id="download" class="button ghost">Download CSV</button>
       <button id="copy" class="button ghost">Copy to Clipboard</button>
-      <button id="downloadCSV" class="button ghost">Export CSV</button>
-      <button id="downloadExcel" class="button ghost">Export Excel</button>
-      <button id="downloadPDF" class="button ghost">Export PDF</button>
     </div>
 
     <div id="output" style="margin-top: 2rem;"></div>
+
+    <!-- 🔒 Pro Feature Teaser -->
+    <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted);">
+      <p>🔒 <strong>Pro Feature:</strong> Save RAID History</p>
+      <p style="font-size:0.9rem; color:var(--muted);">
+        Pro users can save RAID logs to build project knowledge over time and track risks, actions, and decisions across meetings.
+      </p>
+      <button disabled class="button ghost" style="opacity:0.6; cursor:not-allowed; margin-top:0.5rem;">
+        Save RAID Log (Pro)
+      </button>
+    </div>
   </main>
 
   <!-- 🔹 Global Footer -->
@@ -87,149 +87,113 @@
         <span class="tagline">Smarter tools. Faster PMs.</span>
       </div>
       <div class="foot-right">
-        <a href="https://www.tiktok.com/@systemnflow" target="_blank">TikTok</a>
-        <a href="https://www.instagram.com/systemnflow" target="_blank">Instagram</a>
-        <a href="https://www.pinterest.com/systemnflow" target="_blank">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" target="_blank">YouTube</a>
-        <a href="https://www.linkedin.com/company/systemnflow" target="_blank">LinkedIn</a>
-        <a href="https://www.facebook.com/systemnflow" target="_blank">Facebook</a>
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
-    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
+    <div class="legal">
+      © <span id="y"></span> System & Flow™. All rights reserved.
+    </div>
   </footer>
 
   <!-- Script -->
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+ <script>
+  document.getElementById("y").textContent = new Date().getFullYear();
 
-    // 📝 File Upload
-    document.getElementById("fileInput").addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+  function formatLine(line, type, index) {
+    const icons = { risk: "⚠️", action: "✅", issue: "🛑", decision: "📌" };
+    const labels = { risk: "Risk", action: "Action", issue: "Issue", decision: "Decision" };
+    return `<div><strong>${icons[type]} ${labels[type]} #${index+1}:</strong> ${line}</div>`;
+  }
 
-      if (file.type === "text/plain") {
-        document.getElementById("input").value = await file.text();
+  function exportCSV(rows) {
+    let csv = "Category,Item\n";
+    rows.forEach(r => csv += `"${r.category}","${r.item.replace(/"/g, '""')}"\n`);
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "raid-log.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function copyToClipboard(html) {
+    const temp = document.createElement("div");
+    temp.innerHTML = html;
+    document.body.appendChild(temp);
+    const range = document.createRange();
+    range.selectNode(temp);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    document.execCommand("copy");
+    document.body.removeChild(temp);
+    alert("✅ RAID log copied to clipboard!");
+  }
+
+  document.getElementById("run").addEventListener("click", () => {
+    const text = document.getElementById("input").value.trim();
+    const output = document.getElementById("output");
+
+    if (!text) {
+      output.innerHTML = "<p>⚠️ Paste something first.</p>";
+      return;
+    }
+
+    const risks = [], actions = [], issues = [], decisions = [], allRows = [];
+    const lines = text.split("\n");
+
+    lines.forEach(line => {
+      const lower = line.toLowerCase();
+      if (lower.includes("risk") || lower.includes("critical") || lower.includes("high risk")) { 
+        risks.push(line); allRows.push({category:"Risk", item:line}); 
       }
-      else if (file.name.endsWith(".docx")) {
-        const arrayBuffer = await file.arrayBuffer();
-        const result = await mammoth.extractRawText({arrayBuffer});
-        document.getElementById("input").value = result.value;
+      else if (lower.includes("action") || lower.includes("will")) { 
+        actions.push(line); allRows.push({category:"Action", item:line}); 
       }
-      else if (file.type === "application/pdf") {
-        const reader = new FileReader();
-        reader.onload = async () => {
-          const pdf = await pdfjsLib.getDocument({data: reader.result}).promise;
-          let text = "";
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const content = await page.getTextContent();
-            text += content.items.map(it => it.str).join(" ") + "\n";
-          }
-          document.getElementById("input").value = text;
-        };
-        reader.readAsArrayBuffer(file);
+      else if (lower.includes("issue") || lower.includes("problem")) { 
+        issues.push(line); allRows.push({category:"Issue", item:line}); 
+      }
+      else if (lower.includes("decide") || lower.includes("decision") || lower.includes("agreed")) { 
+        decisions.push(line); allRows.push({category:"Decision", item:line}); 
       }
     });
 
-    // 🛠 RAID Extraction
-    function analyze(text) {
-      const risks = [], actions = [], issues = [], decisions = [], allRows = [];
-      const urgencyWords = ["critical","urgent","high risk","immediate"];
-      const names = ["Sarah","Mark","Ayana","Thomas","Janelle"];
+    const tableHTML = `
+      <table style="width:100%; border-collapse: collapse; margin-top: 1.5rem;">
+        <thead>
+          <tr style="background: var(--panel); color: var(--ink); text-align: left;">
+            <th style="padding: 8px; border: 1px solid var(--border);">Risks</th>
+            <th style="padding: 8px; border: 1px solid var(--border);">Actions</th>
+            <th style="padding: 8px; border: 1px solid var(--border);">Issues</th>
+            <th style="padding: 8px; border: 1px solid var(--border);">Decisions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${risks.map((r,i)=>formatLine(r,"risk",i)).join("") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${actions.map((a,i)=>formatLine(a,"action",i)).join("") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${issues.map((is,i)=>formatLine(is,"issue",i)).join("") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${decisions.map((d,i)=>formatLine(d,"decision",i)).join("") || "-"}</td>
+          </tr>
+        </tbody>
+      </table>
+    `;
 
-      const lines = text.split("\n");
-      lines.forEach(line => {
-        const lower = line.toLowerCase();
-        let confidence = Math.floor(Math.random()*20)+80; // fake 80-100%
-        let owner = names.find(n => line.includes(n)) || "Unassigned";
-        let urgency = urgencyWords.find(u => lower.includes(u)) ? "🚨 High" : "";
+    output.innerHTML = tableHTML;
 
-        if (lower.includes("risk")) { risks.push({line,confidence,owner,urgency}); allRows.push({category:"Risk", item:line}); }
-        else if (lower.includes("action") || lower.includes("will")) { actions.push({line,confidence,owner,urgency}); allRows.push({category:"Action", item:line}); }
-        else if (lower.includes("issue") || lower.includes("problem")) { issues.push({line,confidence,owner,urgency}); allRows.push({category:"Issue", item:line}); }
-        else if (lower.includes("decide") || lower.includes("decision") || lower.includes("agreed")) { decisions.push({line,confidence,owner,urgency}); allRows.push({category:"Decision", item:line}); }
-      });
-      return { risks, actions, issues, decisions, allRows };
-    }
+    // download CSV
+    document.getElementById("download").onclick = () => exportCSV(allRows);
 
-    function buildTable(data) {
-      const cell = (arr,icon,label) => arr.map((o,i)=>
-        `<div><strong>${icon} ${label} #${i+1}:</strong> ${o.line}<br>
-         👤 Owner: ${o.owner} ${o.urgency? "• "+o.urgency:""}<br>
-         🤖 Confidence: ${o.confidence}%</div><hr>`).join("") || "-";
+    // copy to clipboard
+    document.getElementById("copy").onclick = () => copyToClipboard(tableHTML);
+  });
+</script>
 
-      return `
-        <table style="width:100%; border-collapse: collapse; margin-top: 1.5rem;">
-          <thead>
-            <tr style="background: var(--panel); color: var(--ink);">
-              <th>Risks</th><th>Actions</th><th>Issues</th><th>Decisions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>${cell(data.risks,"⚠️","Risk")}</td>
-              <td>${cell(data.actions,"✅","Action")}</td>
-              <td>${cell(data.issues,"🛑","Issue")}</td>
-              <td>${cell(data.decisions,"📌","Decision")}</td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-    }
-
-    document.getElementById("run").addEventListener("click", () => {
-      const text = document.getElementById("input").value.trim();
-      if (!text) { document.getElementById("output").innerHTML = "<p>⚠️ Paste or upload something first.</p>"; return; }
-
-      const result = analyze(text);
-      document.getElementById("output").innerHTML = buildTable(result);
-
-      // attach download/export
-      document.getElementById("downloadCSV").onclick = () => exportCSV(result.allRows);
-      document.getElementById("downloadExcel").onclick = () => exportExcel(result.allRows);
-      document.getElementById("downloadPDF").onclick = () => exportPDF(result.allRows);
-      document.getElementById("copy").onclick = () => copyToClipboard(buildTable(result));
-    });
-
-    // 📋 Copy to Clipboard
-    function copyToClipboard(html) {
-      const blob = new Blob([html], {type: "text/html"});
-      const data = [new ClipboardItem({ "text/html": blob })];
-      navigator.clipboard.write(data);
-      alert("✅ RAID table copied to clipboard!");
-    }
-
-    // 📊 CSV Export
-    function exportCSV(rows) {
-      let csv = "Category,Item\n";
-      rows.forEach(r => csv += `"${r.category}","${r.item.replace(/"/g,'""')}"\n`);
-      const blob = new Blob([csv], {type:"text/csv"});
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "raid-log.csv";
-      a.click();
-    }
-
-    // 📊 Excel Export
-    function exportExcel(rows) {
-      const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.json_to_sheet(rows);
-      XLSX.utils.book_append_sheet(wb, ws, "RAID Log");
-      XLSX.writeFile(wb, "raid-log.xlsx");
-    }
-
-    // 📑 PDF Export
-    function exportPDF(rows) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.text("System & Flow — RAID Log", 14, 20);
-      let y = 40;
-      rows.forEach(r => {
-        doc.text(`${r.category}: ${r.item}`, 14, y);
-        y += 10;
-      });
-      doc.save("raid-log.pdf");
-    }
-  </script>
 </body>
 </html>
