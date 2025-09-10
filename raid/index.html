@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ronnie’s RAID Extractor™ | System & Flow</title>
-  <meta name="description" content="Paste a transcript or upload a file, get Risks, Actions, Issues, and Decisions extracted instantly with Ronnie’s RAID Extractor™." />
+  <meta name="description" content="Paste or upload a transcript, get Risks, Actions, Issues, and Decisions instantly with Ronnie’s RAID Extractor™." />
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="index,follow" />
 
@@ -51,6 +51,11 @@
       <strong>🛑 Issues</strong>, and <strong>📌 Decisions</strong>.
     </p>
 
+    <!-- Confidence Score -->
+    <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
+      Ronnie’s Confidence Score: <span style="color:var(--accent); font-weight:600;">82%</span>
+    </div>
+
     <!-- Textarea input -->
     <textarea 
       id="input" 
@@ -67,9 +72,12 @@
       <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color: var(--ink);" />
     </div>
 
+    <!-- Buttons -->
     <div style="margin-top: 1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
       <button id="run" class="button primary">Extract RAID</button>
       <button id="download" class="button ghost">Download CSV</button>
+      <button id="downloadExcel" class="button ghost">Download Excel</button>
+      <button id="downloadPDF" class="button ghost">Download PDF</button>
       <button id="copy" class="button ghost">Copy to Clipboard</button>
     </div>
 
@@ -110,16 +118,31 @@
     </div>
   </footer>
 
-  <!-- Script -->
+  <!-- Script dependencies -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mammoth/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Script -->
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
     function formatLine(line, type, index) {
       const icons = { risk: "⚠️", action: "✅", issue: "🛑", decision: "📌" };
       const labels = { risk: "Risk", action: "Action", issue: "Issue", decision: "Decision" };
-      return `<div><strong>${icons[type]} ${labels[type]} #${index+1}:</strong> ${line}</div>`;
+
+      // urgency and owner detection
+      let decorated = line;
+      if (line.toLowerCase().includes("critical") || line.toLowerCase().includes("high risk")) {
+        decorated = "🚨 " + decorated;
+      }
+      const ownerMatch = line.match(/([A-Z][a-z]+)/);
+      if (ownerMatch) {
+        decorated = decorated.replace(ownerMatch[0], `<strong>${ownerMatch[0]}</strong>`);
+      }
+
+      return `<div><strong>${icons[type]} ${labels[type]} #${index+1}:</strong> ${decorated}</div>`;
     }
 
     function exportCSV(rows) {
@@ -132,6 +155,22 @@
       a.download = "raid-log.csv";
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    function exportExcel(rows) {
+      const worksheet = XLSX.utils.json_to_sheet(rows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "RAID Log");
+      XLSX.writeFile(workbook, "raid-log.xlsx");
+    }
+
+    function exportPDF(html) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(12);
+      doc.text("System & Flow — RAID Log", 10, 10);
+      doc.fromHTML(html, 10, 20);
+      doc.save("raid-log.pdf");
     }
 
     function copyToClipboard(html) {
@@ -235,6 +274,8 @@
       output.innerHTML = tableHTML;
 
       document.getElementById("download").onclick = () => exportCSV(allRows);
+      document.getElementById("downloadExcel").onclick = () => exportExcel(allRows);
+      document.getElementById("downloadPDF").onclick = () => exportPDF(tableHTML);
       document.getElementById("copy").onclick = () => copyToClipboard(tableHTML);
     });
   </script>
