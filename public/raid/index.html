@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ronnie’s RAID Extractor™ | System & Flow</title>
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Meta / Social -->
+  <link rel="icon" href="/assets/img/favicon-32x32.png" />
+  <meta property="og:title" content="Ronnie’s RAID Extractor™" />
+  <meta property="og:description" content="Paste a transcript, get Risks, Actions, Issues, and Decisions in seconds." />
+  <meta property="og:image" content="/assets/img/snf_logo.png" />
+  <meta property="og:url" content="https://systemnflow.com/raid/" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/"><img src="/assets/img/snf_logo.png" alt="System & Flow" /></a>
+    <nav>
+      <a href="/tools.html">Tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/raid/">RAID Extractor</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container" style="max-width: 800px; margin: 2rem auto; padding: 1rem;">
+    <h1>Ronnie’s RAID Extractor™</h1>
+    <p>Paste a transcript below. Ronnie will extract Risks, Actions, Issues, and Decisions.</p>
+
+    <textarea id="input" rows="12" placeholder="Paste transcript..." 
+      style="width: 100%; padding: 12px; border-radius: 8px;"></textarea>
+    <button id="run" 
+      style="margin-top: 1rem; padding: 10px 16px; border-radius: 10px;">Extract RAID</button>
+
+    <div id="output" style="margin-top: 1rem; font-weight: bold;"></div>
+  </main>
+
+  <script>
+    document.getElementById('run').addEventListener('click', () => {
+      const text = document.getElementById('input').value.trim();
+      const output = document.getElementById('output');
+      if (!text) {
+        output.textContent = 'Paste a transcript first.';
+      } else {
+        // Temporary placeholder
+        output.textContent = '✅ Parsed RAID goes here.';
+      }
+    });
+  </script>
+</body>
+</html>
