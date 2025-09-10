@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Saved RAID Logs | System & Flow</title>
+  <meta name="description" content="View all your saved RAID logs in the Pro edition of Ronnie’s RAID Extractor™." />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="robots" content="noindex,follow" />
+
+  <!-- Social -->
+  <meta property="og:title" content="Saved RAID Logs | System & Flow" />
+  <meta property="og:description" content="View and manage saved RAID logs from Ronnie’s RAID Extractor™ Pro." />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
+    <h1 style="text-align:center;">📂 Saved RAID Logs</h1>
+    <p style="text-align:center; color:var(--muted); margin-bottom:2rem;">
+      Below are the RAID logs you’ve saved while using the Pro version.
+    </p>
+
+    <!-- Logs Container -->
+    <div id="logsContainer" style="display:grid; gap:1.5rem;"></div>
+
+    <!-- Actions -->
+    <div style="text-align:center; margin-top:2rem;">
+      <button id="clearLogs" class="button ghost">🗑 Clear All Logs</button>
+      <a href="/raid-pro/index.html" class="button primary">⬅ Back to Extractor</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    const logsContainer = document.getElementById("logsContainer");
+    const savedLogs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+
+    function renderLogs() {
+      logsContainer.innerHTML = "";
+      if (savedLogs.length === 0) {
+        logsContainer.innerHTML = "<p style='text-align:center; color:var(--muted);'>No logs saved yet.</p>";
+        return;
+      }
+
+      savedLogs.forEach(log => {
+        const card = document.createElement("div");
+        card.style.border = "1px solid var(--border)";
+        card.style.padding = "1rem";
+        card.style.borderRadius = "8px";
+        card.style.background = "var(--panel)";
+        card.innerHTML = `
+          <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.5rem;">
+            📅 ${new Date(log.date).toLocaleString()}
+          </p>
+          <pre style="white-space:pre-wrap; color:var(--ink);">${log.content}</pre>
+        `;
+        logsContainer.appendChild(card);
+      });
+    }
+
+    renderLogs();
+
+    document.getElementById("clearLogs").addEventListener("click", () => {
+      if (confirm("Are you sure you want to clear all saved logs?")) {
+        localStorage.removeItem("raidLogs");
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>
