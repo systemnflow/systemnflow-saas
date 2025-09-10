@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ronnie’s RAID Extractor™ Pro | System & Flow</title>
-  <meta name="description" content="Pro edition of Ronnie’s RAID Extractor™ with full RAID history, Excel/PDF export, and more." />
+  <meta name="description" content="Pro edition of Ronnie’s RAID Extractor™ with RAID history, Excel/PDF export, and more." />
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="noindex,follow" />
 
@@ -25,7 +25,7 @@
 </head>
 
 <body>
-  <!-- 🔹 Header -->
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
       <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
@@ -42,35 +42,32 @@
     </div>
   </header>
 
-  <!-- 🔹 License Gate -->
+  <!-- License Gate -->
   <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
     <div id="license-gate" style="text-align:center;">
       <h1>🔒 Enter License Key</h1>
-      <p style="color:var(--muted);">Please enter your Pro license key to unlock Ronnie’s RAID Extractor™ Pro.</p>
-      <input id="licenseKey" type="text" placeholder="Enter your license key..." 
+      <p style="color:var(--muted);">Enter your Pro license key to unlock full access.</p>
+      <input id="licenseKey" type="text" placeholder="Enter your license key..."
         style="width:100%; padding:1rem; margin:1rem 0; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--ink);" />
       <button id="verifyLicense" class="button primary">Verify License</button>
       <div id="licenseError" style="color:red; margin-top:1rem; display:none;">❌ Invalid license key or activation limit reached.</div>
     </div>
 
-    <!-- 🔹 Pro Content (hidden until verified) -->
+    <!-- Pro Content -->
     <div id="proContent" style="display:none;">
       <h1 style="text-align:center;">Ronnie’s RAID Extractor™ Pro</h1>
-      <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
-        Welcome to the <strong>Pro edition</strong> — enjoy full access including 
+      <p style="text-align:center; color:var(--muted); margin-bottom:2rem;">
+        Welcome to the <strong>Pro edition</strong> — full access including 
         <strong>Save RAID history</strong>, <strong>Excel/PDF export</strong>, and more.
       </p>
 
-      <!-- Confidence Score -->
       <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
         Ronnie’s Confidence Score: <span style="color:var(--accent); font-weight:600;">100% (Pro Mode)</span>
       </div>
 
-      <!-- Textarea -->
       <textarea id="input" rows="12" placeholder="Paste transcript..."
         style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
 
-      <!-- File Upload -->
       <div style="margin:1rem 0;">
         <label for="fileInput" style="display:block; margin-bottom:0.5rem; color:var(--muted); font-size:0.9rem;">
           Or upload a transcript (.txt, .docx, .pdf)
@@ -90,7 +87,7 @@
 
       <div id="output" style="margin-top:2rem;"></div>
 
-      <!-- Pro Status Banner -->
+      <!-- Pro Status -->
       <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px solid var(--accent); border-radius:8px; background:var(--panel); color:var(--accent);">
         🎉 You are using the <strong>Pro version</strong> — all features unlocked.
       </div>
@@ -99,19 +96,24 @@
       <div style="margin-top:3rem;">
         <h2 style="text-align:center;">🚀 Coming Soon for Pro Users</h2>
         <ul style="color:var(--muted); line-height:1.8;">
-          <li>📊 <strong>RAID Analytics Dashboard</strong> — view trends across all saved logs.</li>
-          <li>🤝 <strong>Team Sharing</strong> — collaborate with teammates on RAID history.</li>
-          <li>🧠 <strong>AI Summary Generator</strong> — instant executive summaries of meeting logs.</li>
+          <li>📊 <strong>RAID Analytics Dashboard</strong> — trends across saved logs.</li>
+          <li>🤝 <strong>Team Sharing</strong> — collaborate with teammates.</li>
+          <li>🧠 <strong>AI Summary Generator</strong> — instant executive summaries.</li>
         </ul>
+      </div>
+
+      <!-- Saved Logs -->
+      <div style="margin-top:2rem; text-align:center;">
+        <a href="/raid-pro/logs.html" class="button ghost">View Saved Logs</a>
       </div>
     </div>
   </main>
 
-  <!-- 🔹 Footer -->
+  <!-- Footer -->
   <footer class="footer-min">
     <div class="container footer-container">
       <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo" />
         <span class="brand">System & Flow</span>
         <span class="divider">•</span>
         <span class="tagline">Smarter tools. Faster PMs.</span>
@@ -132,7 +134,6 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // 🔐 License key check via API
     document.getElementById("verifyLicense").addEventListener("click", async () => {
       const key = document.getElementById("licenseKey").value.trim();
       const res = await fetch("/api/verify-license", {
@@ -151,19 +152,17 @@
       }
     });
 
-    // Auto-unlock if verified before
     if (localStorage.getItem("proUser") === "true") {
       document.getElementById("license-gate").style.display = "none";
       document.getElementById("proContent").style.display = "block";
     }
 
-    // 💾 Save RAID Log to localStorage
     document.getElementById("save").addEventListener("click", () => {
       const content = document.getElementById("output").innerText;
       let logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
       logs.push({ date: new Date().toISOString(), content });
       localStorage.setItem("raidLogs", JSON.stringify(logs));
-      alert("RAID log saved locally!");
+      alert("✅ RAID log saved locally!");
     });
   </script>
 </body>
