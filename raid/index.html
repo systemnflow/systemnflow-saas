@@ -8,24 +8,39 @@
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="index,follow" />
 
-  <!-- Social -->
-  <meta property="og:title" content="Ronnie’s RAID Extractor™ | System & Flow" />
-  <meta property="og:description" content="AI-powered RAID extraction for PMs — Risks, Actions, Issues, and Decisions in seconds." />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
-  <link rel="manifest" href="/assets/img/site.webmanifest" />
-
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
+  <style>
+    /* Simple modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: var(--panel);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      color: var(--ink);
+    }
+    .modal-content h2 {
+      margin-bottom: 1rem;
+    }
+    .modal-content .button {
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- 🔹 Global Header -->
+  <!-- 🔹 Header -->
   <header class="site-header">
     <div class="container">
       <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
@@ -42,9 +57,9 @@
     </div>
   </header>
 
-  <!-- 🔹 RAID Extractor Content -->
+  <!-- 🔹 Main -->
   <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
-    <h1 style="text-align:center; margin-bottom: 0.5rem;">Ronnie’s RAID Extractor™</h1>
+    <h1 style="text-align:center;">Ronnie’s RAID Extractor™</h1>
     <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
       Paste a transcript <em>or upload a document</em>. Ronnie will extract 
       <strong>⚠️ Risks</strong>, <strong>✅ Actions</strong>, 
@@ -56,32 +71,28 @@
       Ronnie’s Confidence Score: <span style="color:var(--accent); font-weight:600;">82%</span>
     </div>
 
-    <!-- Textarea input -->
-    <textarea 
-      id="input" 
-      rows="12" 
-      placeholder="Paste transcript..."
-      style="width: 100%; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--ink);">
-    </textarea>
+    <!-- Textarea -->
+    <textarea id="input" rows="12" placeholder="Paste transcript..."
+      style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
 
-    <!-- File upload -->
-    <div style="margin: 1rem 0;">
+    <!-- File Upload -->
+    <div style="margin:1rem 0;">
       <label for="fileInput" style="display:block; margin-bottom:0.5rem; color:var(--muted); font-size:0.9rem;">
         Or upload a transcript (.txt, .docx, .pdf)
       </label>
-      <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color: var(--ink);" />
+      <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color:var(--ink);" />
     </div>
 
     <!-- Buttons -->
-    <div style="margin-top: 1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+    <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
       <button id="run" class="button primary">Extract RAID</button>
       <button id="download" class="button ghost">Download CSV</button>
-      <button id="downloadExcel" class="button ghost">Download Excel</button>
-      <button id="downloadPDF" class="button ghost">Download PDF</button>
+      <button id="downloadExcel" class="button ghost pro-only">Download Excel</button>
+      <button id="downloadPDF" class="button ghost pro-only">Download PDF</button>
       <button id="copy" class="button ghost">Copy to Clipboard</button>
     </div>
 
-    <div id="output" style="margin-top: 2rem;"></div>
+    <div id="output" style="margin-top:2rem;"></div>
 
     <!-- 🔒 Pro Feature Teaser -->
     <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted);">
@@ -89,13 +100,21 @@
       <p style="font-size:0.9rem; color:var(--muted);">
         Pro users can save RAID logs to build project knowledge over time and track risks, actions, and decisions across meetings.
       </p>
-      <button disabled class="button ghost" style="opacity:0.6; cursor:not-allowed; margin-top:0.5rem;">
-        Save RAID Log (Pro)
-      </button>
+      <button class="button ghost pro-only">Save RAID Log (Pro)</button>
     </div>
   </main>
 
-  <!-- 🔹 Global Footer -->
+  <!-- Modal -->
+  <div id="paywallModal" class="modal">
+    <div class="modal-content">
+      <h2>🔒 Pro Feature</h2>
+      <p>This feature is available on the <strong>Pro plan</strong>.</p>
+      <a href="/pricing.html" class="button primary">View Pricing</a><br/>
+      <button id="closeModal" class="button ghost" style="margin-top:0.5rem;">Cancel</button>
+    </div>
+  </div>
+
+  <!-- 🔹 Footer -->
   <footer class="footer-min">
     <div class="container footer-container">
       <div class="foot-left">
@@ -113,171 +132,24 @@
         <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
-    <div class="legal">
-      © <span id="y"></span> System & Flow™. All rights reserved.
-    </div>
+    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
   </footer>
 
-  <!-- Script dependencies -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mammoth/mammoth.browser.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <!-- Script -->
+  <!-- Scripts -->
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    function formatLine(line, type, index) {
-      const icons = { risk: "⚠️", action: "✅", issue: "🛑", decision: "📌" };
-      const labels = { risk: "Risk", action: "Action", issue: "Issue", decision: "Decision" };
-
-      // urgency and owner detection
-      let decorated = line;
-      if (line.toLowerCase().includes("critical") || line.toLowerCase().includes("high risk")) {
-        decorated = "🚨 " + decorated;
-      }
-      const ownerMatch = line.match(/([A-Z][a-z]+)/);
-      if (ownerMatch) {
-        decorated = decorated.replace(ownerMatch[0], `<strong>${ownerMatch[0]}</strong>`);
-      }
-
-      return `<div><strong>${icons[type]} ${labels[type]} #${index+1}:</strong> ${decorated}</div>`;
-    }
-
-    function exportCSV(rows) {
-      let csv = "Category,Item\n";
-      rows.forEach(r => csv += `"${r.category}","${r.item.replace(/"/g, '""')}"\n`);
-      const blob = new Blob([csv], { type: "text/csv" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "raid-log.csv";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function exportExcel(rows) {
-      const worksheet = XLSX.utils.json_to_sheet(rows);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "RAID Log");
-      XLSX.writeFile(workbook, "raid-log.xlsx");
-    }
-
-    function exportPDF(html) {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.setFontSize(12);
-      doc.text("System & Flow — RAID Log", 10, 10);
-      doc.fromHTML(html, 10, 20);
-      doc.save("raid-log.pdf");
-    }
-
-    function copyToClipboard(html) {
-      const temp = document.createElement("div");
-      temp.innerHTML = html;
-      document.body.appendChild(temp);
-      const range = document.createRange();
-      range.selectNode(temp);
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-      document.execCommand("copy");
-      document.body.removeChild(temp);
-      alert("✅ RAID log copied to clipboard!");
-    }
-
-    // Handle file upload
-    document.getElementById("fileInput").addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      if (file.type === "text/plain") {
-        const text = await file.text();
-        document.getElementById("input").value = text;
-      } else if (file.type === "application/pdf") {
-        const reader = new FileReader();
-        reader.onload = async function () {
-          const typedarray = new Uint8Array(this.result);
-          const pdf = await pdfjsLib.getDocument(typedarray).promise;
-          let text = "";
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const content = await page.getTextContent();
-            text += content.items.map(s => s.str).join(" ") + "\n";
-          }
-          document.getElementById("input").value = text;
-        };
-        reader.readAsArrayBuffer(file);
-      } else if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-        const reader = new FileReader();
-        reader.onload = async function () {
-          const result = await mammoth.extractRawText({ arrayBuffer: this.result });
-          document.getElementById("input").value = result.value;
-        };
-        reader.readAsArrayBuffer(file);
-      } else {
-        alert("❌ Unsupported file type. Please upload TXT, DOCX, or PDF.");
-      }
-    });
-
-    // RAID extraction logic
-    document.getElementById("run").addEventListener("click", () => {
-      const text = document.getElementById("input").value.trim();
-      const output = document.getElementById("output");
-
-      if (!text) {
-        output.innerHTML = "<p>⚠️ Paste something or upload a file first.</p>";
-        return;
-      }
-
-      const risks = [], actions = [], issues = [], decisions = [], allRows = [];
-      const lines = text.split("\n");
-
-      lines.forEach(line => {
-        const lower = line.toLowerCase();
-        if (lower.includes("risk") || lower.includes("critical") || lower.includes("high risk")) { 
-          risks.push(line); allRows.push({category:"Risk", item:line}); 
-        }
-        else if (lower.includes("action") || lower.includes("will")) { 
-          actions.push(line); allRows.push({category:"Action", item:line}); 
-        }
-        else if (lower.includes("issue") || lower.includes("problem")) { 
-          issues.push(line); allRows.push({category:"Issue", item:line}); 
-        }
-        else if (lower.includes("decide") || lower.includes("decision") || lower.includes("agreed")) { 
-          decisions.push(line); allRows.push({category:"Decision", item:line}); 
-        }
+    // Paywall modal logic
+    const modal = document.getElementById("paywallModal");
+    const closeModal = document.getElementById("closeModal");
+    document.querySelectorAll(".pro-only").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        modal.style.display = "flex";
       });
-
-      const tableHTML = `
-        <table style="width:100%; border-collapse: collapse; margin-top: 1.5rem;">
-          <thead>
-            <tr style="background: var(--panel); color: var(--ink); text-align: left;">
-              <th style="padding: 8px; border: 1px solid var(--border);">Risks</th>
-              <th style="padding: 8px; border: 1px solid var(--border);">Actions</th>
-              <th style="padding: 8px; border: 1px solid var(--border);">Issues</th>
-              <th style="padding: 8px; border: 1px solid var(--border);">Decisions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${risks.map((r,i)=>formatLine(r,"risk",i)).join("") || "-"}</td>
-              <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${actions.map((a,i)=>formatLine(a,"action",i)).join("") || "-"}</td>
-              <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${issues.map((is,i)=>formatLine(is,"issue",i)).join("") || "-"}</td>
-              <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${decisions.map((d,i)=>formatLine(d,"decision",i)).join("") || "-"}</td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-
-      output.innerHTML = tableHTML;
-
-      document.getElementById("download").onclick = () => exportCSV(allRows);
-      document.getElementById("downloadExcel").onclick = () => exportExcel(allRows);
-      document.getElementById("downloadPDF").onclick = () => exportPDF(tableHTML);
-      document.getElementById("copy").onclick = () => copyToClipboard(tableHTML);
     });
+    closeModal.addEventListener("click", () => { modal.style.display = "none"; });
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
   </script>
 </body>
 </html>
