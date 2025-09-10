@@ -57,17 +57,20 @@
     <div id="proContent" style="display:none;">
       <h1 style="text-align:center;">Ronnie’s RAID Extractor™ Pro</h1>
       <p style="text-align:center; color:var(--muted); margin-bottom:2rem;">
-        Welcome to the <strong>Pro edition</strong> — full access including 
+        Welcome to the <strong>Pro edition</strong> — enjoy full access including 
         <strong>Save RAID history</strong>, <strong>Excel/PDF export</strong>, and more.
       </p>
 
+      <!-- Confidence Score -->
       <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
         Ronnie’s Confidence Score: <span style="color:var(--accent); font-weight:600;">100% (Pro Mode)</span>
       </div>
 
+      <!-- Transcript Input -->
       <textarea id="input" rows="12" placeholder="Paste transcript..."
         style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
 
+      <!-- File Upload -->
       <div style="margin:1rem 0;">
         <label for="fileInput" style="display:block; margin-bottom:0.5rem; color:var(--muted); font-size:0.9rem;">
           Or upload a transcript (.txt, .docx, .pdf)
@@ -75,7 +78,7 @@
         <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color:var(--ink);" />
       </div>
 
-      <!-- Buttons -->
+      <!-- Action Buttons -->
       <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
         <button id="run" class="button primary">Extract RAID</button>
         <button id="download" class="button ghost">Download CSV</button>
@@ -96,9 +99,9 @@
       <div style="margin-top:3rem;">
         <h2 style="text-align:center;">🚀 Coming Soon for Pro Users</h2>
         <ul style="color:var(--muted); line-height:1.8;">
-          <li>📊 <strong>RAID Analytics Dashboard</strong> — trends across saved logs.</li>
-          <li>🤝 <strong>Team Sharing</strong> — collaborate with teammates.</li>
-          <li>🧠 <strong>AI Summary Generator</strong> — instant executive summaries.</li>
+          <li>📊 <strong>RAID Analytics Dashboard</strong> — track trends across logs.</li>
+          <li>🤝 <strong>Team Sharing</strong> — collaborate with your team.</li>
+          <li>🧠 <strong>AI Summary Generator</strong> — instant exec summaries.</li>
         </ul>
       </div>
 
@@ -134,6 +137,7 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
+    // 🔐 License key validation
     document.getElementById("verifyLicense").addEventListener("click", async () => {
       const key = document.getElementById("licenseKey").value.trim();
       const res = await fetch("/api/verify-license", {
@@ -152,11 +156,13 @@
       }
     });
 
+    // Auto-unlock if previously verified
     if (localStorage.getItem("proUser") === "true") {
       document.getElementById("license-gate").style.display = "none";
       document.getElementById("proContent").style.display = "block";
     }
 
+    // 💾 Save RAID log
     document.getElementById("save").addEventListener("click", () => {
       const content = document.getElementById("output").innerText;
       let logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
