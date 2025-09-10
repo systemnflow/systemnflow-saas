@@ -88,18 +88,56 @@
   </footer>
 
   <!-- Script -->
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+ <script>
+  document.getElementById("y").textContent = new Date().getFullYear();
 
-    document.getElementById("run").addEventListener("click", () => {
-      const text = document.getElementById("input").value.trim();
-      const output = document.getElementById("output");
-      if (!text) {
-        output.textContent = "⚠️ Paste something first.";
-      } else {
-        output.textContent = "✅ Parsed RAID goes here. (Next: make this smarter!)";
-      }
+  document.getElementById("run").addEventListener("click", () => {
+    const text = document.getElementById("input").value.trim();
+    const output = document.getElementById("output");
+
+    if (!text) {
+      output.innerHTML = "<p>⚠️ Paste something first.</p>";
+      return;
+    }
+
+    // Simple keyword-based extraction (starter logic)
+    const risks = [];
+    const actions = [];
+    const issues = [];
+    const decisions = [];
+
+    const lines = text.split("\n");
+    lines.forEach(line => {
+      const lower = line.toLowerCase();
+      if (lower.includes("risk")) risks.push(line);
+      else if (lower.includes("action") || lower.includes("will")) actions.push(line);
+      else if (lower.includes("issue") || lower.includes("problem")) issues.push(line);
+      else if (lower.includes("decide") || lower.includes("decision") || lower.includes("agreed")) decisions.push(line);
     });
-  </script>
+
+    // Build table output
+    output.innerHTML = `
+      <table style="width:100%; border-collapse: collapse; margin-top: 1.5rem;">
+        <thead>
+          <tr style="background: var(--panel); color: var(--ink); text-align: left;">
+            <th style="padding: 8px; border: 1px solid var(--border);">Risks</th>
+            <th style="padding: 8px; border: 1px solid var(--border);">Actions</th>
+            <th style="padding: 8px; border: 1px solid var(--border);">Issues</th>
+            <th style="padding: 8px; border: 1px solid var(--border);">Decisions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${risks.join("<br>") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${actions.join("<br>") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${issues.join("<br>") || "-"}</td>
+            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${decisions.join("<br>") || "-"}</td>
+          </tr>
+        </tbody>
+      </table>
+    `;
+  });
+</script>
+
 </body>
 </html>
