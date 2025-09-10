@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     const response = await fetch("https://api.lemonsqueezy.com/v1/licenses/validate", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.LEMON_API_KEY}`, // ✅ matches your env var
+        "Authorization": `Bearer ${process.env.LEMON_API_KEY}`, // put your API key in .env
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
@@ -24,35 +24,21 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    if (!response.ok || !data) {
-      return res.status(200).json({ valid: false, error: "License validation failed" });
+    if (data && data.valid) {
+      // ✅ Check product ID
+      if (data.meta.product_id !== 632598) {
+        return res.status(200).json({ valid: false, error: "Product mismatch" });
+      }
+
+      // ✅ Check activation limit
+      if (data.meta.activations_used >= 5) {
+        return res.status(200).json({ valid: false, error: "Activation limit reached" });
+      }
+
+      return res.status(200).json({ valid: true });
+    } else {
+      return res.status(200).json({ valid: false });
     }
-
-    // ✅ Ensure license is valid
-    if (data.valid !== true) {
-      return res.status(200).json({ valid: false, error: "Invalid license" });
-    }
-
-    // ✅ Check product ID matches your Pro product
-    if (String(data.meta?.product_id) !== "632598") {
-      return res.status(200).json({ valid: false, error: "Wrong product" });
-    }
-
-    // ✅ Enforce activation limit (<= 5 activations)
-    const usedActivations = data.meta?.activations || 0;
-    const limit = data.meta?.activation_limit || 5;
-
-    if (usedActivations > limit) {
-      return res.status(200).json({ valid: false, error: "Activation limit exceeded" });
-    }
-
-    return res.status(200).json({
-      valid: true,
-      activations: usedActivations,
-      limit,
-      message: "License verified successfully!"
-    });
-
   } catch (error) {
     console.error("License validation failed:", error);
     return res.status(500).json({ valid: false, error: "Server error" });
