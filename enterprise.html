@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enterprise | System & Flow</title>
+  <meta name="description" content="Enterprise contact page for System & Flow. Get in touch to discuss custom solutions for your team." />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Social -->
+  <meta property="og:title" content="Enterprise | System & Flow" />
+  <meta property="og:description" content="Custom enterprise plans for teams who need RAID history, admin controls, and dedicated support." />
+  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/img/site.webmanifest" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- 🔹 Global Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🔹 Enterprise Contact Content -->
+  <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
+    <h1 style="text-align:center; margin-bottom: 0.5rem;">Enterprise Contact</h1>
+    <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
+      For teams and organizations that need <strong>custom solutions</strong> — including RAID history, 
+      admin controls, team accounts, and dedicated support.
+    </p>
+
+    <!-- Enterprise Inquiry Form -->
+    <form 
+      action="https://formsubmit.co/systemnflow@gmail.com" 
+      method="POST" 
+      style="display:grid; gap:1rem;"
+    >
+      <!-- Hidden settings -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://systemnflow.com/thank-you.html">
+      <input type="hidden" name="Lead Type" value="Enterprise">
+
+      <!-- Company Info -->
+      <label>
+        Company Name
+        <input type="text" name="Company Name" required />
+      </label>
+      
+      <label>
+        Industry
+        <input type="text" name="Industry" placeholder="e.g., Technology, Finance, Healthcare" />
+      </label>
+
+      <label>
+        Company Size
+        <select name="Company Size" required>
+          <option value="">Select...</option>
+          <option value="1-10">1–10 employees</option>
+          <option value="11-50">11–50 employees</option>
+          <option value="51-200">51–200 employees</option>
+          <option value="201-1000">201–1000 employees</option>
+          <option value="1000+">1000+ employees</option>
+        </select>
+      </label>
+
+      <!-- Team Needs -->
+      <label>
+        Number of PM Users
+        <input type="number" name="PM Users" placeholder="e.g., 25" required />
+      </label>
+
+      <label>
+        What tools or features are most important?
+        <textarea name="Key Features" rows="4" placeholder="e.g., RAID logs, team dashboards, admin controls..." required></textarea>
+      </label>
+
+      <!-- Timing & Budget -->
+      <label>
+        Expected Start Timeline
+        <select name="Timeline">
+          <option value="">Select...</option>
+          <option value="Immediately">Immediately</option>
+          <option value="1-3 months">1–3 months</option>
+          <option value="3-6 months">3–6 months</option>
+          <option value="6+ months">6+ months</option>
+        </select>
+      </label>
+
+      <label>
+        Budget Range (optional)
+        <input type="text" name="Budget" placeholder="e.g., $10k–$25k annually" />
+      </label>
+
+      <!-- Contact Info -->
+      <label>
+        Your Name
+        <input type="text" name="Name" required />
+      </label>
+
+      <label>
+        Work Email
+        <input type="email" name="Email" required />
+      </label>
+
+      <label>
+        Phone (optional)
+        <input type="text" name="Phone" />
+      </label>
+
+      <!-- Submit -->
+      <button type="submit" class="button primary">Submit Inquiry</button>
+    </form>
+  </main>
+
+  <!-- 🔹 Global Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">
+      © <span id="y"></span> System & Flow™. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
