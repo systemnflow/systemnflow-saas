@@ -7,8 +7,34 @@
   <meta name="description" content="Choose a plan for Ronnie’s RAID Extractor and other System & Flow tools. Free, Pro, and Enterprise options available." />
   <meta name="theme-color" content="#0b1220" />
 
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/img/site.webmanifest" />
+
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
+  <style>
+    /* Ensure all cards align buttons at bottom */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 8px;
+    }
+    .card-content {
+      flex: 1;
+    }
+    .card-actions {
+      margin-top: auto;
+    }
+  </style>
 </head>
 
 <body>
@@ -36,54 +62,65 @@
       Upgrade to unlock Pro features like saving RAID history, Excel/PDF exports, and more.
     </p>
 
-    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+    <div class="pricing-grid">
       
       <!-- Free -->
       <div class="card" style="border: 1px solid var(--border); padding: 2rem;">
-        <h2>Free</h2>
-        <p style="color: var(--muted);">For PMs who just need the basics.</p>
-        <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>$0</strong>/mo</p>
-        <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
-          <li>✔ Extract RAID from transcripts</li>
-          <li>✔ Copy to Clipboard</li>
-          <li>✔ Download CSV</li>
-          <li>❌ Save RAID history</li>
-          <li>❌ Excel/PDF export</li>
-        </ul>
-        <a href="/raid/" class="button ghost">Start Free</a>
+        <div class="card-content">
+          <h2>Free</h2>
+          <p style="color: var(--muted);">For PMs who just need the basics.</p>
+          <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>$0</strong>/mo</p>
+          <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
+            <li>✔ Extract RAID from transcripts</li>
+            <li>✔ Copy to Clipboard</li>
+            <li>✔ Download CSV</li>
+            <li>❌ Save RAID history</li>
+            <li>❌ Excel/PDF export</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="/raid/" class="button ghost">Start Free</a>
+        </div>
       </div>
 
       <!-- Pro -->
       <div class="card" style="border: 2px solid var(--accent); padding: 2rem; box-shadow: var(--shadow);">
-        <h2>Pro</h2>
-        <p style="color: var(--muted);">For busy PMs who want full power.</p>
-        <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>$19</strong>/mo</p>
-        <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
-          <li>✔ Everything in Free</li>
-          <li>✔ Save RAID history</li>
-          <li>✔ Excel + PDF export</li>
-          <li>✔ Ronnie’s Confidence Score</li>
-          <li>✔ Priority support</li>
-        </ul>
-        <!-- 🔗 LemonSqueezy checkout link -->
-        <a href="https://systemnflow.lemonsqueezy.com/buy/858f651e-edd3-473b-9adc-4d48169d5b97" 
-           class="button primary" target="_blank" rel="noopener">
-          Start Free Trial
-        </a>
+        <div class="card-content">
+          <h2>Pro</h2>
+          <p style="color: var(--muted);">For busy PMs who want full power.</p>
+          <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>$19</strong>/mo</p>
+          <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
+            <li>✔ Everything in Free</li>
+            <li>✔ Save RAID history</li>
+            <li>✔ Excel + PDF export</li>
+            <li>✔ Ronnie’s Confidence Score</li>
+            <li>✔ Priority support</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="https://systemnflow.lemonsqueezy.com/buy/858f651e-edd3-473b-9adc-4d48169d5b97" 
+             class="button primary" target="_blank" rel="noopener">
+            Start Free Trial
+          </a>
+        </div>
       </div>
 
       <!-- Enterprise -->
       <div class="card" style="border: 1px solid var(--border); padding: 2rem;">
-        <h2>Enterprise</h2>
-        <p style="color: var(--muted);">For teams and organizations.</p>
-        <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>Custom</strong></p>
-        <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
-          <li>✔ Everything in Pro</li>
-          <li>✔ Team accounts</li>
-          <li>✔ Admin controls</li>
-          <li>✔ Dedicated support</li>
-        </ul>
-        <a href="/contact.html" class="button ghost">Contact Sales</a>
+        <div class="card-content">
+          <h2>Enterprise</h2>
+          <p style="color: var(--muted);">For teams and organizations.</p>
+          <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>Custom</strong></p>
+          <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
+            <li>✔ Everything in Pro</li>
+            <li>✔ Team accounts</li>
+            <li>✔ Admin controls</li>
+            <li>✔ Dedicated support</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="/enterprise.html" class="button ghost">Contact Sales</a>
+        </div>
       </div>
 
     </div>
@@ -102,18 +139,4 @@
         <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
         <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
-      </div>
-    </div>
-    <div class="legal">
-      © <span id="y"></span> System & Flow™. All rights reserved.
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" r_
