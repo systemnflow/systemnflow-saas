@@ -49,7 +49,7 @@
       <p style="color:var(--muted);">Please enter your Pro license key to unlock Ronnie’s RAID Extractor™ Pro.</p>
       <input id="licenseKey" type="text" placeholder="Enter your license key..." style="width:100%; padding:1rem; margin:1rem 0; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--ink);" />
       <button id="verifyLicense" class="button primary">Verify License</button>
-      <div id="licenseError" style="color:red; margin-top:1rem; display:none;">❌ Invalid license key.</div>
+      <div id="licenseError" style="color:red; margin-top:1rem; display:none;">❌ Invalid license key. Please check and try again.</div>
     </div>
 
     <!-- 🔹 Pro Content (hidden until verified) -->
@@ -131,27 +131,38 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // 🔐 License key check (simplified)
-    document.getElementById("verifyLicense").addEventListener("click", () => {
+    // 🔐 Verify license against backend
+    document.getElementById("verifyLicense").addEventListener("click", async () => {
       const key = document.getElementById("licenseKey").value.trim();
 
-      // TODO: Replace with LemonSqueezy API call
-      if(key === "DEMO-PRO-KEY-123"){  
-        localStorage.setItem("proUser", "true");
-        document.getElementById("license-gate").style.display = "none";
-        document.getElementById("proContent").style.display = "block";
-      } else {
+      try {
+        const res = await fetch("/api/verify-license", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ licenseKey: key })
+        });
+        const data = await res.json();
+
+        if (data.valid) {
+          localStorage.setItem("proUser", "true");
+          document.getElementById("license-gate").style.display = "none";
+          document.getElementById("proContent").style.display = "block";
+        } else {
+          document.getElementById("licenseError").style.display = "block";
+        }
+      } catch (err) {
+        console.error("License check failed:", err);
         document.getElementById("licenseError").style.display = "block";
       }
     });
 
     // Auto-unlock if verified before
-    if(localStorage.getItem("proUser") === "true"){
+    if (localStorage.getItem("proUser") === "true") {
       document.getElementById("license-gate").style.display = "none";
       document.getElementById("proContent").style.display = "block";
     }
 
-    // 💾 Save RAID Log to localStorage
+    // 💾 Save RAID Log locally
     document.getElementById("save").addEventListener("click", () => {
       const content = document.getElementById("output").innerText;
       let logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
