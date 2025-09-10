@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ronnie’s RAID Extractor™ | System & Flow</title>
-  <meta name="description" content="Paste a transcript, get Risks, Actions, Issues, and Decisions extracted instantly with Ronnie’s RAID Extractor™." />
+  <meta name="description" content="Paste a transcript or upload a file, get Risks, Actions, Issues, and Decisions extracted instantly with Ronnie’s RAID Extractor™." />
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="index,follow" />
 
@@ -46,16 +46,26 @@
   <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
     <h1 style="text-align:center; margin-bottom: 0.5rem;">Ronnie’s RAID Extractor™</h1>
     <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
-      Paste a transcript below. Ronnie will extract <strong>⚠️ Risks</strong>, 
-      <strong>✅ Actions</strong>, <strong>🛑 Issues</strong>, and <strong>📌 Decisions</strong>.
+      Paste a transcript <em>or upload a document</em>. Ronnie will extract 
+      <strong>⚠️ Risks</strong>, <strong>✅ Actions</strong>, 
+      <strong>🛑 Issues</strong>, and <strong>📌 Decisions</strong>.
     </p>
 
+    <!-- Textarea input -->
     <textarea 
       id="input" 
       rows="12" 
       placeholder="Paste transcript..."
       style="width: 100%; padding: 1rem; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--ink);">
     </textarea>
+
+    <!-- File upload -->
+    <div style="margin: 1rem 0;">
+      <label for="fileInput" style="display:block; margin-bottom:0.5rem; color:var(--muted); font-size:0.9rem;">
+        Or upload a transcript (.txt, .docx, .pdf)
+      </label>
+      <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color: var(--ink);" />
+    </div>
 
     <div style="margin-top: 1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
       <button id="run" class="button primary">Extract RAID</button>
@@ -101,99 +111,132 @@
   </footer>
 
   <!-- Script -->
- <script>
-  document.getElementById("y").textContent = new Date().getFullYear();
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mammoth/mammoth.browser.min.js"></script>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
 
-  function formatLine(line, type, index) {
-    const icons = { risk: "⚠️", action: "✅", issue: "🛑", decision: "📌" };
-    const labels = { risk: "Risk", action: "Action", issue: "Issue", decision: "Decision" };
-    return `<div><strong>${icons[type]} ${labels[type]} #${index+1}:</strong> ${line}</div>`;
-  }
-
-  function exportCSV(rows) {
-    let csv = "Category,Item\n";
-    rows.forEach(r => csv += `"${r.category}","${r.item.replace(/"/g, '""')}"\n`);
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "raid-log.csv";
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  function copyToClipboard(html) {
-    const temp = document.createElement("div");
-    temp.innerHTML = html;
-    document.body.appendChild(temp);
-    const range = document.createRange();
-    range.selectNode(temp);
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand("copy");
-    document.body.removeChild(temp);
-    alert("✅ RAID log copied to clipboard!");
-  }
-
-  document.getElementById("run").addEventListener("click", () => {
-    const text = document.getElementById("input").value.trim();
-    const output = document.getElementById("output");
-
-    if (!text) {
-      output.innerHTML = "<p>⚠️ Paste something first.</p>";
-      return;
+    function formatLine(line, type, index) {
+      const icons = { risk: "⚠️", action: "✅", issue: "🛑", decision: "📌" };
+      const labels = { risk: "Risk", action: "Action", issue: "Issue", decision: "Decision" };
+      return `<div><strong>${icons[type]} ${labels[type]} #${index+1}:</strong> ${line}</div>`;
     }
 
-    const risks = [], actions = [], issues = [], decisions = [], allRows = [];
-    const lines = text.split("\n");
+    function exportCSV(rows) {
+      let csv = "Category,Item\n";
+      rows.forEach(r => csv += `"${r.category}","${r.item.replace(/"/g, '""')}"\n`);
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "raid-log.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
 
-    lines.forEach(line => {
-      const lower = line.toLowerCase();
-      if (lower.includes("risk") || lower.includes("critical") || lower.includes("high risk")) { 
-        risks.push(line); allRows.push({category:"Risk", item:line}); 
-      }
-      else if (lower.includes("action") || lower.includes("will")) { 
-        actions.push(line); allRows.push({category:"Action", item:line}); 
-      }
-      else if (lower.includes("issue") || lower.includes("problem")) { 
-        issues.push(line); allRows.push({category:"Issue", item:line}); 
-      }
-      else if (lower.includes("decide") || lower.includes("decision") || lower.includes("agreed")) { 
-        decisions.push(line); allRows.push({category:"Decision", item:line}); 
+    function copyToClipboard(html) {
+      const temp = document.createElement("div");
+      temp.innerHTML = html;
+      document.body.appendChild(temp);
+      const range = document.createRange();
+      range.selectNode(temp);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      document.execCommand("copy");
+      document.body.removeChild(temp);
+      alert("✅ RAID log copied to clipboard!");
+    }
+
+    // Handle file upload
+    document.getElementById("fileInput").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.type === "text/plain") {
+        const text = await file.text();
+        document.getElementById("input").value = text;
+      } else if (file.type === "application/pdf") {
+        const reader = new FileReader();
+        reader.onload = async function () {
+          const typedarray = new Uint8Array(this.result);
+          const pdf = await pdfjsLib.getDocument(typedarray).promise;
+          let text = "";
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            text += content.items.map(s => s.str).join(" ") + "\n";
+          }
+          document.getElementById("input").value = text;
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+        const reader = new FileReader();
+        reader.onload = async function () {
+          const result = await mammoth.extractRawText({ arrayBuffer: this.result });
+          document.getElementById("input").value = result.value;
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        alert("❌ Unsupported file type. Please upload TXT, DOCX, or PDF.");
       }
     });
 
-    const tableHTML = `
-      <table style="width:100%; border-collapse: collapse; margin-top: 1.5rem;">
-        <thead>
-          <tr style="background: var(--panel); color: var(--ink); text-align: left;">
-            <th style="padding: 8px; border: 1px solid var(--border);">Risks</th>
-            <th style="padding: 8px; border: 1px solid var(--border);">Actions</th>
-            <th style="padding: 8px; border: 1px solid var(--border);">Issues</th>
-            <th style="padding: 8px; border: 1px solid var(--border);">Decisions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${risks.map((r,i)=>formatLine(r,"risk",i)).join("") || "-"}</td>
-            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${actions.map((a,i)=>formatLine(a,"action",i)).join("") || "-"}</td>
-            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${issues.map((is,i)=>formatLine(is,"issue",i)).join("") || "-"}</td>
-            <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${decisions.map((d,i)=>formatLine(d,"decision",i)).join("") || "-"}</td>
-          </tr>
-        </tbody>
-      </table>
-    `;
+    // RAID extraction logic
+    document.getElementById("run").addEventListener("click", () => {
+      const text = document.getElementById("input").value.trim();
+      const output = document.getElementById("output");
 
-    output.innerHTML = tableHTML;
+      if (!text) {
+        output.innerHTML = "<p>⚠️ Paste something or upload a file first.</p>";
+        return;
+      }
 
-    // download CSV
-    document.getElementById("download").onclick = () => exportCSV(allRows);
+      const risks = [], actions = [], issues = [], decisions = [], allRows = [];
+      const lines = text.split("\n");
 
-    // copy to clipboard
-    document.getElementById("copy").onclick = () => copyToClipboard(tableHTML);
-  });
-</script>
+      lines.forEach(line => {
+        const lower = line.toLowerCase();
+        if (lower.includes("risk") || lower.includes("critical") || lower.includes("high risk")) { 
+          risks.push(line); allRows.push({category:"Risk", item:line}); 
+        }
+        else if (lower.includes("action") || lower.includes("will")) { 
+          actions.push(line); allRows.push({category:"Action", item:line}); 
+        }
+        else if (lower.includes("issue") || lower.includes("problem")) { 
+          issues.push(line); allRows.push({category:"Issue", item:line}); 
+        }
+        else if (lower.includes("decide") || lower.includes("decision") || lower.includes("agreed")) { 
+          decisions.push(line); allRows.push({category:"Decision", item:line}); 
+        }
+      });
 
+      const tableHTML = `
+        <table style="width:100%; border-collapse: collapse; margin-top: 1.5rem;">
+          <thead>
+            <tr style="background: var(--panel); color: var(--ink); text-align: left;">
+              <th style="padding: 8px; border: 1px solid var(--border);">Risks</th>
+              <th style="padding: 8px; border: 1px solid var(--border);">Actions</th>
+              <th style="padding: 8px; border: 1px solid var(--border);">Issues</th>
+              <th style="padding: 8px; border: 1px solid var(--border);">Decisions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${risks.map((r,i)=>formatLine(r,"risk",i)).join("") || "-"}</td>
+              <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${actions.map((a,i)=>formatLine(a,"action",i)).join("") || "-"}</td>
+              <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${issues.map((is,i)=>formatLine(is,"issue",i)).join("") || "-"}</td>
+              <td style="padding: 8px; border: 1px solid var(--border); vertical-align: top;">${decisions.map((d,i)=>formatLine(d,"decision",i)).join("") || "-"}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+
+      output.innerHTML = tableHTML;
+
+      document.getElementById("download").onclick = () => exportCSV(allRows);
+      document.getElementById("copy").onclick = () => copyToClipboard(tableHTML);
+    });
+  </script>
 </body>
 </html>
