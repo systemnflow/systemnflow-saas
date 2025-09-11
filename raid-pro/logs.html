@@ -39,7 +39,7 @@
   <main class="container" style="max-width: 1000px; margin: 4rem auto; padding: 2rem;">
     <h1 style="text-align:center;">📂 Saved RAID Logs</h1>
     <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
-      Manage your saved RAID history. Search, filter, and export logs in any format.
+      Manage your RAID history. Search, filter, export, or restore logs.
     </p>
 
     <!-- Search & Filter -->
@@ -62,10 +62,11 @@
     <!-- Bulk Actions -->
     <div style="margin-top:2rem; text-align:center;">
       <button id="exportAll" class="button ghost">⬇ Export All (JSON)</button>
+      <button id="importLogs" class="button ghost">⬆ Import Logs</button>
       <button id="clearAll" class="button ghost" style="margin-left:1rem;">🗑 Clear All</button>
     </div>
 
-    <!-- Coming Soon Teasers -->
+    <!-- Coming Soon -->
     <div style="margin-top:3rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px;">
       <h2>🚀 Coming Soon</h2>
       <ul style="color:var(--muted); line-height:1.8; list-style:none; padding:0;">
@@ -80,7 +81,7 @@
   <footer class="footer-min">
     <div class="container footer-container">
       <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo" />
         <span class="brand">System & Flow</span>
         <span class="divider">•</span>
         <span class="tagline">Smarter tools. Faster PMs.</span>
@@ -128,6 +129,7 @@
             <button onclick="exportLog(${index}, 'pdf')" class="button ghost">⬇ PDF</button>
             <button onclick="exportLog(${index}, 'json')" class="button ghost">⬇ JSON</button>
             <button onclick="copyLog(${index})" class="button ghost">📋 Copy</button>
+            <button onclick="restoreLog(${index})" class="button ghost">↩ Restore</button>
             <button onclick="deleteLog(${index})" class="button ghost">🗑 Delete</button>
           </div>
         `;
@@ -167,6 +169,13 @@
       alert("📋 Log copied to clipboard!");
     }
 
+    function restoreLog(index) {
+      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      localStorage.setItem("restoreLog", logs[index].content);
+      alert("↩ Log restored! Go back to the Extractor page.");
+      window.location.href = "/raid-pro/index.html";
+    }
+
     function deleteLog(index) {
       let logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
       logs.splice(index, 1);
@@ -183,6 +192,28 @@
       a.click();
     });
 
+    document.getElementById("importLogs").addEventListener("click", () => {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "application/json";
+      input.onchange = e => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const newLogs = JSON.parse(reader.result);
+            localStorage.setItem("raidLogs", JSON.stringify(newLogs));
+            renderLogs();
+            alert("✅ Logs imported!");
+          } catch {
+            alert("❌ Invalid JSON file.");
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    });
+
     document.getElementById("clearAll").addEventListener("click", () => {
       if (confirm("Are you sure you want to clear all logs?")) {
         localStorage.removeItem("raidLogs");
@@ -192,6 +223,12 @@
 
     document.getElementById("searchBox").addEventListener("input", renderLogs);
     document.getElementById("filterType").addEventListener("change", renderLogs);
+
+    // 🔐 License enforcement
+    if (localStorage.getItem("proUser") !== "true") {
+      alert("❌ Pro license required to view logs.");
+      window.location.href = "/raid-pro/index.html";
+    }
 
     renderLogs();
   </script>
