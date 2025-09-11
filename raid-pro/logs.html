@@ -3,16 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Saved RAID Logs | System & Flow</title>
-  <meta name="description" content="View all your saved RAID logs in the Pro edition of Ronnie’s RAID Extractor™." />
+  <title>Saved RAID Logs | Ronnie’s RAID Extractor™ Pro</title>
+  <meta name="description" content="View and manage saved RAID logs in Ronnie’s RAID Extractor™ Pro." />
   <meta name="theme-color" content="#0b1220" />
-  <meta name="robots" content="noindex,follow" />
-
-  <!-- Social -->
-  <meta property="og:title" content="Saved RAID Logs | System & Flow" />
-  <meta property="og:description" content="View and manage saved RAID logs from Ronnie’s RAID Extractor™ Pro." />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
@@ -43,19 +36,43 @@
   </header>
 
   <!-- Main -->
-  <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
+  <main class="container" style="max-width: 1000px; margin: 4rem auto; padding: 2rem;">
     <h1 style="text-align:center;">📂 Saved RAID Logs</h1>
-    <p style="text-align:center; color:var(--muted); margin-bottom:2rem;">
-      Below are the RAID logs you’ve saved while using the Pro version.
+    <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
+      Manage your saved RAID history. Search, filter, and export logs in any format.
     </p>
 
-    <!-- Logs Container -->
-    <div id="logsContainer" style="display:grid; gap:1.5rem;"></div>
+    <!-- Search & Filter -->
+    <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem;">
+      <input id="searchBox" type="text" placeholder="🔎 Search logs..."
+        style="flex:1; padding:0.75rem; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--ink);" />
+      <select id="filterType" 
+        style="padding:0.75rem; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--ink);">
+        <option value="">Filter: All</option>
+        <option value="Risk">Risks</option>
+        <option value="Action">Actions</option>
+        <option value="Issue">Issues</option>
+        <option value="Decision">Decisions</option>
+      </select>
+    </div>
 
-    <!-- Actions -->
-    <div style="text-align:center; margin-top:2rem;">
-      <button id="clearLogs" class="button ghost">🗑 Clear All Logs</button>
-      <a href="/raid-pro/index.html" class="button primary">⬅ Back to Extractor</a>
+    <!-- Logs List -->
+    <div id="logsList" style="display:grid; gap:1.5rem;"></div>
+
+    <!-- Bulk Actions -->
+    <div style="margin-top:2rem; text-align:center;">
+      <button id="exportAll" class="button ghost">⬇ Export All (JSON)</button>
+      <button id="clearAll" class="button ghost" style="margin-left:1rem;">🗑 Clear All</button>
+    </div>
+
+    <!-- Coming Soon Teasers -->
+    <div style="margin-top:3rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px;">
+      <h2>🚀 Coming Soon</h2>
+      <ul style="color:var(--muted); line-height:1.8; list-style:none; padding:0;">
+        <li>📊 RAID Analytics Dashboard (trends & insights)</li>
+        <li>🤝 Team Sharing & Collaboration</li>
+        <li>🔗 Integrations: Jira, Notion, Excel Online</li>
+      </ul>
     </div>
   </main>
 
@@ -84,40 +101,99 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    const logsContainer = document.getElementById("logsContainer");
-    const savedLogs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
-
     function renderLogs() {
-      logsContainer.innerHTML = "";
-      if (savedLogs.length === 0) {
-        logsContainer.innerHTML = "<p style='text-align:center; color:var(--muted);'>No logs saved yet.</p>";
-        return;
-      }
+      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      const search = document.getElementById("searchBox").value.toLowerCase();
+      const filter = document.getElementById("filterType").value;
+      const logsList = document.getElementById("logsList");
+      logsList.innerHTML = "";
 
-      savedLogs.forEach(log => {
+      logs.forEach((log, index) => {
+        if (
+          (search && !log.content.toLowerCase().includes(search)) ||
+          (filter && !log.content.includes(filter))
+        ) return;
+
         const card = document.createElement("div");
         card.style.border = "1px solid var(--border)";
         card.style.padding = "1rem";
         card.style.borderRadius = "8px";
         card.style.background = "var(--panel)";
         card.innerHTML = `
-          <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.5rem;">
-            📅 ${new Date(log.date).toLocaleString()}
-          </p>
-          <pre style="white-space:pre-wrap; color:var(--ink);">${log.content}</pre>
+          <p style="color:var(--muted); font-size:0.9rem;">📅 ${new Date(log.date).toLocaleString()}</p>
+          <pre style="white-space:pre-wrap; color:var(--ink); margin:1rem 0;">${log.content}</pre>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button onclick="exportLog(${index}, 'csv')" class="button ghost">⬇ CSV</button>
+            <button onclick="exportLog(${index}, 'txt')" class="button ghost">⬇ TXT</button>
+            <button onclick="exportLog(${index}, 'pdf')" class="button ghost">⬇ PDF</button>
+            <button onclick="exportLog(${index}, 'json')" class="button ghost">⬇ JSON</button>
+            <button onclick="copyLog(${index})" class="button ghost">📋 Copy</button>
+            <button onclick="deleteLog(${index})" class="button ghost">🗑 Delete</button>
+          </div>
         `;
-        logsContainer.appendChild(card);
+        logsList.appendChild(card);
       });
     }
 
-    renderLogs();
+    function exportLog(index, format) {
+      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      const log = logs[index];
+      let blob;
 
-    document.getElementById("clearLogs").addEventListener("click", () => {
-      if (confirm("Are you sure you want to clear all saved logs?")) {
+      switch (format) {
+        case "csv":
+          blob = new Blob([`"Date","Content"\n"${log.date}","${log.content.replace(/"/g, '""')}"`], { type: "text/csv" });
+          break;
+        case "txt":
+          blob = new Blob([`${log.date}\n\n${log.content}`], { type: "text/plain" });
+          break;
+        case "json":
+          blob = new Blob([JSON.stringify(log, null, 2)], { type: "application/json" });
+          break;
+        case "pdf":
+          blob = new Blob([`${log.date}\n\n${log.content}`], { type: "application/pdf" });
+          break;
+      }
+
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `raid-log-${index + 1}.${format}`;
+      a.click();
+    }
+
+    function copyLog(index) {
+      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      navigator.clipboard.writeText(logs[index].content);
+      alert("📋 Log copied to clipboard!");
+    }
+
+    function deleteLog(index) {
+      let logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      logs.splice(index, 1);
+      localStorage.setItem("raidLogs", JSON.stringify(logs));
+      renderLogs();
+    }
+
+    document.getElementById("exportAll").addEventListener("click", () => {
+      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      const blob = new Blob([JSON.stringify(logs, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "all-raid-logs.json";
+      a.click();
+    });
+
+    document.getElementById("clearAll").addEventListener("click", () => {
+      if (confirm("Are you sure you want to clear all logs?")) {
         localStorage.removeItem("raidLogs");
-        location.reload();
+        renderLogs();
       }
     });
+
+    document.getElementById("searchBox").addEventListener("input", renderLogs);
+    document.getElementById("filterType").addEventListener("change", renderLogs);
+
+    renderLogs();
   </script>
 </body>
 </html>
