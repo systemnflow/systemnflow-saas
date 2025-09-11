@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Notify Me | System & Flow</title>
-  <meta name="description" content="Join the waitlist to be notified when new System & Flow tools launch." />
+  <meta name="description" content="Be the first to know when new System & Flow tools launch. Sign up for early notifications and updates." />
   <meta name="theme-color" content="#0b1220" />
 
   <!-- Favicons -->
@@ -15,10 +15,76 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    /* Ronnie Mascot */
+    .ronnie-notify {
+      max-width: 340px;   /* Bigger Ronnie */
+      width: 80%;
+      margin: 2rem auto;
+      display: block;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .ronnie-notify:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+    }
+
+    /* Notify Form */
+    .notify-wrap {
+      text-align: center;
+      margin: 2rem auto;
+      max-width: 480px;
+    }
+    .notify-wrap h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+    .notify-wrap p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .notify-wrap input[type="email"] {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+    .notify-wrap .consent {
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    /* Coming Soon */
+    .coming-soon {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      background: var(--panel);
+      text-align: center;
+    }
+    .coming-soon h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    .coming-soon ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- 🔹 Header -->
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
       <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
@@ -35,43 +101,39 @@
     </div>
   </header>
 
-  <!-- 🔹 Main -->
-  <main class="container" style="max-width: 720px; margin: 4rem auto; text-align:center;">
-    <img src="/assets/img/ronnie-notify.png" alt="Ronnie mascot" style="max-width:200px; margin:0 auto 2rem;" />
-    
-    <h1>🚀 Be the First to Know</h1>
-    <p style="color:var(--muted); margin:1rem 0 2rem;">
-      Ronnie’s working hard behind the scenes.  
-      Enter your email and we’ll notify you as soon as new tools launch.
-    </p>
+  <!-- Main -->
+  <main class="container" style="max-width: 960px; margin: 4rem auto; padding: 2rem;">
 
-    <!-- Notify Form -->
-    <form class="contact" action="https://formspree.io/f/your-form-id" method="POST">
-      <label for="email">Your Email Address</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email..." required />
+    <!-- Ronnie Mascot -->
+    <img src="/assets/img/ronnie-notify.png" alt="Ronnie mascot" class="ronnie-notify" />
 
-      <div class="consent">
-        <input type="checkbox" id="consent" name="consent" required />
-        <label for="consent">I agree to receive updates about System & Flow tools.</label>
-      </div>
-
-      <div class="actions" style="justify-content:center; margin-top:1rem;">
+    <!-- Notify Block -->
+    <div class="notify-wrap">
+      <h2>🚀 Be the First to Know</h2>
+      <p>Ronnie’s working hard behind the scenes. Enter your email and we’ll notify you as soon as new tools launch.</p>
+      <form>
+        <input type="email" placeholder="Your Email Address" required />
+        <div class="consent">
+          <input type="checkbox" id="consent" required />
+          <label for="consent">I agree to receive updates about System & Flow tools.</label>
+        </div>
         <button type="submit" class="button primary">Notify Me</button>
-      </div>
-    </form>
+      </form>
+    </div>
 
-    <!-- Coming Soon Teaser -->
-    <div style="margin-top:3rem; padding:1.5rem; border:1px dashed var(--border); border-radius:10px; background:var(--panel);">
-      <h2>🔮 Coming Soon</h2>
-      <ul style="color:var(--muted); line-height:1.8; list-style:none; padding:0;">
+    <!-- Coming Soon -->
+    <div class="coming-soon">
+      <h3>🔮 Coming Soon</h3>
+      <ul>
         <li>📊 RAID Analytics Dashboard</li>
         <li>🤝 Team Sharing & Collaboration</li>
-        <li>🧠 AI-Powered Summaries</li>
+        <li>🧠 AI Summary Generator</li>
+        <li>🔗 Integrations with Jira, Notion & more</li>
       </ul>
     </div>
   </main>
 
-  <!-- 🔹 Footer -->
+  <!-- Footer -->
   <footer class="footer-min">
     <div class="container footer-container">
       <div class="foot-left">
@@ -92,6 +154,7 @@
     <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
   </footer>
 
+  <!-- Scripts -->
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
