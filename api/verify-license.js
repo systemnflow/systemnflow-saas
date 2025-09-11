@@ -1,5 +1,4 @@
 // File: /api/verify-license.js
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -15,23 +14,25 @@ export default async function handler(req, res) {
     const response = await fetch("https://api.lemonsqueezy.com/v1/licenses/validate", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.LEMON_API_KEY}`, // put your API key in .env
+        "Authorization": `Bearer ${process.env.LEMONSQUEEZY_API_KEY}`, // 🔑 keep secret
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify({ license_key })
+      body: JSON.stringify({
+        license_key,
+        product_id: 632598,        // ✅ your product ID
+        activation_limit: 5        // ✅ max activations allowed
+      })
     });
 
     const data = await response.json();
 
     if (data && data.valid) {
-      // ✅ Check product ID
-      if (data.meta.product_id !== 632598) {
-        return res.status(200).json({ valid: false, error: "Product mismatch" });
+      // Optional: enforce product_id and activation_limit from API response
+      if (data.license && data.license.product_id !== 632598) {
+        return res.status(200).json({ valid: false, error: "Wrong product" });
       }
-
-      // ✅ Check activation limit
-      if (data.meta.activations_used >= 5) {
+      if (data.license && data.license.activations > 5) {
         return res.status(200).json({ valid: false, error: "Activation limit reached" });
       }
 
@@ -39,6 +40,7 @@ export default async function handler(req, res) {
     } else {
       return res.status(200).json({ valid: false });
     }
+
   } catch (error) {
     console.error("License validation failed:", error);
     return res.status(500).json({ valid: false, error: "Server error" });
