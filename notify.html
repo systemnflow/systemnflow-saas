@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notify Me | System & Flow</title>
+  <meta name="description" content="Join the waitlist to be notified when new System & Flow tools launch." />
+  <meta name="theme-color" content="#0b1220" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <!-- 🔹 Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🔹 Main -->
+  <main class="container" style="max-width: 720px; margin: 4rem auto; text-align:center;">
+    <img src="/assets/img/ronnie-notify.png" alt="Ronnie mascot" style="max-width:200px; margin:0 auto 2rem;" />
+    
+    <h1>🚀 Be the First to Know</h1>
+    <p style="color:var(--muted); margin:1rem 0 2rem;">
+      Ronnie’s working hard behind the scenes.  
+      Enter your email and we’ll notify you as soon as new tools launch.
+    </p>
+
+    <!-- Notify Form -->
+    <form class="contact" action="https://formspree.io/f/your-form-id" method="POST">
+      <label for="email">Your Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email..." required />
+
+      <div class="consent">
+        <input type="checkbox" id="consent" name="consent" required />
+        <label for="consent">I agree to receive updates about System & Flow tools.</label>
+      </div>
+
+      <div class="actions" style="justify-content:center; margin-top:1rem;">
+        <button type="submit" class="button primary">Notify Me</button>
+      </div>
+    </form>
+
+    <!-- Coming Soon Teaser -->
+    <div style="margin-top:3rem; padding:1.5rem; border:1px dashed var(--border); border-radius:10px; background:var(--panel);">
+      <h2>🔮 Coming Soon</h2>
+      <ul style="color:var(--muted); line-height:1.8; list-style:none; padding:0;">
+        <li>📊 RAID Analytics Dashboard</li>
+        <li>🤝 Team Sharing & Collaboration</li>
+        <li>🧠 AI-Powered Summaries</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- 🔹 Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
