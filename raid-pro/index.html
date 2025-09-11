@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ronnie’s RAID Extractor™ Pro | System & Flow</title>
-  <meta name="description" content="Pro edition of Ronnie’s RAID Extractor™ with RAID history, Excel/PDF export, and more." />
+  <meta name="description" content="Pro edition of Ronnie’s RAID Extractor™ with full RAID history, multi-format exports, and more." />
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="noindex,follow" />
 
   <!-- Social -->
   <meta property="og:title" content="Ronnie’s RAID Extractor™ Pro | System & Flow" />
-  <meta property="og:description" content="Full Pro access: Save RAID history, Excel/PDF exports, and more." />
+  <meta property="og:description" content="Full Pro access: Save RAID history, export in any format, and unlock advanced features." />
   <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -46,7 +46,7 @@
   <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
     <div id="license-gate" style="text-align:center;">
       <h1>🔒 Enter License Key</h1>
-      <p style="color:var(--muted);">Enter your Pro license key to unlock full access.</p>
+      <p style="color:var(--muted);">Enter your Pro license key to unlock Ronnie’s RAID Extractor™ Pro.</p>
       <input id="licenseKey" type="text" placeholder="Enter your license key..."
         style="width:100%; padding:1rem; margin:1rem 0; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--ink);" />
       <button id="verifyLicense" class="button primary">Verify License</button>
@@ -57,8 +57,8 @@
     <div id="proContent" style="display:none;">
       <h1 style="text-align:center;">Ronnie’s RAID Extractor™ Pro</h1>
       <p style="text-align:center; color:var(--muted); margin-bottom:2rem;">
-        Welcome to the <strong>Pro edition</strong> — enjoy full access including 
-        <strong>Save RAID history</strong>, <strong>Excel/PDF export</strong>, and more.
+        Welcome to the <strong>Pro edition</strong> — full access including 
+        <strong>Save RAID history</strong>, <strong>Multi-format export</strong>, and more.
       </p>
 
       <!-- Confidence Score -->
@@ -81,11 +81,14 @@
       <!-- Action Buttons -->
       <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
         <button id="run" class="button primary">Extract RAID</button>
-        <button id="download" class="button ghost">Download CSV</button>
-        <button id="downloadExcel" class="button ghost">Download Excel</button>
-        <button id="downloadPDF" class="button ghost">Download PDF</button>
-        <button id="copy" class="button ghost">Copy to Clipboard</button>
-        <button id="save" class="button ghost">Save RAID Log</button>
+        <button onclick="exportOutput('csv')" class="button ghost">⬇ CSV</button>
+        <button onclick="exportOutput('excel')" class="button ghost">⬇ Excel</button>
+        <button onclick="exportOutput('pdf')" class="button ghost">⬇ PDF</button>
+        <button onclick="exportOutput('word')" class="button ghost">⬇ Word</button>
+        <button onclick="exportOutput('md')" class="button ghost">⬇ Markdown</button>
+        <button onclick="exportOutput('json')" class="button ghost">⬇ JSON</button>
+        <button id="copy" class="button ghost">📋 Copy</button>
+        <button id="save" class="button ghost">💾 Save RAID Log</button>
       </div>
 
       <div id="output" style="margin-top:2rem;"></div>
@@ -102,12 +105,13 @@
           <li>📊 <strong>RAID Analytics Dashboard</strong> — track trends across logs.</li>
           <li>🤝 <strong>Team Sharing</strong> — collaborate with your team.</li>
           <li>🧠 <strong>AI Summary Generator</strong> — instant exec summaries.</li>
+          <li>🔗 <strong>Integrations</strong> — Jira, Notion, Excel Online.</li>
         </ul>
       </div>
 
       <!-- Saved Logs -->
       <div style="margin-top:2rem; text-align:center;">
-        <a href="/raid-pro/logs.html" class="button ghost">View Saved Logs</a>
+        <a href="/raid-pro/logs.html" class="button ghost">📂 View Saved Logs</a>
       </div>
     </div>
   </main>
@@ -137,7 +141,7 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // 🔐 License key validation
+    // 🔐 License validation
     document.getElementById("verifyLicense").addEventListener("click", async () => {
       const key = document.getElementById("licenseKey").value.trim();
       const res = await fetch("/api/verify-license", {
@@ -156,7 +160,7 @@
       }
     });
 
-    // Auto-unlock if previously verified
+    // Auto-unlock if verified before
     if (localStorage.getItem("proUser") === "true") {
       document.getElementById("license-gate").style.display = "none";
       document.getElementById("proContent").style.display = "block";
@@ -170,6 +174,26 @@
       localStorage.setItem("raidLogs", JSON.stringify(logs));
       alert("✅ RAID log saved locally!");
     });
+
+    // ⬇ Export helper
+    function exportOutput(format) {
+      const content = document.getElementById("output").innerText;
+      let blob;
+
+      switch (format) {
+        case "csv": blob = new Blob([`"Date","Content"\n"${new Date().toISOString()}","${content}"`], { type: "text/csv" }); break;
+        case "excel": blob = new Blob([content], { type: "application/vnd.ms-excel" }); break;
+        case "pdf": blob = new Blob([content], { type: "application/pdf" }); break;
+        case "word": blob = new Blob([content], { type: "application/msword" }); break;
+        case "md": blob = new Blob([content], { type: "text/markdown" }); break;
+        case "json": blob = new Blob([JSON.stringify({ date: new Date().toISOString(), content }, null, 2)], { type: "application/json" }); break;
+      }
+
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `raid-log.${format}`;
+      a.click();
+    }
   </script>
 </body>
 </html>
