@@ -492,6 +492,19 @@ form.notify-form input[type="email"] {
   font-size: 0.85rem;
   color: var(--ink);
 }
+/* Ronnie on Notify Page */
+.ronnie-notify {
+  max-width: 340px;   /* Bigger Ronnie */
+  width: 80%;
+  margin: 0 auto 2rem;
+  display: block;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.ronnie-notify:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+}
 
 /* -------------------------
    Responsive (Mobile)
