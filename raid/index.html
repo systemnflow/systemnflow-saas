@@ -145,9 +145,27 @@
     // Paywall
     const modal = document.getElementById("paywallModal");
     document.querySelectorAll(".pro-only").forEach(btn => {
-      btn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
+      btn.addEventListener("click", e => {
+        e.preventDefault(); 
+        modal.style.display = "flex";
+      });
     });
     document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+
+    // Universal Formatter
+    function formatRAIDOutput(categories) {
+      let textOut = "";
+      for (const [key, arr] of Object.entries(categories)) {
+        textOut += `${key}:\n`;
+        if (arr.length) {
+          arr.forEach(l => { textOut += `  • ${l.trim()}\n`; });
+        } else {
+          textOut += "  • None\n";
+        }
+        textOut += "\n";
+      }
+      return textOut.trim();
+    }
 
     // RAID Extraction Function
     function extractRAID() {
@@ -193,17 +211,13 @@
       }
       output.innerHTML = html;
 
-      // Copy to Clipboard (formatted)
+      // Clipboard Copy
       document.getElementById("copy").onclick = async () => {
-        let textOut = "";
-        for (const [k, arr] of Object.entries(categories)) {
-          textOut += `${k}:\n${arr.map(l => "- " + l).join("\n") || "None"}\n\n`;
-        }
-        await navigator.clipboard.writeText(textOut.trim());
+        await navigator.clipboard.writeText(formatRAIDOutput(categories));
         alert("📋 RAID log copied to clipboard!");
       };
 
-      // CSV download
+      // CSV Download
       document.getElementById("download").onclick = () => {
         let csv = "Category,Text\n";
         for (const [k, arr] of Object.entries(categories)) {
