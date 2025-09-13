@@ -1,54 +1,291 @@
-<script>
-  // ---------- License Gate Logic ----------
-  function showPro() {
-    document.getElementById("license-gate").style.display = "none";
-    document.getElementById("proContent").style.display = "block";
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ronnie’s RAID Extractor™ Pro | System & Flow</title>
+  <meta name="description" content="Unlock Pro: save RAID history, export in multiple formats, and get AI-powered resolution suggestions." />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="robots" content="index,follow" />
 
-  function showGate() {
-    document.getElementById("license-gate").style.display = "block";
-    document.getElementById("proContent").style.display = "none";
-  }
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
 
-  // Auto-skip gate if already Pro
-  if (localStorage.getItem("proUser") === "true") {
-    showPro();
-  } else {
-    showGate();
-  }
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .toggle { cursor: pointer; color: var(--accent); font-weight: 600; margin-top:1rem; }
+    .toggle:hover { text-decoration: underline; }
+    .hidden { display:none; }
+    #usageCounter { text-align:center; font-size:0.9rem; margin-top:0.5rem; color:var(--muted); }
+    .badge { display:inline-block; padding:0.25rem 0.6rem; border-radius:6px; font-size:0.8rem; font-weight:600; }
+    .badge.high { background:#40d27833; color:#40d278; }
+    .badge.med { background:#ffa50033; color:#ffa500; }
+    .badge.low { background:#ff444433; color:#ff4444; }
+    ul { margin:0.5rem 0 1.25rem 1.25rem; }
+    li { margin:0.3rem 0; }
+    .error { color:#ff4444; font-size:0.9rem; margin-top:1rem; }
+    .history { margin-top:2rem; padding:1rem; border:1px solid var(--border); border-radius:8px; background:var(--panel); }
+    .history h2 { margin-bottom:0.5rem; }
+    .history-item { cursor:pointer; padding:0.4rem; border-bottom:1px solid var(--border); }
+    .history-item:hover { background:rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  // Verify license button
-  document.getElementById("verifyLicense").onclick = () => {
-    const k = document.getElementById("licenseKey").value.trim();
+  <!-- Main -->
+  <main class="container" style="max-width: 1100px; margin: 4rem auto; padding: 2rem; display:flex; gap:2rem;">
+    <!-- Left: Main Tool -->
+    <div style="flex:2;">
+      <h1 style="text-align:center;">Ronnie’s RAID Extractor™ <span style="color:var(--accent);">Pro</span></h1>
+      <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
+        Unlock the full power: save history, export to Excel/PDF/Word/Markdown/JSON, and get AI-powered resolution suggestions.
+      </p>
 
-    if (!k) {
-      document.getElementById("licenseError").style.display = "block";
-      return;
+      <!-- Confidence Score -->
+      <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
+        Ronnie’s Confidence Score: 
+        <span id="conf-score" class="badge low">0%</span>
+      </div>
+
+      <!-- Transcript Input -->
+      <textarea id="input" rows="12"
+        style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
+
+      <!-- File Upload -->
+      <div style="margin:1rem 0;">
+        <label for="fileInput" style="display:block; margin-bottom:0.5rem; color:var(--muted); font-size:0.9rem;">
+          Or upload a transcript (.txt, .docx, .pdf)
+        </label>
+        <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color:var(--ink);" />
+        <div id="fileError" class="error" style="display:none;"></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+        <button id="run" class="button primary">Extract RAID</button>
+        <button id="clear" class="button ghost">Clear & Reset</button>
+        <button id="download" class="button ghost">Download CSV</button>
+        <button id="downloadExcel" class="button ghost">Download Excel</button>
+        <button id="downloadPDF" class="button ghost">Download PDF</button>
+        <button id="downloadWord" class="button ghost">Download Word</button>
+        <button id="downloadMD" class="button ghost">Download Markdown</button>
+        <button id="downloadJSON" class="button ghost">Download JSON</button>
+        <button id="copy" class="button ghost">Copy to Clipboard</button>
+      </div>
+
+      <!-- RAID Output -->
+      <div id="output" style="margin-top:2rem;"></div>
+
+      <!-- Resolution Suggestions -->
+      <div class="suggestions">
+        <h2>💡 Resolution Suggestions</h2>
+        <div id="suggestionsContent">
+          <p style="color:var(--muted);">AI-powered tips will appear here after extraction.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: History -->
+    <aside class="history" style="flex:1;">
+      <h2>📜 RAID History</h2>
+      <div id="historyList"></div>
+    </aside>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    const historyKey = "raidProHistory";
+
+    // Helpers
+    function cleanLine(line) {
+      return line
+        .replace(/\b(gonna|gotta|um|uh|so|like|yeah)\b/gi, "")
+        .replace(/\d{1,2}:\d{2}/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+    function formatRAID(categories, conf) {
+      let out = `Confidence: ${conf}%\n\n`;
+      for (const [key, arr] of Object.entries(categories)) {
+        out += `${key}:\n`;
+        out += arr.length 
+          ? arr.map(l => "  • " + cleanLine(l)).join("\n") 
+          : "  • None";
+        out += "\n\n";
+      }
+      return out.trim();
     }
 
-    // TODO: Add real validation check here (API or static key match)
-    localStorage.setItem("proUser", "true");
-    showPro();
-  };
-
-  // ---------- Logout / Reset ----------
-  function logoutPro() {
-    localStorage.removeItem("proUser");
-    alert("🔒 Pro access reset. You’ll need to re-enter your license key.");
-    showGate();
-  }
-
-  // Add logout button dynamically
-  window.addEventListener("DOMContentLoaded", () => {
-    const footer = document.querySelector(".footer-min .container");
-    if (footer && !document.getElementById("logoutProBtn")) {
-      const btn = document.createElement("button");
-      btn.id = "logoutProBtn";
-      btn.textContent = "Log Out of Pro";
-      btn.className = "button ghost";
-      btn.style.marginLeft = "1rem";
-      btn.onclick = logoutPro;
-      footer.appendChild(btn);
+    function saveHistory(entry) {
+      let history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+      history.unshift(entry);
+      localStorage.setItem(historyKey, JSON.stringify(history.slice(0,20))); // keep last 20
+      renderHistory();
     }
-  });
-</script>
+
+    function renderHistory() {
+      const list = document.getElementById("historyList");
+      const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+      list.innerHTML = history.length 
+        ? history.map((h,i)=>`<div class="history-item" onclick="loadHistory(${i})">${h.title}</div>`).join("")
+        : "<p style='color:var(--muted);'>No saved history yet.</p>";
+    }
+
+    window.loadHistory = function(i){
+      const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+      if(history[i]){
+        document.getElementById("input").value = history[i].raw;
+        document.getElementById("output").innerHTML = history[i].html;
+        document.getElementById("conf-score").textContent = history[i].conf+"%";
+      }
+    };
+
+    function extractRAID() {
+      const text = document.getElementById("input").value;
+      const output = document.getElementById("output");
+      if (!text.trim()) { 
+        output.innerHTML = "<p style='color:var(--muted)'>Paste or upload a transcript.</p>"; 
+        document.getElementById("conf-score").textContent = "0%"; 
+        return; 
+      }
+
+      const cats = { Risks:[], Actions:[], Issues:[], Decisions:[] };
+      const lines = text.split(/\r?\n/);
+      const nonEmpty = lines.filter(l => l.trim().length > 0).length;
+
+      lines.forEach(l => {
+        if (/risk/i.test(l)) cats.Risks.push(l);
+        else if (/action/i.test(l)) cats.Actions.push(l);
+        else if (/issue/i.test(l)) cats.Issues.push(l);
+        else if (/decision/i.test(l)) cats.Decisions.push(l);
+      });
+
+      const tagged = Object.values(cats).reduce((a,b)=>a+b.length,0);
+      const conf = Math.round((tagged / (nonEmpty || 1)) * 100);
+
+      const scoreEl = document.getElementById("conf-score");
+      scoreEl.textContent = isNaN(conf) ? "0%" : conf+"%";
+      scoreEl.className = "badge " + (conf>=70?"high":conf>=40?"med":"low");
+
+      let html=""; 
+      for (const [k,v] of Object.entries(cats)) {
+        const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
+        html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${icon} ${k} (${v.length})</div><ul style="margin-bottom:1rem;">`;
+        html += v.length 
+          ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
+          : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
+        html += "</ul>";
+      }
+      output.innerHTML = html;
+      output.scrollIntoView({behavior:"smooth"});
+
+      // Save history
+      saveHistory({title:`Run @ ${new Date().toLocaleTimeString()}`, raw:text, html, conf});
+
+      // Suggestions unlocked
+      document.getElementById("suggestionsContent").innerHTML = `
+        <ul>
+          <li>🛠 Clarify ownership in the project charter to prevent repeat delays.</li>
+          <li>🤝 Schedule a follow-up meeting to assign overdue actions.</li>
+          <li>📊 Add blockers to the RAID log and set review cadence.</li>
+        </ul>`;
+    }
+
+    // Keyboard shortcut
+    document.getElementById("input").addEventListener("keydown", e => {
+      if (e.ctrlKey && e.key === "Enter") extractRAID();
+    });
+
+    // File handling
+    document.getElementById("fileInput").addEventListener("change", async (e) => {
+      const f=e.target.files[0]; if(!f) return;
+      try {
+        if(f.name.endsWith(".txt")){
+          document.getElementById("input").value=await f.text(); extractRAID();
+        }
+        else if(f.name.endsWith(".docx")){
+          const r=new FileReader(); 
+          r.onload=async(ev)=>{
+            const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); 
+            document.getElementById("input").value=res.value; extractRAID();
+          }; 
+          r.readAsArrayBuffer(f);
+        }
+        else if(f.name.endsWith(".pdf")){
+          const r=new FileReader(); 
+          r.onload=async(ev)=>{
+            const arr=new Uint8Array(ev.target.result); 
+            const pdf=await pdfjsLib.getDocument(arr).promise; 
+            let t=""; 
+            for(let i=1;i<=pdf.numPages;i++){
+              const p=await pdf.getPage(i); 
+              const txt=await p.getTextContent(); 
+              t+=txt.items.map(s=>s.str).join(" ")+"\\n";
+            } 
+            document.getElementById("input").value=t; extractRAID();
+          }; 
+          r.readAsArrayBuffer(f);
+        }
+      } catch(err) {
+        document.getElementById("fileError").style.display="block";
+        document.getElementById("fileError").textContent="❌ Error reading file.";
+      }
+    });
+
+    // Button wiring
+    document.getElementById("run").onclick = extractRAID;
+    document.getElementById("clear").onclick = () => { 
+      document.getElementById("input").value=""; 
+      document.getElementById("output").innerHTML=""; 
+      document.getElementById("conf-score").textContent="0%"; 
+      document.getElementById("conf-score").className="badge low"; 
+    };
+
+    renderHistory();
+  </script>
+</body>
+</html>
