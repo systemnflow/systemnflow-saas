@@ -8,62 +8,15 @@
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="index,follow" />
 
-  <!-- Social -->
-  <meta property="og:title" content="Ronnie’s RAID Extractor™ | System & Flow" />
-  <meta property="og:description" content="AI-powered RAID extraction for PMs — Risks, Actions, Issues, and Decisions in seconds." />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
-  <link rel="manifest" href="/assets/img/site.webmanifest" />
-
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
-
   <style>
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: var(--panel);
-      padding: 2rem;
-      border-radius: 10px;
-      text-align: center;
-      max-width: 400px;
-      color: var(--ink);
-    }
-    .modal-content h2 { margin-bottom: 1rem; }
-
-    /* Locked Pro Buttons */
-    .pro-only {
-      opacity: 0.6;
-      cursor: not-allowed;
-      position: relative;
-    }
-    .pro-only::after {
-      content: "🔒 Pro";
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: var(--muted);
-      pointer-events: none;
-    }
+    .toggle { cursor: pointer; color: var(--accent); font-weight: 600; margin-top:1rem; }
+    .toggle:hover { text-decoration: underline; }
+    .hidden { display:none; }
+    mark { background: #ffd54f; padding: 0 2px; border-radius:2px; }
   </style>
 </head>
-
 <body>
   <!-- Header -->
   <header class="site-header">
@@ -93,11 +46,11 @@
 
     <!-- Confidence Score -->
     <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
-      Ronnie’s Confidence Score: <span style="color:var(--accent); font-weight:600;">82%</span>
+      Ronnie’s Confidence Score: <span id="conf-score" style="font-weight:600;">0%</span>
     </div>
 
     <!-- Transcript Input -->
-    <textarea id="input" rows="12" placeholder="Paste transcript..."
+    <textarea id="input" rows="12"
       style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
 
     <!-- File Upload -->
@@ -111,6 +64,7 @@
     <!-- Action Buttons -->
     <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
       <button id="run" class="button primary">Extract RAID</button>
+      <button id="clear" class="button ghost">Clear & Reset</button>
       <button id="download" class="button ghost">Download CSV</button>
       <button id="downloadExcel" class="button ghost pro-only">Download Excel</button>
       <button id="downloadPDF" class="button ghost pro-only">Download PDF</button>
@@ -130,8 +84,8 @@
   </main>
 
   <!-- Modal -->
-  <div id="paywallModal" class="modal">
-    <div class="modal-content">
+  <div id="paywallModal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
+    <div class="modal-content" style="background:var(--panel); padding:2rem; border-radius:10px; text-align:center; max-width:400px; color:var(--ink);">
       <h2>🔒 Pro Feature</h2>
       <p>This feature is available on the <strong>Pro plan</strong>.</p>
       <a href="/pricing.html" class="button primary">View Pricing</a><br/>
@@ -149,32 +103,148 @@
         <span class="tagline">Smarter tools. Faster PMs.</span>
       </div>
       <div class="foot-right">
-        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
-        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank">LinkedIn</a>
       </div>
     </div>
     <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
   </footer>
 
   <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Paywall modal logic
+    // Paywall
     const modal = document.getElementById("paywallModal");
-    const closeModal = document.getElementById("closeModal");
     document.querySelectorAll(".pro-only").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        modal.style.display = "flex";
+      btn.addEventListener("click", e => {
+        e.preventDefault(); modal.style.display = "flex";
       });
     });
-    closeModal.addEventListener("click", () => { modal.style.display = "none"; });
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+    document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+
+    // Dummy transcript
+    const dummyTranscript = `
+      Project Kickoff Meeting
+      -----------------------
+      Risk: Vendor may delay fiber delivery due to supply chain.
+      Action: Brad to confirm Verizon porting schedule by Friday.
+      Issue: Current VPN setup blocks access for remote contractors.
+      Decision: Move forward with Thin Client rollout in Compton site.
+      Action: Ayana to finalize RAID log template.
+      Risk: Budget variance if extra cabling needed in Bobcat site.
+    `;
+    const inputEl = document.getElementById("input");
+    inputEl.value = dummyTranscript.trim();
+    inputEl.focus();
+
+    // RAID Extraction Function
+    function extractRAID() {
+      const text = inputEl.value;
+      const output = document.getElementById("output");
+      if (!text.trim()) {
+        output.innerHTML = "<p style='color:var(--muted)'>Please paste or upload a transcript.</p>";
+        document.getElementById("conf-score").textContent = "0%";
+        return;
+      }
+
+      const categories = { Risks: [], Actions: [], Issues: [], Decisions: [] };
+      const lines = text.split(/\r?\n/);
+      lines.forEach(line => {
+        if (/risk/i.test(line)) categories.Risks.push(line.replace(/(risk[:]?)/ig,"<mark>$1</mark>"));
+        else if (/action/i.test(line)) categories.Actions.push(line.replace(/(action[:]?)/ig,"<mark>$1</mark>"));
+        else if (/issue/i.test(line)) categories.Issues.push(line.replace(/(issue[:]?)/ig,"<mark>$1</mark>"));
+        else if (/decision/i.test(line)) categories.Decisions.push(line.replace(/(decision[:]?)/ig,"<mark>$1</mark>"));
+      });
+
+      // Confidence Score
+      const tagged = Object.values(categories).reduce((a,b)=>a+b.length,0);
+      const score = Math.round((tagged / lines.length) * 100);
+      const scoreEl = document.getElementById("conf-score");
+      scoreEl.textContent = isNaN(score) ? "0%" : score + "%";
+      scoreEl.style.color = score >= 70 ? "limegreen" : score >= 40 ? "orange" : "red";
+
+      // Render collapsible output
+      let html = "";
+      for (const [key, arr] of Object.entries(categories)) {
+        html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${key} (${arr.length})</div>`;
+        html += `<ul>`;
+        if (arr.length) arr.forEach(l => html += `<li>${l}</li>`);
+        else html += `<li><em>No ${key.toLowerCase()} found.</em></li>`;
+        html += `</ul>`;
+      }
+      output.innerHTML = html;
+
+      // CSV Download
+      document.getElementById("download").onclick = () => {
+        let csv = "Category,Text\n";
+        for (const [k, arr] of Object.entries(categories)) {
+          arr.forEach(l => csv += `"${k}","${l.replace(/"/g, '""')}"\n`);
+        }
+        const blob = new Blob([csv], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "raid.csv";
+        link.click();
+      };
+
+      // Copy
+      document.getElementById("copy").onclick = async () => {
+        let textOut = "";
+        for (const [k, arr] of Object.entries(categories)) {
+          textOut += `${k}:\n${arr.join("\n") || "None"}\n\n`;
+        }
+        await navigator.clipboard.writeText(textOut);
+        alert("RAID copied to clipboard!");
+      };
+    }
+
+    // Auto-run on dummy transcript
+    extractRAID();
+
+    // File Upload
+    document.getElementById("fileInput").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.name.endsWith(".txt")) {
+        inputEl.value = await file.text();
+        extractRAID();
+      } else if (file.name.endsWith(".docx")) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const result = await mammoth.extractRawText({ arrayBuffer: event.target.result });
+          inputEl.value = result.value;
+          extractRAID();
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (file.name.endsWith(".pdf")) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const typedArray = new Uint8Array(event.target.result);
+          const pdf = await pdfjsLib.getDocument(typedArray).promise;
+          let textContent = "";
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const txt = await page.getTextContent();
+            textContent += txt.items.map(s => s.str).join(" ") + "\n";
+          }
+          inputEl.value = textContent;
+          extractRAID();
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    });
+
+    // Manual run & shortcuts
+    document.getElementById("run").addEventListener("click", extractRAID);
+    document.getElementById("clear").addEventListener("click", () => { inputEl.value=""; document.getElementById("output").innerHTML=""; document.getElementById("conf-score").textContent="0%"; });
+    inputEl.addEventListener("keydown", e => { if (e.ctrlKey && e.key==="Enter") extractRAID(); });
   </script>
 </body>
 </html>
