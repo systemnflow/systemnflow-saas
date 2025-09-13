@@ -15,6 +15,7 @@
     .toggle:hover { text-decoration: underline; }
     .hidden { display:none; }
     mark { background: #ffd54f; padding: 0 2px; border-radius:2px; }
+    #usageCounter { text-align:center; font-size:0.9rem; margin-top:0.5rem; color:var(--muted); }
   </style>
 </head>
 <body>
@@ -37,7 +38,7 @@
 
   <!-- Main -->
   <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
-    <h1 style="text-align:center;">Ronnie’s RAID Extractor™</h1>
+    <h1 style="text-align:center;">Ronnie’s RAID Extractor™ (Free)</h1>
     <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
       Paste a transcript <em>or upload a document</em>. Ronnie will extract 
       <strong>⚠️ Risks</strong>, <strong>✅ Actions</strong>, 
@@ -71,6 +72,9 @@
       <button id="copy" class="button ghost">Copy to Clipboard</button>
     </div>
 
+    <!-- Usage Counter -->
+    <div id="usageCounter"></div>
+
     <div id="output" style="margin-top:2rem;"></div>
 
     <!-- Pro Feature Teaser -->
@@ -86,9 +90,9 @@
   <!-- Modal -->
   <div id="paywallModal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
     <div class="modal-content" style="background:var(--panel); padding:2rem; border-radius:10px; text-align:center; max-width:400px; color:var(--ink);">
-      <h2>🔒 Pro Feature</h2>
-      <p>This feature is available on the <strong>Pro plan</strong>.</p>
-      <a href="/pricing.html" class="button primary">View Pricing</a><br/>
+      <h2>🚀 You’ve hit the free limit</h2>
+      <p>You’ve used your 5 free runs. Upgrade to <strong>Ronnie’s RAID Extractor™ Pro</strong> for unlimited use + Excel/PDF exports.</p>
+      <a href="/pricing.html" class="button primary">Upgrade to Pro</a><br/>
       <button id="closeModal" class="button ghost" style="margin-top:0.5rem;">Cancel</button>
     </div>
   </div>
@@ -119,33 +123,38 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
+    // Track free usage
+    const maxFreeRuns = 5;
+    let freeRuns = parseInt(localStorage.getItem("raidFreeRuns") || "0", 10);
+
+    const usageCounter = document.getElementById("usageCounter");
+    function updateCounter() {
+      const remaining = Math.max(0, maxFreeRuns - freeRuns);
+      usageCounter.textContent = remaining > 0 
+        ? `🆓 You have ${remaining} free run${remaining !== 1 ? "s" : ""} left`
+        : "🚀 Free limit reached — Upgrade to Pro for unlimited use";
+    }
+    updateCounter();
+
     // Paywall
     const modal = document.getElementById("paywallModal");
     document.querySelectorAll(".pro-only").forEach(btn => {
-      btn.addEventListener("click", e => {
-        e.preventDefault(); modal.style.display = "flex";
-      });
+      btn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
     });
     document.getElementById("closeModal").onclick = () => modal.style.display = "none";
 
-    // Dummy transcript
-    const dummyTranscript = `
-      Project Kickoff Meeting
-      -----------------------
-      Risk: Vendor may delay fiber delivery due to supply chain.
-      Action: Brad to confirm Verizon porting schedule by Friday.
-      Issue: Current VPN setup blocks access for remote contractors.
-      Decision: Move forward with Thin Client rollout in Compton site.
-      Action: Ayana to finalize RAID log template.
-      Risk: Budget variance if extra cabling needed in Bobcat site.
-    `;
-    const inputEl = document.getElementById("input");
-    inputEl.value = dummyTranscript.trim();
-    inputEl.focus();
-
     // RAID Extraction Function
     function extractRAID() {
-      const text = inputEl.value;
+      if (freeRuns >= maxFreeRuns) {
+        modal.style.display = "flex";
+        return;
+      }
+
+      freeRuns++;
+      localStorage.setItem("raidFreeRuns", freeRuns);
+      updateCounter();
+
+      const text = document.getElementById("input").value;
       const output = document.getElementById("output");
       if (!text.trim()) {
         output.innerHTML = "<p style='color:var(--muted)'>Please paste or upload a transcript.</p>";
@@ -156,20 +165,18 @@
       const categories = { Risks: [], Actions: [], Issues: [], Decisions: [] };
       const lines = text.split(/\r?\n/);
       lines.forEach(line => {
-        if (/risk/i.test(line)) categories.Risks.push(line.replace(/(risk[:]?)/ig,"<mark>$1</mark>"));
-        else if (/action/i.test(line)) categories.Actions.push(line.replace(/(action[:]?)/ig,"<mark>$1</mark>"));
-        else if (/issue/i.test(line)) categories.Issues.push(line.replace(/(issue[:]?)/ig,"<mark>$1</mark>"));
-        else if (/decision/i.test(line)) categories.Decisions.push(line.replace(/(decision[:]?)/ig,"<mark>$1</mark>"));
+        if (/risk/i.test(line)) categories.Risks.push(line);
+        else if (/action/i.test(line)) categories.Actions.push(line);
+        else if (/issue/i.test(line)) categories.Issues.push(line);
+        else if (/decision/i.test(line)) categories.Decisions.push(line);
       });
 
-      // Confidence Score
       const tagged = Object.values(categories).reduce((a,b)=>a+b.length,0);
       const score = Math.round((tagged / lines.length) * 100);
       const scoreEl = document.getElementById("conf-score");
       scoreEl.textContent = isNaN(score) ? "0%" : score + "%";
       scoreEl.style.color = score >= 70 ? "limegreen" : score >= 40 ? "orange" : "red";
 
-      // Render collapsible output
       let html = "";
       for (const [key, arr] of Object.entries(categories)) {
         html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${key} (${arr.length})</div>`;
@@ -179,72 +186,23 @@
         html += `</ul>`;
       }
       output.innerHTML = html;
-
-      // CSV Download
-      document.getElementById("download").onclick = () => {
-        let csv = "Category,Text\n";
-        for (const [k, arr] of Object.entries(categories)) {
-          arr.forEach(l => csv += `"${k}","${l.replace(/"/g, '""')}"\n`);
-        }
-        const blob = new Blob([csv], { type: "text/csv" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "raid.csv";
-        link.click();
-      };
-
-      // Copy
-      document.getElementById("copy").onclick = async () => {
-        let textOut = "";
-        for (const [k, arr] of Object.entries(categories)) {
-          textOut += `${k}:\n${arr.join("\n") || "None"}\n\n`;
-        }
-        await navigator.clipboard.writeText(textOut);
-        alert("RAID copied to clipboard!");
-      };
     }
 
-    // Auto-run on dummy transcript
-    extractRAID();
-
-    // File Upload
+    // File Upload + Clear
     document.getElementById("fileInput").addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (!file) return;
-
       if (file.name.endsWith(".txt")) {
-        inputEl.value = await file.text();
+        document.getElementById("input").value = await file.text();
         extractRAID();
-      } else if (file.name.endsWith(".docx")) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          const result = await mammoth.extractRawText({ arrayBuffer: event.target.result });
-          inputEl.value = result.value;
-          extractRAID();
-        };
-        reader.readAsArrayBuffer(file);
-      } else if (file.name.endsWith(".pdf")) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          const typedArray = new Uint8Array(event.target.result);
-          const pdf = await pdfjsLib.getDocument(typedArray).promise;
-          let textContent = "";
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const txt = await page.getTextContent();
-            textContent += txt.items.map(s => s.str).join(" ") + "\n";
-          }
-          inputEl.value = textContent;
-          extractRAID();
-        };
-        reader.readAsArrayBuffer(file);
       }
     });
-
-    // Manual run & shortcuts
     document.getElementById("run").addEventListener("click", extractRAID);
-    document.getElementById("clear").addEventListener("click", () => { inputEl.value=""; document.getElementById("output").innerHTML=""; document.getElementById("conf-score").textContent="0%"; });
-    inputEl.addEventListener("keydown", e => { if (e.ctrlKey && e.key==="Enter") extractRAID(); });
+    document.getElementById("clear").addEventListener("click", () => { 
+      document.getElementById("input").value="";
+      document.getElementById("output").innerHTML="";
+      document.getElementById("conf-score").textContent="0%";
+    });
   </script>
 </body>
 </html>
