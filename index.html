@@ -34,7 +34,7 @@
       </a>
       <nav>
         <ul class="nav-links">
-          <li><a href="/">Home</a></li>
+          <li><a href="/" aria-current="page">Home</a></li>
           <li><a href="/apps.html">Tools</a></li>
           <li><a href="/contact.html">Contact</a></li>
         </ul>
@@ -45,7 +45,7 @@
   <main>
     <!-- Hero -->
     <section class="hero">
-      <div class="container">
+      <div class="container" style="text-align:center">
         <img src="assets/img/snf_logo.png" alt="System & Flow full logo" class="hero-logo" />
         <h1>Project Management.<br />Simplified.</h1>
         <p class="tagline">
@@ -54,7 +54,7 @@
 
         <div class="cta-row">
           <a class="button primary" href="/apps.html">Explore Tools</a>
-          <a class="button ghost" href="/contact.html">Early Access List</a>
+          <a class="button ghost" href="/notify.html">Early Access List</a>
         </div>
 
         <!-- Email Signup -->
@@ -62,6 +62,7 @@
           action="https://formsubmit.co/29418741ca9d5678c6e09e4012d15f59" 
           method="POST"
           class="newsletter-form"
+          style="margin-top:1rem"
         >
           <input 
             type="email" 
@@ -75,79 +76,94 @@
           </label>
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_next" value="https://systemnflow.com/thank-you.html" />
+          <input type="hidden" name="_subject" value="New Homepage Signup — System & Flow" />
           <button type="submit" class="button primary">Join</button>
         </form>
       </div>
     </section>
 
- <!-- 🔹 Tools Grid (System & Flow Apps) -->
-<section class="tools">
-  <div class="container grid">
+    <!-- Tools Grid -->
+    <section class="tools">
+      <div class="container grid">
 
-   <!-- Tool Card 1: Free RAID -->
-<a href="/raid/index.html" class="card-link">
-  <div class="card">
-    <h3>Ronnie’s RAID Extractor™ (Free)</h3>
-    <span class="badge live">Live</span>
-    <p>Paste or upload transcripts and auto-extract 
-      <strong>⚠ Risks, ✅ Actions, 🛑 Issues, 📌 Decisions</strong> in seconds.</p>
-    <div class="card-actions">
-      <span class="button primary">Open Free</span>
-    </div>
-  </div>
-</a>
+        <!-- Tool Card 1: Free RAID -->
+        <a href="/raid/index.html" class="card-link">
+          <div class="card">
+            <div class="card-top">
+              <h3>Ronnie’s RAID Extractor™ (Free)</h3>
+              <span class="badge live">Live</span>
+            </div>
+            <p>Paste or upload transcripts and auto-extract 
+              <strong>⚠ Risks, ✅ Actions, 🛑 Issues, 📌 Decisions</strong> in seconds.</p>
+            <div class="card-actions">
+              <span class="button primary">Open Free</span>
+            </div>
+          </div>
+        </a>
 
-<!-- Tool Card 2: Pro RAID -->
-<a href="/raid-pro/index.html" class="card-link">
-  <div class="card">
-    <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
-    <span class="badge pro">Pro</span>
-    <p>Unlock <strong>RAID history, multi-format export, and saved logs</strong>. 
-      Includes AI-powered resolution suggestions.</p>
-    <div class="card-actions">
-      <span class="button primary">Open Pro</span>
-    </div>
-  </div>
-</a>
+        <!-- Tool Card 2: Pro RAID -->
+        <a href="/raid-pro/index.html" class="card-link">
+          <div class="card">
+            <div class="card-top">
+              <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
+              <span class="badge pro">Pro</span>
+            </div>
+            <p>Unlock <strong>RAID history, multi-format export, and saved logs</strong>. 
+              Includes AI-powered resolution suggestions.</p>
+            <div class="card-actions">
+              <span class="button primary">Open Pro</span>
+            </div>
+          </div>
+        </a>
 
-<!-- Tool Card 3: Meeting Analyzer -->
-<a href="/meeting-analyzer/index.html" class="card-link">
-  <div class="card">
-    <h3>Ronnie’s Meeting Analyzer™</h3>
-    <span class="badge soon">Coming Soon</span>
-    <p>Summarize meeting notes, draft <strong>task lists</strong>, 
-      and auto-generate a <strong>next-week agenda</strong>.</p>
-    <div class="card-actions">
-      <span class="button ghost">Notify Me</span>
-    </div>
-  </div>
-</a>
+        <!-- Tool Card 3: Meeting Analyzer -->
+        <a href="/notify.html" class="card-link">
+          <div class="card">
+            <div class="card-top">
+              <h3>Ronnie’s Meeting Analyzer™</h3>
+              <span class="badge soon">Coming Soon</span>
+            </div>
+            <p>Summarize meeting notes, draft <strong>task lists</strong>, 
+              and auto-generate a <strong>next-week agenda</strong>.</p>
+            <div class="card-actions">
+              <span class="button ghost">Notify Me</span>
+            </div>
+          </div>
+        </a>
 
-<!-- Tool Card 4: Status Report Generator -->
-<a href="/notify/status-report.html" class="card-link">
-  <div class="card">
-    <h3>Status Report Generator</h3>
-    <span class="badge soon">Q4 2025</span>
-    <p>Create <strong>VP-ready summaries</strong> in PDF or Markdown 
-      with one click. Designed for executive reporting.</p>
-    <div class="card-actions">
-      <span class="button ghost">Notify Me</span>
-    </div>
-  </div>
-</a>
+        <!-- Tool Card 4: Status Report Generator -->
+        <a href="/notify.html" class="card-link">
+          <div class="card">
+            <div class="card-top">
+              <h3>Status Report Generator</h3>
+              <span class="badge soon">Q4 2025</span>
+            </div>
+            <p>Create <strong>VP-ready summaries</strong> in PDF or Markdown 
+              with one click. Designed for executive reporting.</p>
+            <div class="card-actions">
+              <span class="button ghost">Notify Me</span>
+            </div>
+          </div>
+        </a>
 
-<!-- Tool Card 5: Risk Radar -->
-<a href="/notify/risk-radar.html" class="card-link">
-  <div class="card">
-    <h3>Risk Radar</h3>
-    <span class="badge soon">Coming Soon</span>
-    <p>Auto-detect critical project risks — with 
-      <strong>AI-backed mitigation tips</strong> to keep delivery on track.</p>
-    <div class="card-actions">
-      <span class="button ghost">Notify Me</span>
-    </div>
-  </div>
-</a>
+        <!-- Tool Card 5: Risk Radar -->
+        <a href="/notify.html" class="card-link">
+          <div class="card">
+            <div class="card-top">
+              <h3>Risk Radar</h3>
+              <span class="badge soon">Coming Soon</span>
+            </div>
+            <p>Auto-detect critical project risks — with 
+              <strong>AI-backed mitigation tips</strong> to keep delivery on track.</p>
+            <div class="card-actions">
+              <span class="button ghost">Notify Me</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer class="footer-min">
