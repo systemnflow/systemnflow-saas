@@ -22,6 +22,25 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Force equal height cards in the grid */
+    .tools .card {
+      min-height: 260px; /* adjust as needed for balance */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .5rem;
+    }
+    .card-actions {
+      margin-top: auto;
+    }
+  </style>
 </head>
 
 <body>
@@ -89,12 +108,14 @@
         <!-- Tool Card 1: Free RAID -->
         <a href="/raid/index.html" class="card-link">
           <div class="card">
-            <div class="card-top">
-              <h3>Ronnie’s RAID Extractor™ (Free)</h3>
-              <span class="badge live">Live</span>
+            <div>
+              <div class="card-top">
+                <h3>Ronnie’s RAID Extractor™ (Free)</h3>
+                <span class="badge live">Live</span>
+              </div>
+              <p>Paste or upload transcripts and auto-extract 
+                <strong>⚠ Risks, ✅ Actions, 🛑 Issues, 📌 Decisions</strong> in seconds.</p>
             </div>
-            <p>Paste or upload transcripts and auto-extract 
-              <strong>⚠ Risks, ✅ Actions, 🛑 Issues, 📌 Decisions</strong> in seconds.</p>
             <div class="card-actions">
               <span class="button primary">Open Free</span>
             </div>
@@ -104,12 +125,14 @@
         <!-- Tool Card 2: Pro RAID -->
         <a href="/raid-pro/index.html" class="card-link">
           <div class="card">
-            <div class="card-top">
-              <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
-              <span class="badge pro">Pro</span>
+            <div>
+              <div class="card-top">
+                <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
+                <span class="badge pro">Pro</span>
+              </div>
+              <p>Unlock <strong>RAID history, multi-format export, and saved logs</strong>. 
+                Includes AI-powered resolution suggestions.</p>
             </div>
-            <p>Unlock <strong>RAID history, multi-format export, and saved logs</strong>. 
-              Includes AI-powered resolution suggestions.</p>
             <div class="card-actions">
               <span class="button primary">Open Pro</span>
             </div>
@@ -119,12 +142,14 @@
         <!-- Tool Card 3: Meeting Analyzer -->
         <a href="/notify.html" class="card-link">
           <div class="card">
-            <div class="card-top">
-              <h3>Ronnie’s Meeting Analyzer™</h3>
-              <span class="badge soon">Coming Soon</span>
+            <div>
+              <div class="card-top">
+                <h3>Ronnie’s Meeting Analyzer™</h3>
+                <span class="badge soon">Coming Soon</span>
+              </div>
+              <p>Summarize meeting notes, draft <strong>task lists</strong>, 
+                and auto-generate a <strong>next-week agenda</strong>.</p>
             </div>
-            <p>Summarize meeting notes, draft <strong>task lists</strong>, 
-              and auto-generate a <strong>next-week agenda</strong>.</p>
             <div class="card-actions">
               <span class="button ghost">Notify Me</span>
             </div>
@@ -134,12 +159,14 @@
         <!-- Tool Card 4: Status Report Generator -->
         <a href="/notify.html" class="card-link">
           <div class="card">
-            <div class="card-top">
-              <h3>Status Report Generator</h3>
-              <span class="badge soon">Q4 2025</span>
+            <div>
+              <div class="card-top">
+                <h3>Status Report Generator</h3>
+                <span class="badge soon">Q4 2025</span>
+              </div>
+              <p>Create <strong>VP-ready summaries</strong> in PDF or Markdown 
+                with one click. Designed for executive reporting.</p>
             </div>
-            <p>Create <strong>VP-ready summaries</strong> in PDF or Markdown 
-              with one click. Designed for executive reporting.</p>
             <div class="card-actions">
               <span class="button ghost">Notify Me</span>
             </div>
@@ -149,12 +176,14 @@
         <!-- Tool Card 5: Risk Radar -->
         <a href="/notify.html" class="card-link">
           <div class="card">
-            <div class="card-top">
-              <h3>Risk Radar</h3>
-              <span class="badge soon">Coming Soon</span>
+            <div>
+              <div class="card-top">
+                <h3>Risk Radar</h3>
+                <span class="badge soon">Coming Soon</span>
+              </div>
+              <p>Auto-detect critical project risks — with 
+                <strong>AI-backed mitigation tips</strong> to keep delivery on track.</p>
             </div>
-            <p>Auto-detect critical project risks — with 
-              <strong>AI-backed mitigation tips</strong> to keep delivery on track.</p>
             <div class="card-actions">
               <span class="button ghost">Notify Me</span>
             </div>
