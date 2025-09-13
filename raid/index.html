@@ -14,7 +14,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
   <link rel="manifest" href="/assets/img/site.webmanifest" />
 
-  <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
   <style>
     .toggle { cursor: pointer; color: var(--accent); font-weight: 600; margin-top:1rem; }
@@ -47,7 +46,7 @@
     <h1 style="text-align:center;">Ronnie’s RAID Extractor™ (Free)</h1>
     <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
       Paste a transcript <em>or upload a document</em>. Ronnie will extract 
-      <strong>⚠️ Risks</strong>, <strong>✅ Actions</strong>, 
+      <strong>⚠ Risks</strong>, <strong>✅ Actions</strong>, 
       <strong>🛑 Issues</strong>, and <strong>📌 Decisions</strong>.
     </p>
 
@@ -83,13 +82,11 @@
 
     <div id="output" style="margin-top:2rem;"></div>
 
-    <!-- Pro Feature Teaser -->
+    <!-- Pro Teaser -->
     <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted);">
-      <p>🔒 <strong>Pro Feature:</strong> Save RAID History</p>
-      <p style="font-size:0.9rem; color:var(--muted);">
-        Pro users can save RAID logs to build project knowledge over time and track risks, actions, and decisions across meetings.
-      </p>
-      <button class="button ghost pro-only">Save RAID Log (Pro)</button>
+      <p>🔒 <strong>Pro Feature:</strong> Save RAID History + Multi-format Exports</p>
+      <p style="font-size:0.9rem; color:var(--muted);">Upgrade to Pro for unlimited runs, saved logs, and exports in Excel, PDF, Word, Markdown, JSON.</p>
+      <a href="/pricing.html" class="button ghost">Upgrade to Pro</a>
     </div>
   </main>
 
@@ -97,7 +94,7 @@
   <div id="paywallModal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
     <div class="modal-content" style="background:var(--panel); padding:2rem; border-radius:10px; text-align:center; max-width:400px; color:var(--ink);">
       <h2>🚀 You’ve hit the free limit</h2>
-      <p>You’ve used your 5 free runs. Upgrade to <strong>Ronnie’s RAID Extractor™ Pro</strong> for unlimited use + Excel/PDF exports.</p>
+      <p>You’ve used your 5 free runs. Upgrade to <strong>Pro</strong> for unlimited use and full exports.</p>
       <a href="/pricing.html" class="button primary">Upgrade to Pro</a><br/>
       <button id="closeModal" class="button ghost" style="margin-top:0.5rem;">Cancel</button>
     </div>
@@ -129,149 +126,76 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Track free usage
     const maxFreeRuns = 5;
     let freeRuns = parseInt(localStorage.getItem("raidFreeRuns") || "0", 10);
-
     const usageCounter = document.getElementById("usageCounter");
+    const modal = document.getElementById("paywallModal");
+
     function updateCounter() {
       const remaining = Math.max(0, maxFreeRuns - freeRuns);
       usageCounter.textContent = remaining > 0 
         ? `🆓 You have ${remaining} free run${remaining !== 1 ? "s" : ""} left`
-        : "🚀 Free limit reached — Upgrade to Pro for unlimited use";
+        : "🚀 Free limit reached — Upgrade to Pro";
     }
     updateCounter();
 
-    // Paywall
-    const modal = document.getElementById("paywallModal");
     document.querySelectorAll(".pro-only").forEach(btn => {
-      btn.addEventListener("click", e => {
-        e.preventDefault(); 
-        modal.style.display = "flex";
-      });
+      btn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
     });
     document.getElementById("closeModal").onclick = () => modal.style.display = "none";
 
-    // Universal Formatter
-    function formatRAIDOutput(categories) {
-      let textOut = "";
+    function formatRAID(categories, conf) {
+      let out = `Confidence: ${conf}%\n\n`;
       for (const [key, arr] of Object.entries(categories)) {
-        textOut += `${key}:\n`;
-        if (arr.length) {
-          arr.forEach(l => { textOut += `  • ${l.trim()}\n`; });
-        } else {
-          textOut += "  • None\n";
-        }
-        textOut += "\n";
+        out += `${key}:\n`;
+        out += arr.length ? arr.map(l => "  • " + l.trim()).join("\n") : "  • None";
+        out += "\n\n";
       }
-      return textOut.trim();
+      return out.trim();
     }
 
-    // RAID Extraction Function
     function extractRAID() {
-      if (freeRuns >= maxFreeRuns) {
-        modal.style.display = "flex";
-        return;
-      }
-
-      freeRuns++;
-      localStorage.setItem("raidFreeRuns", freeRuns);
-      updateCounter();
+      if (freeRuns >= maxFreeRuns) { modal.style.display = "flex"; return; }
+      freeRuns++; localStorage.setItem("raidFreeRuns", freeRuns); updateCounter();
 
       const text = document.getElementById("input").value;
       const output = document.getElementById("output");
-      if (!text.trim()) {
-        output.innerHTML = "<p style='color:var(--muted)'>Please paste or upload a transcript.</p>";
-        document.getElementById("conf-score").textContent = "0%";
-        return;
-      }
+      if (!text.trim()) { output.innerHTML = "<p style='color:var(--muted)'>Paste or upload a transcript.</p>"; document.getElementById("conf-score").textContent = "0%"; return; }
 
-      const categories = { Risks: [], Actions: [], Issues: [], Decisions: [] };
+      const cats = { Risks:[], Actions:[], Issues:[], Decisions:[] };
       const lines = text.split(/\r?\n/);
-      lines.forEach(line => {
-        if (/risk/i.test(line)) categories.Risks.push(line);
-        else if (/action/i.test(line)) categories.Actions.push(line);
-        else if (/issue/i.test(line)) categories.Issues.push(line);
-        else if (/decision/i.test(line)) categories.Decisions.push(line);
+      lines.forEach(l => {
+        if (/risk/i.test(l)) cats.Risks.push(l);
+        else if (/action/i.test(l)) cats.Actions.push(l);
+        else if (/issue/i.test(l)) cats.Issues.push(l);
+        else if (/decision/i.test(l)) cats.Decisions.push(l);
       });
 
-      const tagged = Object.values(categories).reduce((a,b)=>a+b.length,0);
-      const score = Math.round((tagged / lines.length) * 100);
+      const tagged = Object.values(cats).reduce((a,b)=>a+b.length,0);
+      const conf = Math.round((tagged / lines.length) * 100);
       const scoreEl = document.getElementById("conf-score");
-      scoreEl.textContent = isNaN(score) ? "0%" : score + "%";
-      scoreEl.style.color = score >= 70 ? "limegreen" : score >= 40 ? "orange" : "red";
+      scoreEl.textContent = isNaN(conf) ? "0%" : conf+"%";
+      scoreEl.style.color = conf>=70?"limegreen":conf>=40?"orange":"red";
 
-      let html = "";
-      for (const [key, arr] of Object.entries(categories)) {
-        html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${key} (${arr.length})</div>`;
-        html += `<ul>`;
-        if (arr.length) arr.forEach(l => html += `<li>${l}</li>`);
-        else html += `<li><em>No ${key.toLowerCase()} found.</em></li>`;
-        html += `</ul>`;
-      }
+      let html=""; for(const[k,v] of Object.entries(cats)){html+=`<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${k} (${v.length})</div><ul>`; html+=v.length?v.map(l=>`<li>${l}</li>`).join(""):`<li><em>No ${k.toLowerCase()} found.</em></li>`; html+="</ul>";}
       output.innerHTML = html;
 
-      // Clipboard Copy
-      document.getElementById("copy").onclick = async () => {
-        await navigator.clipboard.writeText(formatRAIDOutput(categories));
-        alert("📋 RAID log copied to clipboard!");
-      };
-
-      // CSV Download
+      document.getElementById("copy").onclick = async () => { await navigator.clipboard.writeText(formatRAID(cats,conf)); alert("📋 Copied!"); };
       document.getElementById("download").onclick = () => {
-        let csv = "Category,Text\n";
-        for (const [k, arr] of Object.entries(categories)) {
-          arr.forEach(l => csv += `"${k}","${l.replace(/"/g, '""')}"\n`);
-        }
-        const blob = new Blob([csv], { type: "text/csv" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "raid.csv";
-        link.click();
+        let csv="Category,Text\n"; for(const[k,arr] of Object.entries(cats)){arr.forEach(l=>csv+=`"${k}","${l.replace(/"/g,'""')}"\n`);}
+        const blob=new Blob([csv],{type:"text/csv"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="raid.csv"; a.click();
       };
     }
 
-    // File Upload
     document.getElementById("fileInput").addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      if (file.name.endsWith(".txt")) {
-        document.getElementById("input").value = await file.text();
-        extractRAID();
-      } else if (file.name.endsWith(".docx")) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          const result = await mammoth.extractRawText({ arrayBuffer: event.target.result });
-          document.getElementById("input").value = result.value;
-          extractRAID();
-        };
-        reader.readAsArrayBuffer(file);
-      } else if (file.name.endsWith(".pdf")) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          const typedArray = new Uint8Array(event.target.result);
-          const pdf = await pdfjsLib.getDocument(typedArray).promise;
-          let textContent = "";
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const txt = await page.getTextContent();
-            textContent += txt.items.map(s => s.str).join(" ") + "\n";
-          }
-          document.getElementById("input").value = textContent;
-          extractRAID();
-        };
-        reader.readAsArrayBuffer(file);
-      }
+      const f=e.target.files[0]; if(!f) return;
+      if(f.name.endsWith(".txt")){ document.getElementById("input").value=await f.text(); extractRAID();}
+      else if(f.name.endsWith(".docx")){const r=new FileReader(); r.onload=async(ev)=>{const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); document.getElementById("input").value=res.value; extractRAID();}; r.readAsArrayBuffer(f);}
+      else if(f.name.endsWith(".pdf")){const r=new FileReader(); r.onload=async(ev)=>{const arr=new Uint8Array(ev.target.result); const pdf=await pdfjsLib.getDocument(arr).promise; let t=""; for(let i=1;i<=pdf.numPages;i++){const p=await pdf.getPage(i); const txt=await p.getTextContent(); t+=txt.items.map(s=>s.str).join(" ")+"\\n";} document.getElementById("input").value=t; extractRAID();}; r.readAsArrayBuffer(f);}
     });
 
-    // Buttons
-    document.getElementById("run").addEventListener("click", extractRAID);
-    document.getElementById("clear").addEventListener("click", () => { 
-      document.getElementById("input").value="";
-      document.getElementById("output").innerHTML="";
-      document.getElementById("conf-score").textContent="0%";
-    });
+    document.getElementById("run").onclick = extractRAID;
+    document.getElementById("clear").onclick = () => { document.getElementById("input").value=""; document.getElementById("output").innerHTML=""; document.getElementById("conf-score").textContent="0%"; };
   </script>
 </body>
 </html>
