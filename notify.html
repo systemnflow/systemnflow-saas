@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Notify Me | System & Flow</title>
-  <meta name="description" content="Be the first to know when new System & Flow tools launch. Sign up for early notifications and updates." />
+  <meta name="description" content="Join Ronnie’s early access list and be first to know when new System & Flow tools launch." />
   <meta name="theme-color" content="#0b1220" />
 
   <!-- Favicons -->
@@ -17,9 +17,8 @@
   <link rel="stylesheet" href="/styles.css" />
 
   <style>
-    /* Ronnie Mascot */
     .ronnie-notify {
-      max-width: 340px;   /* Bigger Ronnie */
+      max-width: 320px;
       width: 80%;
       margin: 2rem auto;
       display: block;
@@ -29,20 +28,22 @@
       transform: scale(1.05);
       filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
     }
-
-    /* Notify Form */
     .notify-wrap {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
       text-align: center;
-      margin: 2rem auto;
-      max-width: 480px;
     }
     .notify-wrap h2 {
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       margin-bottom: 0.75rem;
     }
     .notify-wrap p {
       color: var(--muted);
-      font-size: 1rem;
       margin-bottom: 1.5rem;
     }
     .notify-wrap input[type="email"] {
@@ -50,17 +51,11 @@
       padding: 0.75rem;
       border-radius: 8px;
       border: 1px solid var(--border);
-      background: var(--panel);
+      background: var(--bg);
       color: var(--ink);
       margin-bottom: 0.75rem;
       font-size: 1rem;
     }
-    .notify-wrap .consent {
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    /* Coming Soon */
     .coming-soon {
       margin-top: 3rem;
       padding: 1.5rem;
@@ -103,32 +98,49 @@
 
   <!-- Main -->
   <main class="container" style="max-width: 960px; margin: 4rem auto; padding: 2rem;">
-
     <!-- Ronnie Mascot -->
     <img src="/assets/img/ronnie-notify.png" alt="Ronnie mascot" class="ronnie-notify" />
 
-    <!-- Notify Block -->
+    <!-- Notify Form -->
     <div class="notify-wrap">
-      <h2>🚀 Be the First to Know</h2>
-      <p>Ronnie’s working hard behind the scenes. Enter your email and we’ll notify you as soon as new tools launch.</p>
-      <form>
-        <input type="email" placeholder="Your Email Address" required />
+      <h2>🚀 Join Ronnie’s Early Access List</h2>
+      <p>Be the first to try new tools — like <strong>Meeting Analyzer</strong>, <strong>Status Report Generator</strong>, and <strong>Risk Radar</strong>.</p>
+
+      <form 
+        action="https://formsubmit.co/75c13fb805073e5ae7a1f7ac8d63269d" 
+        method="POST"
+      >
+        <input type="email" name="email" placeholder="Your Email Address" required />
+
         <div class="consent">
-          <input type="checkbox" id="consent" required />
+          <input type="checkbox" id="consent" name="marketing_consent" required />
           <label for="consent">I agree to receive updates about System & Flow tools.</label>
         </div>
+
+        <!-- Honeypot -->
+        <input type="text" name="_honey" style="display:none" />
+
+        <!-- Disable CAPTCHA -->
+        <input type="hidden" name="_captcha" value="false" />
+
+        <!-- Redirect after submit -->
+        <input type="hidden" name="_next" value="https://systemnflow.com/thank-you.html" />
+
+        <!-- Email subject -->
+        <input type="hidden" name="_subject" value="New Notify Signup — System & Flow" />
+
         <button type="submit" class="button primary">Notify Me</button>
       </form>
     </div>
 
     <!-- Coming Soon -->
     <div class="coming-soon">
-      <h3>🔮 Coming Soon</h3>
+      <h3>🔮 Tools on the Horizon</h3>
       <ul>
-        <li>📊 RAID Analytics Dashboard</li>
-        <li>🤝 Team Sharing & Collaboration</li>
-        <li>🧠 AI Summary Generator</li>
-        <li>🔗 Integrations with Jira, Notion & more</li>
+        <li>📝 Ronnie’s Meeting Analyzer™</li>
+        <li>📊 Status Report Generator</li>
+        <li>⚡ Risk Radar</li>
+        <li>📈 RAID Analytics Dashboard</li>
       </ul>
     </div>
   </main>
@@ -154,7 +166,6 @@
     <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
   </footer>
 
-  <!-- Scripts -->
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
