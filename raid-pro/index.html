@@ -102,6 +102,7 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script>
@@ -118,18 +119,7 @@
       document.getElementById("proContent").style.display="block";
     }
 
-    // Formatter
-    function formatRAID(cats,conf){
-      let out=`Confidence: ${conf}%\n\n`;
-      for(const[k,v] of Object.entries(cats)){
-        out+=`${k}:\n`;
-        out+=v.length?v.map(l=>"  • "+l.trim()).join("\n"):"  • None";
-        out+="\n\n";
-      }
-      return out.trim();
-    }
-
-    // Simple resolution engine (static suggestions)
+    // Resolution suggestion rules
     function suggestFix(issue){
       const txt=issue.toLowerCase();
       if(txt.includes("delay")) return ["Review project timeline","Escalate blockers early","Reallocate resources"];
@@ -139,7 +129,29 @@
       return ["Assign clear owner","Document next steps","Add to RAID log for tracking"];
     }
 
-    // Extract
+    // Formatter (now includes suggestions)
+    function formatRAID(cats, conf){
+      let out = `Confidence: ${conf}%\n\n`;
+      for(const[k,v] of Object.entries(cats)){
+        out += `${k}:\n`;
+        if(v.length){
+          v.forEach(item=>{
+            const plain = item.replace(/<\/?mark>/g,""); // strip mark tags
+            out += "  • " + plain + "\n";
+            if(k==="Issues"){
+              const fixes = suggestFix(plain);
+              fixes.forEach(f => { out += "     ↳ " + f + "\n"; });
+            }
+          });
+        } else {
+          out += "  • None\n";
+        }
+        out += "\n";
+      }
+      return out.trim();
+    }
+
+    // Extract & Render
     function extractRAID(){
       const text=document.getElementById("input").value;
       const output=document.getElementById("output");
@@ -185,7 +197,7 @@
       return {cats,conf,formatted:formatRAID(cats,conf)};
     }
 
-    // Actions
+    // Copy / Save
     document.getElementById("run").onclick=extractRAID;
     document.getElementById("copy").onclick=async()=>{
       const r=extractRAID();if(!r)return;
@@ -200,11 +212,15 @@
       alert("✅ Saved!");
     };
 
+    // Export
     function exportOutput(fmt){
       const r=extractRAID();if(!r)return;
       let b;
       switch(fmt){
-        case"csv":b=new Blob([`"Date","Content"\n"${new Date().toISOString()}","${r.formatted.replace(/"/g,'""')}"`],{type:"text/csv"});break;
+        case"csv":
+          const safe = r.formatted.replace(/"/g,'""').replace(/\n/g,"\\n");
+          b=new Blob([`"Date","Content"\n"${new Date().toISOString()}","${safe}"`],{type:"text/csv"});
+          break;
         case"excel":b=new Blob([r.formatted],{type:"application/vnd.ms-excel"});break;
         case"pdf":b=new Blob([r.formatted],{type:"application/pdf"});break;
         case"word":b=new Blob([r.formatted],{type:"application/msword"});break;
@@ -217,6 +233,39 @@
       a.download=`raid-log.${fmt}`;
       a.click();
     }
+
+    // File Upload Handling
+    document.getElementById("fileInput").addEventListener("change", async (e)=>{
+      const f=e.target.files[0]; if(!f) return;
+      if(f.name.endsWith(".txt")){
+        document.getElementById("input").value=await f.text(); extractRAID();
+      }
+      else if(f.name.endsWith(".docx")){
+        const r=new FileReader();
+        r.onload=async(ev)=>{
+          const res=await mammoth.extractRawText({arrayBuffer:ev.target.result});
+          document.getElementById("input").value=res.value;
+          extractRAID();
+        };
+        r.readAsArrayBuffer(f);
+      }
+      else if(f.name.endsWith(".pdf")){
+        const r=new FileReader();
+        r.onload=async(ev)=>{
+          const arr=new Uint8Array(ev.target.result);
+          const pdf=await pdfjsLib.getDocument(arr).promise;
+          let t="";
+          for(let i=1;i<=pdf.numPages;i++){
+            const p=await pdf.getPage(i);
+            const txt=await p.getTextContent();
+            t+=txt.items.map(s=>s.str).join(" ")+"\\n";
+          }
+          document.getElementById("input").value=t;
+          extractRAID();
+        };
+        r.readAsArrayBuffer(f);
+      }
+    });
   </script>
 </body>
 </html>
