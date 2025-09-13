@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Saved RAID Logs | Ronnie’s RAID Extractor™ Pro</title>
-  <meta name="description" content="View and manage saved RAID logs in Ronnie’s RAID Extractor™ Pro." />
+  <meta name="description" content="View, search, and export saved RAID logs in Ronnie’s RAID Extractor™ Pro." />
   <meta name="theme-color" content="#0b1220" />
 
   <!-- Favicons -->
@@ -15,6 +15,31 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .log-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      background: var(--panel);
+    }
+    .log-card pre {
+      white-space: pre-wrap;
+      color: var(--ink);
+      margin: 1rem 0;
+    }
+    .log-actions {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+    #searchBox, #filterType {
+      padding: .65rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+    }
+  </style>
 </head>
 
 <body>
@@ -39,15 +64,13 @@
   <main class="container" style="max-width: 1000px; margin: 4rem auto; padding: 2rem;">
     <h1 style="text-align:center;">📂 Saved RAID Logs</h1>
     <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
-      Manage your RAID history. Search, filter, export, or restore logs.
+      Browse, filter, and export your RAID history.
     </p>
 
     <!-- Search & Filter -->
     <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem;">
-      <input id="searchBox" type="text" placeholder="🔎 Search logs..."
-        style="flex:1; padding:0.75rem; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--ink);" />
-      <select id="filterType" 
-        style="padding:0.75rem; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--ink);">
+      <input id="searchBox" type="text" placeholder="🔎 Search logs..." style="flex:1;" />
+      <select id="filterType">
         <option value="">Filter: All</option>
         <option value="Risk">Risks</option>
         <option value="Action">Actions</option>
@@ -56,13 +79,12 @@
       </select>
     </div>
 
-    <!-- Logs List -->
+    <!-- Logs -->
     <div id="logsList" style="display:grid; gap:1.5rem;"></div>
 
     <!-- Bulk Actions -->
     <div style="margin-top:2rem; text-align:center;">
       <button id="exportAll" class="button ghost">⬇ Export All (JSON)</button>
-      <button id="importLogs" class="button ghost">⬆ Import Logs</button>
       <button id="clearAll" class="button ghost" style="margin-left:1rem;">🗑 Clear All</button>
     </div>
 
@@ -81,18 +103,18 @@
   <footer class="footer-min">
     <div class="container footer-container">
       <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo" />
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
         <span class="brand">System & Flow</span>
         <span class="divider">•</span>
         <span class="tagline">Smarter tools. Faster PMs.</span>
       </div>
       <div class="foot-right">
-        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
-        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank">Facebook</a>
       </div>
     </div>
     <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
@@ -110,26 +132,22 @@
       logsList.innerHTML = "";
 
       logs.forEach((log, index) => {
-        if (
-          (search && !log.content.toLowerCase().includes(search)) ||
-          (filter && !log.content.includes(filter))
-        ) return;
+        if ((search && !log.content.toLowerCase().includes(search)) ||
+            (filter && !log.content.includes(filter))) return;
 
         const card = document.createElement("div");
-        card.style.border = "1px solid var(--border)";
-        card.style.padding = "1rem";
-        card.style.borderRadius = "8px";
-        card.style.background = "var(--panel)";
+        card.className = "log-card";
         card.innerHTML = `
           <p style="color:var(--muted); font-size:0.9rem;">📅 ${new Date(log.date).toLocaleString()}</p>
-          <pre style="white-space:pre-wrap; color:var(--ink); margin:1rem 0;">${log.content}</pre>
-          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <pre>${log.content}</pre>
+          <div class="log-actions">
             <button onclick="exportLog(${index}, 'csv')" class="button ghost">⬇ CSV</button>
-            <button onclick="exportLog(${index}, 'txt')" class="button ghost">⬇ TXT</button>
+            <button onclick="exportLog(${index}, 'excel')" class="button ghost">⬇ Excel</button>
             <button onclick="exportLog(${index}, 'pdf')" class="button ghost">⬇ PDF</button>
+            <button onclick="exportLog(${index}, 'word')" class="button ghost">⬇ Word</button>
+            <button onclick="exportLog(${index}, 'md')" class="button ghost">⬇ Markdown</button>
             <button onclick="exportLog(${index}, 'json')" class="button ghost">⬇ JSON</button>
             <button onclick="copyLog(${index})" class="button ghost">📋 Copy</button>
-            <button onclick="restoreLog(${index})" class="button ghost">↩ Restore</button>
             <button onclick="deleteLog(${index})" class="button ghost">🗑 Delete</button>
           </div>
         `;
@@ -141,25 +159,17 @@
       const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
       const log = logs[index];
       let blob;
-
       switch (format) {
-        case "csv":
-          blob = new Blob([`"Date","Content"\n"${log.date}","${log.content.replace(/"/g, '""')}"`], { type: "text/csv" });
-          break;
-        case "txt":
-          blob = new Blob([`${log.date}\n\n${log.content}`], { type: "text/plain" });
-          break;
-        case "json":
-          blob = new Blob([JSON.stringify(log, null, 2)], { type: "application/json" });
-          break;
-        case "pdf":
-          blob = new Blob([`${log.date}\n\n${log.content}`], { type: "application/pdf" });
-          break;
+        case "csv": blob = new Blob([`"Date","Content"\n"${log.date}","${log.content.replace(/"/g,'""')}"`], { type:"text/csv" }); break;
+        case "excel": blob = new Blob([log.content], { type:"application/vnd.ms-excel" }); break;
+        case "pdf": blob = new Blob([log.content], { type:"application/pdf" }); break;
+        case "word": blob = new Blob([log.content], { type:"application/msword" }); break;
+        case "md": blob = new Blob([log.content], { type:"text/markdown" }); break;
+        case "json": blob = new Blob([JSON.stringify(log,null,2)], { type:"application/json" }); break;
       }
-
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = `raid-log-${index + 1}.${format}`;
+      a.download = `raid-log-${index+1}.${format}`;
       a.click();
     }
 
@@ -167,13 +177,6 @@
       const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
       navigator.clipboard.writeText(logs[index].content);
       alert("📋 Log copied to clipboard!");
-    }
-
-    function restoreLog(index) {
-      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
-      localStorage.setItem("restoreLog", logs[index].content);
-      alert("↩ Log restored! Go back to the Extractor page.");
-      window.location.href = "/raid-pro/index.html";
     }
 
     function deleteLog(index) {
@@ -185,37 +188,15 @@
 
     document.getElementById("exportAll").addEventListener("click", () => {
       const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
-      const blob = new Blob([JSON.stringify(logs, null, 2)], { type: "application/json" });
+      const blob = new Blob([JSON.stringify(logs,null,2)], { type:"application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = "all-raid-logs.json";
       a.click();
     });
 
-    document.getElementById("importLogs").addEventListener("click", () => {
-      const input = document.createElement("input");
-      input.type = "file";
-      input.accept = "application/json";
-      input.onchange = e => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = () => {
-          try {
-            const newLogs = JSON.parse(reader.result);
-            localStorage.setItem("raidLogs", JSON.stringify(newLogs));
-            renderLogs();
-            alert("✅ Logs imported!");
-          } catch {
-            alert("❌ Invalid JSON file.");
-          }
-        };
-        reader.readAsText(file);
-      };
-      input.click();
-    });
-
     document.getElementById("clearAll").addEventListener("click", () => {
-      if (confirm("Are you sure you want to clear all logs?")) {
+      if (confirm("⚠️ Clear all logs? This cannot be undone.")) {
         localStorage.removeItem("raidLogs");
         renderLogs();
       }
@@ -223,12 +204,6 @@
 
     document.getElementById("searchBox").addEventListener("input", renderLogs);
     document.getElementById("filterType").addEventListener("change", renderLogs);
-
-    // 🔐 License enforcement
-    if (localStorage.getItem("proUser") !== "true") {
-      alert("❌ Pro license required to view logs.");
-      window.location.href = "/raid-pro/index.html";
-    }
 
     renderLogs();
   </script>
