@@ -15,10 +15,34 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .thankyou-wrap {
+      max-width: 720px;
+      margin: 5rem auto;
+      padding: 2rem;
+      text-align: center;
+    }
+    .thankyou-wrap h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .thankyou-wrap p {
+      color: var(--muted);
+      margin: 1.5rem 0;
+    }
+    .thankyou-wrap a.button {
+      margin: 1.5rem 0;
+      display: inline-block;
+    }
+    .countdown {
+      font-weight: bold;
+      color: var(--accent);
+    }
+  </style>
 </head>
 
 <body>
-  <!-- 🔹 Header -->
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
       <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
@@ -35,25 +59,27 @@
     </div>
   </header>
 
-  <!-- 🔹 Main Content -->
-  <main class="container" style="max-width: 700px; margin: 5rem auto; padding: 2rem; text-align: center;">
-    <h1>🎉 Thank You for Upgrading to Pro!</h1>
-    <p style="color: var(--muted); margin: 1.5rem 0;">
-      Your payment was successful. You now have full access to <strong>Ronnie’s RAID Extractor Pro</strong>.
+  <!-- Main Content -->
+  <main class="thankyou-wrap">
+    <h1>🎉 Welcome to Pro!</h1>
+    <p>
+      Your upgrade was successful. You now have full access to
+      <strong>Ronnie’s RAID Extractor™ Pro</strong>.
     </p>
 
-    <!-- 🔗 Launch Pro -->
-    <a href="/raid-pro/" class="button primary" style="margin: 1.5rem 0; display: inline-block;">
+    <!-- Launch Button -->
+    <a href="/raid-pro/index.html" class="button primary">
       🚀 Launch Ronnie’s RAID Extractor Pro
     </a>
 
-    <p style="color: var(--muted); margin-top: 2rem;">
-      We’ve also sent a confirmation email with this link, so you can return anytime.<br/>
+    <p>
+      Redirecting automatically in <span class="countdown" id="countdown">5</span> seconds…<br/>
+      A confirmation email has also been sent with this link so you can return anytime.<br/>
       Need help? <a href="/contact.html">Contact our team</a>.
     </p>
   </main>
 
-  <!-- 🔹 Footer -->
+  <!-- Footer -->
   <footer class="footer-min">
     <div class="container footer-container">
       <div class="foot-left">
@@ -75,6 +101,22 @@
   </footer>
 
   <script>
+    // Stamp Pro user access on arrival
+    localStorage.setItem("proUser", "true");
+
+    // Auto-redirect with countdown
+    let seconds = 5;
+    const countdownEl = document.getElementById("countdown");
+    const timer = setInterval(() => {
+      seconds--;
+      countdownEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        window.location.href = "/raid-pro/index.html";
+      }
+    }, 1000);
+
+    // Keep footer year current
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
 </body>
