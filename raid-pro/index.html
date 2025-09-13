@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ronnie’s RAID Extractor™ Pro | System & Flow</title>
-  <meta name="description" content="Pro edition of Ronnie’s RAID Extractor™ with full RAID history, multi-format exports, and more." />
+  <meta name="description" content="Pro edition of Ronnie’s RAID Extractor™ with full RAID history, multi-format exports, and AI-powered resolution suggestions." />
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="noindex,follow" />
 
@@ -17,14 +17,26 @@
   <link rel="stylesheet" href="/styles.css" />
   <style>
     mark { background: #ffd54f; padding: 0 2px; border-radius: 2px; }
+    .suggestion-block { margin:1rem 0; padding:1rem; border-left:4px solid var(--accent); background:var(--panel); border-radius:6px; }
+    .suggestion-block h4 { margin:0 0 0.5rem; color:var(--accent); font-size:0.95rem; }
+    .suggestion-block ul { margin:0; padding-left:1.25rem; }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header class="site-header">
     <div class="container">
-      <a href="/" class="brand-wrap"><img src="/assets/img/logo.png" alt="System & Flow" /><span class="brand">System & Flow</span></a>
-      <nav><ul class="nav-links"><li><a href="/">Home</a></li><li><a href="/apps.html">Tools</a></li><li><a href="/contact.html">Contact</a></li></ul></nav>
+      <a href="/" class="brand-wrap">
+        <img src="/assets/img/logo.png" alt="System & Flow" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
@@ -41,7 +53,7 @@
     <!-- Pro Content -->
     <div id="proContent" style="display:none;">
       <h1 style="text-align:center;">Ronnie’s RAID Extractor™ Pro</h1>
-      <p style="text-align:center;color:var(--muted);">Full Pro access: Save logs, export in any format, confidence scores.</p>
+      <p style="text-align:center;color:var(--muted);">Full Pro access: Save logs, export in any format, confidence scores, and resolution suggestions.</p>
 
       <div id="confidence" style="text-align:center;margin-bottom:1rem;font-size:0.95rem;color:var(--muted);">
         Confidence: <span id="conf-score" style="font-weight:600;color:var(--accent);">0%</span>
@@ -69,15 +81,24 @@
       </div>
 
       <div id="output" style="margin-top:2rem;"></div>
-      <div style="margin-top:2rem;text-align:center;"><a href="/raid-pro/logs.html" class="button ghost">📂 View Saved Logs</a></div>
+      <div style="margin-top:2rem;text-align:center;">
+        <a href="/raid-pro/logs.html" class="button ghost">📂 View Saved Logs</a>
+      </div>
     </div>
   </main>
 
   <!-- Footer -->
   <footer class="footer-min">
     <div class="container footer-container">
-      <div class="foot-left"><img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" /><span class="brand">System & Flow</span></div>
-      <div class="foot-right"><a href="https://www.tiktok.com/@systemnflow">TikTok</a><a href="https://www.instagram.com/systemnflow">Instagram</a><a href="https://www.youtube.com/@Systemnflow">YouTube</a></div>
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow" />
+        <span class="brand">System & Flow</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow">Instagram</a>
+        <a href="https://www.youtube.com/@Systemnflow">YouTube</a>
+      </div>
     </div>
   </footer>
 
@@ -92,7 +113,10 @@
       document.getElementById("license-gate").style.display="none";
       document.getElementById("proContent").style.display="block";
     };
-    if(localStorage.getItem("proUser")==="true"){document.getElementById("license-gate").style.display="none";document.getElementById("proContent").style.display="block";}
+    if(localStorage.getItem("proUser")==="true"){
+      document.getElementById("license-gate").style.display="none";
+      document.getElementById("proContent").style.display="block";
+    }
 
     // Formatter
     function formatRAID(cats,conf){
@@ -105,11 +129,26 @@
       return out.trim();
     }
 
+    // Simple resolution engine (static suggestions)
+    function suggestFix(issue){
+      const txt=issue.toLowerCase();
+      if(txt.includes("delay")) return ["Review project timeline","Escalate blockers early","Reallocate resources"];
+      if(txt.includes("budget")) return ["Revisit cost estimates","Negotiate vendor terms","Escalate to finance"];
+      if(txt.includes("scope")) return ["Clarify scope with stakeholders","Update requirements doc","Escalate misalignments"];
+      if(txt.includes("communication")) return ["Set up weekly sync","Improve reporting cadence","Define single comms channel"];
+      return ["Assign clear owner","Document next steps","Add to RAID log for tracking"];
+    }
+
     // Extract
     function extractRAID(){
       const text=document.getElementById("input").value;
       const output=document.getElementById("output");
-      if(!text.trim()){output.innerHTML="<p style='color:var(--muted)'>Paste or upload transcript.</p>";document.getElementById("conf-score").textContent="0%";return null;}
+      if(!text.trim()){
+        output.innerHTML="<p style='color:var(--muted)'>Paste or upload transcript.</p>";
+        document.getElementById("conf-score").textContent="0%";
+        return null;
+      }
+
       const cats={Risks:[],Actions:[],Issues:[],Decisions:[]};
       const lines=text.split(/\r?\n/);
       lines.forEach(l=>{
@@ -118,22 +157,66 @@
         else if(/issue/i.test(l)) cats.Issues.push(l.replace(/(issue[:]?)/ig,"<mark>$1</mark>"));
         else if(/decision/i.test(l)) cats.Decisions.push(l.replace(/(decision[:]?)/ig,"<mark>$1</mark>"));
       });
+
       const tagged=Object.values(cats).reduce((a,b)=>a+b.length,0);
       const conf=Math.round((tagged/lines.length)*100);
       const scoreEl=document.getElementById("conf-score");
       scoreEl.textContent=isNaN(conf)?"0%":conf+"%";
       scoreEl.style.color=conf>=70?"limegreen":conf>=40?"orange":"red";
-      let html="";for(const[k,v]of Object.entries(cats)){html+=`<h3>${k} (${v.length})</h3><ul>`;html+=v.length?v.map(l=>`<li>${l}</li>`).join(""):`<li><em>None</em></li>`;html+="</ul>";}
+
+      let html="";
+      for(const[k,v] of Object.entries(cats)){
+        html+=`<h3>${k} (${v.length})</h3><ul>`;
+        if(v.length){
+          v.forEach(item=>{
+            html+=`<li>${item}`;
+            if(k==="Issues"){
+              const fixes=suggestFix(item);
+              html+=`<div class="suggestion-block"><h4>Suggested Fixes</h4><ul>${fixes.map(f=>`<li>${f}</li>`).join("")}</ul></div>`;
+            }
+            html+="</li>";
+          });
+        } else {
+          html+=`<li><em>None</em></li>`;
+        }
+        html+="</ul>";
+      }
       output.innerHTML=html;
       return {cats,conf,formatted:formatRAID(cats,conf)};
     }
 
     // Actions
     document.getElementById("run").onclick=extractRAID;
-    document.getElementById("copy").onclick=async()=>{const r=extractRAID();if(!r)return;await navigator.clipboard.writeText(r.formatted);alert("📋 Copied!")};
-    document.getElementById("save").onclick=()=>{const r=extractRAID();if(!r)return;let logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");logs.unshift({date:new Date().toISOString(),content:r.formatted});localStorage.setItem("raidLogs",JSON.stringify(logs));alert("✅ Saved!")};
+    document.getElementById("copy").onclick=async()=>{
+      const r=extractRAID();if(!r)return;
+      await navigator.clipboard.writeText(r.formatted);
+      alert("📋 Copied!");
+    };
+    document.getElementById("save").onclick=()=>{
+      const r=extractRAID();if(!r)return;
+      let logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");
+      logs.unshift({date:new Date().toISOString(),content:r.formatted});
+      localStorage.setItem("raidLogs",JSON.stringify(logs));
+      alert("✅ Saved!");
+    };
 
-    function exportOutput(fmt){const r=extractRAID();if(!r)return;let b;switch(fmt){case"csv":b=new Blob([`"Date","Content"\n"${new Date().toISOString()}","${r.formatted.replace(/"/g,'""')}"`],{type:"text/csv"});break;case"excel":b=new Blob([r.formatted],{type:"application/vnd.ms-excel"});break;case"pdf":b=new Blob([r.formatted],{type:"application/pdf"});break;case"word":b=new Blob([r.formatted],{type:"application/msword"});break;case"md":b=new Blob([r.formatted],{type:"text/markdown"});break;case"json":b=new Blob([JSON.stringify({date:new Date().toISOString(),content:r.formatted},null,2)],{type:"application/json"});break;case"txt":b=new Blob([r.formatted],{type:"text/plain"});break;}const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`raid-log.${fmt}`;a.click();}
+    function exportOutput(fmt){
+      const r=extractRAID();if(!r)return;
+      let b;
+      switch(fmt){
+        case"csv":b=new Blob([`"Date","Content"\n"${new Date().toISOString()}","${r.formatted.replace(/"/g,'""')}"`],{type:"text/csv"});break;
+        case"excel":b=new Blob([r.formatted],{type:"application/vnd.ms-excel"});break;
+        case"pdf":b=new Blob([r.formatted],{type:"application/pdf"});break;
+        case"word":b=new Blob([r.formatted],{type:"application/msword"});break;
+        case"md":b=new Blob([r.formatted],{type:"text/markdown"});break;
+        case"json":b=new Blob([JSON.stringify({date:new Date().toISOString(),content:r.formatted},null,2)],{type:"application/json"});break;
+        case"txt":b=new Blob([r.formatted],{type:"text/plain"});break;
+      }
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(b);
+      a.download=`raid-log.${fmt}`;
+      a.click();
+    }
   </script>
 </body>
 </html>
