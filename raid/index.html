@@ -1,137 +1,276 @@
-<script>
-  document.getElementById("y").textContent = new Date().getFullYear();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ronnie’s RAID Extractor™ | System & Flow</title>
+  <meta name="description" content="Paste or upload a transcript, get Risks, Actions, Issues, and Decisions instantly with Ronnie’s RAID Extractor™." />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="robots" content="index,follow" />
 
-  const maxFreeRuns = 5;
-  let freeRuns = parseInt(localStorage.getItem("raidFreeRuns") || "0", 10);
-  const usageCounter = document.getElementById("usageCounter");
-  const modal = document.getElementById("paywallModal");
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
 
-  function updateCounter() {
-    const remaining = Math.max(0, maxFreeRuns - freeRuns);
-    usageCounter.textContent = remaining > 0 
-      ? `🆓 You have ${remaining} free run${remaining !== 1 ? "s" : ""} left`
-      : "🚀 Free limit reached — Upgrade to Pro";
-  }
-  updateCounter();
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .toggle { cursor: pointer; color: var(--accent); font-weight: 600; margin-top:1rem; }
+    .toggle:hover { text-decoration: underline; }
+    .hidden { display:none; }
+    mark { background: #ffd54f; padding: 0 2px; border-radius:2px; }
+    #usageCounter { text-align:center; font-size:0.9rem; margin-top:0.5rem; color:var(--muted); }
+    .suggestions { margin-top:2rem; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted); }
+    .suggestions h2 { color:var(--ink); margin-bottom:0.5rem; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
+        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  document.querySelectorAll(".pro-only").forEach(btn => {
-    btn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
-  });
-  document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+  <!-- Main -->
+  <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
+    <h1 style="text-align:center;">Ronnie’s RAID Extractor™ (Free)</h1>
+    <p style="text-align:center; color: var(--muted); margin-bottom: 2rem;">
+      Paste a transcript <em>or upload a document</em>. Ronnie will extract 
+      <strong>⚠ Risks</strong>, <strong>✅ Actions</strong>, 
+      <strong>🛑 Issues</strong>, and <strong>📌 Decisions</strong>.
+    </p>
 
-  // 🔹 Cleaner export formatting
-  function cleanLine(line) {
-    return line
-      .replace(/\b(gonna|gotta|um|uh|so|like|yeah)\b/gi, "") // remove filler words
-      .replace(/\d{1,2}:\d{2}/g, "")                        // strip timestamps
-      .replace(/\s+/g, " ")                                 // collapse spaces
-      .trim();
-  }
+    <!-- Confidence Score -->
+    <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
+      Ronnie’s Confidence Score: <span id="conf-score" style="font-weight:600;">0%</span>
+    </div>
 
-  function formatRAID(categories, conf) {
-    let out = `Confidence: ${conf}%\n\n`;
-    for (const [key, arr] of Object.entries(categories)) {
-      out += `${key}:\n`;
-      out += arr.length 
-        ? arr.map(l => "  • " + cleanLine(l)).join("\n") 
-        : "  • None";
-      out += "\n\n";
+    <!-- Transcript Input -->
+    <textarea id="input" rows="12"
+      style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
+
+    <!-- File Upload -->
+    <div style="margin:1rem 0;">
+      <label for="fileInput" style="display:block; margin-bottom:0.5rem; color:var(--muted); font-size:0.9rem;">
+        Or upload a transcript (.txt, .docx, .pdf)
+      </label>
+      <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color:var(--ink);" />
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+      <button id="run" class="button primary">Extract RAID</button>
+      <button id="clear" class="button ghost">Clear & Reset</button>
+      <button id="download" class="button ghost">Download CSV</button>
+      <button id="downloadExcel" class="button ghost pro-only">Download Excel</button>
+      <button id="downloadPDF" class="button ghost pro-only">Download PDF</button>
+      <button id="copy" class="button ghost">Copy to Clipboard</button>
+    </div>
+
+    <!-- Usage Counter -->
+    <div id="usageCounter"></div>
+
+    <!-- RAID Output -->
+    <div id="output" style="margin-top:2rem;"></div>
+
+    <!-- Resolution Suggestions (Free teaser) -->
+    <div id="suggestions" class="suggestions">
+      <h2>💡 Resolution Suggestions (Pro Only)</h2>
+      <p style="font-size:0.9rem; margin-bottom:0.75rem;">
+        Pro users unlock AI-powered guidance to help resolve project issues.<br/>
+        Example: <em>"Clarify ownership in the project charter to prevent repeat delays."</em>
+      </p>
+      <a href="/pricing.html" class="button ghost">Upgrade to Pro</a>
+    </div>
+
+    <!-- Pro Teaser -->
+    <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted);">
+      <p>🔒 <strong>Pro Feature:</strong> Save RAID History + Multi-format Exports</p>
+      <p style="font-size:0.9rem; color:var(--muted);">Upgrade to Pro for unlimited runs, saved logs, and exports in Excel, PDF, Word, Markdown, JSON.</p>
+      <a href="/pricing.html" class="button ghost">Upgrade to Pro</a>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="paywallModal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
+    <div class="modal-content" style="background:var(--panel); padding:2rem; border-radius:10px; text-align:center; max-width:400px; color:var(--ink);">
+      <h2>🚀 You’ve hit the free limit</h2>
+      <p>You’ve used your 5 free runs. Upgrade to <strong>Pro</strong> for unlimited use and full exports.</p>
+      <a href="/pricing.html" class="button primary">Upgrade to Pro</a><br/>
+      <button id="closeModal" class="button ghost" style="margin-top:0.5rem;">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-min">
+    <div class="container footer-container">
+      <div class="foot-left">
+        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
+        <span class="brand">System & Flow</span>
+        <span class="divider">•</span>
+        <span class="tagline">Smarter tools. Faster PMs.</span>
+      </div>
+      <div class="foot-right">
+        <a href="https://www.tiktok.com/@systemnflow" target="_blank">TikTok</a>
+        <a href="https://www.instagram.com/systemnflow" target="_blank">Instagram</a>
+        <a href="https://www.pinterest.com/systemnflow" target="_blank">Pinterest</a>
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    const maxFreeRuns = 5;
+    let freeRuns = parseInt(localStorage.getItem("raidFreeRuns") || "0", 10);
+    const usageCounter = document.getElementById("usageCounter");
+    const modal = document.getElementById("paywallModal");
+
+    function updateCounter() {
+      const remaining = Math.max(0, maxFreeRuns - freeRuns);
+      usageCounter.textContent = remaining > 0 
+        ? `🆓 You have ${remaining} free run${remaining !== 1 ? "s" : ""} left`
+        : "🚀 Free limit reached — Upgrade to Pro";
     }
-    return out.trim();
-  }
+    updateCounter();
 
-  function extractRAID() {
-    if (freeRuns >= maxFreeRuns) { modal.style.display = "flex"; return; }
-    freeRuns++; localStorage.setItem("raidFreeRuns", freeRuns); updateCounter();
+    document.querySelectorAll(".pro-only").forEach(btn => {
+      btn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
+    });
+    document.getElementById("closeModal").onclick = () => modal.style.display = "none";
 
-    const text = document.getElementById("input").value;
-    const output = document.getElementById("output");
-    if (!text.trim()) { 
-      output.innerHTML = "<p style='color:var(--muted)'>Paste or upload a transcript.</p>"; 
-      document.getElementById("conf-score").textContent = "0%"; 
-      return; 
+    // Cleaner export formatting
+    function cleanLine(line) {
+      return line
+        .replace(/\b(gonna|gotta|um|uh|so|like|yeah)\b/gi, "")
+        .replace(/\d{1,2}:\d{2}/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
     }
 
-    const cats = { Risks:[], Actions:[], Issues:[], Decisions:[] };
-    const lines = text.split(/\r?\n/);
-    lines.forEach(l => {
-      if (/risk/i.test(l)) cats.Risks.push(l);
-      else if (/action/i.test(l)) cats.Actions.push(l);
-      else if (/issue/i.test(l)) cats.Issues.push(l);
-      else if (/decision/i.test(l)) cats.Decisions.push(l);
+    function formatRAID(categories, conf) {
+      let out = `Confidence: ${conf}%\n\n`;
+      for (const [key, arr] of Object.entries(categories)) {
+        out += `${key}:\n`;
+        out += arr.length 
+          ? arr.map(l => "  • " + cleanLine(l)).join("\n") 
+          : "  • None";
+        out += "\n\n";
+      }
+      return out.trim();
+    }
+
+    function extractRAID() {
+      if (freeRuns >= maxFreeRuns) { modal.style.display = "flex"; return; }
+      freeRuns++; localStorage.setItem("raidFreeRuns", freeRuns); updateCounter();
+
+      const text = document.getElementById("input").value;
+      const output = document.getElementById("output");
+      if (!text.trim()) { 
+        output.innerHTML = "<p style='color:var(--muted)'>Paste or upload a transcript.</p>"; 
+        document.getElementById("conf-score").textContent = "0%"; 
+        return; 
+      }
+
+      const cats = { Risks:[], Actions:[], Issues:[], Decisions:[] };
+      const lines = text.split(/\r?\n/);
+      const nonEmpty = lines.filter(l => l.trim().length > 0).length;
+
+      lines.forEach(l => {
+        if (/risk/i.test(l)) cats.Risks.push(l);
+        else if (/action/i.test(l)) cats.Actions.push(l);
+        else if (/issue/i.test(l)) cats.Issues.push(l);
+        else if (/decision/i.test(l)) cats.Decisions.push(l);
+      });
+
+      const tagged = Object.values(cats).reduce((a,b)=>a+b.length,0);
+      const conf = Math.round((tagged / (nonEmpty || 1)) * 100);
+
+      const scoreEl = document.getElementById("conf-score");
+      scoreEl.textContent = isNaN(conf) ? "0%" : conf+"%";
+      scoreEl.style.color = conf>=70?"limegreen":conf>=40?"orange":"red";
+
+      let html=""; 
+      for (const [k,v] of Object.entries(cats)) {
+        html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${k} (${v.length})</div><ul style="margin-bottom:1rem;">`;
+        html += v.length 
+          ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
+          : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
+        html += "</ul>";
+      }
+      output.innerHTML = html;
+
+      document.getElementById("copy").onclick = async () => { 
+        await navigator.clipboard.writeText(formatRAID(cats,conf)); 
+        alert("📋 Copied!"); 
+      };
+      document.getElementById("download").onclick = () => {
+        let csv="Category,Text\n"; 
+        for (const [k,arr] of Object.entries(cats)) {
+          arr.forEach(l => csv+=`"${k}","${cleanLine(l).replace(/"/g,'""')}"\n`);
+        }
+        const blob=new Blob([csv],{type:"text/csv"}); 
+        const a=document.createElement("a"); 
+        a.href=URL.createObjectURL(blob); 
+        a.download="raid.csv"; 
+        a.click();
+      };
+    }
+
+    document.getElementById("fileInput").addEventListener("change", async (e) => {
+      const f=e.target.files[0]; if(!f) return;
+      if(f.name.endsWith(".txt")){
+        document.getElementById("input").value=await f.text(); extractRAID();
+      }
+      else if(f.name.endsWith(".docx")){
+        const r=new FileReader(); 
+        r.onload=async(ev)=>{
+          const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); 
+          document.getElementById("input").value=res.value; extractRAID();
+        }; 
+        r.readAsArrayBuffer(f);
+      }
+      else if(f.name.endsWith(".pdf")){
+        const r=new FileReader(); 
+        r.onload=async(ev)=>{
+          const arr=new Uint8Array(ev.target.result); 
+          const pdf=await pdfjsLib.getDocument(arr).promise; 
+          let t=""; 
+          for(let i=1;i<=pdf.numPages;i++){
+            const p=await pdf.getPage(i); 
+            const txt=await p.getTextContent(); 
+            t+=txt.items.map(s=>s.str).join(" ")+"\\n";
+          } 
+          document.getElementById("input").value=t; extractRAID();
+        }; 
+        r.readAsArrayBuffer(f);
+      }
     });
 
-    const tagged = Object.values(cats).reduce((a,b)=>a+b.length,0);
-   const nonEmpty = lines.filter(l => l.trim().length > 0).length;
-const conf = Math.round((tagged / (nonEmpty || 1)) * 100);
-    const scoreEl = document.getElementById("conf-score");
-    scoreEl.textContent = isNaN(conf) ? "0%" : conf+"%";
-    scoreEl.style.color = conf>=70?"limegreen":conf>=40?"orange":"red";
-
-    // 🔹 Build clean HTML output
-    let html=""; 
-    for (const [k,v] of Object.entries(cats)) {
-      html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${k} (${v.length})</div><ul>`;
-      html += v.length 
-        ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
-        : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
-      html += "</ul>";
-    }
-    output.innerHTML = html;
-
-    // Copy + CSV export use cleaned text
-    document.getElementById("copy").onclick = async () => { 
-      await navigator.clipboard.writeText(formatRAID(cats,conf)); 
-      alert("📋 Copied!"); 
+    document.getElementById("run").onclick = extractRAID;
+    document.getElementById("clear").onclick = () => { 
+      document.getElementById("input").value=""; 
+      document.getElementById("output").innerHTML=""; 
+      document.getElementById("conf-score").textContent="0%"; 
     };
-    document.getElementById("download").onclick = () => {
-      let csv="Category,Text\n"; 
-      for (const [k,arr] of Object.entries(cats)) {
-        arr.forEach(l => csv+=`"${k}","${cleanLine(l).replace(/"/g,'""')}"\n`);
-      }
-      const blob=new Blob([csv],{type:"text/csv"}); 
-      const a=document.createElement("a"); 
-      a.href=URL.createObjectURL(blob); 
-      a.download="raid.csv"; 
-      a.click();
-    };
-  }
-
-  // File handling remains unchanged
-  document.getElementById("fileInput").addEventListener("change", async (e) => {
-    const f=e.target.files[0]; if(!f) return;
-    if(f.name.endsWith(".txt")){
-      document.getElementById("input").value=await f.text(); extractRAID();
-    }
-    else if(f.name.endsWith(".docx")){
-      const r=new FileReader(); 
-      r.onload=async(ev)=>{
-        const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); 
-        document.getElementById("input").value=res.value; extractRAID();
-      }; 
-      r.readAsArrayBuffer(f);
-    }
-    else if(f.name.endsWith(".pdf")){
-      const r=new FileReader(); 
-      r.onload=async(ev)=>{
-        const arr=new Uint8Array(ev.target.result); 
-        const pdf=await pdfjsLib.getDocument(arr).promise; 
-        let t=""; 
-        for(let i=1;i<=pdf.numPages;i++){
-          const p=await pdf.getPage(i); 
-          const txt=await p.getTextContent(); 
-          t+=txt.items.map(s=>s.str).join(" ")+"\\n";
-        } 
-        document.getElementById("input").value=t; extractRAID();
-      }; 
-      r.readAsArrayBuffer(f);
-    }
-  });
-
-  document.getElementById("run").onclick = extractRAID;
-  document.getElementById("clear").onclick = () => { 
-    document.getElementById("input").value=""; 
-    document.getElementById("output").innerHTML=""; 
-    document.getElementById("conf-score").textContent="0%"; 
-  };
-</script>
+  </script>
+</body>
+</html>
