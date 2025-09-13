@@ -22,6 +22,12 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .toggle { cursor: pointer; color: var(--accent); font-weight: 600; margin-top:1rem; }
+    .toggle:hover { text-decoration: underline; }
+    .hidden { display:none; }
+    mark { background: #ffd54f; padding: 0 2px; border-radius:2px; }
+  </style>
 </head>
 
 <body>
@@ -63,7 +69,7 @@
 
       <!-- Confidence Score -->
       <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
-        Ronnie’s Confidence Score: <span style="color:var(--accent); font-weight:600;">100% (Pro Mode)</span>
+        Ronnie’s Confidence Score: <span id="conf-score" style="font-weight:600; color:var(--accent);">0%</span>
       </div>
 
       <!-- Transcript Input -->
@@ -138,6 +144,8 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
@@ -160,13 +168,95 @@
       }
     });
 
-    // Auto-unlock if verified before
     if (localStorage.getItem("proUser") === "true") {
       document.getElementById("license-gate").style.display = "none";
       document.getElementById("proContent").style.display = "block";
     }
 
-    // 💾 Save RAID log
+    // RAID Extraction
+    function extractRAID() {
+      const text = document.getElementById("input").value;
+      const output = document.getElementById("output");
+      if (!text.trim()) {
+        output.innerHTML = "<p style='color:var(--muted)'>Please paste or upload a transcript.</p>";
+        document.getElementById("conf-score").textContent = "0%";
+        return;
+      }
+
+      const categories = { Risks: [], Actions: [], Issues: [], Decisions: [] };
+      const lines = text.split(/\r?\n/);
+      lines.forEach(line => {
+        if (/risk/i.test(line)) categories.Risks.push(line.replace(/(risk[:]?)/ig,"<mark>$1</mark>"));
+        else if (/action/i.test(line)) categories.Actions.push(line.replace(/(action[:]?)/ig,"<mark>$1</mark>"));
+        else if (/issue/i.test(line)) categories.Issues.push(line.replace(/(issue[:]?)/ig,"<mark>$1</mark>"));
+        else if (/decision/i.test(line)) categories.Decisions.push(line.replace(/(decision[:]?)/ig,"<mark>$1</mark>"));
+      });
+
+      const tagged = Object.values(categories).reduce((a,b)=>a+b.length,0);
+      const score = Math.round((tagged / lines.length) * 100);
+      const scoreEl = document.getElementById("conf-score");
+      scoreEl.textContent = isNaN(score) ? "0%" : score + "%";
+      scoreEl.style.color = score >= 70 ? "limegreen" : score >= 40 ? "orange" : "red";
+
+      let html = "";
+      for (const [key, arr] of Object.entries(categories)) {
+        html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${key} (${arr.length})</div>`;
+        html += `<ul>`;
+        if (arr.length) arr.forEach(l => html += `<li>${l}</li>`);
+        else html += `<li><em>No ${key.toLowerCase()} found.</em></li>`;
+        html += `</ul>`;
+      }
+      output.innerHTML = html;
+
+      // Copy
+      document.getElementById("copy").onclick = async () => {
+        let textOut = "";
+        for (const [k, arr] of Object.entries(categories)) {
+          textOut += `${k}:\n${arr.map(l => "- " + l).join("\n") || "None"}\n\n`;
+        }
+        await navigator.clipboard.writeText(textOut.trim());
+        alert("📋 RAID log copied to clipboard!");
+      };
+    }
+
+    // File Upload
+    document.getElementById("fileInput").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.name.endsWith(".txt")) {
+        document.getElementById("input").value = await file.text();
+        extractRAID();
+      } else if (file.name.endsWith(".docx")) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const result = await mammoth.extractRawText({ arrayBuffer: event.target.result });
+          document.getElementById("input").value = result.value;
+          extractRAID();
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (file.name.endsWith(".pdf")) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const typedArray = new Uint8Array(event.target.result);
+          const pdf = await pdfjsLib.getDocument(typedArray).promise;
+          let textContent = "";
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const txt = await page.getTextContent();
+            textContent += txt.items.map(s => s.str).join(" ") + "\n";
+          }
+          document.getElementById("input").value = textContent;
+          extractRAID();
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    });
+
+    // Buttons
+    document.getElementById("run").addEventListener("click", extractRAID);
+
+    // Save RAID Log
     document.getElementById("save").addEventListener("click", () => {
       const content = document.getElementById("output").innerText;
       let logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
@@ -175,11 +265,10 @@
       alert("✅ RAID log saved locally!");
     });
 
-    // ⬇ Export helper
+    // Export
     function exportOutput(format) {
       const content = document.getElementById("output").innerText;
       let blob;
-
       switch (format) {
         case "csv": blob = new Blob([`"Date","Content"\n"${new Date().toISOString()}","${content}"`], { type: "text/csv" }); break;
         case "excel": blob = new Blob([content], { type: "application/vnd.ms-excel" }); break;
@@ -188,7 +277,6 @@
         case "md": blob = new Blob([content], { type: "text/markdown" }); break;
         case "json": blob = new Blob([JSON.stringify({ date: new Date().toISOString(), content }, null, 2)], { type: "application/json" }); break;
       }
-
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = `raid-log.${format}`;
