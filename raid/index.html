@@ -21,6 +21,8 @@
     .hidden { display:none; }
     mark { background: #ffd54f; padding: 0 2px; border-radius:2px; }
     #usageCounter { text-align:center; font-size:0.9rem; margin-top:0.5rem; color:var(--muted); }
+    .suggestions { margin-top:2rem; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted); }
+    .suggestions h2 { color:var(--ink); margin-bottom:0.5rem; }
   </style>
 </head>
 <body>
@@ -80,7 +82,18 @@
     <!-- Usage Counter -->
     <div id="usageCounter"></div>
 
+    <!-- RAID Output -->
     <div id="output" style="margin-top:2rem;"></div>
+
+    <!-- Resolution Suggestions (Free teaser) -->
+    <div id="suggestions" class="suggestions">
+      <h2>💡 Resolution Suggestions (Pro Only)</h2>
+      <p style="font-size:0.9rem; margin-bottom:0.75rem;">
+        Pro users unlock AI-powered guidance to help resolve project issues.<br/>
+        Example: <em>"Clarify ownership in the project charter to prevent repeat delays."</em>
+      </p>
+      <a href="/pricing.html" class="button ghost">Upgrade to Pro</a>
+    </div>
 
     <!-- Pro Teaser -->
     <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted);">
@@ -160,7 +173,11 @@
 
       const text = document.getElementById("input").value;
       const output = document.getElementById("output");
-      if (!text.trim()) { output.innerHTML = "<p style='color:var(--muted)'>Paste or upload a transcript.</p>"; document.getElementById("conf-score").textContent = "0%"; return; }
+      if (!text.trim()) { 
+        output.innerHTML = "<p style='color:var(--muted)'>Paste or upload a transcript.</p>"; 
+        document.getElementById("conf-score").textContent = "0%"; 
+        return; 
+      }
 
       const cats = { Risks:[], Actions:[], Issues:[], Decisions:[] };
       const lines = text.split(/\r?\n/);
@@ -177,25 +194,65 @@
       scoreEl.textContent = isNaN(conf) ? "0%" : conf+"%";
       scoreEl.style.color = conf>=70?"limegreen":conf>=40?"orange":"red";
 
-      let html=""; for(const[k,v] of Object.entries(cats)){html+=`<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${k} (${v.length})</div><ul>`; html+=v.length?v.map(l=>`<li>${l}</li>`).join(""):`<li><em>No ${k.toLowerCase()} found.</em></li>`; html+="</ul>";}
+      let html=""; 
+      for(const[k,v] of Object.entries(cats)){
+        html+=`<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${k} (${v.length})</div><ul>`;
+        html+=v.length?v.map(l=>`<li>${l}</li>`).join(""):`<li><em>No ${k.toLowerCase()} found.</em></li>`;
+        html+="</ul>";
+      }
       output.innerHTML = html;
 
-      document.getElementById("copy").onclick = async () => { await navigator.clipboard.writeText(formatRAID(cats,conf)); alert("📋 Copied!"); };
+      document.getElementById("copy").onclick = async () => { 
+        await navigator.clipboard.writeText(formatRAID(cats,conf)); 
+        alert("📋 Copied!"); 
+      };
       document.getElementById("download").onclick = () => {
-        let csv="Category,Text\n"; for(const[k,arr] of Object.entries(cats)){arr.forEach(l=>csv+=`"${k}","${l.replace(/"/g,'""')}"\n`);}
-        const blob=new Blob([csv],{type:"text/csv"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="raid.csv"; a.click();
+        let csv="Category,Text\n"; 
+        for(const[k,arr] of Object.entries(cats)){arr.forEach(l=>csv+=`"${k}","${l.replace(/"/g,'""')}"\n`);}
+        const blob=new Blob([csv],{type:"text/csv"}); 
+        const a=document.createElement("a"); 
+        a.href=URL.createObjectURL(blob); 
+        a.download="raid.csv"; 
+        a.click();
       };
     }
 
     document.getElementById("fileInput").addEventListener("change", async (e) => {
       const f=e.target.files[0]; if(!f) return;
-      if(f.name.endsWith(".txt")){ document.getElementById("input").value=await f.text(); extractRAID();}
-      else if(f.name.endsWith(".docx")){const r=new FileReader(); r.onload=async(ev)=>{const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); document.getElementById("input").value=res.value; extractRAID();}; r.readAsArrayBuffer(f);}
-      else if(f.name.endsWith(".pdf")){const r=new FileReader(); r.onload=async(ev)=>{const arr=new Uint8Array(ev.target.result); const pdf=await pdfjsLib.getDocument(arr).promise; let t=""; for(let i=1;i<=pdf.numPages;i++){const p=await pdf.getPage(i); const txt=await p.getTextContent(); t+=txt.items.map(s=>s.str).join(" ")+"\\n";} document.getElementById("input").value=t; extractRAID();}; r.readAsArrayBuffer(f);}
+      if(f.name.endsWith(".txt")){
+        document.getElementById("input").value=await f.text(); extractRAID();
+      }
+      else if(f.name.endsWith(".docx")){
+        const r=new FileReader(); 
+        r.onload=async(ev)=>{
+          const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); 
+          document.getElementById("input").value=res.value; extractRAID();
+        }; 
+        r.readAsArrayBuffer(f);
+      }
+      else if(f.name.endsWith(".pdf")){
+        const r=new FileReader(); 
+        r.onload=async(ev)=>{
+          const arr=new Uint8Array(ev.target.result); 
+          const pdf=await pdfjsLib.getDocument(arr).promise; 
+          let t=""; 
+          for(let i=1;i<=pdf.numPages;i++){
+            const p=await pdf.getPage(i); 
+            const txt=await p.getTextContent(); 
+            t+=txt.items.map(s=>s.str).join(" ")+"\\n";
+          } 
+          document.getElementById("input").value=t; extractRAID();
+        }; 
+        r.readAsArrayBuffer(f);
+      }
     });
 
     document.getElementById("run").onclick = extractRAID;
-    document.getElementById("clear").onclick = () => { document.getElementById("input").value=""; document.getElementById("output").innerHTML=""; document.getElementById("conf-score").textContent="0%"; };
+    document.getElementById("clear").onclick = () => { 
+      document.getElementById("input").value=""; 
+      document.getElementById("output").innerHTML=""; 
+      document.getElementById("conf-score").textContent="0%"; 
+    };
   </script>
 </body>
 </html>
