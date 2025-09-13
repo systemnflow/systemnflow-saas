@@ -14,6 +14,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
   <link rel="manifest" href="/assets/img/site.webmanifest" />
 
+  <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
   <style>
     .toggle { cursor: pointer; color: var(--accent); font-weight: 600; margin-top:1rem; }
@@ -23,6 +24,12 @@
     #usageCounter { text-align:center; font-size:0.9rem; margin-top:0.5rem; color:var(--muted); }
     .suggestions { margin-top:2rem; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted); }
     .suggestions h2 { color:var(--ink); margin-bottom:0.5rem; }
+    .badge { display:inline-block; padding:0.25rem 0.6rem; border-radius:6px; font-size:0.8rem; font-weight:600; }
+    .badge.high { background:#40d27833; color:#40d278; }
+    .badge.med { background:#ffa50033; color:#ffa500; }
+    .badge.low { background:#ff444433; color:#ff4444; }
+    ul { margin:0.5rem 0 1rem 1.25rem; }
+    li { margin:0.3rem 0; }
   </style>
 </head>
 <body>
@@ -54,7 +61,8 @@
 
     <!-- Confidence Score -->
     <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
-      Ronnie’s Confidence Score: <span id="conf-score" style="font-weight:600;">0%</span>
+      Ronnie’s Confidence Score: 
+      <span id="conf-score" class="badge low">0%</span>
     </div>
 
     <!-- Transcript Input -->
@@ -206,11 +214,12 @@
 
       const scoreEl = document.getElementById("conf-score");
       scoreEl.textContent = isNaN(conf) ? "0%" : conf+"%";
-      scoreEl.style.color = conf>=70?"limegreen":conf>=40?"orange":"red";
+      scoreEl.className = "badge " + (conf>=70?"high":conf>=40?"med":"low");
 
       let html=""; 
       for (const [k,v] of Object.entries(cats)) {
-        html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${k} (${v.length})</div><ul style="margin-bottom:1rem;">`;
+        const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
+        html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${icon} ${k} (${v.length})</div><ul style="margin-bottom:1rem;">`;
         html += v.length 
           ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
           : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
@@ -270,6 +279,7 @@
       document.getElementById("input").value=""; 
       document.getElementById("output").innerHTML=""; 
       document.getElementById("conf-score").textContent="0%"; 
+      document.getElementById("conf-score").className="badge low"; 
     };
   </script>
 </body>
