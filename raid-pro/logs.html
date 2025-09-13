@@ -7,33 +7,144 @@
   <meta name="theme-color" content="#0b1220" />
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    .log-card{background:var(--panel);padding:1rem;margin:1rem 0;border-radius:8px;border:1px solid var(--border);}
-    .log-actions{margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap;}
-    #search{width:100%;padding:.75rem;margin:1rem 0;border:1px solid var(--border);border-radius:6px;background:var(--panel);color:var(--ink);}
+    .log-card {
+      background: var(--panel);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .log-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+    }
+    .log-card pre {
+      white-space: pre-wrap;
+      color: var(--ink);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      background: #0f172a;
+      padding: 0.75rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    .log-actions {
+      margin-top: .75rem;
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+    #search {
+      width: 100%;
+      padding: .75rem;
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+    }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
-      <a href="/" class="brand-wrap"><img src="/assets/img/logo.png" alt="System & Flow"/><span class="brand">System & Flow</span></a>
-      <nav><ul class="nav-links"><li><a href="/apps.html">Tools</a></li><li><a href="/raid-pro/index.html">Pro Extractor</a></li></ul></nav>
+      <a href="/" class="brand-wrap">
+        <img src="/assets/img/logo.png" alt="System & Flow"/>
+        <span class="brand">System & Flow</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/apps.html">Tools</a></li>
+          <li><a href="/raid-pro/index.html">Pro Extractor</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
+  <!-- Main -->
   <main class="container" style="max-width:900px;margin:4rem auto;padding:2rem;">
     <h1 style="text-align:center;">📂 Saved RAID Logs</h1>
-    <input id="search" type="text" placeholder="Search logs (e.g. 'Risk', 'Decision')..." />
+    <input id="search" type="text" placeholder="Search logs (e.g. 'Risk', 'Fix', 'Decision')..." />
     <div id="logsContainer"></div>
-    <div style="text-align:center;margin-top:1rem;"><button onclick="clearLogs()" class="button ghost">🗑 Clear All Logs</button></div>
+    <div style="text-align:center;margin-top:1rem;">
+      <button onclick="clearLogs()" class="button ghost">🗑 Clear All Logs</button>
+    </div>
   </main>
 
+  <!-- Scripts -->
   <script>
-    function renderLogs(filter=""){const logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");const c=document.getElementById("logsContainer");c.innerHTML=logs.length?"":"<p style='color:var(--muted);text-align:center;'>No logs yet.</p>";logs.forEach((log,i)=>{if(filter&&!log.content.toLowerCase().includes(filter.toLowerCase()))return;const card=document.createElement("div");card.className="log-card";card.innerHTML=`<h3>Log ${i+1} — ${new Date(log.date).toLocaleString()}</h3><pre style="white-space:pre-wrap;color:var(--ink);">${log.content}</pre><div class="log-actions"><button onclick="copyLog(${i})" class="button ghost">📋 Copy</button><button onclick="exportLog(${i},'txt')" class="button ghost">⬇ TXT</button><button onclick="exportLog(${i},'json')" class="button ghost">⬇ JSON</button><button onclick="exportLog(${i},'csv')" class="button ghost">⬇ CSV</button><button onclick="deleteLog(${i})" class="button ghost">🗑 Delete</button></div>`;c.appendChild(card);});}
-    function copyLog(i){const logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");navigator.clipboard.writeText(logs[i].content);alert("📋 Copied!")}
-    function exportLog(i,f){const logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");const log=logs[i];let b;if(f==="txt")b=new Blob([log.content],{type:"text/plain"});if(f==="json")b=new Blob([JSON.stringify(log,null,2)],{type:"application/json"});if(f==="csv")b=new Blob([`"Date","Content"\n"${log.date}","${log.content.replace(/"/g,'""')}"`],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`raid-log-${i+1}.${f}`;a.click();}
-    function deleteLog(i){let logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");logs.splice(i,1);localStorage.setItem("raidLogs",JSON.stringify(logs));renderLogs();}
-    function clearLogs(){if(confirm("Clear all logs?")){localStorage.removeItem("raidLogs");renderLogs();}}
-    document.getElementById("search").addEventListener("input",e=>renderLogs(e.target.value));
+    function renderLogs(filter=""){
+      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      const c = document.getElementById("logsContainer");
+      c.innerHTML = logs.length ? "" : "<p style='color:var(--muted);text-align:center;'>No logs yet.</p>";
+
+      logs.forEach((log,i)=>{
+        if(filter && !log.content.toLowerCase().includes(filter.toLowerCase())) return;
+
+        const card = document.createElement("div");
+        card.className = "log-card";
+
+        card.innerHTML = `
+          <h3>Log ${i+1} — ${new Date(log.date).toLocaleString()}</h3>
+          <pre>${log.content}</pre>
+          <div class="log-actions">
+            <button onclick="copyLog(${i})" class="button ghost">📋 Copy</button>
+            <button onclick="exportLog(${i},'txt')" class="button ghost">⬇ TXT</button>
+            <button onclick="exportLog(${i},'json')" class="button ghost">⬇ JSON</button>
+            <button onclick="exportLog(${i},'csv')" class="button ghost">⬇ CSV</button>
+            <button onclick="deleteLog(${i})" class="button ghost">🗑 Delete</button>
+          </div>
+        `;
+        c.appendChild(card);
+      });
+    }
+
+    function copyLog(i){
+      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      navigator.clipboard.writeText(logs[i].content);
+      alert("📋 Copied!");
+    }
+
+    function exportLog(i,f){
+      const logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      const log = logs[i];
+      let b;
+
+      if(f==="txt"){
+        b = new Blob([log.content], {type:"text/plain"});
+      }
+      if(f==="json"){
+        b = new Blob([JSON.stringify(log,null,2)], {type:"application/json"});
+      }
+      if(f==="csv"){
+        // Escape quotes and newlines so suggestions stay intact
+        const safe = log.content.replace(/"/g,'""').replace(/\n/g,"\\n");
+        b = new Blob([`"Date","Content"\n"${log.date}","${safe}"`], {type:"text/csv"});
+      }
+
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(b);
+      a.download = `raid-log-${i+1}.${f}`;
+      a.click();
+    }
+
+    function deleteLog(i){
+      let logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
+      logs.splice(i,1);
+      localStorage.setItem("raidLogs", JSON.stringify(logs));
+      renderLogs();
+    }
+
+    function clearLogs(){
+      if(confirm("Clear all logs?")){
+        localStorage.removeItem("raidLogs");
+        renderLogs();
+      }
+    }
+
+    document.getElementById("search").addEventListener("input", e => renderLogs(e.target.value));
     renderLogs();
   </script>
 </body>
