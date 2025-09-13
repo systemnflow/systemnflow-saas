@@ -8,6 +8,12 @@
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="index,follow" />
 
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
+
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
   <style>
@@ -186,17 +192,66 @@
         html += `</ul>`;
       }
       output.innerHTML = html;
+
+      // Copy to Clipboard (formatted)
+      document.getElementById("copy").onclick = async () => {
+        let textOut = "";
+        for (const [k, arr] of Object.entries(categories)) {
+          textOut += `${k}:\n${arr.map(l => "- " + l).join("\n") || "None"}\n\n`;
+        }
+        await navigator.clipboard.writeText(textOut.trim());
+        alert("📋 RAID log copied to clipboard!");
+      };
+
+      // CSV download
+      document.getElementById("download").onclick = () => {
+        let csv = "Category,Text\n";
+        for (const [k, arr] of Object.entries(categories)) {
+          arr.forEach(l => csv += `"${k}","${l.replace(/"/g, '""')}"\n`);
+        }
+        const blob = new Blob([csv], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "raid.csv";
+        link.click();
+      };
     }
 
-    // File Upload + Clear
+    // File Upload
     document.getElementById("fileInput").addEventListener("change", async (e) => {
       const file = e.target.files[0];
       if (!file) return;
+
       if (file.name.endsWith(".txt")) {
         document.getElementById("input").value = await file.text();
         extractRAID();
+      } else if (file.name.endsWith(".docx")) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const result = await mammoth.extractRawText({ arrayBuffer: event.target.result });
+          document.getElementById("input").value = result.value;
+          extractRAID();
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (file.name.endsWith(".pdf")) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const typedArray = new Uint8Array(event.target.result);
+          const pdf = await pdfjsLib.getDocument(typedArray).promise;
+          let textContent = "";
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const txt = await page.getTextContent();
+            textContent += txt.items.map(s => s.str).join(" ") + "\n";
+          }
+          document.getElementById("input").value = textContent;
+          extractRAID();
+        };
+        reader.readAsArrayBuffer(file);
       }
     });
+
+    // Buttons
     document.getElementById("run").addEventListener("click", extractRAID);
     document.getElementById("clear").addEventListener("click", () => { 
       document.getElementById("input").value="";
