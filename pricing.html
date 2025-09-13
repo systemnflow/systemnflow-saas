@@ -4,19 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pricing | System & Flow</title>
-  <meta name="description" content="Choose a plan for Ronnie’s RAID Extractor and other System & Flow tools. Free, Pro, and Enterprise options available." />
+  <meta name="description" content="Choose your plan for Ronnie’s RAID Extractor™ and other System & Flow tools. Free, Pro, and Enterprise options available." />
   <meta name="theme-color" content="#0b1220" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
-  <link rel="manifest" href="assets/img/site.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/img/site.webmanifest" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    /* Ensure all cards align buttons at bottom */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -26,23 +25,30 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border-radius: 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 2rem;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
-    .card-content {
-      flex: 1;
-    }
-    .card-actions {
-      margin-top: auto;
-    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .card-content { flex: 1; }
+    .card-actions { margin-top: auto; }
+    .card h2 { margin-bottom: .5rem; }
+    .price { font-size: 1.6rem; margin: 1rem 0; }
+    ul.features { list-style: none; padding: 0; margin: 1rem 0; text-align: left; color: var(--muted); line-height: 1.6; }
+    .card.pro { border: 2px solid var(--accent); box-shadow: var(--shadow-lift); }
+    .have-key { margin-top: 2rem; font-size: .95rem; color: var(--muted); }
+    .have-key a { color: var(--accent); font-weight: 600; }
   </style>
 </head>
 
 <body>
-  <!-- 🔹 Global Header -->
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
-      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
-        <img src="/assets/img/logo.png" alt="System & Flow logo" />
+      <a href="/" class="brand-wrap">
+        <img src="/assets/img/logo.png" alt="System & Flow" />
         <span class="brand">System & Flow</span>
       </a>
       <nav>
@@ -55,27 +61,26 @@
     </div>
   </header>
 
-  <!-- 🔹 Pricing Content -->
+  <!-- Main -->
   <main class="container" style="max-width: 1000px; margin: 4rem auto; padding: 2rem; text-align: center;">
     <h1>Choose Your Plan</h1>
     <p style="color: var(--muted); margin-bottom: 2rem;">
-      Upgrade to unlock Pro features like saving RAID history, Excel/PDF exports, and more.
+      Unlock Ronnie’s full power: save logs, export in any format, and get smart suggestions.
     </p>
 
     <div class="pricing-grid">
-      
       <!-- Free -->
-      <div class="card" style="border: 1px solid var(--border); padding: 2rem;">
+      <div class="card">
         <div class="card-content">
           <h2>Free</h2>
           <p style="color: var(--muted);">For PMs who just need the basics.</p>
-          <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>$0</strong>/mo</p>
-          <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
+          <p class="price"><strong>$0</strong>/mo</p>
+          <ul class="features">
             <li>✔ Extract RAID from transcripts</li>
-            <li>✔ Copy to Clipboard</li>
+            <li>✔ Copy to clipboard</li>
             <li>✔ Download CSV</li>
-            <li>❌ Save RAID history</li>
-            <li>❌ Excel/PDF export</li>
+            <li>❌ Save history</li>
+            <li>❌ PDF/Excel export</li>
           </ul>
         </div>
         <div class="card-actions">
@@ -84,15 +89,15 @@
       </div>
 
       <!-- Pro -->
-      <div class="card" style="border: 2px solid var(--accent); padding: 2rem; box-shadow: var(--shadow);">
+      <div class="card pro">
         <div class="card-content">
           <h2>Pro</h2>
-          <p style="color: var(--muted);">For busy PMs who want full power.</p>
-          <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>$19</strong>/mo</p>
-          <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
+          <p style="color: var(--muted);">For busy PMs who want the full toolkit.</p>
+          <p class="price"><strong>$19</strong>/mo</p>
+          <ul class="features">
             <li>✔ Everything in Free</li>
             <li>✔ Save RAID history</li>
-            <li>✔ Excel + PDF export</li>
+            <li>✔ PDF + Excel export</li>
             <li>✔ Ronnie’s Confidence Score</li>
             <li>✔ Priority support</li>
           </ul>
@@ -106,12 +111,12 @@
       </div>
 
       <!-- Enterprise -->
-      <div class="card" style="border: 1px solid var(--border); padding: 2rem;">
+      <div class="card">
         <div class="card-content">
           <h2>Enterprise</h2>
           <p style="color: var(--muted);">For teams and organizations.</p>
-          <p style="font-size: 1.5rem; margin: 1rem 0;"><strong>Custom</strong></p>
-          <ul style="list-style:none; padding:0; margin:1rem 0; text-align:left; color:var(--muted);">
+          <p class="price"><strong>Custom</strong></p>
+          <ul class="features">
             <li>✔ Everything in Pro</li>
             <li>✔ Team accounts</li>
             <li>✔ Admin controls</li>
@@ -119,14 +124,18 @@
           </ul>
         </div>
         <div class="card-actions">
-          <a href="/enterprise.html" class="button ghost">Contact Sales</a>
+          <a href="/contact.html" class="button ghost">Contact Sales</a>
         </div>
       </div>
+    </div>
 
+    <!-- Already have a key -->
+    <div class="have-key">
+      Already have a license key? <a href="/raid-pro/index.html" id="goProLink">Enter it here</a>.
     </div>
   </main>
 
-  <!-- 🔹 Global Footer -->
+  <!-- Footer -->
   <footer class="footer-min">
     <div class="container footer-container">
       <div class="foot-left">
@@ -139,4 +148,24 @@
         <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
         <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" target="_blank" r_
+        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // If user already has Pro, skip pricing automatically
+    document.addEventListener("DOMContentLoaded", () => {
+      const isProUser = localStorage.getItem("proUser") === "true";
+      if (isProUser) {
+        window.location.href = "/raid-pro/index.html";
+      }
+    });
+  </script>
+</body>
+</html>
