@@ -102,18 +102,19 @@
           </article>
 
           <!-- RAID Pro -->
-          <article class="card">
-            <div class="card-top">
-              <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
-              <span class="badge pro">Pro</span>
-            </div>
-            <p class="small">
-              Unlock <strong>RAID history, multi-format export, and saved logs</strong>. Includes AI-powered resolution suggestions.
-            </p>
-            <div class="card-actions">
-              <a class="button primary" href="/raid-pro/index.html">Open Pro</a>
-            </div>
-          </article>
+<article class="card">
+  <div class="card-top">
+    <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
+    <span class="badge pro">Pro</span>
+  </div>
+  <p class="small">
+    Unlock <strong>RAID history, multi-format export, and saved logs</strong>. Includes AI-powered resolution suggestions.
+  </p>
+  <div class="card-actions">
+    <a href="#" class="button primary" id="openProBtn">Open Pro</a>
+  </div>
+</article>
+
 
           <!-- Meeting Analyzer -->
           <article class="card">
@@ -179,5 +180,19 @@
     includeHTML("#header-placeholder", "/partials/header.html");
     includeHTML("#footer-placeholder", "/partials/footer.html");
   </script>
+
+  <script>
+  // Pro button logic
+  document.getElementById("openProBtn").addEventListener("click", function(e){
+    e.preventDefault();
+    const isProUser = localStorage.getItem("proUser") === "true";
+    if(isProUser){
+      window.location.href = "/raid-pro/index.html"; // direct to Pro app
+    } else {
+      window.location.href = "/pricing.html"; // send to pricing
+    }
+  });
+</script>
+
 </body>
 </html>
