@@ -17,121 +17,40 @@
   <link rel="stylesheet" href="/styles.css" />
 
   <style>
-    /* ---------- Hero layout ---------- */
-    .hero { padding-bottom: 0; margin-bottom: 0; }         /* pull hero closer to tools */
-    .hero-split{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;          /* center copy with bigger graphic */
-      justify-content:space-between;
-      gap:2.25rem;
-      padding:1.75rem 0 0rem;      /* tighter than before */
-    }
-    .hero-split .content{
-      flex:1 1 360px;
-      max-width:520px;             /* give copy a touch more room */
-    }
-    .hero-split .graphic{
-      flex:1 1 420px;              /* prioritize space for larger Ronnie */
-      display:flex;
-      justify-content:center;
-      align-items:flex-end;
-      position:relative;
-      isolation:isolate;           /* keeps halo behind Ronnie only */
-    }
-
-    /* ---------- Ronnie size + pop ---------- */
+    .hero { padding-bottom: 0; margin-bottom: 0; }
+    .hero-split{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:2.25rem; padding:1.75rem 0 0; }
+    .hero-split .content{ flex:1 1 360px; max-width:520px; }
+    .hero-split .graphic{ flex:1 1 420px; display:flex; justify-content:center; align-items:flex-end; position:relative; isolation:isolate; }
     .ronnie-wrap{ position:relative; }
     .ronnie-wrap::before{
-      content:"";
-      position:absolute;
-      inset:auto -6% -4% -6%;      /* subtle overspill halo */
-      height:66%;                  /* slightly shorter so it sits tighter */
-      margin:auto;
-      background:radial-gradient(ellipse at 50% 70%,
-                 rgba(184,117,61,.20) 0%, rgba(184,117,61,.06) 40%,
-                 rgba(0,0,0,0) 70%);
-      filter:blur(18px);
-      z-index:-1;
-      pointer-events:none;
+      content:""; position:absolute; inset:auto -6% -4% -6%;
+      height:66%; margin:auto;
+      background:radial-gradient(ellipse at 50% 70%, rgba(184,117,61,.20) 0%, rgba(184,117,61,.06) 40%, rgba(0,0,0,0) 70%);
+      filter:blur(18px); z-index:-1; pointer-events:none;
     }
-    .ronnie-hero{
-      max-height:520px;
-      width:auto;
-      margin-top:.25rem;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,.35));
-    }
-
-    /* ---------- Type & section polish (unchanged copy) ---------- */
-    .headline-hook{
-      color:var(--accent);
-      font-weight:bold;
-      font-size:1rem;
-      text-transform:uppercase;
-      margin-bottom:.5rem;
-      letter-spacing:1px;
-    }
-    .hero-subtitle{
-      font-size:2.15rem;
-      font-weight:700;
-      color:var(--ink);
-      margin-top:0;
-    }
-
-    /* ------ Divider + Tools spacing (primary tightening here) ------ */
-    .section-divider{
-      border:0;
-      border-top:1px solid var(--border);
-      margin:.5rem auto 0;         /* much tighter */
-      max-width:920px;
-      transform: translateY(-6px); /* visually tucks the rule up toward hero */
-    }
-    #tools { padding-top: 0; margin-top: 0; }  /* remove any top spacing */
-    .section-title{
-      text-align:center;
-      margin:.75rem auto .75rem;   /* tighter title spacing */
-    }
-
-    .home-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-      gap:2rem;
-      margin-top:1.25rem;          /* reduced top margin above cards */
-    }
-
-    .card{
-      background-color:var(--panel);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:1.5rem;
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
+    .ronnie-hero{ max-height:520px; width:auto; margin-top:.25rem; filter: drop-shadow(0 12px 24px rgba(0,0,0,.35)); }
+    .headline-hook{ color:var(--accent); font-weight:bold; font-size:1rem; text-transform:uppercase; margin-bottom:.5rem; letter-spacing:1px; }
+    .hero-subtitle{ font-size:2.15rem; font-weight:700; color:var(--ink); margin-top:0; }
+    .section-divider{ border:0; border-top:1px solid var(--border); margin:.5rem auto 0; max-width:920px; transform: translateY(-6px); }
+    #tools { padding-top: 0; margin-top: 0; }
+    .section-title{ text-align:center; margin:.75rem auto .75rem; }
+    .home-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem; margin-top:1.25rem; }
+    .card{ background-color:var(--panel); border:1px solid var(--border); border-radius:12px; padding:1.5rem; transition:transform .2s ease, box-shadow .2s ease; }
     .card:hover{ transform:translateY(-6px); box-shadow:0 8px 20px rgba(0,0,0,.25); }
     .card-top{ display:flex; align-items:center; justify-content:space-between; }
     .badge{ font-size:.7rem; padding:.2em .6em; border-radius:999px; background:#1e2a41; color:#9aa4b2; }
     .badge.live{ background:#40d27833; color:#40d278; }
+    .badge.pro{ background:#b8753d33; color:#b8753d; }
     .badge.soon{ background:#b8753d33; color:#b8753d; }
     .card-actions .button + .button{ margin-left:.5rem; }
-
-    /* ---------- Responsive ---------- */
-    @media (max-width: 992px){
-      .ronnie-hero{ max-height:440px; }
-    }
+    @media (max-width: 992px){ .ronnie-hero{ max-height:440px; } }
     @media (max-width: 768px){
       .hero-split{ flex-direction:column-reverse; align-items:center; text-align:center; }
       .hero-split .graphic{ align-items:center; }
       .ronnie-hero{ max-height:340px; }
-      .section-divider{ transform:none; }  /* keep it clean on small screens */
+      .section-divider{ transform:none; }
     }
   </style>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FRFWG4X18"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-1FRFWG4X18');
-  </script>
 </head>
 
 <body>
@@ -143,16 +62,14 @@
       <div class="container hero-split">
         <div class="content">
           <div class="headline-hook">Red Flag Ronnie™</div>
-          <h1 class="hero-subtitle">Saboteur Detection</h1>
+          <h1 class="hero-subtitle">Smarter PM Tools</h1>
           <p class="small">
-            Missed deadlines, buried blockers, silent sabotage — Ronnie flags it before it spreads. No drama. No delay.
+            Extract RAID logs, analyze meetings, and generate reports — faster, smarter, and with less chaos.
           </p>
           <div style="margin-top:1.5rem">
-            <a class="button primary" href="#tools">Try the Analyzer</a>
-            <a class="button ghost" href="/contact.html">Get Early Access</a>
+            <a class="button primary" href="#tools">Explore Tools</a>
           </div>
         </div>
-
         <div class="graphic">
           <div class="ronnie-wrap">
             <img class="ronnie-hero" src="/assets/img/rfr-apps-trans.png" alt="Red Flag Ronnie™ mascot illustration" />
@@ -169,18 +86,46 @@
       <div class="container">
         <h2 class="section-title">Tools That Fight Chaos</h2>
         <div class="home-grid">
-          <!-- Transcript Analyzer -->
+
+          <!-- RAID Free -->
           <article class="card">
             <div class="card-top">
-              <h3>Transcript Analyzer</h3>
+              <h3>Ronnie’s RAID Extractor™ (Free)</h3>
               <span class="badge live">Live</span>
             </div>
             <p class="small">
-              Turn raw meeting transcripts into <strong>instant summaries</strong> with <strong>Actions, Risks &amp; Decisions</strong> — in seconds.
+              Paste or upload transcripts and auto-extract <strong>⚠ Risks, ✅ Actions, 🛑 Issues, 📌 Decisions</strong> in seconds.
             </p>
             <div class="card-actions">
-              <a class="button primary" href="#">Open</a>
-              <a class="button ghost" href="#">Docs</a>
+              <a class="button primary" href="/raid/index.html">Open Free</a>
+            </div>
+          </article>
+
+          <!-- RAID Pro -->
+          <article class="card">
+            <div class="card-top">
+              <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
+              <span class="badge pro">Pro</span>
+            </div>
+            <p class="small">
+              Unlock <strong>RAID history, multi-format export, and saved logs</strong>. Includes AI-powered resolution suggestions.
+            </p>
+            <div class="card-actions">
+              <a class="button primary" href="/raid-pro/index.html">Open Pro</a>
+            </div>
+          </article>
+
+          <!-- Meeting Analyzer -->
+          <article class="card">
+            <div class="card-top">
+              <h3>Ronnie’s Meeting Analyzer™</h3>
+              <span class="badge soon">Coming Soon</span>
+            </div>
+            <p class="small">
+              Summarize meeting notes, draft <strong>task lists</strong>, and auto-generate a <strong>next-week agenda</strong>.
+            </p>
+            <div class="card-actions">
+              <a class="button ghost" href="/contact.html">Notify Me</a>
             </div>
           </article>
 
@@ -191,7 +136,7 @@
               <span class="badge soon">Q4 2025</span>
             </div>
             <p class="small">
-              Generate <strong>VP-ready reports</strong> as polished PDFs or Markdown — no formatting fuss, no manual effort.
+              Create <strong>VP-ready summaries</strong> in PDF or Markdown with one click. Designed for executive reporting.
             </p>
             <div class="card-actions">
               <a class="button ghost" href="/contact.html">Notify Me</a>
@@ -205,12 +150,13 @@
               <span class="badge soon">Coming Soon</span>
             </div>
             <p class="small">
-              Auto-scan your project for silent risks — and get <strong>AI-backed mitigation tips</strong> before it’s too late.
+              Auto-detect critical project risks — with <strong>AI-backed mitigation tips</strong> to keep delivery on track.
             </p>
             <div class="card-actions">
               <a class="button ghost" href="/contact.html">Notify Me</a>
             </div>
           </article>
+
         </div>
       </div>
     </section>
