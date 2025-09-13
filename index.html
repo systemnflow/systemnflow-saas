@@ -123,21 +123,19 @@
         </a>
 
         <!-- Tool Card 2: Pro RAID -->
-        <a href="/raid-pro/index.html" class="card-link">
-          <div class="card">
-            <div>
-              <div class="card-top">
-                <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
-                <span class="badge pro">Pro</span>
-              </div>
-              <p>Unlock <strong>RAID history, multi-format export, and saved logs</strong>. 
-                Includes AI-powered resolution suggestions.</p>
-            </div>
-            <div class="card-actions">
-              <span class="button primary">Open Pro</span>
-            </div>
-          </div>
-        </a>
+        <a href="#" class="card-link" id="openProBtn">
+  <div class="card">
+    <div class="card-top">
+      <h3>Ronnie’s RAID Extractor™ (Pro)</h3>
+      <span class="badge pro">Pro</span>
+    </div>
+    <p>Unlock <strong>RAID history, multi-format export, and saved logs</strong>. 
+      Includes AI-powered resolution suggestions.</p>
+    <div class="card-actions">
+      <span class="button primary">Open Pro</span>
+    </div>
+  </div>
+</a>
 
         <!-- Tool Card 3: Meeting Analyzer -->
         <a href="/notify.html" class="card-link">
@@ -220,5 +218,17 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
+  <script>
+  document.getElementById("openProBtn").addEventListener("click", function(e){
+    e.preventDefault();
+    const isProUser = localStorage.getItem("proUser") === "true";
+    if(isProUser){
+      window.location.href = "/raid-pro/index.html"; // Go to Pro app
+    } else {
+      window.location.href = "/pricing.html"; // Go to cost page
+    }
+  });
+</script>
+
 </body>
 </html>
