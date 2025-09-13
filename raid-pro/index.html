@@ -1,24 +1,54 @@
 <script>
-  // License Gate Logic
-  function showPro(){
-    document.getElementById("license-gate").style.display="none";
-    document.getElementById("proContent").style.display="block";
+  // ---------- License Gate Logic ----------
+  function showPro() {
+    document.getElementById("license-gate").style.display = "none";
+    document.getElementById("proContent").style.display = "block";
   }
 
-  // Auto-skip gate if Pro already activated
-  if(localStorage.getItem("proUser") === "true"){
+  function showGate() {
+    document.getElementById("license-gate").style.display = "block";
+    document.getElementById("proContent").style.display = "none";
+  }
+
+  // Auto-skip gate if already Pro
+  if (localStorage.getItem("proUser") === "true") {
     showPro();
+  } else {
+    showGate();
   }
 
   // Verify license button
   document.getElementById("verifyLicense").onclick = () => {
     const k = document.getElementById("licenseKey").value.trim();
-    if(!k){
-      document.getElementById("licenseError").style.display="block";
+
+    if (!k) {
+      document.getElementById("licenseError").style.display = "block";
       return;
     }
-    // TODO: Add real license validation here if needed
-    localStorage.setItem("proUser","true");
+
+    // TODO: Add real validation check here (API or static key match)
+    localStorage.setItem("proUser", "true");
     showPro();
   };
+
+  // ---------- Logout / Reset ----------
+  function logoutPro() {
+    localStorage.removeItem("proUser");
+    alert("🔒 Pro access reset. You’ll need to re-enter your license key.");
+    showGate();
+  }
+
+  // Add logout button dynamically
+  window.addEventListener("DOMContentLoaded", () => {
+    const footer = document.querySelector(".footer-min .container");
+    if (footer && !document.getElementById("logoutProBtn")) {
+      const btn = document.createElement("button");
+      btn.id = "logoutProBtn";
+      btn.textContent = "Log Out of Pro";
+      btn.className = "button ghost";
+      btn.style.marginLeft = "1rem";
+      btn.onclick = logoutPro;
+      footer.appendChild(btn);
+    }
+  });
 </script>
