@@ -20,7 +20,6 @@
     .toggle { cursor: pointer; color: var(--accent); font-weight: 600; margin-top:1rem; }
     .toggle:hover { text-decoration: underline; }
     .hidden { display:none; }
-    mark { background: #ffd54f; padding: 0 2px; border-radius:2px; }
     #usageCounter { text-align:center; font-size:0.9rem; margin-top:0.5rem; color:var(--muted); }
     .suggestions { margin-top:2rem; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted); }
     .suggestions h2 { color:var(--ink); margin-bottom:0.5rem; }
@@ -28,8 +27,9 @@
     .badge.high { background:#40d27833; color:#40d278; }
     .badge.med { background:#ffa50033; color:#ffa500; }
     .badge.low { background:#ff444433; color:#ff4444; }
-    ul { margin:0.5rem 0 1rem 1.25rem; }
+    ul { margin:0.5rem 0 1.25rem 1.25rem; }
     li { margin:0.3rem 0; }
+    .error { color:#ff4444; font-size:0.9rem; margin-top:1rem; }
   </style>
 </head>
 <body>
@@ -75,6 +75,7 @@
         Or upload a transcript (.txt, .docx, .pdf)
       </label>
       <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color:var(--ink);" />
+      <div id="fileError" class="error" style="display:none;"></div>
     </div>
 
     <!-- Action Buttons -->
@@ -226,6 +227,7 @@
         html += "</ul>";
       }
       output.innerHTML = html;
+      output.scrollIntoView({behavior:"smooth"}); // auto-scroll to results
 
       document.getElementById("copy").onclick = async () => { 
         await navigator.clipboard.writeText(formatRAID(cats,conf)); 
@@ -244,33 +246,47 @@
       };
     }
 
+    // Keyboard shortcut Ctrl+Enter
+    document.getElementById("input").addEventListener("keydown", e => {
+      if (e.ctrlKey && e.key === "Enter") extractRAID();
+    });
+
     document.getElementById("fileInput").addEventListener("change", async (e) => {
       const f=e.target.files[0]; if(!f) return;
-      if(f.name.endsWith(".txt")){
-        document.getElementById("input").value=await f.text(); extractRAID();
-      }
-      else if(f.name.endsWith(".docx")){
-        const r=new FileReader(); 
-        r.onload=async(ev)=>{
-          const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); 
-          document.getElementById("input").value=res.value; extractRAID();
-        }; 
-        r.readAsArrayBuffer(f);
-      }
-      else if(f.name.endsWith(".pdf")){
-        const r=new FileReader(); 
-        r.onload=async(ev)=>{
-          const arr=new Uint8Array(ev.target.result); 
-          const pdf=await pdfjsLib.getDocument(arr).promise; 
-          let t=""; 
-          for(let i=1;i<=pdf.numPages;i++){
-            const p=await pdf.getPage(i); 
-            const txt=await p.getTextContent(); 
-            t+=txt.items.map(s=>s.str).join(" ")+"\\n";
-          } 
-          document.getElementById("input").value=t; extractRAID();
-        }; 
-        r.readAsArrayBuffer(f);
+      try {
+        if(f.name.endsWith(".txt")){
+          document.getElementById("input").value=await f.text(); extractRAID();
+        }
+        else if(f.name.endsWith(".docx")){
+          const r=new FileReader(); 
+          r.onload=async(ev)=>{
+            const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); 
+            document.getElementById("input").value=res.value; extractRAID();
+          }; 
+          r.readAsArrayBuffer(f);
+        }
+        else if(f.name.endsWith(".pdf")){
+          const r=new FileReader(); 
+          r.onload=async(ev)=>{
+            const arr=new Uint8Array(ev.target.result); 
+            const pdf=await pdfjsLib.getDocument(arr).promise; 
+            let t=""; 
+            for(let i=1;i<=pdf.numPages;i++){
+              const p=await pdf.getPage(i); 
+              const txt=await p.getTextContent(); 
+              t+=txt.items.map(s=>s.str).join(" ")+"\\n";
+            } 
+            document.getElementById("input").value=t; extractRAID();
+          }; 
+          r.readAsArrayBuffer(f);
+        }
+        else {
+          document.getElementById("fileError").style.display="block";
+          document.getElementById("fileError").textContent="❌ Unsupported file format.";
+        }
+      } catch(err) {
+        document.getElementById("fileError").style.display="block";
+        document.getElementById("fileError").textContent="❌ Error reading file.";
       }
     });
 
