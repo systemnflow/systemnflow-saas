@@ -30,6 +30,7 @@
     ul { margin:0.5rem 0 1.25rem 1.25rem; }
     li { margin:0.3rem 0; }
     .error { color:#ff4444; font-size:0.9rem; margin-top:1rem; }
+    .locked { opacity:0.6; cursor:not-allowed; }
   </style>
 </head>
 <body>
@@ -82,10 +83,15 @@
     <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
       <button id="run" class="button primary">Extract RAID</button>
       <button id="clear" class="button ghost">Clear & Reset</button>
-      <button id="download" class="button ghost">Download CSV</button>
-      <button id="downloadExcel" class="button ghost pro-only">Download Excel</button>
-      <button id="downloadPDF" class="button ghost pro-only">Download PDF</button>
       <button id="copy" class="button ghost">Copy to Clipboard</button>
+
+      <!-- Locked Export Buttons -->
+      <button class="button ghost locked pro-only">⬇ CSV (Pro)</button>
+      <button class="button ghost locked pro-only">⬇ Excel (Pro)</button>
+      <button class="button ghost locked pro-only">⬇ PDF (Pro)</button>
+      <button class="button ghost locked pro-only">⬇ Word (Pro)</button>
+      <button class="button ghost locked pro-only">⬇ Markdown (Pro)</button>
+      <button class="button ghost locked pro-only">⬇ JSON (Pro)</button>
     </div>
 
     <!-- Usage Counter -->
@@ -115,8 +121,8 @@
   <!-- Modal -->
   <div id="paywallModal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
     <div class="modal-content" style="background:var(--panel); padding:2rem; border-radius:10px; text-align:center; max-width:400px; color:var(--ink);">
-      <h2>🚀 You’ve hit the free limit</h2>
-      <p>You’ve used your 5 free runs. Upgrade to <strong>Pro</strong> for unlimited use and full exports.</p>
+      <h2>🚀 Pro Feature</h2>
+      <p>Exports are only available with <strong>Ronnie’s RAID Extractor Pro</strong>.</p>
       <a href="/pricing.html" class="button primary">Upgrade to Pro</a><br/>
       <button id="closeModal" class="button ghost" style="margin-top:0.5rem;">Cancel</button>
     </div>
@@ -162,7 +168,10 @@
     updateCounter();
 
     document.querySelectorAll(".pro-only").forEach(btn => {
-      btn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
+      btn.addEventListener("click", e => { 
+        e.preventDefault(); 
+        modal.style.display = "flex"; 
+      });
     });
     document.getElementById("closeModal").onclick = () => modal.style.display = "none";
 
@@ -232,17 +241,6 @@
       document.getElementById("copy").onclick = async () => { 
         await navigator.clipboard.writeText(formatRAID(cats,conf)); 
         alert("📋 Copied!"); 
-      };
-      document.getElementById("download").onclick = () => {
-        let csv="Category,Text\n"; 
-        for (const [k,arr] of Object.entries(cats)) {
-          arr.forEach(l => csv+=`"${k}","${cleanLine(l).replace(/"/g,'""')}"\n`);
-        }
-        const blob=new Blob([csv],{type:"text/csv"}); 
-        const a=document.createElement("a"); 
-        a.href=URL.createObjectURL(blob); 
-        a.download="raid.csv"; 
-        a.click();
       };
     }
 
