@@ -3,246 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ronnie’s RAID Extractor™ Pro | System & Flow</title>
-  <meta name="description" content="Pro edition of Ronnie’s RAID Extractor™ with full RAID history, multi-format exports, and more." />
+  <title>Saved RAID Logs | Ronnie’s RAID Extractor™ Pro</title>
   <meta name="theme-color" content="#0b1220" />
-  <meta name="robots" content="noindex,follow" />
-
-  <!-- Social -->
-  <meta property="og:title" content="Ronnie’s RAID Extractor™ Pro | System & Flow" />
-  <meta property="og:description" content="Full Pro access: Save RAID history, export in any format, and unlock advanced features." />
-  <meta property="og:image" content="https://systemnflow.com/assets/img/snf_logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
-  <link rel="manifest" href="/assets/img/site.webmanifest" />
-
-  <!-- Styles -->
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    mark { background: #ffd54f; padding: 0 2px; border-radius: 2px; }
+    .log-card{background:var(--panel);padding:1rem;margin:1rem 0;border-radius:8px;border:1px solid var(--border);}
+    .log-actions{margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap;}
+    #search{width:100%;padding:.75rem;margin:1rem 0;border:1px solid var(--border);border-radius:6px;background:var(--panel);color:var(--ink);}
   </style>
 </head>
-
 <body>
-  <!-- Header -->
   <header class="site-header">
     <div class="container">
-      <a href="/" class="brand-wrap" aria-label="System & Flow homepage">
-        <img src="/assets/img/logo.png" alt="System & Flow logo" />
-        <span class="brand">System & Flow</span>
-      </a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/apps.html">Tools</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </nav>
+      <a href="/" class="brand-wrap"><img src="/assets/img/logo.png" alt="System & Flow"/><span class="brand">System & Flow</span></a>
+      <nav><ul class="nav-links"><li><a href="/apps.html">Tools</a></li><li><a href="/raid-pro/index.html">Pro Extractor</a></li></ul></nav>
     </div>
   </header>
 
-  <!-- License Gate -->
-  <main class="container" style="max-width: 900px; margin: 4rem auto; padding: 2rem;">
-    <div id="license-gate" style="text-align:center;">
-      <h1>🔒 Enter License Key</h1>
-      <p style="color:var(--muted);">Enter your Pro license key to unlock Ronnie’s RAID Extractor™ Pro.</p>
-      <input id="licenseKey" type="text" placeholder="Enter your license key..."
-        style="width:100%; padding:1rem; margin:1rem 0; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--ink);" />
-      <button id="verifyLicense" class="button primary">Verify License</button>
-      <div id="licenseError" style="color:red; margin-top:1rem; display:none;">❌ Invalid license key or activation limit reached.</div>
-    </div>
-
-    <!-- Pro Content -->
-    <div id="proContent" style="display:none;">
-      <h1 style="text-align:center;">Ronnie’s RAID Extractor™ Pro</h1>
-      <p style="text-align:center; color:var(--muted); margin-bottom:2rem;">
-        Welcome to the <strong>Pro edition</strong> — full access including 
-        <strong>Save RAID history</strong>, <strong>Multi-format export</strong>, and more.
-      </p>
-
-      <!-- Confidence Score -->
-      <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
-        Ronnie’s Confidence Score: <span id="conf-score" style="color:var(--accent); font-weight:600;">0%</span>
-      </div>
-
-      <!-- Transcript Input -->
-      <textarea id="input" rows="12" placeholder="Paste transcript..."
-        style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
-
-      <!-- File Upload -->
-      <div style="margin:1rem 0;">
-        <label for="fileInput" style="display:block; margin-bottom:0.5rem; color:var(--muted); font-size:0.9rem;">
-          Or upload a transcript (.txt, .docx, .pdf)
-        </label>
-        <input type="file" id="fileInput" accept=".txt,.docx,.pdf" style="color:var(--ink);" />
-      </div>
-
-      <!-- Action Buttons -->
-      <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
-        <button id="run" class="button primary">Extract RAID</button>
-        <button onclick="exportOutput('csv')" class="button ghost">⬇ CSV</button>
-        <button onclick="exportOutput('excel')" class="button ghost">⬇ Excel</button>
-        <button onclick="exportOutput('pdf')" class="button ghost">⬇ PDF</button>
-        <button onclick="exportOutput('word')" class="button ghost">⬇ Word</button>
-        <button onclick="exportOutput('md')" class="button ghost">⬇ Markdown</button>
-        <button onclick="exportOutput('json')" class="button ghost">⬇ JSON</button>
-        <button id="copy" class="button ghost">📋 Copy</button>
-        <button id="save" class="button ghost">💾 Save RAID Log</button>
-      </div>
-
-      <div id="output" style="margin-top:2rem;"></div>
-
-      <!-- Pro Status -->
-      <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px solid var(--accent); border-radius:8px; background:var(--panel); color:var(--accent);">
-        🎉 You are using the <strong>Pro version</strong> — all features unlocked.
-      </div>
-
-      <!-- Coming Soon -->
-      <div style="margin-top:3rem;">
-        <h2 style="text-align:center;">🚀 Coming Soon for Pro Users</h2>
-        <ul style="color:var(--muted); line-height:1.8;">
-          <li>📊 RAID Analytics Dashboard — track trends across logs.</li>
-          <li>🤝 Team Sharing — collaborate with your team.</li>
-          <li>🧠 AI Summary Generator — instant exec summaries.</li>
-          <li>🔗 Integrations — Jira, Notion, Excel Online.</li>
-        </ul>
-      </div>
-
-      <!-- Saved Logs -->
-      <div style="margin-top:2rem; text-align:center;">
-        <a href="/raid-pro/logs.html" class="button ghost">📂 View Saved Logs</a>
-      </div>
-    </div>
+  <main class="container" style="max-width:900px;margin:4rem auto;padding:2rem;">
+    <h1 style="text-align:center;">📂 Saved RAID Logs</h1>
+    <input id="search" type="text" placeholder="Search logs (e.g. 'Risk', 'Decision')..." />
+    <div id="logsContainer"></div>
+    <div style="text-align:center;margin-top:1rem;"><button onclick="clearLogs()" class="button ghost">🗑 Clear All Logs</button></div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer-min">
-    <div class="container footer-container">
-      <div class="foot-left">
-        <img class="logo-icon" src="/assets/img/logo.png" alt="System & Flow logo icon" />
-        <span class="brand">System & Flow</span>
-        <span class="divider">•</span>
-        <span class="tagline">Smarter tools. Faster PMs.</span>
-      </div>
-      <div class="foot-right">
-        <a href="https://www.tiktok.com/@systemnflow" target="_blank" rel="noopener">TikTok</a>
-        <a href="https://www.instagram.com/systemnflow" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.pinterest.com/systemnflow" target="_blank" rel="noopener">Pinterest</a>
-        <a href="https://www.youtube.com/@Systemnflow" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.linkedin.com/company/systemnflow" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.facebook.com/systemnflow" target="_blank" rel="noopener">Facebook</a>
-      </div>
-    </div>
-    <div class="legal">© <span id="y"></span> System & Flow™. All rights reserved.</div>
-  </footer>
-
-  <!-- Scripts -->
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-
-    // 🔐 License validation
-    document.getElementById("verifyLicense").addEventListener("click", async () => {
-      const key = document.getElementById("licenseKey").value.trim();
-      const res = await fetch("/api/verify-license", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ license_key: key })
-      });
-      const data = await res.json();
-
-      if (data.valid) {
-        localStorage.setItem("proUser", "true");
-        document.getElementById("license-gate").style.display = "none";
-        document.getElementById("proContent").style.display = "block";
-      } else {
-        document.getElementById("licenseError").style.display = "block";
-      }
-    });
-
-    if (localStorage.getItem("proUser") === "true") {
-      document.getElementById("license-gate").style.display = "none";
-      document.getElementById("proContent").style.display = "block";
-    }
-
-    // RAID Extraction
-    function extractRAID() {
-      const text = document.getElementById("input").value;
-      const output = document.getElementById("output");
-      if (!text.trim()) {
-        output.innerHTML = "<p style='color:var(--muted)'>Please paste or upload a transcript.</p>";
-        document.getElementById("conf-score").textContent = "0%";
-        return;
-      }
-
-      const categories = { Risks: [], Actions: [], Issues: [], Decisions: [] };
-      const lines = text.split(/\r?\n/);
-      lines.forEach(line => {
-        if (/risk/i.test(line)) categories.Risks.push(line.replace(/(risk[:]?)/ig,"<mark>$1</mark>"));
-        else if (/action/i.test(line)) categories.Actions.push(line.replace(/(action[:]?)/ig,"<mark>$1</mark>"));
-        else if (/issue/i.test(line)) categories.Issues.push(line.replace(/(issue[:]?)/ig,"<mark>$1</mark>"));
-        else if (/decision/i.test(line)) categories.Decisions.push(line.replace(/(decision[:]?)/ig,"<mark>$1</mark>"));
-      });
-
-      const tagged = Object.values(categories).reduce((a,b)=>a+b.length,0);
-      const score = Math.round((tagged / lines.length) * 100);
-      const scoreEl = document.getElementById("conf-score");
-      scoreEl.textContent = isNaN(score) ? "0%" : score + "%";
-      scoreEl.style.color = score >= 70 ? "limegreen" : score >= 40 ? "orange" : "red";
-
-      let html = "";
-      for (const [key, arr] of Object.entries(categories)) {
-        html += `<h3>${key} (${arr.length})</h3><ul>`;
-        if (arr.length) arr.forEach(l => html += `<li>${l}</li>`);
-        else html += `<li><em>No ${key.toLowerCase()} found.</em></li>`;
-        html += `</ul>`;
-      }
-      output.innerHTML = html;
-
-      return { content: output.innerText, confidence: score };
-    }
-
-    // Run + Save
-    document.getElementById("run").addEventListener("click", extractRAID);
-    document.getElementById("save").addEventListener("click", () => {
-      const result = extractRAID();
-      if (!result) return;
-      let logs = JSON.parse(localStorage.getItem("raidLogs") || "[]");
-      logs.push({ date: new Date().toISOString(), content: result.content, confidence: result.confidence });
-      localStorage.setItem("raidLogs", JSON.stringify(logs));
-      alert("✅ RAID log saved with confidence score!");
-    });
-
-    // Copy
-    document.getElementById("copy").addEventListener("click", async () => {
-      const result = extractRAID();
-      if (!result) return;
-      await navigator.clipboard.writeText(`Confidence: ${result.confidence}%\n\n${result.content}`);
-      alert("📋 RAID copied to clipboard!");
-    });
-
-    // Export helper
-    function exportOutput(format) {
-      const result = extractRAID();
-      if (!result) return;
-      const { content, confidence } = result;
-      let blob;
-      switch (format) {
-        case "csv": blob = new Blob([`"Date","Confidence","Content"\n"${new Date().toISOString()}","${confidence}%","${content.replace(/"/g,'""')}"`], { type:"text/csv" }); break;
-        case "excel": blob = new Blob([content], { type:"application/vnd.ms-excel" }); break;
-        case "pdf": blob = new Blob([content], { type:"application/pdf" }); break;
-        case "word": blob = new Blob([content], { type:"application/msword" }); break;
-        case "md": blob = new Blob([content], { type:"text/markdown" }); break;
-        case "json": blob = new Blob([JSON.stringify({ date:new Date().toISOString(), confidence, content },null,2)], { type:"application/json" }); break;
-      }
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `raid-log.${format}`;
-      a.click();
-    }
+    function renderLogs(filter=""){const logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");const c=document.getElementById("logsContainer");c.innerHTML=logs.length?"":"<p style='color:var(--muted);text-align:center;'>No logs yet.</p>";logs.forEach((log,i)=>{if(filter&&!log.content.toLowerCase().includes(filter.toLowerCase()))return;const card=document.createElement("div");card.className="log-card";card.innerHTML=`<h3>Log ${i+1} — ${new Date(log.date).toLocaleString()}</h3><pre style="white-space:pre-wrap;color:var(--ink);">${log.content}</pre><div class="log-actions"><button onclick="copyLog(${i})" class="button ghost">📋 Copy</button><button onclick="exportLog(${i},'txt')" class="button ghost">⬇ TXT</button><button onclick="exportLog(${i},'json')" class="button ghost">⬇ JSON</button><button onclick="exportLog(${i},'csv')" class="button ghost">⬇ CSV</button><button onclick="deleteLog(${i})" class="button ghost">🗑 Delete</button></div>`;c.appendChild(card);});}
+    function copyLog(i){const logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");navigator.clipboard.writeText(logs[i].content);alert("📋 Copied!")}
+    function exportLog(i,f){const logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");const log=logs[i];let b;if(f==="txt")b=new Blob([log.content],{type:"text/plain"});if(f==="json")b=new Blob([JSON.stringify(log,null,2)],{type:"application/json"});if(f==="csv")b=new Blob([`"Date","Content"\n"${log.date}","${log.content.replace(/"/g,'""')}"`],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`raid-log-${i+1}.${f}`;a.click();}
+    function deleteLog(i){let logs=JSON.parse(localStorage.getItem("raidLogs")||"[]");logs.splice(i,1);localStorage.setItem("raidLogs",JSON.stringify(logs));renderLogs();}
+    function clearLogs(){if(confirm("Clear all logs?")){localStorage.removeItem("raidLogs");renderLogs();}}
+    document.getElementById("search").addEventListener("input",e=>renderLogs(e.target.value));
+    renderLogs();
   </script>
 </body>
 </html>
