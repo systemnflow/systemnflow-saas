@@ -214,13 +214,15 @@
       let html="";
       for (const [k,v] of Object.entries(cats)) {
         const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
+        html += `<div style="margin-bottom:2rem;">`;   // 🔹 added spacing wrapper
         html += `<h3>${icon} ${k} (${v.length})</h3><ul>`;
         html += v.length 
           ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
           : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
-        html += "</ul>";
-      }
-      output.innerHTML = html;
+        html += "</ul></div>";  // 🔹 close spacing wrapper
+    }
+output.innerHTML = html;
+
     }
 
     // Copy to Clipboard works again
