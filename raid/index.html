@@ -225,11 +225,14 @@ output.innerHTML = html;
 
     }
 
-    // Copy to Clipboard works again
+     // Copy to Clipboard with spacing preserved
     document.getElementById("copy").onclick = async () => { 
-      const text = document.getElementById("output").innerText;
+      const conf = document.getElementById("conf-score").textContent.replace("%","") || 0;
+      const text = formatRAID(cats, conf);   // 🔹 use formatter with extra newlines
       await navigator.clipboard.writeText(text); 
-      alert("📋 Copied!"); 
+      alert("📋 Copied with spacing!"); 
+};
+
     };
 
     // Keep downloads locked
