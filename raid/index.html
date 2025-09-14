@@ -256,14 +256,14 @@
       scoreEl.textContent = isNaN(conf) ? "0%" : conf+"%";
       scoreEl.className = "badge " + (conf>=70?"high":conf>=40?"med":"low");
 
-      let html=""; 
-      for (const [k,v] of Object.entries(cats)) {
-        const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
-        html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${icon} ${k} (${v.length})</div><ul style="margin-bottom:1rem;">`;
-        html += v.length 
-          ? v.map(l => `<li>${cleanLine(l)} <button class="button ghost" style="margin-left:0.5rem;" onclick="navigator.clipboard.writeText('${cleanLine(l)}')">Copy</button></li>`).join("") 
-          : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
-        html += "</ul>";
+      let html = "";
+      for (const [k, v] of Object.entries(cats)) {
+      const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
+      html += `<h3 style="margin-top:1rem;">${icon} ${k} (${v.length})</h3><ul>`;
+      html += v.length 
+      ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
+      : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
+      html += "</ul>";
       }
       output.innerHTML = html;
       output.scrollIntoView({behavior:"smooth"}); // auto-scroll to results
