@@ -30,27 +30,6 @@
     ul { margin:0.5rem 0 1.25rem 1.25rem; }
     li { margin:0.3rem 0; }
     .error { color:#ff4444; font-size:0.9rem; margin-top:1rem; }
-    .locked { opacity:0.5; cursor:not-allowed; position:relative; }
-    .locked::after {
-      content:"🔒 Pro Only"; 
-      position:absolute; top:50%; left:50%; 
-      transform:translate(-50%, -50%);
-      background:rgba(0,0,0,0.75); color:#fff; 
-      padding:0.2rem 0.5rem; border-radius:4px;
-      font-size:0.75rem; white-space:nowrap;
-    }
-    .tooltip { position:relative; cursor:help; border-bottom:1px dotted var(--muted); }
-    .tooltip .tooltip-text {
-      visibility:hidden; opacity:0; transition:opacity 0.3s;
-      position:absolute; bottom:125%; left:50%; transform:translateX(-50%);
-      background:#111; color:#fff; padding:0.5rem; border-radius:6px; font-size:0.8rem; white-space:nowrap;
-      z-index:10;
-    }
-    .tooltip:hover .tooltip-text { visibility:visible; opacity:1; }
-    .floating-run {
-      position:fixed; bottom:1.5rem; right:1.5rem; 
-      z-index:2000;
-    }
   </style>
 </head>
 <body>
@@ -82,17 +61,13 @@
 
     <!-- Confidence Score -->
     <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
-      Ronnie’s Confidence Score 
-      <span class="tooltip">ℹ
-        <span class="tooltip-text">Calculated as % of non-empty lines tagged with Risk, Action, Issue, or Decision.</span>
-      </span>: 
+      Ronnie’s Confidence Score: 
       <span id="conf-score" class="badge low">0%</span>
     </div>
 
     <!-- Transcript Input -->
     <textarea id="input" rows="12"
       style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
-    <div style="font-size:0.8rem; color:var(--muted); margin-top:0.25rem;">Word Count: <span id="wordCount">0</span> • Lines: <span id="lineCount">0</span></div>
 
     <!-- File Upload -->
     <div style="margin:1rem 0;">
@@ -128,27 +103,7 @@
       </p>
       <a href="/pricing.html" class="button ghost">Upgrade to Pro</a>
     </div>
-
-    <!-- Pro Teaser -->
-    <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted);">
-      <p>🔒 <strong>Pro Feature:</strong> Save RAID History + Multi-format Exports</p>
-      <p style="font-size:0.9rem; color:var(--muted);">Upgrade to Pro for unlimited runs, saved logs, and exports in Excel, PDF, Word, Markdown, JSON.</p>
-      <a href="/pricing.html" class="button ghost">Upgrade to Pro</a>
-    </div>
   </main>
-
-  <!-- Floating Run Button -->
-  <button class="button primary floating-run" onclick="extractRAID()">▶ Run Extractor</button>
-
-  <!-- Modal -->
-  <div id="paywallModal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
-    <div class="modal-content" style="background:var(--panel); padding:2rem; border-radius:10px; text-align:center; max-width:400px; color:var(--ink);">
-      <h2>🚀 You’ve hit the free limit</h2>
-      <p>You’ve used your 5 free runs. Upgrade to <strong>Pro</strong> for unlimited use and full exports.</p>
-      <a href="/pricing.html" class="button primary">Upgrade to Pro</a><br/>
-      <button id="closeModal" class="button ghost" style="margin-top:0.5rem;">Cancel</button>
-    </div>
-  </div>
 
   <!-- Footer -->
   <footer class="footer-min">
@@ -179,15 +134,6 @@
     const maxFreeRuns = 5;
     let freeRuns = parseInt(localStorage.getItem("raidFreeRuns") || "0", 10);
     const usageCounter = document.getElementById("usageCounter");
-    const modal = document.getElementById("paywallModal");
-
-    // Word + line counter
-    const inputBox = document.getElementById("input");
-    inputBox.addEventListener("input", () => {
-      const text = inputBox.value;
-      document.getElementById("wordCount").textContent = text.trim().split(/\s+/).filter(Boolean).length;
-      document.getElementById("lineCount").textContent = text.split(/\r?\n/).filter(l => l.trim()).length;
-    });
 
     function updateCounter() {
       const remaining = Math.max(0, maxFreeRuns - freeRuns);
@@ -197,20 +143,12 @@
     }
     updateCounter();
 
-    document.querySelectorAll(".locked").forEach(btn => {
-      btn.addEventListener("click", e => {
-        e.preventDefault();
-        modal.style.display = "flex";
-      });
-    });
-    document.getElementById("closeModal").onclick = () => modal.style.display = "none";
-
-    // Cleaner export formatting
     function cleanLine(line) {
       return line
-        .replace(/\b(gonna|gotta|um|uh|so|like|yeah)\b/gi, "")
-        .replace(/\d{1,2}:\d{2}/g, "")
-        .replace(/\s+/g, " ")
+        .replace(/\[[0-9:]+\]/g, "")         // strip timestamps
+        .replace(/\s*,\s*,/g, ",")           // remove double commas
+        .replace(/\s+/g, " ")                // normalize spacing
+        .replace(/\b(um|uh|so|like|yeah)\b/gi, "") // strip filler words
         .trim();
     }
 
@@ -227,7 +165,7 @@
     }
 
     function extractRAID() {
-      if (freeRuns >= maxFreeRuns) { modal.style.display = "flex"; return; }
+      if (freeRuns >= maxFreeRuns) return;
       freeRuns++; localStorage.setItem("raidFreeRuns", freeRuns); updateCounter();
 
       const text = document.getElementById("input").value;
@@ -240,7 +178,6 @@
 
       const cats = { Risks:[], Actions:[], Issues:[], Decisions:[] };
       const lines = text.split(/\r?\n/);
-      const nonEmpty = lines.filter(l => l.trim().length > 0).length;
 
       lines.forEach(l => {
         if (/risk/i.test(l)) cats.Risks.push(l);
@@ -250,70 +187,23 @@
       });
 
       const tagged = Object.values(cats).reduce((a,b)=>a+b.length,0);
-      const conf = Math.round((tagged / (nonEmpty || 1)) * 100);
+      const conf = Math.round((tagged / (lines.filter(l => l.trim()).length || 1)) * 100);
 
       const scoreEl = document.getElementById("conf-score");
       scoreEl.textContent = isNaN(conf) ? "0%" : conf+"%";
       scoreEl.className = "badge " + (conf>=70?"high":conf>=40?"med":"low");
 
-      let html = "";
-      for (const [k, v] of Object.entries(cats)) {
-      const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
-      html += `<h3 style="margin-top:1rem;">${icon} ${k} (${v.length})</h3><ul>`;
-      html += v.length 
-      ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
-      : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
-      html += "</ul>";
+      let html="";
+      for (const [k,v] of Object.entries(cats)) {
+        const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
+        html += `<h3>${icon} ${k} (${v.length})</h3><ul>`;
+        html += v.length 
+          ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
+          : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
+        html += "</ul>";
       }
       output.innerHTML = html;
-      output.scrollIntoView({behavior:"smooth"}); // auto-scroll to results
-
-      document.getElementById("copy").onclick = async () => { 
-        await navigator.clipboard.writeText(formatRAID(cats,conf)); 
-        alert("📋 Copied!"); 
-      };
     }
-
-    // Keyboard shortcut Ctrl+Enter
-    document.getElementById("input").addEventListener("keydown", e => {
-      if (e.ctrlKey && e.key === "Enter") extractRAID();
-    });
-
-    document.getElementById("fileInput").addEventListener("change", async (e) => {
-      const f=e.target.files[0]; if(!f) return;
-      try {
-        if(f.name.endsWith(".txt")){
-          document.getElementById("input").value=await f.text(); extractRAID();
-        }
-        else if(f.name.endsWith(".docx")){
-          const r=new FileReader(); 
-          r.onload=async(ev)=>{ const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); document.getElementById("input").value=res.value; extractRAID(); }; 
-          r.readAsArrayBuffer(f);
-        }
-        else if(f.name.endsWith(".pdf")){
-          const r=new FileReader(); 
-          r.onload=async(ev)=>{ 
-            const arr=new Uint8Array(ev.target.result); 
-            const pdf=await pdfjsLib.getDocument(arr).promise; 
-            let t=""; 
-            for(let i=1;i<=pdf.numPages;i++){ 
-              const p=await pdf.getPage(i); 
-              const txt=await p.getTextContent(); 
-              t+=txt.items.map(s=>s.str).join(" ")+"\\n"; 
-            } 
-            document.getElementById("input").value=t; extractRAID(); 
-          }; 
-          r.readAsArrayBuffer(f);
-        }
-        else {
-          document.getElementById("fileError").style.display="block";
-          document.getElementById("fileError").textContent="❌ Unsupported file format.";
-        }
-      } catch(err) {
-        document.getElementById("fileError").style.display="block";
-        document.getElementById("fileError").textContent="❌ Error reading file.";
-      }
-    });
 
     document.getElementById("run").onclick = extractRAID;
     document.getElementById("clear").onclick = () => { 
