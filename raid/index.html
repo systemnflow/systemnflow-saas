@@ -150,6 +150,7 @@
     const maxFreeRuns = 5;
     let freeRuns = parseInt(localStorage.getItem("raidFreeRuns") || "0", 10);
     const usageCounter = document.getElementById("usageCounter");
+    let cats = {};
 
     function updateCounter() {
       const remaining = Math.max(0, maxFreeRuns - freeRuns);
@@ -194,7 +195,7 @@
         return; 
       }
 
-      const cats = { Risks:[], Actions:[], Issues:[], Decisions:[] };
+      cats = { Risks:[], Actions:[], Issues:[], Decisions:[] };
       const lines = text.split(/\r?\n/);
 
       lines.forEach(l => {
@@ -214,25 +215,22 @@
       let html="";
       for (const [k,v] of Object.entries(cats)) {
         const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
-        html += `<div style="margin-bottom:2rem;">`;   // 🔹 added spacing wrapper
+        html += `<div style="margin-bottom:2rem;">`;   
         html += `<h3>${icon} ${k} (${v.length})</h3><ul>`;
         html += v.length 
           ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
           : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
-        html += "</ul></div>";  // 🔹 close spacing wrapper
+        html += "</ul></div>";  
+      }
+      output.innerHTML = html;
     }
-output.innerHTML = html;
 
-    }
-
-     // Copy to Clipboard with spacing preserved
+    // Copy to Clipboard FIX (uses formatRAID with spacing)
     document.getElementById("copy").onclick = async () => { 
       const conf = document.getElementById("conf-score").textContent.replace("%","") || 0;
-      const text = formatRAID(cats, conf);   // 🔹 use formatter with extra newlines
+      const text = formatRAID(cats, conf);
       await navigator.clipboard.writeText(text); 
       alert("📋 Copied with spacing!"); 
-};
-
     };
 
     // Keep downloads locked
