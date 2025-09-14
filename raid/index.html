@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ronnie’s RAID Extractor™ | System & Flow</title>
-  <meta name="description" content="Paste or upload a transcript, get Risks, Actions, Issues, and Decisions instantly with Ronnie’s RAID Extractor™." />
+  <meta name="description" content="Paste or upload a transcript, get Risks, Actions, Issues, Decisions instantly with Ronnie’s RAID Extractor™." /> 
   <meta name="theme-color" content="#0b1220" />
   <meta name="robots" content="index,follow" />
 
@@ -30,6 +30,15 @@
     ul { margin:0.5rem 0 1.25rem 1.25rem; }
     li { margin:0.3rem 0; }
     .error { color:#ff4444; font-size:0.9rem; margin-top:1rem; }
+    .locked { opacity:0.5; cursor:not-allowed; position:relative; }
+    .locked::after {
+      content:"🔒 Pro Only"; 
+      position:absolute; top:50%; left:50%; 
+      transform:translate(-50%, -50%);
+      background:rgba(0,0,0,0.75); color:#fff; 
+      padding:0.2rem 0.5rem; border-radius:4px;
+      font-size:0.75rem; white-space:nowrap;
+    }
   </style>
 </head>
 <body>
@@ -66,7 +75,7 @@
     </div>
 
     <!-- Transcript Input -->
-    <textarea id="input" rows="12"
+    <textarea id="input" rows="12" placeholder="Enter text here..."
       style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
 
     <!-- File Upload -->
@@ -152,12 +161,12 @@
 
     function cleanLine(line) {
       return line
-        .replace(/\[[0-9:]+\]/g, "")                // strip timestamps
-        .replace(/\b(um|uh|so|like|yeah)\b/gi, "")  // remove filler words
-        .replace(/\s*,\s*,/g, ",")                  // collapse double commas
-        .replace(/\s+,/g, ",")                      // no space before commas
-        .replace(/,\s+/g, ", ")                     // one space after commas
-        .replace(/\s+/g, " ")                       // normalize spacing
+        .replace(/\[[0-9:]+\]/g, "")                
+        .replace(/\b(um|uh|so|like|yeah)\b/gi, "")  
+        .replace(/\s*,\s*,/g, ",")                  
+        .replace(/\s+,/g, ",")                      
+        .replace(/,\s+/g, ", ")                     
+        .replace(/\s+/g, " ")                       
         .trim();
     }
 
@@ -213,6 +222,58 @@
       }
       output.innerHTML = html;
     }
+
+    // Copy to Clipboard works again
+    document.getElementById("copy").onclick = async () => { 
+      const text = document.getElementById("output").innerText;
+      await navigator.clipboard.writeText(text); 
+      alert("📋 Copied!"); 
+    };
+
+    // Keep downloads locked
+    document.querySelectorAll(".locked").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        alert("🔒 Pro feature — upgrade to unlock exports.");
+      });
+    });
+
+    // File input handler
+    document.getElementById("fileInput").addEventListener("change", async (e) => {
+      const f = e.target.files[0]; if(!f) return;
+      try {
+        if(f.name.endsWith(".txt")){
+          document.getElementById("input").value=await f.text(); extractRAID();
+        }
+        else if(f.name.endsWith(".docx")){
+          const r=new FileReader(); 
+          r.onload=async(ev)=>{ const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); document.getElementById("input").value=res.value; extractRAID(); }; 
+          r.readAsArrayBuffer(f);
+        }
+        else if(f.name.endsWith(".pdf")){
+          const r=new FileReader(); 
+          r.onload=async(ev)=>{ 
+            const arr=new Uint8Array(ev.target.result); 
+            const pdf=await pdfjsLib.getDocument(arr).promise; 
+            let t=""; 
+            for(let i=1;i<=pdf.numPages;i++){ 
+              const p=await pdf.getPage(i); 
+              const txt=await p.getTextContent(); 
+              t+=txt.items.map(s=>s.str).join(" ")+"\\n"; 
+            } 
+            document.getElementById("input").value=t; extractRAID(); 
+          }; 
+          r.readAsArrayBuffer(f);
+        }
+        else {
+          document.getElementById("fileError").style.display="block";
+          document.getElementById("fileError").textContent="❌ Unsupported file format.";
+        }
+      } catch(err) {
+        document.getElementById("fileError").style.display="block";
+        document.getElementById("fileError").textContent="❌ Error reading file.";
+      }
+    });
 
     document.getElementById("run").onclick = extractRAID;
     document.getElementById("clear").onclick = () => { 
