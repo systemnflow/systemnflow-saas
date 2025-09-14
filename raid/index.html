@@ -30,7 +30,27 @@
     ul { margin:0.5rem 0 1.25rem 1.25rem; }
     li { margin:0.3rem 0; }
     .error { color:#ff4444; font-size:0.9rem; margin-top:1rem; }
-    .locked { opacity:0.6; cursor:not-allowed; }
+    .locked { opacity:0.5; cursor:not-allowed; position:relative; }
+    .locked::after {
+      content:"🔒 Pro Only"; 
+      position:absolute; top:50%; left:50%; 
+      transform:translate(-50%, -50%);
+      background:rgba(0,0,0,0.75); color:#fff; 
+      padding:0.2rem 0.5rem; border-radius:4px;
+      font-size:0.75rem; white-space:nowrap;
+    }
+    .tooltip { position:relative; cursor:help; border-bottom:1px dotted var(--muted); }
+    .tooltip .tooltip-text {
+      visibility:hidden; opacity:0; transition:opacity 0.3s;
+      position:absolute; bottom:125%; left:50%; transform:translateX(-50%);
+      background:#111; color:#fff; padding:0.5rem; border-radius:6px; font-size:0.8rem; white-space:nowrap;
+      z-index:10;
+    }
+    .tooltip:hover .tooltip-text { visibility:visible; opacity:1; }
+    .floating-run {
+      position:fixed; bottom:1.5rem; right:1.5rem; 
+      z-index:2000;
+    }
   </style>
 </head>
 <body>
@@ -62,13 +82,17 @@
 
     <!-- Confidence Score -->
     <div id="confidence" style="text-align:center; margin-bottom:1rem; font-size:0.95rem; color:var(--muted);">
-      Ronnie’s Confidence Score: 
+      Ronnie’s Confidence Score 
+      <span class="tooltip">ℹ
+        <span class="tooltip-text">Calculated as % of non-empty lines tagged with Risk, Action, Issue, or Decision.</span>
+      </span>: 
       <span id="conf-score" class="badge low">0%</span>
     </div>
 
     <!-- Transcript Input -->
     <textarea id="input" rows="12"
       style="width:100%; padding:1rem; border-radius:10px; border:1px solid var(--border); background:var(--panel); color:var(--ink);"></textarea>
+    <div style="font-size:0.8rem; color:var(--muted); margin-top:0.25rem;">Word Count: <span id="wordCount">0</span> • Lines: <span id="lineCount">0</span></div>
 
     <!-- File Upload -->
     <div style="margin:1rem 0;">
@@ -83,15 +107,10 @@
     <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
       <button id="run" class="button primary">Extract RAID</button>
       <button id="clear" class="button ghost">Clear & Reset</button>
+      <button id="download" class="button ghost locked">Download CSV</button>
+      <button id="downloadExcel" class="button ghost locked">Download Excel</button>
+      <button id="downloadPDF" class="button ghost locked">Download PDF</button>
       <button id="copy" class="button ghost">Copy to Clipboard</button>
-
-      <!-- Locked Export Buttons -->
-      <button class="button ghost locked pro-only">⬇ CSV (Pro)</button>
-      <button class="button ghost locked pro-only">⬇ Excel (Pro)</button>
-      <button class="button ghost locked pro-only">⬇ PDF (Pro)</button>
-      <button class="button ghost locked pro-only">⬇ Word (Pro)</button>
-      <button class="button ghost locked pro-only">⬇ Markdown (Pro)</button>
-      <button class="button ghost locked pro-only">⬇ JSON (Pro)</button>
     </div>
 
     <!-- Usage Counter -->
@@ -118,11 +137,14 @@
     </div>
   </main>
 
+  <!-- Floating Run Button -->
+  <button class="button primary floating-run" onclick="extractRAID()">▶ Run Extractor</button>
+
   <!-- Modal -->
   <div id="paywallModal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
     <div class="modal-content" style="background:var(--panel); padding:2rem; border-radius:10px; text-align:center; max-width:400px; color:var(--ink);">
-      <h2>🚀 Pro Feature</h2>
-      <p>Exports are only available with <strong>Ronnie’s RAID Extractor Pro</strong>.</p>
+      <h2>🚀 You’ve hit the free limit</h2>
+      <p>You’ve used your 5 free runs. Upgrade to <strong>Pro</strong> for unlimited use and full exports.</p>
       <a href="/pricing.html" class="button primary">Upgrade to Pro</a><br/>
       <button id="closeModal" class="button ghost" style="margin-top:0.5rem;">Cancel</button>
     </div>
@@ -159,6 +181,14 @@
     const usageCounter = document.getElementById("usageCounter");
     const modal = document.getElementById("paywallModal");
 
+    // Word + line counter
+    const inputBox = document.getElementById("input");
+    inputBox.addEventListener("input", () => {
+      const text = inputBox.value;
+      document.getElementById("wordCount").textContent = text.trim().split(/\s+/).filter(Boolean).length;
+      document.getElementById("lineCount").textContent = text.split(/\r?\n/).filter(l => l.trim()).length;
+    });
+
     function updateCounter() {
       const remaining = Math.max(0, maxFreeRuns - freeRuns);
       usageCounter.textContent = remaining > 0 
@@ -167,10 +197,10 @@
     }
     updateCounter();
 
-    document.querySelectorAll(".pro-only").forEach(btn => {
-      btn.addEventListener("click", e => { 
-        e.preventDefault(); 
-        modal.style.display = "flex"; 
+    document.querySelectorAll(".locked").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        modal.style.display = "flex";
       });
     });
     document.getElementById("closeModal").onclick = () => modal.style.display = "none";
@@ -231,7 +261,7 @@
         const icon = k==="Risks"?"⚠":k==="Actions"?"✅":k==="Issues"?"🛑":"📌";
         html += `<div class="toggle" onclick="this.nextElementSibling.classList.toggle('hidden')">${icon} ${k} (${v.length})</div><ul style="margin-bottom:1rem;">`;
         html += v.length 
-          ? v.map(l => `<li>${cleanLine(l)}</li>`).join("") 
+          ? v.map(l => `<li>${cleanLine(l)} <button class="button ghost" style="margin-left:0.5rem;" onclick="navigator.clipboard.writeText('${cleanLine(l)}')">Copy</button></li>`).join("") 
           : `<li><em>No ${k.toLowerCase()} found.</em></li>`;
         html += "</ul>";
       }
@@ -257,24 +287,21 @@
         }
         else if(f.name.endsWith(".docx")){
           const r=new FileReader(); 
-          r.onload=async(ev)=>{
-            const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); 
-            document.getElementById("input").value=res.value; extractRAID();
-          }; 
+          r.onload=async(ev)=>{ const res=await mammoth.extractRawText({arrayBuffer:ev.target.result}); document.getElementById("input").value=res.value; extractRAID(); }; 
           r.readAsArrayBuffer(f);
         }
         else if(f.name.endsWith(".pdf")){
           const r=new FileReader(); 
-          r.onload=async(ev)=>{
+          r.onload=async(ev)=>{ 
             const arr=new Uint8Array(ev.target.result); 
             const pdf=await pdfjsLib.getDocument(arr).promise; 
             let t=""; 
-            for(let i=1;i<=pdf.numPages;i++){
+            for(let i=1;i<=pdf.numPages;i++){ 
               const p=await pdf.getPage(i); 
               const txt=await p.getTextContent(); 
-              t+=txt.items.map(s=>s.str).join(" ")+"\\n";
+              t+=txt.items.map(s=>s.str).join(" ")+"\\n"; 
             } 
-            document.getElementById("input").value=t; extractRAID();
+            document.getElementById("input").value=t; extractRAID(); 
           }; 
           r.readAsArrayBuffer(f);
         }
