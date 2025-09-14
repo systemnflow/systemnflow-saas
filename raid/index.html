@@ -103,6 +103,13 @@
       </p>
       <a href="/pricing.html" class="button ghost">Upgrade to Pro</a>
     </div>
+
+    <!-- Pro Teaser -->
+    <div id="pro-banner" style="margin-top:2rem; text-align:center; padding:1rem; border:1px dashed var(--border); border-radius:8px; background:var(--panel); color:var(--muted);">
+      <p>🔒 <strong>Pro Feature:</strong> Save RAID History + Multi-format Exports</p>
+      <p style="font-size:0.9rem; color:var(--muted);">Upgrade to Pro for unlimited runs, saved logs, and exports in Excel, PDF, Word, Markdown, JSON.</p>
+      <a href="/pricing.html" class="button ghost">Upgrade to Pro</a>
+    </div>
   </main>
 
   <!-- Footer -->
@@ -145,10 +152,12 @@
 
     function cleanLine(line) {
       return line
-        .replace(/\[[0-9:]+\]/g, "")         // strip timestamps
-        .replace(/\s*,\s*,/g, ",")           // remove double commas
-        .replace(/\s+/g, " ")                // normalize spacing
-        .replace(/\b(um|uh|so|like|yeah)\b/gi, "") // strip filler words
+        .replace(/\[[0-9:]+\]/g, "")                // strip timestamps
+        .replace(/\b(um|uh|so|like|yeah)\b/gi, "")  // remove filler words
+        .replace(/\s*,\s*,/g, ",")                  // collapse double commas
+        .replace(/\s+,/g, ",")                      // no space before commas
+        .replace(/,\s+/g, ", ")                     // one space after commas
+        .replace(/\s+/g, " ")                       // normalize spacing
         .trim();
     }
 
